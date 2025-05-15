@@ -1,4 +1,4 @@
-NAME	:= philo
+NAME	:= RT
 MAKEFLAGS += --no-print-directory
 
 #==============================COMPIL===========================#
@@ -59,8 +59,9 @@ RESET_BG	= \033[0m
 SRC_DIR			:=  srcs
 #SRC_DIR_BONUS	:=	srcs_bonus
 HEADER_DIR		:=	includes
-dddLIBFT_DIR		:=	libft
 BUILD_DIR		:=	.build
+MLX_DIR			:=	includes/MacroLibX
+LIBRT_DIR		:=	includes/lib_RT
 
 #==============================SOURCES===========================#
 
@@ -83,7 +84,9 @@ DEPS:=			${SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.d}
 
 #=============================INCLUDES===========================#
 
-INC:=			-I$(HEADER_DIR)
+LIBS :=  -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lSDL2
+LDFLAGS := -Wl,-rpath=$(MLX_DIR)
+INC := -I$(HEADER_DIR) -I$(LIBFT_DIR) -I$(MACROLIBX_DIR)
 
 #================================DIR=============================#
 
@@ -92,7 +95,7 @@ DIRS			:=	$(sort $(shell dirname $(OBJS))) #no duplicates
 
 #===============================RULES============================#
 
-all: $(NAME)
+all: $(MACROLIBX_DIR) $(LIBRT_DIR) $(NAME)
 
 bonus: $(BONUS_NAME)
 
@@ -104,7 +107,7 @@ $(DIRS_BONUS):
 
 $(NAME): $(OBJS)
 	@echo "\n$(GREEN)Create binaries$(NOC)"
-	@$(CC) $(CFLAGS) $(OBJS) $(INC) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(INC) -o $@ $(LIBS) $(LDFLAGS)
 	@echo "$(RED)"
 	@printf "%s\n" \
 	"██████╗ ████████╗        ██╗  ██╗████████╗██████╗ ███████╗███╗   ███╗" \
@@ -143,6 +146,14 @@ $(BUILD_DIR)/bonus/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
 	@echo -n "$(NOC)"
 	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
 	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
+
+$(MACROLIBX_DIR):
+	@git clone https://github.com/seekrs/MacroLibX.git $@
+	@$(MAKE) -C $@
+
+$(LIBRT_DIR):
+	@git clone git@github.com:Djo-msv/lib_RT.git $@
+	@$(MAKE) -C $@
 
 clean:
 	@echo "$(RED)Remove objects$(NOC)"
