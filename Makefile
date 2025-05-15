@@ -60,7 +60,7 @@ SRC_DIR			:=  srcs
 #SRC_DIR_BONUS	:=	srcs_bonus
 HEADER_DIR		:=	includes
 BUILD_DIR		:=	.build
-MLX_DIR			:=	includes/Macro
+MLX_DIR			:=	includes/MacroLibX
 LIBRT_DIR		:=	includes/lib_RT
 
 #==============================SOURCES===========================#
