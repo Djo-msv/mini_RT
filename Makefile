@@ -60,7 +60,7 @@ SRC_DIR			:=  srcs
 #SRC_DIR_BONUS	:=	srcs_bonus
 HEADER_DIR		:=	includes
 BUILD_DIR		:=	.build
-MLX_DIR			:=	includes/MacroLibX
+MLX_DIR			:=	includes/Macro
 LIBRT_DIR		:=	includes/lib_RT
 
 #==============================SOURCES===========================#
@@ -95,7 +95,7 @@ DIRS			:=	$(sort $(shell dirname $(OBJS))) #no duplicates
 
 #===============================RULES============================#
 
-all: $(MACROLIBX_DIR) $(LIBRT_DIR) $(NAME)
+all: $(MLX_DIR) $(LIBRT_DIR) $(NAME)
 
 bonus: $(BONUS_NAME)
 
@@ -147,7 +147,7 @@ $(BUILD_DIR)/bonus/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
 	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
 	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
 
-$(MACROLIBX_DIR):
+$(MLX_DIR):
 	@git clone https://github.com/seekrs/MacroLibX.git $@
 	@$(MAKE) -C $@
 
