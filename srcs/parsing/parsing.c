@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:10:14 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/16 18:15:31 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:58:20 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,42 @@ static int	verif_name(int argc, char **argv)
 	return (0);
 }
 
-int	parse(t_data *d, int argc, char **argv)
+// int	which_object(t_data *d, char *str)
+// {
+// 	if ()
+// }
+
+// int	ft_count()
+// {
+
+// }
+
+// int	ft_parse(t_data *d, char *str)
+// {
+// 	int		i;
+// 	int		len;
+// 	int		all_len;
+// 	char 	**strings;
+// 	int		j;
+
+// 	i = 0;
+// 	j = 0;
+// 	all_len = 0;
+// 	strings = ft_calloc(ft_count(str), sizeof(char *));
+// 	while (i < all_len)
+// 	{
+// 		while (ft_is_space(str[i]))
+// 			i++;
+// 		while (!ft_is_space(str[i++]) && str[i] != ',')
+// 		{
+// 			i++;
+// 			len++;
+// 		}
+// 		strings[j++] = ft_substr(str, i - len, len);
+// 	}
+// }
+
+int	parse_init(t_data *d, int argc, char **argv)
 {
 	int	fd;
 	char *str;
@@ -49,6 +84,7 @@ int	parse(t_data *d, int argc, char **argv)
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
+		// ft_parse(d, str);
 		printf("%s\n", str);
 		free(str);
 		str = get_next_line(fd);

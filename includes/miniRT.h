@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:46:26 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/16 19:53:53 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:59:11 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,15 @@ typedef struct s_cylind
 
 typedef struct s_data
 {
-	int		 mouffette;
+	t_a_light	*a_light;
+	t_cam		*cam;
+	t_light		*light;
+	t_sphere	*sphere;
+	t_plane		*plane;
+	t_cylind	*cylind;
+	int		 	mouffette;
 }				t_data;
 
-int	parse(t_data *d, int argc, char **argv);
+int	parse_init(t_data *d, int argc, char **argv);
 
 #endif
