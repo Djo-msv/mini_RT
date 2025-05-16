@@ -49,11 +49,11 @@ int	parse(t_data *d, int argc, char **argv)
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
-		printf("%s\n", str);
+//		printf("%s\n", str);
 		free(str);
 		str = get_next_line(fd);
 	}
-	printf("%s\n", str);
+//	printf("%s\n", str);
 	close (fd);
 	return (0);
 }

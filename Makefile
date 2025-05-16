@@ -65,7 +65,9 @@ LIBRT_DIR		:=	includes/lib_RT
 
 #==============================SOURCES===========================#
 
-SRCS_FILES:=	main.c						\
+SRCS_FILES:=	main.c \
+				display/display.c \
+				display/events.c \
 				parsing/parsing.c
 
 #SRCS_FILES_BONUS:=
