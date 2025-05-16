@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 15:44:44 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/16 16:06:48 by nrolland         ###   ########.fr       */
+/*   Created: 2025/05/16 15:46:26 by nrolland          #+#    #+#             */
+/*   Updated: 2025/05/16 16:28:09 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#ifndef MINIRT_H
+# define MINIRT_H
 
-int	main(void)
-{
-	// ft_printf("CACAAAAAAAAAAAAAaaa");
-	// ft_calloc(1, 1);
-	return(0);
-}
+# include "lib_RT/libft.h"
+# include <stdio.h>
+# include <string.h>
+# include <errno.h>
+# include <math.h>
+# include "MacroLibX/includes/mlx.h"
+
+#endif

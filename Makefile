@@ -1,4 +1,4 @@
-NAME	:= RT
+NAME	:= miniRT
 MAKEFLAGS += --no-print-directory
 
 #==============================COMPIL===========================#
@@ -84,7 +84,7 @@ DEPS:=			${SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.d}
 
 #=============================INCLUDES===========================#
 
-LIBS :=  -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lSDL2
+LIBS :=  -L$(LIBRT_DIR) -lft -L$(MLX_DIR) -lmlx -lSDL2
 LDFLAGS := -Wl,-rpath=$(MLX_DIR)
 INC := -I$(HEADER_DIR) -I$(LIBFT_DIR) -I$(MACROLIBX_DIR)
 
