@@ -65,7 +65,8 @@ LIBRT_DIR		:=	includes/lib_RT
 
 #==============================SOURCES===========================#
 
-SRCS_FILES:=	main.c
+SRCS_FILES:=	main.c						\
+				parsing/parsing.c
 
 #SRCS_FILES_BONUS:=
 
@@ -84,9 +85,9 @@ DEPS:=			${SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.d}
 
 #=============================INCLUDES===========================#
 
-LIBS :=  -L$(LIBRT_DIR) -lft -L$(MLX_DIR) -lmlx -lSDL2
+LIBS :=  -L$(LIBRT_DIR) -l_rt -L$(MLX_DIR) -lmlx -lSDL2
 LDFLAGS := -Wl,-rpath=$(MLX_DIR)
-INC := -I$(HEADER_DIR) -I$(LIBFT_DIR) -I$(MACROLIBX_DIR)
+INC := -I$(HEADER_DIR) -I$(LIBRT_DIR) -I$(MLX_DIR)
 
 #================================DIR=============================#
 
