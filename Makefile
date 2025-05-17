@@ -68,7 +68,11 @@ LIBRT_DIR		:=	includes/lib_RT
 SRCS_FILES:=	main.c \
 				display/display.c \
 				display/events.c \
-				parsing/parsing.c
+				parsing/parsing.c \
+				parsing/scene.c \
+				parsing/pars_object.c \
+				parsing/pars_shape.c \
+				print/print_scene.c
 
 #SRCS_FILES_BONUS:=
 

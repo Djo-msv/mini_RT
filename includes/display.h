@@ -3,13 +3,7 @@
 
 # include "miniRT.h"
 
-typedef struct
-{
-    mlx_context mlx;
-    mlx_window win;
-} mlx_t;
-
-int		setup_display(void);
+int		setup_display(t_data *data);
 void	key_hook(int key, void* param);
 void	window_hook(int event, void* param);
 

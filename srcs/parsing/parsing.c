@@ -40,20 +40,12 @@ static int	verif_name(int argc, char **argv)
 int	parse(t_data *d, int argc, char **argv)
 {
 	int	fd;
-	char *str;
 
 	if (verif_name(argc, argv))
 		return (1);
 	(void)d;
 	fd = open(argv[1], O_RDONLY);
-	str = get_next_line(fd);
-	while (str != NULL)
-	{
-//		printf("%s\n", str);
-		free(str);
-		str = get_next_line(fd);
-	}
-//	printf("%s\n", str);
+	creat_scene(d, fd);
 	close (fd);
 	return (0);
 }

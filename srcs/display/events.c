@@ -3,9 +3,9 @@
 void key_hook(int key, void* param)
 {
 	static bool	fullscreen = false;
-	mlx_t 		*mlx;
+	t_mlx 		*mlx;
 
-	mlx = (mlx_t *)param;
+	mlx = (t_mlx *)param;
     if(key == 41)
 		mlx_loop_end(mlx->mlx);
 	if (key == 68)
@@ -21,10 +21,14 @@ void key_hook(int key, void* param)
 
 void window_hook(int event, void* param)
 {
-	mlx_t *mlx;
+	t_mlx *mlx;
 
-	mlx = (mlx_t *)param;
+	mlx = (t_mlx *)param;
 	if(event == 0)
 		mlx_loop_end(mlx->mlx);
+	if(event == 8)
+	{
+		mlx_get_window_size(mlx->mlx, mlx->win, &mlx->info.width, &mlx->info.height);
+		printf("%d - %d\n", mlx->info.width, mlx->info.height);
+	}
 }
-

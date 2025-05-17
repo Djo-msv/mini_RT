@@ -19,6 +19,7 @@ int	main(int argc, char **agrv)
 	ft_memset(&d, 0, sizeof(d));
 	if (parse(&d, argc, agrv))
 		return (1);
-	setup_display();
+	print_scene(d.scene);
+	//	setup_display(&d);
 	return(0);
 }
