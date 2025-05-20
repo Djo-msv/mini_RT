@@ -29,7 +29,7 @@ void	creat_scene(t_data *data, int fd)
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		args = ft_split(line, '\t');
+		args = ft_split(line, " \t\n");
 		free(line);
 		//if !args perror et exit
 		check_args(data, args);

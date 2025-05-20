@@ -5,7 +5,7 @@ int	pars_sphere(t_scene *scene, char **args)
 	static int	i = 0;
 	char **value;
 
-	value = ft_split(args[1], ',');
+	value = ft_split(args[1], ",");
 //	chek cordonate
 	scene->sphere[i].x = ft_atof(value[0]);
 	scene->sphere[i].y = ft_atof(value[1]);
@@ -14,7 +14,7 @@ int	pars_sphere(t_scene *scene, char **args)
 
 	scene->sphere[i].d = ft_atof(args[2]);
 
-	value = ft_split(args[3], ',');
+	value = ft_split(args[3], ",");
 //	chek cordonate
 	scene->sphere[i].r = ft_atoi(value[0]);
 	scene->sphere[i].g = ft_atoi(value[1]);
@@ -31,21 +31,21 @@ int	pars_plane(t_scene *scene, char **args)
 	static int	i = 0;
 	char **value;
 
-	value = ft_split(args[1], ',');
+	value = ft_split(args[1], ",");
 //	chek cordonate
 	scene->plane[i].x = ft_atof(value[0]);
 	scene->plane[i].y = ft_atof(value[1]);
 	scene->plane[i].z = ft_atof(value[2]);
 	ft_free_2d_tab(value);
 
-	value = ft_split(args[2], ',');
+	value = ft_split(args[2], ",");
 //	chek cordonate
 	scene->plane[i].normal_x = ft_atof(value[0]);
 	scene->plane[i].normal_y = ft_atof(value[1]);
 	scene->plane[i].normal_z = ft_atof(value[2]);
 	ft_free_2d_tab(value);
 
-	value = ft_split(args[3], ',');
+	value = ft_split(args[3], ",");
 //	chek cordonate
 	scene->plane[i].r = ft_atoi(value[0]);
 	scene->plane[i].g = ft_atoi(value[1]);
@@ -62,14 +62,14 @@ int	pars_cylinder(t_scene *scene, char **args)
 	static int	i = 0;
 	char **value;
 
-	value = ft_split(args[1], ',');
+	value = ft_split(args[1], ",");
 //	chek cordonate
 	scene->cylinder[i].x = ft_atof(value[0]);
 	scene->cylinder[i].y = ft_atof(value[1]);
 	scene->cylinder[i].z = ft_atof(value[2]);
 	ft_free_2d_tab(value);
 
-	value = ft_split(args[2], ',');
+	value = ft_split(args[2], ",");
 //	chek cordonate
 	scene->cylinder[i].normal_x = ft_atof(value[0]);
 	scene->cylinder[i].normal_y = ft_atof(value[1]);
@@ -80,7 +80,7 @@ int	pars_cylinder(t_scene *scene, char **args)
 
 	scene->cylinder[i].height = ft_atof(args[4]);
 
-	value = ft_split(args[5], ',');
+	value = ft_split(args[5], ",");
 //	chek cordonate
 	scene->cylinder[i].r = ft_atoi(value[0]);
 	scene->cylinder[i].g = ft_atoi(value[1]);

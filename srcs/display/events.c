@@ -26,7 +26,7 @@ void window_hook(int event, void* param)
 	mlx = (t_mlx *)param;
 	if(event == 0)
 		mlx_loop_end(mlx->mlx);
-	if(event == 8)
+	if (event == 8)
 	{
 		mlx_get_window_size(mlx->mlx, mlx->win, &mlx->info.width, &mlx->info.height);
 		printf("%d - %d\n", mlx->info.width, mlx->info.height);
