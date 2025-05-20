@@ -20,6 +20,6 @@ int	main(int argc, char **agrv)
 	if (parse(&d, argc, agrv))
 		return (1);
 	print_scene(d.scene);
-	//	setup_display(&d);
+	setup_display(&d);
 	return(0);
 }
