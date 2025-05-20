@@ -30,5 +30,6 @@ void window_hook(int event, void* param)
 	{
 		mlx_get_window_size(mlx->mlx, mlx->win, &mlx->info.width, &mlx->info.height);
 		printf("%d - %d\n", mlx->info.width, mlx->info.height);
+		draw_background(mlx);
 	}
 }

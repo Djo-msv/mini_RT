@@ -24,6 +24,7 @@ int	setup_display(t_data *data)
 	mlx->info.is_fullscreen = false;
 
 	mlx->win = mlx_new_window(mlx->mlx, &mlx->info);
+	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
 
 	mlx_set_window_max_size(mlx->mlx, mlx->win, 1920, 1080);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
@@ -32,7 +33,8 @@ int	setup_display(t_data *data)
     mlx_loop(mlx->mlx);
 
 	// ft_display();
-	
+
+	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	mlx_destroy_context(mlx->mlx);
 	return (0);

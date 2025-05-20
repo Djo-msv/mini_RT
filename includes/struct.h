@@ -91,6 +91,7 @@ typedef struct s_mlx
     mlx_context mlx;
     mlx_window win;
 	mlx_window_create_info info;
+	mlx_image	img;
 } t_mlx;
 
 typedef struct s_data
