@@ -1,38 +1,44 @@
 #include "miniRT.h"
 
-void	check_args(t_data *data, char **args)
+int	check_args(t_data *data, char **args)
 {
 	if (!ft_strcmp(args[0], "A"))
-		pars_ambient_light(&data->scene, args);
-	if (!ft_strcmp(args[0], "C"))
-		pars_camera(&data->scene, args);
-	if (!ft_strcmp(args[0], "L"))
-		pars_light(&data->scene, args);
-	if (!ft_strcmp(args[0], "sp"))
-		pars_sphere(&data->scene, args);
-	if (!ft_strcmp(args[0], "pl"))
-		pars_plane(&data->scene, args);
-	if (!ft_strcmp(args[0], "cy"))
-		pars_cylinder(&data->scene, args);
-	
+		return (pars_ambient_light(&data->scene, args));
+	else if (!ft_strcmp(args[0], "C"))
+		return (pars_camera(&data->scene, args));
+	else if (!ft_strcmp(args[0], "L"))
+		return (pars_light(&data->scene, args));
+	else if (!ft_strcmp(args[0], "sp"))
+		return (pars_sphere(&data->scene, args));
+	else if (!ft_strcmp(args[0], "pl"))
+		return (pars_plane(&data->scene, args));
+	else if (!ft_strcmp(args[0], "cy"))
+		return (pars_cylinder(&data->scene, args));
+	else if (!args || !*args)
+		return (0);
+	return (1);
 }
 
-void	creat_scene(t_data *data, int fd)
+int	creat_scene(t_data *data, int fd)
 {
 	char *line;
 	char **args;
 
-	ft_memset(data->scene.light, 0, sizeof(data->scene.light));
-	ft_memset(data->scene.sphere, 0, sizeof(data->scene.sphere));
 	while(1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		args = ft_split(line, " \t\n");
+		args = ft_split(line, " \t\n\v\f\r");
+		if (!args)
+			return (1);
 		free(line);
-		//if !args perror et exit
-		check_args(data, args);
+		if (check_args(data, args))
+		{
+			ft_putstr_fd("Error\nInvalid arguments in .rt file\n", 2);
+			return (1);
+		}
 		ft_free_2d_tab(args);
 	}
+	return (0);
 }

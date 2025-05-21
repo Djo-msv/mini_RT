@@ -13,7 +13,8 @@ int	draw_background(t_mlx *mlx)
 		y = 0;
 		while (y != mlx->info.height)
 		{
-			mlx_set_image_pixel(mlx->mlx, mlx->img, x, y, (mlx_color){ .rgba = 0xFF0000FF });
+			if (((150 - x )* (150 - x) ) + ((150 - y) * (150 - y)) < 350.)
+				mlx_set_image_pixel(mlx->mlx, mlx->img, x, y, (mlx_color){ .rgba = 0xFF0000FF });
 			y++;
 		}
 		x++;

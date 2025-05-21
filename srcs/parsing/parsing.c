@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:10:14 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/20 18:44:47 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:05:27 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	parse(t_data *d, int argc, char **argv)
 		return (1);
 	(void)d;
 	fd = open(argv[1], O_RDONLY);
-	creat_scene(d, fd);
+	if (creat_scene(d, fd))
+		return (1);
 	close (fd);
 	return (0);
 }

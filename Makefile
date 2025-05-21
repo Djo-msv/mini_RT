@@ -152,7 +152,7 @@ $(BUILD_DIR)/bonus/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
 	@echo -n "\r"; for i in $$(seq 1 25); do if [ $$(expr $$i "*" 4) -le $(PERCENT) ]; then echo -n "█"; else echo -n " "; fi; done; echo -n "";
 	@printf " $(NB_COMP_BONUS)/$(TO_COMP_BONUS) - Compiling $<"
 	@echo -n "$(NOC)"
-	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
+	@$(CC) $(CFLAGS) $(INC) $< -c -o $@ 
 	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
 
 $(MLX_DIR):

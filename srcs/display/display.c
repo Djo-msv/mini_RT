@@ -1,16 +1,6 @@
 
 #include "miniRT.h"
 
-// void	ft_display()
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 
-// 	mlx_pixel_put(mlx, mlx->win, i, j, (mlx_color){ .rgba = 0xFF0000FF});
-
-// }
-
 int	setup_display(t_data *data)
 {
 	t_mlx				*mlx;
@@ -31,9 +21,6 @@ int	setup_display(t_data *data)
 	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook, mlx);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_WINDOW_EVENT, window_hook, mlx);
     mlx_loop(mlx->mlx);
-
-	// ft_display();
-
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	mlx_destroy_context(mlx->mlx);
