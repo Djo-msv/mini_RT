@@ -9,10 +9,15 @@ int	verif_str(char *str)
 	v = 0;
 	if (!str)
 		return (1);
+	if ((!ft_isdigit(str[i]) && str[i] != '+'))
+		return (1);
 	while (str[i])
 	{
 		if (str[i] == '.')
+		{
+			
 			v++;
+		}
 		if ((!ft_isdigit(str[i]) && str[i] != '.' && str[i] != '+') || v == 2)
 			return (1);
 		i++;
@@ -24,23 +29,24 @@ int	verif_value(char *str, char *min, char *max)
 {
 	int	i;
 	int	j;
+	int	len;
 
 	i = 0;
 	j = 0;
 	if (verif_str(str))
 		return (1);
-	while (str[i] && str[i] == 0)
+	while (str[i] && str[i] == '0')
 		i++;
 	if (str[i] == '+')
 		i++;
+	if (str[i] == '.')
+		i--;
 	j = ft_strlen(str + i);
-	if (j > 3)
+	len = ft_strlen(max);
+	if (j > len)
 		return (1);
 	if (ft_strncmp(&str[i], min, j) < 0)
-	{
-		printf("%s bruh\n", &str[i]);
 		return (1);
-	}
 	if (ft_strncmp(&str[i], max, j) > 0)
 		return (1);
 	return (0);
@@ -76,13 +82,14 @@ int	pars_ambient_light(t_scene *scene, char **args)
 {
 	char **value;
 
-	if (verif_value(args[1], "0.0", "1.0"))
+	if (verif_value(args[1], "0.000000", "1.000000"))
 		return (1);
 	scene->a_light.range = ft_atof(args[1]);
 	value = ft_split(args[2], ",");
 	if (!value)
 		return (1);
-//	chek cordonate
+	if (verif_value(value[0], "0", "255"))
+		return (1);
 	scene->a_light.r = ft_atoi(value[0]);
 	scene->a_light.g = ft_atoi(value[1]);
 	scene->a_light.b = ft_atoi(value[2]);
