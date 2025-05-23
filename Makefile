@@ -69,7 +69,7 @@ SRCS_FILES:=	main.c \
 				display/display.c \
 				display/events.c \
 				display/image.c \
-				display/ray.c \
+				display/average_pixel.c \
 				parsing/parsing.c \
 				parsing/scene.c \
 				parsing/pars_object.c \
@@ -116,7 +116,7 @@ $(DIRS_BONUS):
 
 $(NAME): $(OBJS)
 	@echo "\n$(GREEN)Create binaries$(NOC)"
-	@$(CC) $(CFLAGS) $(OBJS) $(INC) -o $@ $(LIBS) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $(OBJS) $(INC) -o $@ $(LIBS) $(LDFLAGS) -lm
 	@echo "$(RED)"
 	@printf "%s\n" \
 	"██████╗ ████████╗        ██╗  ██╗████████╗██████╗ ███████╗███╗   ███╗" \

@@ -18,6 +18,8 @@ void	handle_pixel(t_data *data, int x, int y)
 	t_mlx		*mlx;
 
 	mlx = &data->mlx;
+//	if (x % data->param.resolution != 0 || y % data->param.resolution != 0)
+//		return ;
 	// calculer le pixel;
 	pos = y * mlx->info.width + x;
 	if (data->image.nb_images != 0)
@@ -30,21 +32,25 @@ void	display_screen(t_data *data)
 {
 	int	x;
 	int	y;
+	int	resolution;
 	mlx_color	*buf;
 	mlx_window_create_info	info = data->mlx.info;
+
 
 	y = 0;
 	data->image.coef_old_p = (data->image.nb_images / (data->image.nb_images + 1));
 	data->image.coef_new_p = (1 / (data->image.nb_images + 1));
-	while (y != info.height)
+//	resolution = data->param.resolution;
+	resolution = 3;
+	while (y < info.height)
 	{
 		x = 0;
-		while (x != info.width)
+		while (x < info.width)
 		{
 			handle_pixel(data, x, y);
-			x++;
+			x += resolution;
 		}
-		y++;
+		y += resolution;
 	}
 	buf = 	data->image.new_img;
 	data->image.new_img = data->image.old_img;
