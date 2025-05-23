@@ -75,6 +75,14 @@ typedef struct s_cylind
 	bool	isset;
 }				t_cylind;
 
+typedef struct s_mlx
+{
+    mlx_context mlx;
+    mlx_window win;
+	mlx_window_create_info info;
+	mlx_image	img;
+} t_mlx;
+
 typedef struct s_scene
 {
 	t_a_light	a_light;
@@ -86,18 +94,28 @@ typedef struct s_scene
 	t_cylind	cylinder[4096];
 }	t_scene;
 
-typedef struct s_mlx
+typedef struct s_image
 {
-    mlx_context mlx;
-    mlx_window win;
-	mlx_window_create_info info;
-	mlx_image	img;
-} t_mlx;
+	size_t		nb_images;
+	float		coef_new_p;
+	float		coef_old_p;
+	mlx_color	*new_img;
+	mlx_color	*old_img;
+}	t_image;
+
+typedef struct t_param
+{
+	int		resolution;
+	int		rbon_nb;
+	bool	antialiasing;
+}	t_param;
 
 typedef struct s_data
 {
 	t_mlx	mlx;
 	t_scene	scene;
+	t_param	param;
+	t_image	image;
 }				t_data;
 
 int	parse(t_data *d, int argc, char **argv);
