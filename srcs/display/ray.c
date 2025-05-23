@@ -49,6 +49,6 @@ void	display_screen(t_data *data)
 	buf = 	data->image.new_img;
 	data->image.new_img = data->image.old_img;
 	data->image.old_img = buf;
-	printf("%zu\n", data->image.nb_images);
+//	printf("%zu\n", data->image.nb_images);
 	data->image.nb_images++;
 }
