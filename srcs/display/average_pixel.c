@@ -71,7 +71,7 @@ void	display_screen(t_data *data)
 	data->image.coef_old_p = ((float)data->image.nb_images / (float)(data->image.nb_images + 1));
 	data->image.coef_new_p = (1.0f / (data->image.nb_images + 1));
 //	resolution = data->param.resolution;
-	resolution = 8;
+	resolution = 1;
 	while (y < info.height)
 	{
 		x = 0;
