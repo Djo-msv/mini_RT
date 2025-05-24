@@ -11,7 +11,7 @@ int	pars_camera(t_scene *scene, char **args)
 	scene->camera.x = ft_atof(value[0]);
 	scene->camera.y = ft_atof(value[1]);
 	scene->camera.z = ft_atof(value[2]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 
 	value = ft_split(args[2], ",");
 //	chek cordonate
@@ -20,7 +20,7 @@ int	pars_camera(t_scene *scene, char **args)
 	scene->camera.orient_z = ft_atof(value[2]);
 
 	scene->camera.fov = ft_atof(args[3]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 	return (0);
 }
 
@@ -37,7 +37,7 @@ int	pars_ambient_light(t_scene *scene, char **args)
 	scene->a_light.r = ft_atoi(value[0]);
 	scene->a_light.g = ft_atoi(value[1]);
 	scene->a_light.b = ft_atoi(value[2]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 
 	return (0);
 }
@@ -52,7 +52,7 @@ int	pars_light(t_scene *scene, char **args)
 	scene->light[i].x = ft_atof(value[0]);
 	scene->light[i].y = ft_atof(value[1]);
 	scene->light[i].z = ft_atof(value[2]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 
 	scene->light[i].bright = ft_atof(args[2]);
 
@@ -63,7 +63,7 @@ int	pars_light(t_scene *scene, char **args)
 	scene->light[i].b = ft_atoi(value[2]);
 	scene->light[i].isset = true;
 
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 	i++;
 	return (0);
 }

@@ -10,7 +10,7 @@ int	pars_sphere(t_scene *scene, char **args)
 	scene->sphere[i].x = ft_atof(value[0]);
 	scene->sphere[i].y = ft_atof(value[1]);
 	scene->sphere[i].z = ft_atof(value[2]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 
 	scene->sphere[i].d = ft_atof(args[2]);
 
@@ -21,7 +21,7 @@ int	pars_sphere(t_scene *scene, char **args)
 	scene->sphere[i].b = ft_atoi(value[2]);
 	scene->sphere[i].isset = true;
 
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 	i++;
 	return (0);
 }
@@ -36,14 +36,14 @@ int	pars_plane(t_scene *scene, char **args)
 	scene->plane[i].x = ft_atof(value[0]);
 	scene->plane[i].y = ft_atof(value[1]);
 	scene->plane[i].z = ft_atof(value[2]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 
 	value = ft_split(args[2], ",");
 //	chek cordonate
 	scene->plane[i].normal_x = ft_atof(value[0]);
 	scene->plane[i].normal_y = ft_atof(value[1]);
 	scene->plane[i].normal_z = ft_atof(value[2]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 
 	value = ft_split(args[3], ",");
 //	chek cordonate
@@ -52,7 +52,7 @@ int	pars_plane(t_scene *scene, char **args)
 	scene->plane[i].b = ft_atoi(value[2]);
 	scene->plane[i].isset = true;
 
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 	i++;
 	return (0);
 }
@@ -67,14 +67,14 @@ int	pars_cylinder(t_scene *scene, char **args)
 	scene->cylinder[i].x = ft_atof(value[0]);
 	scene->cylinder[i].y = ft_atof(value[1]);
 	scene->cylinder[i].z = ft_atof(value[2]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 
 	value = ft_split(args[2], ",");
 //	chek cordonate
 	scene->cylinder[i].normal_x = ft_atof(value[0]);
 	scene->cylinder[i].normal_y = ft_atof(value[1]);
 	scene->cylinder[i].normal_z = ft_atof(value[2]);
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 
 	scene->cylinder[i].d = ft_atof(args[3]);
 
@@ -87,7 +87,7 @@ int	pars_cylinder(t_scene *scene, char **args)
 	scene->cylinder[i].b = ft_atoi(value[2]);
 	scene->cylinder[i].isset = true;
 
-	ft_free_2d_tab(value);
+	ft_free_2d_tab((void **)value);
 	i++;
 	return (0);
 }

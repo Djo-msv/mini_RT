@@ -23,6 +23,6 @@ void	new_image(t_data *data, t_mlx *mlx)
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
 	data->image.new_img = ft_calloc(mlx->info.width * mlx->info.height,sizeof(mlx_color));
 	data->image.old_img = ft_calloc(mlx->info.width * mlx->info.height,sizeof(mlx_color));
-	printf("%d - %d\n", mlx->info.width, mlx->info.height);
+//	printf("%d - %d\n", mlx->info.width, mlx->info.height);
 
 }

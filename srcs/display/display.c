@@ -35,6 +35,7 @@ void	setup_param(t_data *data)
 	data->param.rbon_nb = 1;
 	data->image.new_img = ft_calloc(800 * 800, sizeof(mlx_color));
 	data->image.old_img = ft_calloc(800 * 800, sizeof(mlx_color));
+	setup_scene(data, &(data)->setting_cam);
 }
 
 void	setup_info(t_mlx *mlx)
@@ -57,8 +58,8 @@ int	setup_display(t_data *data)
 
 	mlx = &data->mlx;
 	mlx->mlx = mlx_init();
-	setup_param(data);
 	setup_info(mlx);
+	setup_param(data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_WINDOW_EVENT, window_hook, data);
 	mlx_add_loop_hook(mlx->mlx, update, data);
@@ -71,5 +72,6 @@ int	setup_display(t_data *data)
 	mlx_destroy_context(mlx->mlx);
 	free(data->image.new_img);
 	free(data->image.old_img);
+	ft_free_2d_tab((void **)data->setting_cam.ray_direction);
 	return (0);
 }

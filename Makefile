@@ -70,6 +70,10 @@ SRCS_FILES:=	main.c \
 				display/events.c \
 				display/image.c \
 				display/average_pixel.c \
+				display/ray.c \
+				math/ray.c \
+				math/setup_scene.c \
+				math/vector.c \
 				parsing/parsing.c \
 				parsing/scene.c \
 				parsing/pars_object.c \

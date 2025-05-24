@@ -33,6 +33,6 @@ void	creat_scene(t_data *data, int fd)
 		free(line);
 		//if !args perror et exit
 		check_args(data, args);
-		ft_free_2d_tab(args);
+		ft_free_2d_tab((void **)args);
 	}
 }

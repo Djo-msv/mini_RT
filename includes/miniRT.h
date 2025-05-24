@@ -26,5 +26,7 @@
 # include "display.h"
 # include "parsing.h"
 # include "print.h"
+# include "math.h"
+
 
 # endif

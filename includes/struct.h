@@ -1,6 +1,8 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
+
+
 typedef struct s_a_light
 {
 	float		range;
@@ -103,6 +105,26 @@ typedef struct s_image
 	mlx_color	*old_img;
 }	t_image;
 
+typedef struct s_setting_cam
+{
+	float	ratio;
+	int		width;
+	int		height;
+	float	focal_length;
+	float	viewport_height;
+	float	viewport_width;
+
+	t_vec	camera_center;
+	t_vec	viewport_h;
+	t_vec	viewport_v;
+	t_vec	pixel_delta_h;
+	t_vec	pixel_delta_v;
+	t_vec	viewport_upper_left;
+	t_vec	pixel00_loc;
+
+	t_vec	**ray_direction;
+} t_setting_cam;
+
 typedef struct t_param
 {
 	int		resolution;
@@ -115,6 +137,7 @@ typedef struct s_data
 	t_mlx	mlx;
 	t_scene	scene;
 	t_param	param;
+	t_setting_cam	setting_cam;
 	t_image	image;
 }				t_data;
 
