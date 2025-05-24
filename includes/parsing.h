@@ -8,7 +8,9 @@ int		pars_light(t_scene *scene, char **args);
 int		pars_sphere(t_scene *scene, char **args);
 int		pars_plane(t_scene *scene, char **args);
 int		pars_cylinder(t_scene *scene, char **args);
-
+int	    verfi_float(char *str);
+int 	verif_int(char *str, char *max);
+int 	verif_fvalue(float min, float max, float value);
 
 #endif // !PARSING_H
 

@@ -73,6 +73,7 @@ SRCS_FILES:=	main.c \
 				parsing/scene.c \
 				parsing/pars_object.c \
 				parsing/pars_shape.c \
+				parsing/verif_utils.c \
 				print/print_scene.c
 
 #SRCS_FILES_BONUS:=

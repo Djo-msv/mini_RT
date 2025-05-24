@@ -4,9 +4,9 @@
 typedef struct s_a_light
 {
 	float		range;
-	int			r;
-	int			g;
-	int			b;
+	uint8_t		r;
+	uint8_t		g;
+	uint8_t		b;
 }				t_a_light;
 
 typedef struct s_cam
@@ -25,12 +25,11 @@ typedef struct s_light
 	float	x;
 	float	y;
 	float	z;
-	int		r;
-	int		g;
-	int		b;
 	float	bright;
+	uint8_t		r;
+	uint8_t		g;
+	uint8_t		b;
 	bool	isset;
-	//add (unused in mandatory part) R, G, B colors in the range..
 }				t_light;
 
 typedef struct s_sphere
@@ -39,9 +38,9 @@ typedef struct s_sphere
 	float	y;
 	float	z;
 	float	d;
-	int		r;
-	int		g;
-	int		b;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
 	bool	isset;
 }				t_sphere;
 
@@ -53,9 +52,9 @@ typedef struct s_plane
 	float	normal_x;
 	float	normal_y;
 	float	normal_z;
-	int		r;
-	int		g;
-	int		b;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
 	bool	isset;
 }				t_plane;
 
@@ -69,9 +68,9 @@ typedef struct s_cylind
 	float	normal_z;
 	float	d;
 	float	height;
-	int		r;
-	int		g;
-	int		b;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
 	bool	isset;
 }				t_cylind;
 
