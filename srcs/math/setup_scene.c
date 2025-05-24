@@ -27,7 +27,7 @@ void	create_ray_direction(t_setting_cam *scene)
 
 void	setup_scene(t_data *data, t_setting_cam *scene)
 {
-	scene->ratio = data->mlx.info.width / data->mlx.info.height;
+	scene->ratio = (float)data->mlx.info.width / data->mlx.info.height;
 	scene->width = data->mlx.info.width;
 	scene->height = data->mlx.info.height;
 	scene->focal_length = 1.0f;
