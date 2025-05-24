@@ -50,12 +50,14 @@ void	handle_pixel(t_data *data, int x, int y, int resolution)
 	mlx = &data->mlx;
 	pos = y * mlx->info.width + x;
 	data->image.new_img[pos] = render(data, x, y);
+
 	if (data->image.nb_images != 0)
 		average_pixel(&data->image.new_img[pos], \
 			data->image.old_img[pos], \
 			data->image.coef_new_p, data->image.coef_old_p);
 	if (resolution != 1)
 		handle_low_resolution(data, x, y, resolution);
+
 }
 
 void	display_screen(t_data *data)
@@ -65,7 +67,6 @@ void	display_screen(t_data *data)
 	int	resolution;
 	mlx_color	*buf;
 	mlx_window_create_info	info = data->mlx.info;
-
 
 	y = 0;
 	data->image.coef_old_p = ((float)data->image.nb_images / (float)(data->image.nb_images + 1));
