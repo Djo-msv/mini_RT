@@ -29,6 +29,20 @@ static int	verif_str(char *str, int is_neg)
 	return (0);
 }
 
+int	is_decimal(char *str, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (str[i] == '.')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	verif_zero_to_max(char *str, char *min, char *max, int is_neg)
 {
 	int	i;
@@ -49,10 +63,18 @@ int	verif_zero_to_max(char *str, char *min, char *max, int is_neg)
 	len = ft_strlen(max);
 	if (j > len)
 		return (1);
+	if (!is_decimal(&str[i], j) && j < len)
+		return (0);
 	if (ft_strncmp(&str[i], min, j) < 0)
+	{
+		printf("bruh");
 		return (1);
-	if (ft_strncmp(&str[i], max, j) > 0)///probleme 0 255
+	}
+	if (ft_strncmp(&str[i], max, j) > 0)
+	{
+		printf("brush");//////////////probleme 1.0 10
 		return (1);
+	}
 	return (0);
 }
 
@@ -61,6 +83,8 @@ int	subtraction(char *str, int len)
 	int	i;
 
 	i = 0;
+	if (!is_decimal(str, len))
+		return (0);
 	while (str[len] == '0')
 	{
 		len--;
@@ -86,6 +110,8 @@ int	verfi_neg_to_max(char *str, int	one)
 		i--;
 	j = ft_strlen(str + i);
 	j = j - subtraction(&str[i], j - 1);
+	if (!is_decimal(&str[i], j) && j > 7)
+		return (1);
 	if (j > 8)
 		return (1);
 	if (one)
@@ -99,76 +125,62 @@ int	verfi_neg_to_max(char *str, int	one)
 int	pars_camera(t_scene *scene, char **args)
 {
 	char **value;
-	int	exit;
 
-	exit = 0;
 	if (!args[1])
 		return (1);
 	value = ft_split(args[1], ",");
 	if (!value)
 		return (1);
-	if (verfi_neg_to_max(value[0], 0))
-		exit = 1;
-	else
-		scene->camera.x = ft_atof(value[0]);
-	if (verfi_neg_to_max(value[1], 0))
-		exit = 1;
-	else
-		scene->camera.y = ft_atof(value[1]);
-	if (verfi_neg_to_max(value[2], 0))
-		exit = 1;
-	else
-		scene->camera.z = ft_atof(value[2]);
-	ft_free_2d_tab(value);
+	if (verfi_neg_to_max(value[0], 0)
+		|| verfi_neg_to_max(value[1], 0)
+		|| verfi_neg_to_max(value[2], 0))
+	{
+		ft_free_2d_tab(value);
+		return (1);
+	}
+	scene->camera.x = ft_atof(value[0]);
+	scene->camera.y = ft_atof(value[1]);
+	scene->camera.z = ft_atof(value[2]);
 	value = ft_split(args[2], ",");
 	if (!value)
 		return (1);
-	if (verfi_neg_to_max(value[0], 1))
-		exit = 1;
-	else
+	if (verfi_neg_to_max(value[0], 1)
+		|| verfi_neg_to_max(value[1], 1)
+		|| verfi_neg_to_max(value[2], 1))
+	{
+		ft_free_2d_tab(value);
+		return (1);
+	}
 	scene->camera.orient_x = ft_atof(value[0]);
-	if (verfi_neg_to_max(value[1], 1))
-		exit = 1;
-	else
 	scene->camera.orient_y = ft_atof(value[1]);
-	if (verfi_neg_to_max(value[2], 1))
-		exit = 1;
-	else
 	scene->camera.orient_z = ft_atof(value[2]);
-	// if (verif_zero_to_max(args[3], "0", "180", 0))
-	// 	exit = 1;
-	// else
+	if (verif_zero_to_max(args[3], "0", "180", 0))
+		return (1);
 	scene->camera.fov = ft_atof(args[3]);
-	ft_free_2d_tab(value);
-	return (exit);
+	return (0);
 }
 
 int	pars_ambient_light(t_scene *scene, char **args)
 {
 	char **value;
-	int	exit;
 
-	exit = 0;
 	if (verif_zero_to_max(args[1], "0.000000", "1.000000", 0))
 		return (1);
 	scene->a_light.range = ft_atof(args[1]);
 	value = ft_split(args[2], ",");
 	if (!value)
 		return (1);
-	if (verif_zero_to_max(value[0], "000", "255", 0))
-		exit = 1;
-	else
-		scene->a_light.r = ft_atoi(value[0]);
-	if (verif_zero_to_max(value[1], "000", "255", 0))
-		exit = 1;
-	else
-		scene->a_light.g = ft_atoi(value[1]);
-	if (verif_zero_to_max(value[2], "000", "255", 0))
-		exit = 1;
-	else
-		scene->a_light.b = ft_atoi(value[2]);
-	ft_free_2d_tab(value);
-	return (exit);
+	if (verif_zero_to_max(value[0], "0", "255", 0)
+		|| verif_zero_to_max(value[1], "0", "255", 0)
+		|| verif_zero_to_max(value[2], "0", "255", 0))
+	{
+		ft_free_2d_tab(value);
+		return (1);
+	}
+	scene->a_light.r = ft_atoi(value[0]);
+	scene->a_light.g = ft_atoi(value[1]);
+	scene->a_light.b = ft_atoi(value[2]);
+	return (0);
 }
 
 int	pars_light(t_scene *scene, char **args)
@@ -212,5 +224,5 @@ int	pars_light(t_scene *scene, char **args)
 	scene->light[i].isset = true;
 	ft_free_2d_tab(value);
 	i++;
-	return (0);
+	return (exit);
 }
