@@ -18,14 +18,16 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
-# include "lib_RT/includes/lib_rt.h"
-# include "MacroLibX/includes/mlx.h"
-# include "MacroLibX/includes/mlx_extended.h"
 
-# include "mymath.h"
+# include "../lib_RT/includes/lib_rt.h"
+# include "../MacroLibX/includes/mlx.h"
+# include "../MacroLibX/includes/mlx_extended.h"
+
+# include "math_rt.h"
 # include "struct.h"
+# include "render.h"
 # include "display.h"
-# include "parsing.h"
-# include "print.h"
+# include "utils.h"
 
-# endif
+
+#endif

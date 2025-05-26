@@ -1,1 +1,6 @@
 .vscode/
+.build/
+lib_RT/
+MacroLibX/
+
+callgrind.out*

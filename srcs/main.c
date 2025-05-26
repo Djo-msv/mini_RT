@@ -12,14 +12,22 @@
 
 #include "miniRT.h"
 
-int	main(int argc, char **agrv)
+void	setup_minirt(t_data *data)
 {
-	t_data d;
+	setup_mlx(data);
+	setup_camera_setting(data);
+}
 
-	ft_memset(&d, 0, sizeof(d));
-	if (parse(&d, argc, agrv))
-		return (1);
-	print_scene(d.scene);
-	setup_display(&d);
+int	main(int argc, char **argv)
+{
+	t_data data;
+
+	(void) argc;
+	(void) argv;
+	ft_memset(&data, 0, sizeof(data));
+//	if (parse(&ata, argc, agrv))
+//		return (1);
+	setup_minirt(&data);
+	run_minirt(&data);
 	return(0);
 }

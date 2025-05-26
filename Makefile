@@ -4,10 +4,14 @@ MAKEFLAGS += --no-print-directory
 #==============================COMPIL===========================#
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror
 
 ifeq ($(DEBUG), 1)
 	CFLAGS += -g
+endif
+
+ifeq ($(MEGA_PERF), 1)
+	CFLAGS += -O3
 endif
 
 #================================COUNT============================#
@@ -60,25 +64,32 @@ SRC_DIR			:=  srcs
 #SRC_DIR_BONUS	:=	srcs_bonus
 HEADER_DIR		:=	includes
 BUILD_DIR		:=	.build
-MLX_DIR			:=	includes/MacroLibX
-LIBRT_DIR		:=	includes/lib_RT
+MLX_DIR			:=	MacroLibX
+LIBRT_DIR		:=	lib_RT
 
 #==============================SOURCES===========================#
 
 SRCS_FILES:=	main.c \
-				display/display.c \
-				display/events.c \
-				display/image.c \
-				display/average_pixel.c \
-				display/ray.c \
-				math/ray.c \
-				math/setup_scene.c \
+				display/mlx_events.c \
+				display/mlx_image.c \
+				display/mlx_loop.c \
+				display/mlx_screen.c \
+				display/mlx_setup.c \
+				math/equation.c \
 				math/vector.c \
-				parsing/parsing.c \
-				parsing/scene.c \
+				math/ray.c \
 				parsing/pars_object.c \
 				parsing/pars_shape.c \
-				print/print_scene.c
+				parsing/parsing.c \
+				parsing/scene.c \
+				render/shape/cylinder.c \
+				render/shape/plane.c \
+				render/shape/sphere.c \
+				render/make_average_pixel.c \
+				render/render.c \
+				render/resolution.c \
+				render/setup_render.c \
+				utils/free.c
 
 #SRCS_FILES_BONUS:=
 
