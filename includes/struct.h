@@ -38,7 +38,7 @@ typedef struct s_light
 
 	float			bright;
 
-	bool			isset;
+	// struct s_light	next;
 }	t_light;
 
 typedef struct s_sphere
@@ -48,7 +48,7 @@ typedef struct s_sphere
 
 	float			diameter;
 
-	bool			isset;
+	// struct s_sphere	next;
 }	t_sphere;
 
 typedef struct s_plane
@@ -57,20 +57,20 @@ typedef struct s_plane
 	t_vec			normal;
 	t_color			color;
 
-	bool		isset;
+	// struct s_plane	next;
 }	t_plane;
 
-typedef struct s_cylind
+typedef struct s_cylinder
 {
-	t_coordinate	coordinate;
-	t_vec			normal;
-	t_color			color;
+	t_coordinate		coordinate;
+	t_vec				normal;
+	t_color				color;
 
-	float			diameter;
-	float			height;
+	float				diameter;
+	float				height;
 
-	bool			isset;
-}	t_cylind;
+	// struct s_cylinder	next;
+}	t_cylinder;
 
 typedef struct s_scene
 {
@@ -80,7 +80,7 @@ typedef struct s_scene
 
 	t_sphere	sphere;
 	t_plane		plane;
-	t_cylind	cylinder;
+	t_cylinder	cylinder;
 }	t_scene;
 
 typedef struct s_render_image

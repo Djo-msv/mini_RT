@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:46:26 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/16 19:53:53 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:22:24 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include "render.h"
 # include "display.h"
 # include "utils.h"
+# include "parsing.h"
 
 
 #endif
