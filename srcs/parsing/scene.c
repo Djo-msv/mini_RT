@@ -2,22 +2,21 @@
 
 static int	check_args(t_data *data, char **args)
 {
-
-	// if (!ft_strcmp(args[0], "A"))
-	// 	return (parse_ambient_light(&data->scene, args));
-	// else if (!ft_strcmp(args[0], "C"))
-	// 	return (parse_camera(&data->scene, args));
-	if (!ft_strcmp(args[0], "L"))
+	if (!ft_strcmp(args[0], "A"))
+		return (parse_ambient_light(&data->scene, args));
+	else if (!ft_strcmp(args[0], "C"))
+		return (parse_camera(&data->scene, args));
+	else if (!ft_strcmp(args[0], "L"))
 		return (parse_light(&data->scene, args));
-	// else if (!ft_strcmp(args[0], "sp"))
-	// 	return (parse_sphere(&data->scene, args));
-	// else if (!ft_strcmp(args[0], "pl"))
-	// 	return (parse_plane(&data->scene, args));
-	// else if (!ft_strcmp(args[0], "cy"))
-	// 	return (parse_cylinder(&data->scene, args));
+	else if (!ft_strcmp(args[0], "sp"))
+		return (parse_sphere(&data->scene, args));
+	else if (!ft_strcmp(args[0], "pl"))
+		return (parse_plane(&data->scene, args));
+	else if (!ft_strcmp(args[0], "cy"))
+		return (parse_cylinder(&data->scene, args));
 	else if (!args || !*args)
 		return (0);
-	return (0);////////////////1
+	return (1);
 }
 
 int	creat_scene(t_data *data, int fd)
@@ -37,6 +36,11 @@ int	creat_scene(t_data *data, int fd)
 		if (check_args(data, args))
 		{
 			ft_putstr_fd("Error\nInvalid arguments in .rt file\n", 2);
+			ft_lstclear(&data->scene.light, free);
+			ft_lstclear(&data->scene.cylinder, free);
+			ft_lstclear(&data->scene.plane, free);
+			ft_lstclear(&data->scene.sphere, free);
+			ft_free_2d_tab((void **)args);
 			return (1);
 		}
 		ft_free_2d_tab((void **)args);
