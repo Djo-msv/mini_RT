@@ -38,7 +38,6 @@ typedef struct s_light
 
 	float			bright;
 
-	// struct s_light	next;
 }	t_light;
 
 typedef struct s_sphere
@@ -48,7 +47,6 @@ typedef struct s_sphere
 
 	float			diameter;
 
-	// struct s_sphere	next;
 }	t_sphere;
 
 typedef struct s_plane
@@ -57,7 +55,6 @@ typedef struct s_plane
 	t_vec			normal;
 	t_color			color;
 
-	// struct s_plane	next;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -69,18 +66,16 @@ typedef struct s_cylinder
 	float				diameter;
 	float				height;
 
-	// struct s_cylinder	next;
 }	t_cylinder;
 
 typedef struct s_scene
 {
 	t_a_light	a_light;
 	t_cam		camera;
-	t_light		light;
-
-	t_sphere	sphere;
-	t_plane		plane;
-	t_cylinder	cylinder;
+	t_list		*light;
+	t_list		*sphere;
+	t_list		*plane;
+	t_list		*cylinder;
 }	t_scene;
 
 typedef struct s_render_image

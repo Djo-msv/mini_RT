@@ -82,6 +82,7 @@ SRCS_FILES:=	main.c \
 				parsing/pars_shape.c \
 				parsing/parsing.c \
 				parsing/scene.c \
+				parsing/print_scene.c	\
 				parsing/verif_utils.c \
 				render/shape/cylinder.c \
 				render/shape/plane.c \

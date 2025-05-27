@@ -2,21 +2,22 @@
 
 static int	check_args(t_data *data, char **args)
 {
-	if (!ft_strcmp(args[0], "A"))
-		return (pars_ambient_light(&data->scene, args));
-	else if (!ft_strcmp(args[0], "C"))
-		return (pars_camera(&data->scene, args));
-	else if (!ft_strcmp(args[0], "L"))
-		return (pars_light(&data->scene, args));
-	else if (!ft_strcmp(args[0], "sp"))
-		return (pars_sphere(&data->scene, args));
-	else if (!ft_strcmp(args[0], "pl"))
-		return (pars_plane(&data->scene, args));
-	else if (!ft_strcmp(args[0], "cy"))
-		return (pars_cylinder(&data->scene, args));
+
+	// if (!ft_strcmp(args[0], "A"))
+	// 	return (parse_ambient_light(&data->scene, args));
+	// else if (!ft_strcmp(args[0], "C"))
+	// 	return (parse_camera(&data->scene, args));
+	if (!ft_strcmp(args[0], "L"))
+		return (parse_light(&data->scene, args));
+	// else if (!ft_strcmp(args[0], "sp"))
+	// 	return (parse_sphere(&data->scene, args));
+	// else if (!ft_strcmp(args[0], "pl"))
+	// 	return (parse_plane(&data->scene, args));
+	// else if (!ft_strcmp(args[0], "cy"))
+	// 	return (parse_cylinder(&data->scene, args));
 	else if (!args || !*args)
 		return (0);
-	return (1);
+	return (0);////////////////1
 }
 
 int	creat_scene(t_data *data, int fd)
