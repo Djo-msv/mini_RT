@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:44:44 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/28 01:12:38 by star             ###   ########.fr       */
+/*   Updated: 2025/05/28 18:46:18 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	ft_memset(&data, 0, sizeof(data));
 	if (parse(&data, argc, argv))
 		return (1);
-	// print_scene(data.scene);
+	print_scene(data.scene);
 	setup_minirt(&data);
 	run_minirt(&data);
 	return(0);

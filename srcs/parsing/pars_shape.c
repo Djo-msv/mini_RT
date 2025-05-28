@@ -175,11 +175,11 @@ int	parse_cylinder(t_scene *scene, char **args)
 	cylinder = malloc(sizeof(t_cylinder));
 	cylinder->coordinate = (t_coordinate){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
-	if (init_normal_cylinder(cylinder, args) || init_d_h_rgb_cylinder(cylinder, args))
+	if (init_normal_cylinder(cylinder, args) || init_d_h_rgb_cylinder(cylinder, args) ||
+		ft_lstadd_back(&scene->cylinder, ft_lstnew(cylinder)))
 	{
 		free(cylinder);
 		return (1);
 	}
-	ft_lstadd_back(&scene->cylinder, ft_lstnew(cylinder));
 	return (0);
 }
