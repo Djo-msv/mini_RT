@@ -22,5 +22,5 @@ mlx_color	render(t_data *data, int x, int y)
 	t_setting_cam	camera;
 
 	camera = data->setting_cam;
-	return (ray_color(create_ray(camera.camera_center, camera.ray_direction[x][y])));
+	return (ray_color(get_antialiasing(data, camera.ray_direction[x][y])));
 }

@@ -17,7 +17,7 @@ void	setup_mlx_window(t_mlx *mlx)
 void	setup_images(t_data *data)
 {
 	data->image.resolution = 1;
-	data->image.antialiasing = 1;
+	data->image.antialiasing = 0;
 	data->setting_cam.rbon_nb = 1;
 	data->image.new_img = ft_calloc(800 * 800, sizeof(mlx_color));
 	data->image.old_img = ft_calloc(800 * 800, sizeof(mlx_color));

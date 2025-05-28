@@ -118,6 +118,8 @@ typedef struct s_setting_cam
 
 	float	rand_h;
 	float	rand_v;
+	float	res_h;
+	float	res_v;
 
 }	t_setting_cam;
 

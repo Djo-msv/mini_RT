@@ -24,15 +24,15 @@ void	fps_cnt(void)
 
 void	update_ray(t_data *data)
 {
-//	data->setting_cam.rand_h = (drand48() - 0.5) * data->setting_cam.res_h;
-//	data->setting_cam.rand_v = (drand48() - 0.5) * data->setting_cam.res_v;
+	data->setting_cam.rand_h = ((drand48() - 0.5) * data->setting_cam.res_h);
+	data->setting_cam.rand_v = ((drand48() - 0.5) * data->setting_cam.res_v);
 	(void)data;
 }
 
 void update(void* param)
 {
 	(void)param;
-//	update_ray((t_data *)param);
+	update_ray((t_data *)param);
 	display_screen((t_data *)param);
 	fps_cnt();
 }

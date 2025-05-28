@@ -47,7 +47,7 @@ void	setup_camera_setting(t_data *data)
         vec_div(scene->viewport_h, 2)),
     	vec_div(scene->viewport_v, 2));
 	scene->pixel00_loc = vec_add(scene->viewport_upper_left, vec_mul(vec_add(scene->pixel_delta_h, scene->pixel_delta_v), 0.5f));
-//	scene->res_h = length(scene->pixel_delta_h) * data->param.resolution;
-//	scene->res_v = length(scene->pixel_delta_v) * data->param.resolution;
+	scene->res_h = length(scene->pixel_delta_h) * data->image.resolution;
+	scene->res_v = length(scene->pixel_delta_v) * data->image.resolution;
 	create_ray_direction(scene);
 }
