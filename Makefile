@@ -75,6 +75,7 @@ SRCS_FILES:=	main.c \
 				display/mlx_loop.c \
 				display/mlx_screen.c \
 				display/mlx_setup.c \
+				display/mlx_mouse.c \
 				math/equation.c \
 				math/vector.c \
 				math/ray.c \
@@ -87,6 +88,7 @@ SRCS_FILES:=	main.c \
 				render/shape/cylinder.c \
 				render/shape/plane.c \
 				render/shape/sphere.c \
+				render/antialiasing.c \
 				render/make_average_pixel.c \
 				render/render.c \
 				render/resolution.c \

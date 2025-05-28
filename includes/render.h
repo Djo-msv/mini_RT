@@ -11,4 +11,6 @@ void	handle_low_resolution(t_data *data, int x, int y, int resolution);
 
 void	setup_camera_setting(t_data *data);
 
+t_ray get_antialiasing(t_data *data, t_vec base_ray);
+
 #endif

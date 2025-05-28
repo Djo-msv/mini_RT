@@ -21,3 +21,8 @@ t_vec normalize(t_vec v)
     unit.k = v.k / length;
     return (unit);
 }
+
+float length(t_vec v)
+{
+	return sqrtf(v.i * v.i + v.j * v.j + v.k * v.k);
+}

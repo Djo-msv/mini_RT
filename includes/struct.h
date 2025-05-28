@@ -98,7 +98,6 @@ typedef struct s_setting_cam
 	float	focal_length;
 	float	viewport_height;
 	float	viewport_width;
-	int		samples_per_pixel;
 	float	pixel_samples_scale;
 	int		rbon_nb;
 
@@ -114,6 +113,8 @@ typedef struct s_setting_cam
 
 	float	rand_h;
 	float	rand_v;
+	float	res_h;
+	float	res_v;
 
 }	t_setting_cam;
 

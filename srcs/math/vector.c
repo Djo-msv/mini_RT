@@ -34,3 +34,10 @@ t_vec vec_div(t_vec vec, float div)
     }
     return (create_vec(vec.i / div, vec.j / div, vec.k / div));
 }
+
+t_vec vec_cross(t_vec a, t_vec b) {
+    return create_vec(
+        a.j * b.k - a.k * b.j,
+        a.k * b.i - a.i * b.k,
+        a.i * b.j - a.j * b.i);
+}
