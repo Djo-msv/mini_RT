@@ -11,13 +11,14 @@ void	setup_mlx_window(t_mlx *mlx)
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
 	mlx_set_window_max_size(mlx->mlx, mlx->win, 1920, 1080);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
-//	mlx_set_fps_goal(mlx->mlx, 10);
+	mlx_mouse_hide(mlx->mlx);
+	mlx_set_fps_goal(mlx->mlx, 1);
 }
 
 void	setup_images(t_data *data)
 {
-	data->image.resolution = 1;
-	data->image.antialiasing = 0;
+	data->image.resolution = 10;
+	data->image.antialiasing = 1;
 	data->setting_cam.rbon_nb = 1;
 	data->image.new_img = ft_calloc(800 * 800, sizeof(mlx_color));
 	data->image.old_img = ft_calloc(800 * 800, sizeof(mlx_color));

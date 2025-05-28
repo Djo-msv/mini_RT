@@ -33,3 +33,9 @@ void window_hook(int event, void* param)
 		setup_camera_setting((t_data *)param);
 	}
 }
+
+void mouse_hook(int button, void* param)
+{
+    printf("-> %d\n", button);
+	(void)param;
+}
