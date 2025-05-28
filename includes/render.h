@@ -1,7 +1,7 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-float	hit_sphere(t_vec center, double radius, t_ray r);
+float hit_sphere(t_coordinate center, double radius, t_ray r);
 
 void	average_pixel(mlx_color *n_pixel, mlx_color o_pixel, float coef_new_p, float coef_old_p);
 

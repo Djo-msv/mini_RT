@@ -11,8 +11,7 @@ void	setup_mlx_window(t_mlx *mlx)
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
 	mlx_set_window_max_size(mlx->mlx, mlx->win, 1920, 1080);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
-	mlx_mouse_hide(mlx->mlx);
-	mlx_set_fps_goal(mlx->mlx, 1);
+//	mlx_set_fps_goal(mlx->mlx, 60);
 }
 
 void	setup_images(t_data *data)
@@ -28,6 +27,7 @@ void	setup_events(t_data *data, t_mlx *mlx)
 {
 	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_WINDOW_EVENT, window_hook, data);
+	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEDOWN, mouse_hook, data);
 }
 
 int	setup_mlx(t_data *data)

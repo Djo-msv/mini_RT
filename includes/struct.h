@@ -116,6 +116,8 @@ typedef struct s_setting_cam
 	float	res_h;
 	float	res_v;
 
+	bool	move;
+
 }	t_setting_cam;
 
 typedef struct s_data

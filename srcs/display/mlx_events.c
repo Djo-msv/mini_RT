@@ -34,8 +34,22 @@ void window_hook(int event, void* param)
 	}
 }
 
+void	change_mode(t_data *data)
+{
+	if (data->setting_cam.move)
+		mlx_mouse_hide(data->mlx.mlx);
+	else
+		mlx_mouse_show(data->mlx.mlx);
+}
+
 void mouse_hook(int button, void* param)
 {
+	t_data	*data = (t_data *)param;
+
     printf("-> %d\n", button);
-	(void)param;
+	if (button == 3)
+	{
+		data->setting_cam.move = !data->setting_cam.move;
+		change_mode(data);
+	}
 }

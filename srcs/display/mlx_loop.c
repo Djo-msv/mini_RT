@@ -5,21 +5,21 @@
 void	fps_cnt(void)
 {
 	static int frames = 0;
-    static double lastTime = 0.0;
-    static double fps = 0.0;
+	static double lastTime = 0.0;
+	static double fps = 0.0;
 
-    clock_t currentClock = clock();
-    double currentTime = (double)currentClock / CLOCKS_PER_SEC;
+	clock_t currentClock = clock();
+	double currentTime = (double)currentClock / CLOCKS_PER_SEC;
 
-    frames++;
+	frames++;
 
-    if (currentTime - lastTime >= 1.0) // 1 seconde écoulée
-    {
-        fps = frames / (currentTime - lastTime);
-        printf("FPS: %.2f\n", fps);
-        frames = 0;
-        lastTime = currentTime;
-    }
+	if (currentTime - lastTime >= 1.0) // 1 seconde écoulée
+	{
+		fps = frames / (currentTime - lastTime);
+		printf("FPS: %.2f\n", fps);
+		frames = 0;
+		lastTime = currentTime;
+	}
 }
 
 void	update_ray(t_data *data)
