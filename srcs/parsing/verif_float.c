@@ -6,12 +6,11 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:05:22 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 18:14:37 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:42:11 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
 
 static int	is_decimal(char *str, int len)
 {
@@ -39,7 +38,7 @@ int	verif_int(char *str, char *max)
 	if (str[i] == '-')
 		return (1);
 	if (str[i] == '+' || str[i] == '-')
-			i++;
+		i++;
 	while (str[i] && str[i] == '0')
 		i++;
 	if (str[i] == '.')
@@ -81,7 +80,7 @@ int	verfi_float(char *str)
 	if (verif_str(str))
 		return (1);
 	if (str[i] == '+' || str[i] == '-')
-			i++;
+		i++;
 	while (str[i] && str[i] == '0')
 		i++;
 	if (str[i] == '.')

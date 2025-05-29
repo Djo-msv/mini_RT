@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:48:36 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 18:14:33 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:42:30 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int	verif_str(char *str)
 int	verif_fvalue(float min, float max, float value)
 {
 	if (value < min || value > max)
-			return (1);
+		return (1);
 	return (0);
 }

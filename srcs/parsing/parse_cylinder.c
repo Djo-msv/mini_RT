@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 18:15:02 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:39:42 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	init_d_h_rgb_cylinder(t_cylinder *cylinder, char **args)
 {
-	char **v;
+	char	**v;
 
 	if (verfi_float(args[3]))
 		return (1);
@@ -55,12 +55,12 @@ static int	init_normal_cylinder(t_cylinder *cylinder, char **args)
 		|| verif_fvalue(-1, 1, cylinder->normal.j)
 		|| verif_fvalue(-1, 1, cylinder->normal.k))
 		return (1);
-	return (0);	
+	return (0);
 }
 
 int	parse_cylinder(t_scene *scene, char **args)
 {
-	char 		**v;
+	char		**v;
 	t_cylinder	*cylinder;
 
 	v = ft_split(args[1], ",");
@@ -73,10 +73,12 @@ int	parse_cylinder(t_scene *scene, char **args)
 		return (1);
 	}
 	cylinder = malloc(sizeof(t_cylinder));
-	cylinder->coordinate = (t_coordinate){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	cylinder->coordinate = (t_coordinate)
+	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
-	if (init_normal_cylinder(cylinder, args) || init_d_h_rgb_cylinder(cylinder, args) ||
-		ft_lstadd_back(&scene->cylinder, ft_lstnew(cylinder)))
+	if (init_normal_cylinder(cylinder, args)
+		|| init_d_h_rgb_cylinder(cylinder, args)
+		|| ft_lstadd_back(&scene->cylinder, ft_lstnew(cylinder)))
 	{
 		free(cylinder);
 		return (1);

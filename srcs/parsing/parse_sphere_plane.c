@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 18:14:56 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:41:32 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	init_sphere(t_sphere *sphere, char **args)
 {
-	char **v;
+	char	**v;
 
 	if (verfi_float(args[2]))
 		return (1);
@@ -47,7 +47,8 @@ int	parse_sphere(t_scene *scene, char **args)
 		return (1);
 	}
 	sphere = malloc(sizeof(t_sphere));
-	sphere->coordinate = (t_coordinate){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	sphere->coordinate = (t_coordinate)
+	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	if (init_sphere(sphere, args))
 	{
@@ -82,7 +83,7 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 
 static int	init_normal_plane(t_plane *plane, char **args)
 {
-	char **v;
+	char	**v;
 
 	v = ft_split(args[2], ",");
 	if (!v)
@@ -100,7 +101,7 @@ static int	init_normal_plane(t_plane *plane, char **args)
 
 int	parse_plane(t_scene *scene, char **args)
 {
-	char 	**v;
+	char	**v;
 	t_plane	*plane;
 
 	v = ft_split(args[1], ",");
@@ -113,7 +114,8 @@ int	parse_plane(t_scene *scene, char **args)
 		return (1);
 	}
 	plane = malloc(sizeof(t_plane));
-	plane->coordinate = (t_coordinate){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	plane->coordinate = (t_coordinate)
+	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	if (init_normal_plane(plane, args) || init_rgb_plane(plane, args))
 	{
