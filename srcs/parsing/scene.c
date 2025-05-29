@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scene.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
+/*   Updated: 2025/05/29 18:16:26 by nrolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 static int	check_args(t_data *data, char **args)
@@ -21,14 +33,14 @@ static int	check_args(t_data *data, char **args)
 
 int	creat_scene(t_data *data, int fd)
 {
-	char *line;
-	char **args;
+	char	*line;
+	char	**args;
 
-	while(1)
+	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
+			break ;
 		args = ft_split(line, " \t\n\v\f\r");
 		if (!args)
 			return (1);

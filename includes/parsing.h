@@ -13,5 +13,6 @@ int 	verif_int(char *str, char *max);
 int	    verfi_float(char *str);
 int 	verif_fvalue(float min, float max, float value);
 void	print_scene(t_scene scene);
+int		verif_str(char *str);
 
 #endif

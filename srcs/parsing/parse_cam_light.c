@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_cam_light.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/29 18:15:06 by nrolland          #+#    #+#             */
+/*   Updated: 2025/05/29 18:21:27 by nrolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 static int	init_cam(t_scene *scene, char **args)
@@ -29,7 +41,7 @@ static int	init_cam(t_scene *scene, char **args)
 
 int	parse_camera(t_scene *scene, char **args)
 {
-	char **value;
+	char	**value;
 
 	if (!args[1])
 		return (1);
@@ -53,7 +65,7 @@ int	parse_camera(t_scene *scene, char **args)
 
 int	parse_ambient_light(t_scene *scene, char **args)
 {
-	char **value;
+	char	**value;
 
 	if (verfi_float(args[1]))
 		return (1);
@@ -66,7 +78,7 @@ int	parse_ambient_light(t_scene *scene, char **args)
 	if (verif_int(value[0], "255") || verif_int(value[1], "255")
 		|| verif_int(value[2], "255"))
 	{
-	    ft_free_2d_tab((void **)value);
+		ft_free_2d_tab((void **)value);
 		return (1);
 	}
 	scene->a_light.color.r = ft_atoi(value[0]);
@@ -76,7 +88,7 @@ int	parse_ambient_light(t_scene *scene, char **args)
 	return (0);
 }
 
-static int init_light(t_light *light, char **args)
+static int	init_light(t_light *light, char **args)
 {
 	char	**value;
 
@@ -103,8 +115,8 @@ static int init_light(t_light *light, char **args)
 
 int	parse_light(t_scene *scene, char **args)
 {
-	char 		**v;
-	t_light		*light;
+	char	**v;
+	t_light	*light;
 
 	v = ft_split(args[1], ",");
 	if (!v)
@@ -112,11 +124,12 @@ int	parse_light(t_scene *scene, char **args)
 	if (verfi_float(v[0]) || verfi_float(v[1])
 		|| verfi_float(v[2]))
 	{
-	    ft_free_2d_tab((void **)v);
+		ft_free_2d_tab((void **)v);
 		return (1);
 	}
 	light = malloc(sizeof(t_light));
-	light->coordinate = (t_coordinate){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	light->coordinate = (t_coordinate)
+	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	if (init_light(light, args))
 	{

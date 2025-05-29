@@ -79,12 +79,14 @@ SRCS_FILES:=	main.c \
 				math/equation.c \
 				math/vector.c \
 				math/ray.c \
-				parsing/pars_object.c \
-				parsing/pars_shape.c \
+				parsing/parse_cam_light.c \
+				parsing/parse_sphere_plane.c \
 				parsing/parsing.c \
 				parsing/scene.c \
 				parsing/print_scene.c	\
 				parsing/verif_utils.c \
+				parsing/verif_float.c	\
+				parsing/parse_cylinder.c	\
 				render/shape/cylinder.c \
 				render/shape/plane.c \
 				render/shape/sphere.c \
