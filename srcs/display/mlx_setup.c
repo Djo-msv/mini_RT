@@ -28,6 +28,7 @@ void	setup_events(t_data *data, t_mlx *mlx)
 	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_WINDOW_EVENT, window_hook, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEDOWN, mouse_hook, data);
+	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEWHEEL, mouse_wheel_hook, data);
 }
 
 int	setup_mlx(t_data *data)

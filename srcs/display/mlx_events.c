@@ -15,6 +15,8 @@ void key_hook(int key, void* param)
 		fullscreen = !fullscreen;
 		mlx_set_window_fullscreen(mlx->mlx, mlx->win , fullscreen);
 	}
+	if (key == 43)
+		change_antialiasing_mode((t_data *)param);
 //	printf("->%d\n", key);
 }
 
@@ -34,14 +36,6 @@ void window_hook(int event, void* param)
 	}
 }
 
-void	change_mode(t_data *data)
-{
-	if (data->setting_cam.move)
-		mlx_mouse_hide(data->mlx.mlx);
-	else
-		mlx_mouse_show(data->mlx.mlx);
-}
-
 void mouse_hook(int button, void* param)
 {
 	t_data	*data = (t_data *)param;
@@ -52,4 +46,23 @@ void mouse_hook(int button, void* param)
 		data->setting_cam.move = !data->setting_cam.move;
 		change_mode(data);
 	}
+}
+
+void mouse_wheel_hook(int button, void* param)
+{
+	t_data *data = (t_data *)param;
+
+	if (button == 2)
+		data->image.resolution++;
+	if (button == 1 && data->image.resolution > 1)
+		data->image.resolution--;
+	else if (data->image.resolution == 1)
+		return ;
+	if (button == 1 || button == 2)
+	{
+		setup_camera_setting(data);
+		data->image.nb_images = 0;
+		printf("-> %d\n", data->image.resolution);
+	}
+	(void)param;
 }

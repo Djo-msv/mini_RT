@@ -14,7 +14,7 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 		sphere = (t_sphere *)tmp->content;
 		t = hit_sphere(sphere->coordinate, sphere->diameter, ray);
 //		if (t != -1.0f)
-//				printf("%f - %f\n", t, old_t);
+//			printf("%f - %f\n", t, old_t);
 		if (t > 0.0f && (t < old_t || old_t == 0))
 		{
 			t_vec point = vec_add(ray.origin, vec_mul(ray.direction, t));
