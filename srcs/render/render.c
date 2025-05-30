@@ -1,37 +1,104 @@
 #include "miniRT.h"
 
-mlx_color	ray_color(t_data *data, t_ray ray)
+t_hit	nearest_plane(t_data *data, t_ray ray)
 {
-	float	t = -1;
-	float	old_t = 0;
-	mlx_color	pixel;
-	t_scene		scene = data->scene;
-	t_list		*tmp = scene.sphere;
-	t_sphere 	*sphere;
+	t_hit		hit;
+	t_list		*tmp;
+	t_plane		*plane;
+	float		t;
+	
+	t = -1;
+	hit.t = 0;
+	hit.obj = NULL;
+	hit.type = -1;
+	tmp = data->scene.plane;
+	while (tmp)
+	{
+		plane = (t_plane *)tmp->content;
+		t = hit_plane(plane->coordinate, plane->normal, ray);
+		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		{
+			hit.t = t;
+			hit.obj = plane;
+			hit.type = 0;
+		}
+		tmp = tmp->next;
+	}
+	return (hit);
+}
 
+t_hit	nearest_sphere(t_data *data, t_ray ray)
+{
+	t_hit		hit;
+	t_list		*tmp;
+	t_sphere	*sphere;
+	float		t;
+	
+	t = -1;
+	hit.t = 0;
+	hit.obj = NULL;
+	hit.type = -1;
+	tmp = data->scene.sphere;
 	while (tmp)
 	{
 		sphere = (t_sphere *)tmp->content;
 		t = hit_sphere(sphere->coordinate, sphere->diameter, ray);
-//		if (t != -1.0f)
-//				printf("%f - %f\n", t, old_t);
-		if (t > 0.0f && (t < old_t || old_t == 0))
+		if (t > 0.0f && (t < hit.t || hit.t == 0))
 		{
-			t_vec point = vec_add(ray.origin, vec_mul(ray.direction, t));
-			t_vec normal = normalize(vec_sub(point, (t_vec){sphere->coordinate.x, sphere->coordinate.y, sphere->coordinate.z}));
-			pixel.r = (uint8_t)(255.0f * 0.5f * (normal.i + 1.0f));
-			pixel.g = (uint8_t)(255.0f * 0.5f * (normal.j + 1.0f));
-			pixel.b = (uint8_t)(255.0f * 0.5f * (normal.k + 1.0f));
-			pixel.a = 255;
-			old_t = t;
+			hit.t = t;
+			hit.obj = sphere;
+			hit.type = 1;
 		}
 		tmp = tmp->next;
 	}
-	if (old_t > 0.0f)
+	return (hit);
+}
+
+t_hit	nearest_obj(t_data *data, t_ray ray)
+{
+	t_hit	sp;
+	t_hit	pl;
+
+	sp = nearest_sphere(data, ray);
+	pl = nearest_plane(data, ray);
+
+	if (sp.t > 0.0f && (sp.t < pl.t || pl.t == 0))
+		return (sp);
+	return (pl);
+}
+
+mlx_color	ray_color(t_data *data, t_ray ray)
+{
+	t_plane		*plane;
+	t_sphere	*sphere;
+	mlx_color	pixel;
+	t_hit		hit;
+
+	hit = nearest_obj(data, ray);
+	if (hit.t <= 0)
+		return ((mlx_color){.rgba = 0xFFFFFFFF});
+	if (hit.type == 0)
 	{
-		return (pixel);	
+		plane = (t_plane *)hit.obj;
+		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
+		t_vec normal = normalize(vec_sub(point, (t_vec){plane->coordinate.x, plane->coordinate.y, plane->coordinate.z}));
+		pixel.r = (plane->color.r * 0.5f * (normal.i + 1.0f));
+		pixel.g = (plane->color.g * 0.5f * (normal.j + 1.0f));
+		pixel.b = (plane->color.b * 0.5f * (normal.k + 1.0f));
+		pixel.a = 255;
 	}
-	return ((mlx_color){ .rgba = 0xFFFFFFFF });
+	else if (hit.type == 1)
+	{
+		sphere = (t_sphere *)hit.obj;
+		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
+		t_vec normal = normalize(vec_sub(point, (t_vec){sphere->coordinate.x, sphere->coordinate.y, sphere->coordinate.z}));
+		pixel.r = (sphere->color.r * 0.5f * (normal.i + 1.0f));
+		pixel.g = (sphere->color.g * 0.5f * (normal.j + 1.0f));
+		pixel.b = (sphere->color.b * 0.5f * (normal.k + 1.0f));
+		pixel.a = 255;
+	}
+	return (pixel);	
+	// return ((mlx_color){ .rgba = 0xFFFFFFFF });
 }
 
 mlx_color	render(t_data *data, int x, int y)
