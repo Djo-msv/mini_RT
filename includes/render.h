@@ -13,4 +13,6 @@ void	setup_camera_setting(t_data *data);
 
 t_ray get_antialiasing(t_data *data, t_vec base_ray);
 
+void	angle_camera(t_data *data, float pitch, float yaw);
+
 #endif
