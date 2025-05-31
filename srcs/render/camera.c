@@ -9,15 +9,6 @@ t_vec vec_scale(t_vec v, float s)
 	return result;
 }
 
-t_vec	cross(t_vec a, t_vec b)
-{
-	t_vec result;
-	result.i = a.j * b.k - a.k * b.j;
-	result.j = a.k * b.i - a.i * b.k;
-	result.k = a.i * b.j - a.j * b.i;
-	return result;
-}
-
 void	recalculate_ray_direction(t_setting_cam *scene)
 {
 	int		x;
@@ -43,9 +34,9 @@ void	recalculate_ray_direction(t_setting_cam *scene)
 
 void	angle_camera(t_data *data, float pitch, float yaw)
 {
-	t_vec	forward = {cos(pitch) * sin(yaw), sin(pitch), cos(pitch) * cos(yaw)};
-	t_vec	right = normalize(cross(forward, create_vec(0, 1, 0)));
-	t_vec	up = normalize(cross(right, forward));
+	data->setting_cam.forward = (t_vec){cos(pitch) * sin(yaw), sin(pitch), cos(pitch) * cos(yaw)};
+	t_vec	right = normalize(cross(data->setting_cam.forward, create_vec(0, 1, 0)));
+	t_vec	up = normalize(cross(right, data->setting_cam.forward));
 
 	// 1. Stocke les vecteurs principaux
 	data->setting_cam.viewport_h = vec_scale(right, data->setting_cam.viewport_width);
@@ -54,7 +45,7 @@ void	angle_camera(t_data *data, float pitch, float yaw)
 	// 2. Position du coin haut gauche du viewport (avant de tracer les rayons)
 	t_vec viewport_center = vec_add(
 		data->setting_cam.camera_center,
-		vec_scale(forward, data->setting_cam.focal_length));
+		vec_scale(data->setting_cam.forward, data->setting_cam.focal_length));
 
 	t_vec half_h = vec_scale(data->setting_cam.viewport_h, 0.5);
 	t_vec half_v = vec_scale(data->setting_cam.viewport_v, 0.5);

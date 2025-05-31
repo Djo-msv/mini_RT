@@ -100,6 +100,8 @@ typedef struct s_setting_cam
 	float	viewport_width;
 	float	pixel_samples_scale;
 	int		rbon_nb;
+	float	yaw;
+	float	pitch;
 
 	t_vec	camera_center;
 	t_vec	viewport_h;
@@ -108,6 +110,7 @@ typedef struct s_setting_cam
 	t_vec	pixel_delta_v;
 	t_vec	viewport_upper_left;
 	t_vec	pixel00_loc;
+	t_vec	forward;
 
 	t_vec	**ray_direction;
 

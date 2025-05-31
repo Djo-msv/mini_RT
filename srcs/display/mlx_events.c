@@ -1,5 +1,53 @@
 #include "miniRT.h"
 
+void	move_camera_forward(t_data *data, t_setting_cam *cam)
+{
+	cam->camera_center.i += cam->forward.i * 0.1f;
+	cam->camera_center.k += cam->forward.k * 0.1f;
+	angle_camera(data, cam->pitch, cam->yaw);
+	(void)data;
+}
+
+void	move_camera_backward(t_data *data, t_setting_cam *cam)
+{
+	cam->camera_center.i -= cam->forward.i * 0.1f;
+	cam->camera_center.k -= cam->forward.k * 0.1f;
+	angle_camera(data, cam->pitch, cam->yaw);
+	(void)data;
+}
+
+void	move_camera_left(t_data *data, t_setting_cam *cam)
+{
+    t_vec up = {0.0f, 1.0f, 0.0f};
+    t_vec left = cross(up, cam->forward);
+    
+	cam->camera_center.i -= left.i * 0.1f;
+    cam->camera_center.k -= left.k * 0.1f;
+    angle_camera(data, cam->pitch, cam->yaw);
+}
+
+void	move_camera_right(t_data *data, t_setting_cam *cam)
+{
+    t_vec up = {0.0f, 1.0f, 0.0f};
+    t_vec right = cross(up, cam->forward);
+    
+	cam->camera_center.i += right.i * 0.1f;
+    cam->camera_center.k += right.k * 0.1f;
+    angle_camera(data, cam->pitch, cam->yaw);
+}
+
+void	move_camera_up(t_data *data, t_setting_cam *cam)
+{
+	cam->camera_center.j -= 0.1f;
+	angle_camera(data, cam->pitch, cam->yaw);
+}
+
+void	move_camera_down(t_data *data, t_setting_cam *cam)
+{
+	cam->camera_center.j += 0.1f;
+	angle_camera(data, cam->pitch, cam->yaw);
+}
+
 void key_hook(int key, void* param)
 {
 	static bool	fullscreen = false;
@@ -9,7 +57,19 @@ void key_hook(int key, void* param)
     if(key == 41)
 		mlx_loop_end(mlx->mlx);
 	if (key == 26 || key == 4 || key == 22 || key == 7)
-		clear_image(mlx);
+		((t_data *)param)->image.nb_images = 0;
+	if (key == 26)
+		move_camera_forward((t_data *)param, &((t_data *)param)->setting_cam);
+	if (key == 22)
+		move_camera_backward((t_data *)param, &((t_data *)param)->setting_cam);
+	if (key == 7)
+		move_camera_left((t_data *)param, &((t_data *)param)->setting_cam);
+	if (key == 4)
+		move_camera_right((t_data *)param, &((t_data *)param)->setting_cam);
+	if (key == 44)
+		move_camera_up((t_data *)param, &((t_data *)param)->setting_cam);
+	if (key == 225)
+		move_camera_down((t_data *)param, &((t_data *)param)->setting_cam);
 	if (key == 68)
 	{
 		fullscreen = !fullscreen;
@@ -17,7 +77,7 @@ void key_hook(int key, void* param)
 	}
 	if (key == 43)
 		change_antialiasing_mode((t_data *)param);
-//	printf("->%d\n", key);
+	printf("->%d\n", key);
 }
 
 void window_hook(int event, void* param)
@@ -60,9 +120,8 @@ void mouse_wheel_hook(int button, void* param)
 		return ;
 	if (button == 1 || button == 2)
 	{
-		setup_camera_setting(data);
 		data->image.nb_images = 0;
-		printf("-> %d\n", data->image.resolution);
+		calcule_res(data, &data->setting_cam);
 	}
-	(void)param;
+
 }
