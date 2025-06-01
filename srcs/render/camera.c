@@ -1,14 +1,5 @@
 #include "miniRT.h"
 
-t_vec vec_scale(t_vec v, float s)
-{
-	t_vec result;
-	result.i = v.i * s;
-	result.j = v.j * s;
-	result.k = v.k * s;
-	return result;
-}
-
 void	recalculate_ray_direction(t_setting_cam *scene)
 {
 	int		x;

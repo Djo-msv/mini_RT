@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	ft_memset(&data, 0, sizeof(data));
 	if (parse(&data, argc, argv))
 		return (1);
-	print_scene(data.scene);
+//	print_scene(data.scene);
 	setup_minirt(&data);
 	run_minirt(&data);
 	return(0);
