@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 18:16:26 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:39:28 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	check_args(t_data *data, char **args)
 		return (parse_plane(&data->scene, args));
 	else if (!ft_strcmp(args[0], "cy"))
 		return (parse_cylinder(&data->scene, args));
-	else if (!args || !*args)
+	else if (!args || !*args || args[0][0] == '#')
 		return (0);
 	return (1);
 }
