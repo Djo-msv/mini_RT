@@ -1,5 +1,33 @@
 #include "miniRT.h"
 
+t_hit	nearest_cylinder(t_data *data, t_ray ray)
+{
+	t_hit		hit;
+	t_list		*tmp;
+	t_cylinder	*cylinder;
+	float		t;
+	
+	t = -1;
+	hit.t = 0;
+	hit.obj = NULL;
+	hit.type = -1;
+	tmp = data->scene.cylinder;
+	while (tmp)
+	{
+		cylinder = (t_cylinder *)tmp->content;
+		t = hit_cylinder(cylinder, (cylinder->diameter / 2.0), ray);
+		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		{
+			hit.t = t;
+			hit.obj = cylinder;
+			hit.type = 2;
+		}
+		tmp = tmp->next;
+	}
+	return (hit);
+}
+
+
 t_hit	nearest_plane(t_data *data, t_ray ray)
 {
 	t_hit		hit;
@@ -56,21 +84,29 @@ t_hit	nearest_sphere(t_data *data, t_ray ray)
 
 t_hit	nearest_obj(t_data *data, t_ray ray)
 {
-	t_hit	sp;
+	t_hit	hit;
+	// t_hit	sp;
 	t_hit	pl;
+	t_hit	cy;
 
-	sp = nearest_sphere(data, ray);
+	hit.t = 0;
+	hit.obj = NULL;
+	hit.type = -1;
+	hit = nearest_sphere(data, ray);
 	pl = nearest_plane(data, ray);
-
-	if (sp.t > 0.0f && (sp.t < pl.t || pl.t == 0))
-		return (sp);
-	return (pl);
+	if (pl.t > 0.0f && (pl.t < hit.t || hit.t == 0))
+		hit = pl;
+	cy = nearest_cylinder(data, ray);
+	if (cy.t > 0.0f && (cy.t < hit.t || hit.t == 0))
+		hit = cy;
+	return (hit);
 }
 
 mlx_color	ray_color(t_data *data, t_ray ray)
 {
 	t_plane		*plane;
 	t_sphere	*sphere;
+	t_cylinder	*cylinder;
 	mlx_color	pixel;
 	t_hit		hit;
 
@@ -97,8 +133,17 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 		pixel.b = (sphere->color.b * 0.5f * (normal.k + 1.0f));
 		pixel.a = 255;
 	}
+	else
+	{
+		cylinder = (t_cylinder *)hit.obj;
+		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
+		t_vec normal = normalize(vec_sub(point, (t_vec){cylinder->coordinate.x, cylinder->coordinate.y, cylinder->coordinate.z}));
+		pixel.r = (255 * 0.5f * (normal.i + 1.0f));
+		pixel.g = (255 * 0.5f * (normal.j + 1.0f));
+		pixel.b = (255 * 0.5f * (normal.k + 1.0f));
+		pixel.a = 255;
+	}
 	return (pixel);	
-	// return ((mlx_color){ .rgba = 0xFFFFFFFF });
 }
 
 mlx_color	render(t_data *data, int x, int y)

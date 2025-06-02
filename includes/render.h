@@ -12,6 +12,8 @@ float	hit_sphere(t_coordinate center, double radius, t_ray r);
 
 float	hit_plane(t_coordinate c, t_vec normal, t_ray r);
 
+float hit_cylinder(t_cylinder *cy, float rad, t_ray r);
+
 void	average_pixel(mlx_color *n_pixel, mlx_color o_pixel, float coef_new_p, float coef_old_p);
 
 mlx_color	render(t_data *data, int x, int y);
