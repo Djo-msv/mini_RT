@@ -7,21 +7,24 @@ typedef struct s_mlx
 	mlx_window				win;
 	mlx_window_create_info	info;
 	mlx_image				img;
-}	t_mlx;
+}	t_mlx
+__attribute__((aligned(1)));
 
 typedef struct s_color
 {
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
-}	t_color;
+}	t_color
+__attribute__((aligned(1)));
 
 typedef struct s_a_light
 {
 	t_color	color;
 
 	float	range;
-}	t_a_light;
+}	t_a_light
+__attribute__((aligned(1)));
 
 typedef struct s_cam
 {
@@ -29,7 +32,8 @@ typedef struct s_cam
 	t_vec			orientation;
 
 	float			fov;
-}	t_cam;
+}	t_cam
+__attribute__((aligned(1)));
 
 typedef struct s_light
 {
@@ -38,7 +42,8 @@ typedef struct s_light
 
 	float			bright;
 
-}	t_light;
+}	t_light
+__attribute__((aligned(1)));
 
 typedef struct s_sphere
 {
@@ -47,7 +52,8 @@ typedef struct s_sphere
 
 	float			diameter;
 
-}	t_sphere;
+}	t_sphere
+__attribute__((aligned(1)));
 
 typedef struct s_plane
 {
@@ -55,7 +61,8 @@ typedef struct s_plane
 	t_vec			normal;
 	t_color			color;
 
-}	t_plane;
+}	t_plane
+__attribute__((aligned(1)));
 
 typedef struct s_cylinder
 {
@@ -66,7 +73,8 @@ typedef struct s_cylinder
 	float				diameter;
 	float				height;
 
-}	t_cylinder;
+}	t_cylinder
+__attribute__((aligned(1)));
 
 typedef struct s_scene
 {
@@ -76,7 +84,8 @@ typedef struct s_scene
 	t_list		*sphere;
 	t_list		*plane;
 	t_list		*cylinder;
-}	t_scene;
+}	t_scene
+__attribute__((aligned(1)));
 
 typedef struct s_render_image
 {
@@ -88,7 +97,8 @@ typedef struct s_render_image
 
 	mlx_color	*new_img;
 	mlx_color	*old_img;
-}	t_render_image;
+}	t_render_image
+__attribute__((aligned(1)));
 
 typedef struct s_setting_cam
 {
@@ -121,7 +131,8 @@ typedef struct s_setting_cam
 
 	bool	move;
 
-}	t_setting_cam;
+}	t_setting_cam
+__attribute__((aligned(1)));
 
 typedef struct s_data
 {
@@ -129,6 +140,8 @@ typedef struct s_data
 	t_scene			scene;
 	t_setting_cam	setting_cam;
 	t_render_image	image;
-}				t_data;
+}				t_data
+__attribute__((aligned(1)));
 
 #endif
+

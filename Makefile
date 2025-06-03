@@ -11,7 +11,7 @@ ifeq ($(DEBUG), 1)
 endif
 
 ifeq ($(MEGA_PERF), 1)
-	CFLAGS += -O3
+	CFLAGS += -O3 -mavx2 -mfma -march=native -mtune=native -funroll-loops -fvectorize -ffp-contract=fast  -freciprocal-math -ffast-math -fstrict-aliasing  -fomit-frame-pointer -flto=full -mprefer-vector-width=256
 endif
 
 #================================COUNT============================#

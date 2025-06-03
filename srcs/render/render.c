@@ -31,7 +31,7 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 	{
 		return (pixel);	
 	}
-	return ((mlx_color){ .rgba = 0xFFFFFFFF });
+	return ((mlx_color){ .rgba = 0x000000FF });
 }
 
 mlx_color	render(t_data *data, int x, int y)
