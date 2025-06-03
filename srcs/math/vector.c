@@ -15,6 +15,11 @@ t_vec vec_add(t_vec vec1, t_vec vec2)
     return (create_vec(vec1.i + vec2.i, vec1.j + vec2.j, vec1.k + vec2.k));
 }
 
+t_vec vec_add_uniq(t_vec vec1, float a)
+{
+    return (create_vec(vec1.i + a, vec1.j + a, vec1.k + a));
+}
+
 t_vec vec_sub(t_vec vec1, t_vec vec2)
 {
     return (create_vec(vec1.i - vec2.i, vec1.j - vec2.j, vec1.k - vec2.k));
@@ -23,6 +28,11 @@ t_vec vec_sub(t_vec vec1, t_vec vec2)
 t_vec vec_mul(t_vec vec, float mult)
 {
     return (create_vec(vec.i * mult, vec.j * mult, vec.k * mult));
+}
+
+t_vec vec_mul_vec(t_vec vec, t_vec vec2)
+{
+    return (create_vec(vec.i * vec2.i, vec.j * vec2.j, vec.k * vec2.k));
 }
 
 t_vec vec_div(t_vec vec, float div)

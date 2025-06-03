@@ -102,48 +102,70 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	return (hit);
 }
 
-mlx_color	ray_color(t_data *data, t_ray ray)
+t_vec		color_to_vec(t_color color)
 {
-	t_plane		*plane;
-	t_sphere	*sphere;
-	t_cylinder	*cylinder;
-	mlx_color	pixel;
+	return (t_vec) {(float)color.r / 255.0, (float)color.g / 255.0, (float)color.b / 255.0};
+}
+
+t_color		vec_to_color(t_vec color)
+{
+	return (t_color) {color.i * 255, color.j * 255, color.k * 255};
+}
+
+t_vec		trace_ray(t_data *data, t_ray ray)
+{
+	t_vec		light;
+	t_vec		color;
 	t_hit		hit;
 
-	hit = nearest_obj(data, ray);
-	if (hit.t <= 0)
-		return ((mlx_color){.rgba = 0});
-	if (hit.type == 0)
+	light = (t_vec) {1., 1., 1.};
+	color = (t_vec) {1., 1., 1.};
+
+	int			i = 0;
+
+	while (i < 1)
 	{
-		plane = (t_plane *)hit.obj;
-		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		t_vec normal = normalize(vec_sub(point, (t_vec){plane->coordinate.x, plane->coordinate.y, plane->coordinate.z}));
-		pixel.r = (plane->color.r * 0.5f * (normal.i + 1.0f));
-		pixel.g = (plane->color.g * 0.5f * (normal.j + 1.0f));
-		pixel.b = (plane->color.b * 0.5f * (normal.k + 1.0f));
-		pixel.a = 255;
+		hit = nearest_obj(data, ray);
+		if (hit.t <= 0)
+			return ((t_vec){0., 0., 0.});
+		t_vec normal;
+
+		if (hit.type == 0)
+		{
+			t_plane *plane = (t_plane *)hit.obj;
+			color = vec_mul_vec(color, color_to_vec(plane->color));
+			normal = vec_mul(normalize(plane->normal), -1.0);
+			printf("%f %f %f\n", normal.i, normal.j, normal.k);
+		}
+		else if (hit.type == 1)
+		{
+			t_sphere *sphere = (t_sphere *)hit.obj;
+			color = vec_mul_vec(color, color_to_vec(sphere->color));
+			t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
+			normal = normalize(vec_sub(point, (t_vec){sphere->coordinate.x, sphere->coordinate.y, sphere->coordinate.z}));
+		}
+		else
+		{
+			return ((t_vec){0., 0., 0.}); 
+		}
+
+		t_vec light_dir = (t_vec) {0., -1., 0.};
+		float truc = fabs(scalar_product(normal, light_dir));
+		light = vec_add_uniq(light, truc);
+
+		i++;
 	}
-	else if (hit.type == 1)
-	{
-		sphere = (t_sphere *)hit.obj;
-		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		t_vec normal = normalize(vec_sub(point, (t_vec){sphere->coordinate.x, sphere->coordinate.y, sphere->coordinate.z}));
-		pixel.r = (sphere->color.r * 0.5f * (normal.i + 1.0f));
-		pixel.g = (sphere->color.g * 0.5f * (normal.j + 1.0f));
-		pixel.b = (sphere->color.b * 0.5f * (normal.k + 1.0f));
-		pixel.a = 255;
-	}
-	else
-	{
-		cylinder = (t_cylinder *)hit.obj;
-		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		t_vec normal = normalize(vec_sub(point, (t_vec){cylinder->coordinate.x, cylinder->coordinate.y, cylinder->coordinate.z}));
-		pixel.r = (255 * 0.5f * (normal.i + 1.0f));
-		pixel.g = (255 * 0.5f * (normal.j + 1.0f));
-		pixel.b = (255 * 0.5f * (normal.k + 1.0f));
-		pixel.a = 255;
-	}
-	return (pixel);	
+
+	return (vec_mul_vec(color, light));
+}
+
+mlx_color	ray_color(t_data *data, t_ray ray)
+{
+	t_color color;
+
+	color = vec_to_color(trace_ray(data, ray));
+	
+	return (mlx_color) {.r = color.r, .g = color.g, .b = color.b, .a = 255.0};
 }
 
 mlx_color	render(t_data *data, int x, int y)
