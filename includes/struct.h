@@ -46,6 +46,7 @@ typedef struct s_sphere
 	t_color			color;
 
 	float			diameter;
+	float			radius;
 
 }	t_sphere;
 
@@ -64,6 +65,7 @@ typedef struct s_cylinder
 	t_color				color;
 
 	float				diameter;
+	float				radius;
 	float				height;
 
 }	t_cylinder;

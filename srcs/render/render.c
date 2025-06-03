@@ -15,7 +15,7 @@ t_hit	nearest_cylinder(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		cylinder = (t_cylinder *)tmp->content;
-		t = hit_cylinder(cylinder, (cylinder->diameter / 2.0), ray);
+		t = hit_cylinder(cylinder, cylinder->radius, ray);
 		if (t > 0.0f && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
@@ -70,7 +70,7 @@ t_hit	nearest_sphere(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		sphere = (t_sphere *)tmp->content;
-		t = hit_sphere(sphere->coordinate, sphere->diameter, ray);
+		t = hit_sphere(sphere->coordinate, sphere->radius, ray);
 		if (t > 0.0f && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
@@ -112,7 +112,7 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 
 	hit = nearest_obj(data, ray);
 	if (hit.t <= 0)
-		return ((mlx_color){.rgba = 0xFFFFFFFF});
+		return ((mlx_color){.rgba = 0});
 	if (hit.type == 0)
 	{
 		plane = (t_plane *)hit.obj;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sphere_plane.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 19:41:32 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:34:15 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	init_sphere(t_sphere *sphere, char **args)
 	if (verfi_float(args[2]))
 		return (1);
 	sphere->diameter = ft_atof(args[2]);
+	sphere->radius = sphere->diameter / 2;
 	v = ft_split(args[3], ",");
 	if (!v)
 		return (1);

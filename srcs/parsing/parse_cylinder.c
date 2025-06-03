@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cylinder.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 19:39:42 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/06/03 16:33:07 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	init_d_h_rgb_cylinder(t_cylinder *cylinder, char **args)
 	if (verfi_float(args[3]))
 		return (1);
 	cylinder->diameter = ft_atof(args[3]);
+	cylinder->radius = cylinder->diameter / 2;
 	if (verfi_float(args[4]))
 		return (1);
 	cylinder->height = ft_atof(args[4]);
