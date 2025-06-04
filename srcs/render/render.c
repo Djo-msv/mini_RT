@@ -146,7 +146,10 @@ t_vec		trace_ray(t_data *data, t_ray ray, float time)
 	{
 		hit = nearest_obj(data, ray);
 		if (hit.t <= 0)
-			break;
+		{
+			// light = vec_add(light, (t_vec) {0.1, 0.3, 0.8});
+			break ;
+		}
 
 		t_vec normal;
 		
@@ -166,9 +169,9 @@ t_vec		trace_ray(t_data *data, t_ray ray, float time)
 		else
 			return ((t_vec){0., 0., 0.});
 		
-		t_vec light_pos = (t_vec) {0., 0., -1.};
+		t_vec light_pos = (t_vec) {0., -2., -1.};
 		(void) time;
-		// light_pos.i = cos(time) * 0.5;
+		light_pos.i = cos(time) * 2.;
 		// light_pos.j = sin(time) * 0.5;
 
 		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
