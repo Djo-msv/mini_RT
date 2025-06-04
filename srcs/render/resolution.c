@@ -4,7 +4,7 @@ void	handle_low_resolution(t_data *data, int x, int y, int resolution)
 {
 	int	end_x;
 	int	end_y;
-	int	pos;
+	int	base_x = x;
 	mlx_color	*image;
 	mlx_color	pixel;
 
@@ -14,16 +14,14 @@ void	handle_low_resolution(t_data *data, int x, int y, int resolution)
 		end_x = data->mlx.info.width;
 	if (end_y > data->mlx.info.height)
 		end_y = data->mlx.info.height;
-	image = data->image.new_img;
-	pixel = image[y * data->mlx.info.width + x];
-	x += resolution + 1;
+	pixel = data->image.new_img[y * data->mlx.info.width + x];
 	while (y != end_y)
 	{
-		pos = y * data->mlx.info.width;
-		x -= resolution;
+		x = base_x;
+		image = &data->image.new_img[y * data->mlx.info.width + x];
 		while (x != end_x)
 		{
-			image[pos + x] = pixel;
+			*image++ = pixel;
 			x++;
 		}
 		y++;

@@ -25,11 +25,22 @@ void	create_ray_direction(t_setting_cam *scene)
 	}
 }
 
-void	setup_camera_setting(t_data *data)
+void	calcule_res(t_data *data, t_setting_cam *cam)
 {
-	t_setting_cam *scene;
+	cam->pixel_delta_h = vec_div(cam->viewport_h, cam->width);
+	cam->pixel_delta_v = vec_div(cam->viewport_v, cam->height);
+	cam->viewport_upper_left = vec_sub(
+    vec_sub(
+        vec_sub(cam->camera_center, create_vec(0, 0, cam->focal_length)),
+        vec_div(cam->viewport_h, 2)),
+    	vec_div(cam->viewport_v, 2));
+	cam->pixel00_loc = vec_add(cam->viewport_upper_left, vec_mul(vec_add(cam->pixel_delta_h, cam->pixel_delta_v), 0.5f));
+	cam->res_h = length(cam->pixel_delta_h) * data->image.resolution;
+	cam->res_v = length(cam->pixel_delta_v) * data->image.resolution;
+}
 
-	scene = &data->setting_cam;
+void	calcule_scene(t_data *data, t_setting_cam *scene)
+{
 	scene->ratio = (float)data->mlx.info.width / data->mlx.info.height;
 	scene->width = data->mlx.info.width;
 	scene->height = data->mlx.info.height;
@@ -39,15 +50,14 @@ void	setup_camera_setting(t_data *data)
 	scene->camera_center = create_vec(0, 0, 0);
 	scene->viewport_h = create_vec(scene->viewport_width, 0, 0);
 	scene->viewport_v = create_vec(0, scene->viewport_height, 0);
-	scene->pixel_delta_h = vec_div(scene->viewport_h, scene->width);
-	scene->pixel_delta_v = vec_div(scene->viewport_v, scene->height);
-	scene->viewport_upper_left = vec_sub(
-    vec_sub(
-        vec_sub(scene->camera_center, create_vec(0, 0, scene->focal_length)),
-        vec_div(scene->viewport_h, 2)),
-    	vec_div(scene->viewport_v, 2));
-	scene->pixel00_loc = vec_add(scene->viewport_upper_left, vec_mul(vec_add(scene->pixel_delta_h, scene->pixel_delta_v), 0.5f));
-	scene->res_h = length(scene->pixel_delta_h) * data->image.resolution;
-	scene->res_v = length(scene->pixel_delta_v) * data->image.resolution;
+}
+
+void	setup_camera_setting(t_data *data)
+{
+	t_setting_cam *scene;
+
+	scene = &data->setting_cam;
+	calcule_scene(data, scene);
+	calcule_res(data, scene);
 	create_ray_direction(scene);
 }
