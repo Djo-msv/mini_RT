@@ -1,6 +1,5 @@
 #include "miniRT.h"
 
-
 void	handle_low_resolution(t_data *data, int x, int y, int resolution)
 {
 	int	end_x;

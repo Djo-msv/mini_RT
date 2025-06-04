@@ -22,7 +22,6 @@ void	recalculate_ray_direction(t_setting_cam *scene)
 	}
 }
 
-
 void	angle_camera(t_data *data, float pitch, float yaw)
 {
 	data->setting_cam.forward = (t_vec){cos(pitch) * sin(yaw), sin(pitch), cos(pitch) * cos(yaw)};

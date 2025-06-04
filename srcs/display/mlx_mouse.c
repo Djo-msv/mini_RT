@@ -22,4 +22,3 @@ void	mouse(t_data *data)
 	}
 }
 
-
