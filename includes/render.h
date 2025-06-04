@@ -16,7 +16,7 @@ float hit_cylinder(t_cylinder *cy, float rad, t_ray r);
 
 void	average_pixel(mlx_color *n_pixel, mlx_color o_pixel, float coef_new_p, float coef_old_p);
 
-mlx_color	render(t_data *data, int x, int y);
+mlx_color	render(t_data *data, int x, int y, float time);
 
 void	handle_low_resolution(t_data *data, int x, int y, int resolution);
 

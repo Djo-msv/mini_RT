@@ -10,6 +10,7 @@ float hit_cylinder(t_cylinder *cy, float rad, t_ray r)
 	t_vec	d_perpendicular;
 	t_vec	o_c_perpendicular;
 
+	cy->normal = normalize(cy->normal);
 	o_c = vec_sub(r.origin, (t_vec){cy->coordinate.x, cy->coordinate.y, cy->coordinate.z});
 	d_perpendicular = vec_sub(r.direction, vec_mul(cy->normal, scalar_product(r.direction, cy->normal)));
 	o_c_perpendicular = vec_sub(o_c, vec_mul(cy->normal, scalar_product(o_c, cy->normal)));

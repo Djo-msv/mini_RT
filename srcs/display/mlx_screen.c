@@ -1,17 +1,17 @@
 #include "miniRT.h"
 
-void	handle_pixel(t_data *data, int x, int y, int resolution)
+void	handle_pixel(t_data *data, int x, int y, int resolution, float time)
 {
 	int			pos;
 	t_mlx		*mlx;
 
 	mlx = &data->mlx;
 	pos = y * mlx->info.width + x;
-	data->image.new_img[pos] = render(data, x, y);
-	if (data->image.nb_images != 0)
-		average_pixel(&data->image.new_img[pos], \
-			data->image.old_img[pos], \
-			data->image.coef_new_p, data->image.coef_old_p);
+	data->image.new_img[pos] = render(data, x, y, time);
+	// if (data->image.nb_images != 0)
+	// 	average_pixel(&data->image.new_img[pos], \
+	// 		data->image.old_img[pos], \
+	// 		data->image.coef_new_p, data->image.coef_old_p);
 	if (resolution != 1)
 		handle_low_resolution(data, x, y, resolution);
 
@@ -33,6 +33,10 @@ void	display_screen(t_data *data)
 	int	resolution;
 	mlx_window_create_info	info = data->mlx.info;
 
+	static float time = 0;
+	
+	time+=0.05;
+
 	y = 0;
 	data->image.coef_new_p = ((float)data->image.nb_images / (float)(data->image.nb_images + 1));
 	data->image.coef_old_p = (1.0f / (data->image.nb_images + 1));
@@ -42,7 +46,7 @@ void	display_screen(t_data *data)
 		x = 0;
 		while (x < info.width)
 		{
-			handle_pixel(data, x, y, resolution);
+			handle_pixel(data, x, y, resolution, time);
 			x += resolution;
 		}
 		y += resolution;

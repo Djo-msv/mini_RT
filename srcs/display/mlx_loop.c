@@ -32,6 +32,14 @@ void	update_ray(t_data *data)
 void update(void* param)
 {
 	(void)param;
+
+	static float time = 0.0;
+	time += 0.05f;
+
+	((t_sphere *)((t_data *)param)->scene.sphere->content)->coordinate.y = sin(time) * 0.5f;
+	((t_sphere *)((t_data *)param)->scene.sphere->content)->coordinate.x = cos(time) * 0.5f;
+
+
 	update_ray((t_data *)param);
 	mouse((t_data *)param);
 	display_screen((t_data *)param);
