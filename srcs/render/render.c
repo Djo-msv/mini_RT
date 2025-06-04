@@ -142,7 +142,7 @@ t_vec		trace_ray(t_data *data, t_ray ray, float time)
 
 	int			i = 0;
 
-	while (i < 2)
+	while (i < 1)
 	{
 		hit = nearest_obj(data, ray);
 		if (hit.t <= 0)

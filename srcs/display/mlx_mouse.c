@@ -15,7 +15,11 @@ void	mouse(t_data *data)
 		if (x - (cam->width >> 1) == 0 && y - (cam->height >> 1) == 0)
 			return ;
 		yaw -= (x - (float)(cam->width >> 1)) * 0.001f;
-		pitch -= (y - (float)(cam->height >> 1)) * 0.001f;
+		pitch += (y - (float)(cam->height >> 1)) * 0.001f;
+		if (pitch > 1.5708f)
+			pitch = 1.5707f;
+		if (pitch < -1.5708f)
+			pitch = -1.5707f;
 		cam->yaw = yaw;
 		cam->pitch = pitch;
 		angle_camera(data, pitch, yaw);
