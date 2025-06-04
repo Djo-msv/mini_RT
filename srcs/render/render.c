@@ -112,7 +112,7 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 
 	hit = nearest_obj(data, ray);
 	if (hit.t <= 0)
-		return ((mlx_color){.rgba = 0});
+		return ((mlx_color){.rgba = 0x000000FF});
 	if (hit.type == 0)
 	{
 		plane = (t_plane *)hit.obj;
