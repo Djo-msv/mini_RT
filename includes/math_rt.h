@@ -33,4 +33,8 @@ t_vec	vec_sub(t_vec vec1, t_vec vec2);
 t_vec	vec_mul(t_vec vec, float mult);
 t_vec	vec_div(t_vec vec, float div);
 
+t_vec	cross(t_vec a, t_vec b);
+t_vec vec_scale(t_vec v, float s);
+
+
 #endif

@@ -20,7 +20,6 @@ void	new_image(t_data *data, t_mlx *mlx)
 	mlx_destroy_image(mlx->mlx, mlx->img);
 	free(data->image.new_img);
 	free(data->image.old_img);
-	data->image.nb_images = 0;
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
 	data->image.new_img = ft_calloc(mlx->info.width * mlx->info.height,sizeof(mlx_color));
 	data->image.old_img = ft_calloc(mlx->info.width * mlx->info.height,sizeof(mlx_color));

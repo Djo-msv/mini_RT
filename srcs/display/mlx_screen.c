@@ -8,7 +8,7 @@ void	handle_pixel(t_data *data, int x, int y, int resolution)
 	mlx = &data->mlx;
 	pos = y * mlx->info.width + x;
 	data->image.new_img[pos] = render(data, x, y);
-	if (data->image.nb_images != 0)
+	if (data->image.nb_images >= 1)
 		average_pixel(&data->image.new_img[pos], \
 			data->image.old_img[pos], \
 			data->image.coef_new_p, data->image.coef_old_p);
