@@ -116,11 +116,9 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 	if (hit.type == 0)
 	{
 		plane = (t_plane *)hit.obj;
-		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		t_vec normal = normalize(vec_sub(point, (t_vec){plane->coordinate.x, plane->coordinate.y, plane->coordinate.z}));
-		pixel.r = (plane->color.r * 0.5f * (normal.i + 1.0f));
-		pixel.g = (plane->color.g * 0.5f * (normal.j + 1.0f));
-		pixel.b = (plane->color.b * 0.5f * (normal.k + 1.0f));
+		pixel.r = plane->color.r;
+		pixel.g = plane->color.g;
+		pixel.b = plane->color.b;
 		pixel.a = 255;
 	}
 	else if (hit.type == 1)
@@ -128,19 +126,17 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 		sphere = (t_sphere *)hit.obj;
 		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
 		t_vec normal = normalize(vec_sub(point, (t_vec){sphere->coordinate.x, sphere->coordinate.y, sphere->coordinate.z}));
-		pixel.r = (sphere->color.r * 0.5f * (normal.i + 1.0f));
-		pixel.g = (sphere->color.g * 0.5f * (normal.j + 1.0f));
-		pixel.b = (sphere->color.b * 0.5f * (normal.k + 1.0f));
+		pixel.r = (255 * 0.5f * (normal.i + 1.0f));
+		pixel.g = (255 * 0.5f * (normal.j + 1.0f));
+		pixel.b = (255 * 0.5f * (normal.k + 1.0f));
 		pixel.a = 255;
 	}
 	else
 	{
 		cylinder = (t_cylinder *)hit.obj;
-		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		t_vec normal = normalize(vec_sub(point, (t_vec){cylinder->coordinate.x, cylinder->coordinate.y, cylinder->coordinate.z}));
-		pixel.r = (255 * 0.5f * (normal.i + 1.0f));
-		pixel.g = (255 * 0.5f * (normal.j + 1.0f));
-		pixel.b = (255 * 0.5f * (normal.k + 1.0f));
+		pixel.r = cylinder->color.r;
+		pixel.g = cylinder->color.g;
+		pixel.b = cylinder->color.b;
 		pixel.a = 255;
 	}
 	return (pixel);	

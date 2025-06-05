@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:15:06 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 18:21:27 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:58:49 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	parse_ambient_light(t_scene *scene, char **args)
 
 	if (verfi_float(args[1]))
 		return (1);
-	scene->a_light.range = ft_atof(args[1]);
-	if (verif_fvalue(0.0, 1.0, scene->a_light.range))
+	scene->a_light.light_ratio = ft_atof(args[1]);
+	if (verif_fvalue(0.0, 1.0, scene->a_light.light_ratio))
 		return (1);
 	value = ft_split(args[2], ",");
 	if (!value)

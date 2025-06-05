@@ -22,7 +22,7 @@ typedef struct s_a_light
 {
 	t_color	color;
 
-	float	range;
+	float	light_ratio;
 }	t_a_light
 __attribute__((aligned(1)));
 

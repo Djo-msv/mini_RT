@@ -6,7 +6,7 @@ void	print_scene(t_scene scene)
 
 	i = 0;
 	printf("scene :\n\n");
-	printf("Ambient light range : %f\n", scene.a_light.range);
+	printf("Ambient light range : %f\n", scene.a_light.light_ratio);
 	printf("Ambient light color : %d; %d; %d\n\n", scene.a_light.color.r, scene.a_light.color.g, scene.a_light.color.b);
 	printf("Camera coordonate : %f; %f; %f\n", scene.camera.coordinate.x, scene.camera.coordinate.y, scene.camera.coordinate.z);
 	printf("Camera direction : %f; %f; %f\n", scene.camera.orientation.i, scene.camera.orientation.j, scene.camera.orientation.k);
