@@ -8,9 +8,9 @@ typedef struct	s_hit
 	int		type;
 }				t_hit;
 
-float	hit_sphere(t_coordinate center, double radius, t_ray r);
+float	hit_sphere(t_vec center, double radius, t_ray r);
 
-float	hit_plane(t_coordinate c, t_vec normal, t_ray r);
+float	hit_plane(t_vec c, t_vec normal, t_ray r);
 
 float hit_cylinder(t_cylinder *cy, float rad, t_ray r);
 

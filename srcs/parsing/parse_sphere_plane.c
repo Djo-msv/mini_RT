@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/06/03 16:34:15 by star             ###   ########.fr       */
+/*   Updated: 2025/06/06 15:18:20 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	parse_sphere(t_scene *scene, char **args)
 		return (1);
 	}
 	sphere = malloc(sizeof(t_sphere));
-	sphere->coordinate = (t_coordinate)
+	sphere->coordinate = (t_vec)
 	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	if (init_sphere(sphere, args))
@@ -64,9 +64,9 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 {
 	char	**v;
 
-	if (verif_fvalue(-1, 1, plane->normal.i)
-		|| verif_fvalue(-1, 1, plane->normal.j)
-		|| verif_fvalue(-1, 1, plane->normal.k))
+	if (verif_fvalue(-1, 1, plane->normal.x)
+		|| verif_fvalue(-1, 1, plane->normal.y)
+		|| verif_fvalue(-1, 1, plane->normal.z))
 		return (1);
 	v = ft_split(args[3], ",");
 	if (!v)
@@ -115,7 +115,7 @@ int	parse_plane(t_scene *scene, char **args)
 		return (1);
 	}
 	plane = malloc(sizeof(t_plane));
-	plane->coordinate = (t_coordinate)
+	plane->coordinate = (t_vec)
 	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	if (init_normal_plane(plane, args) || init_rgb_plane(plane, args))

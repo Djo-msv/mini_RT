@@ -102,6 +102,16 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	return (hit);
 }
 
+t_vec	vec_to_color(t_vec vec)
+{
+	return (create_vec(vec.x * 255, vec.y * 255, vec.z * 255));
+}
+
+t_vec	color_to_vec(t_color c)
+{
+	return (create_vec(c.r / 255, c.g / 255, c.b / 255));
+}
+
 mlx_color	ray_color(t_data *data, t_ray ray)
 {
 	t_plane		*plane;
@@ -125,10 +135,10 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 	{
 		sphere = (t_sphere *)hit.obj;
 		t_vec point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		t_vec normal = normalize(vec_sub(point, (t_vec){sphere->coordinate.x, sphere->coordinate.y, sphere->coordinate.z}));
-		pixel.r = (255 * 0.5f * (normal.i + 1.0f));
-		pixel.g = (255 * 0.5f * (normal.j + 1.0f));
-		pixel.b = (255 * 0.5f * (normal.k + 1.0f));
+		t_vec normal = normalize(vec_sub(point, sphere->coordinate));
+		pixel.r = (255 * 0.5f * (normal.x + 1.0f));
+		pixel.g = (255 * 0.5f * (normal.y + 1.0f));
+		pixel.b = (255 * 0.5f * (normal.z + 1.0f));
 		pixel.a = 255;
 	}
 	else

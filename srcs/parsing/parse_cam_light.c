@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cam_light.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:15:06 by nrolland          #+#    #+#             */
-/*   Updated: 2025/06/05 17:58:49 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:17:35 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static int	init_cam(t_scene *scene, char **args)
 		ft_free_2d_tab((void **)value);
 		return (1);
 	}
-	scene->camera.orientation.i = ft_atof(value[0]);
-	scene->camera.orientation.j = ft_atof(value[1]);
-	scene->camera.orientation.k = ft_atof(value[2]);
+	scene->camera.orientation.x = ft_atof(value[0]);
+	scene->camera.orientation.y = ft_atof(value[1]);
+	scene->camera.orientation.z = ft_atof(value[2]);
 	ft_free_2d_tab((void **)value);
-	if (verif_fvalue(-1, 1, scene->camera.orientation.i)
-		|| verif_fvalue(-1, 1, scene->camera.orientation.j)
-		|| verif_fvalue(-1, 1, scene->camera.orientation.k))
+	if (verif_fvalue(-1, 1, scene->camera.orientation.x)
+		|| verif_fvalue(-1, 1, scene->camera.orientation.y)
+		|| verif_fvalue(-1, 1, scene->camera.orientation.z))
 		return (1);
 	if (verif_int(args[3], "180"))
 		return (1);
@@ -128,7 +128,7 @@ int	parse_light(t_scene *scene, char **args)
 		return (1);
 	}
 	light = malloc(sizeof(t_light));
-	light->coordinate = (t_coordinate)
+	light->coordinate = (t_vec)
 	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	if (init_light(light, args))

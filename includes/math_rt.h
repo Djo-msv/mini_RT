@@ -1,18 +1,11 @@
 #ifndef MATH_RT_H
 # define MATH_RT_H
 
-typedef struct s_coordinate
+typedef struct s_vec
 {
 	float	x;
 	float	y;
 	float	z;
-}	t_coordinate;
-
-typedef struct s_vec
-{
-	float	i;
-	float	j;
-	float	k;
 }	t_vec;
 
 typedef struct s_ray

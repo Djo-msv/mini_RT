@@ -6,13 +6,13 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 15:32:58 by star              #+#    #+#             */
-/*   Updated: 2025/05/30 16:02:59 by star             ###   ########.fr       */
+/*   Updated: 2025/06/06 15:18:27 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-float hit_plane(t_coordinate c, t_vec normal, t_ray r)
+float hit_plane(t_vec c, t_vec normal, t_ray r)
 {
 	float	t;
 	float	denominator;

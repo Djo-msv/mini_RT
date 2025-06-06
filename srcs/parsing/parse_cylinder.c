@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/06/03 16:33:07 by star             ###   ########.fr       */
+/*   Updated: 2025/06/06 15:18:00 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static int	init_normal_cylinder(t_cylinder *cylinder, char **args)
 	}
 	cylinder->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
-	if (verif_fvalue(-1, 1, cylinder->normal.i)
-		|| verif_fvalue(-1, 1, cylinder->normal.j)
-		|| verif_fvalue(-1, 1, cylinder->normal.k))
+	if (verif_fvalue(-1, 1, cylinder->normal.x)
+		|| verif_fvalue(-1, 1, cylinder->normal.y)
+		|| verif_fvalue(-1, 1, cylinder->normal.z))
 		return (1);
 	return (0);
 }
@@ -74,7 +74,7 @@ int	parse_cylinder(t_scene *scene, char **args)
 		return (1);
 	}
 	cylinder = malloc(sizeof(t_cylinder));
-	cylinder->coordinate = (t_coordinate)
+	cylinder->coordinate = (t_vec)
 	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	if (init_normal_cylinder(cylinder, args)
