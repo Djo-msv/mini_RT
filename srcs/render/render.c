@@ -119,38 +119,41 @@ t_vec	mul_color(t_vec c1, t_vec c2)
 
 mlx_color	ray_color(t_data *data, t_ray ray)
 {
-	t_plane		*plane;
-	t_sphere	*sphere;
-	t_cylinder	*cylinder;
-	t_hit		hit;
 	t_vec 		point;
 	t_vec 		normal;
-	t_ray		light;
 	t_vec		color;
+	t_ray		light;
+	t_hit		hit;
+	int			i;
 
-	hit = nearest_obj(data, ray);
-	if (hit.t <= 0)
-		return ((mlx_color){.rgba = 0x000000FF});
-	point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-	color = mul_color(color_to_vec(((t_object *)hit.obj)->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
-	if (hit.type == 0)
-		normal = normalize(vec_sub(point, ((t_plane *)plane)->coordinate));
-	else if (hit.type == 1)
-		normal = normalize(vec_sub(point, ((t_sphere *)sphere)->coordinate));
-	else
-		normal = normalize(vec_sub(point, ((t_cylinder *)cylinder)->coordinate));
-	light.origin = vec_add(point, vec_mul(point, 0.01));
-	light.direction = normalize(vec_sub(((t_light *)(data->scene.light->content))->coordinate, point));
-	hit = nearest_obj(data, light);
-	if (hit.t <= 0)
+	i = 0;
+	while (i < 1)
 	{
-		float	intensity;
-		intensity = scalar_product(normal, light.direction);
-		if (intensity <= 0.0)
-			return ((mlx_color){color, .a = 255});
-
+		hit = nearest_obj(data, ray);
+		if (hit.t <= 0)
+			return ((mlx_color){.rgba = 0x000000FF});
+		point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
+		color = mul_color(color_to_vec(((t_object *)hit.obj)->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
+		if (hit.type == 0)
+			normal = normalize(vec_sub(point, ((t_plane *)data->scene.plane)->coordinate));
+		else if (hit.type == 1)
+			normal = normalize(vec_sub(point, ((t_sphere *)data->scene.sphere)->coordinate));
+		else
+			normal = normalize(vec_sub(point, ((t_cylinder *)data->scene.cylinder)->coordinate));
+		light.origin = vec_add(point, vec_mul(point, 0.01));
+		light.direction = normalize(vec_sub(((t_light *)(data->scene.light->content))->coordinate, point));
+		hit = nearest_obj(data, light);
+		if (hit.t <= 0)
+		{
+			float	intensity;
+			intensity = scalar_product(normal, light.direction);
+			if (intensity <= 0.0)
+				break ;
+		}
+		i++;
 	}
-	return ();	
+	t_color c = vec_to_color(color);
+	return ((mlx_color){.r = c.r, .g = c.g, .b = c.b, .a = 255});
 }
 
 mlx_color	render(t_data *data, int x, int y)
