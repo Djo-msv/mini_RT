@@ -109,7 +109,7 @@ t_color	vec_to_color(t_vec vec)
 
 t_vec	color_to_vec(t_color c)
 {
-	return (create_vec(c.r / 255, c.g / 255, c.b / 255));
+	return (create_vec((float)c.r / 255.0, (float)c.g / 255.0, (float)c.b / 255.0));
 }
 
 t_vec	mul_color(t_vec c1, t_vec c2)
@@ -117,23 +117,30 @@ t_vec	mul_color(t_vec c1, t_vec c2)
 	return (create_vec(c1.x * c2.x, c1.y * c2.y, c1.z * c2.z));
 }
 
+t_vec	add_light(t_vec vec, float i)
+{
+	return (create_vec(vec.x + i, vec.y + i, vec.z + i));
+}
+
 mlx_color	ray_color(t_data *data, t_ray ray)
 {
 	t_vec 		point;
 	t_vec 		normal;
-	t_vec		color;
+	t_vec		l_intensity;
+	t_vec		r_color;
 	t_ray		light;
 	t_hit		hit;
 	int			i;
 
 	i = 0;
+	l_intensity = create_vec(0 ,0 ,0);
 	while (i < 1)
 	{
 		hit = nearest_obj(data, ray);
 		if (hit.t <= 0)
 			return ((mlx_color){.rgba = 0x000000FF});
 		point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		color = mul_color(color_to_vec(((t_object *)hit.obj)->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
+		r_color = mul_color(color_to_vec(((t_object *)hit.obj)->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
 		if (hit.type == 0)
 			normal = normalize(vec_sub(point, ((t_plane *)data->scene.plane)->coordinate));
 		else if (hit.type == 1)
@@ -149,10 +156,12 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 			intensity = scalar_product(normal, light.direction);
 			if (intensity <= 0.0)
 				break ;
+			l_intensity = add_light(l_intensity, intensity);
 		}
 		i++;
 	}
-	t_color c = vec_to_color(color);
+	mul_color(l_intensity, r_color);
+	t_color c = vec_to_color(r_color);
 	return ((mlx_color){.r = c.r, .g = c.g, .b = c.b, .a = 255});
 }
 
