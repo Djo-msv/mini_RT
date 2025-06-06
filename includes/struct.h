@@ -59,17 +59,24 @@ __attribute__((aligned(1)));
 typedef struct s_plane
 {
 	t_vec			coordinate;
-	t_vec			normal;
 	t_color			color;
+	t_vec			normal;
 
 }	t_plane
 __attribute__((aligned(1)));
 
+typedef struct s_object
+{
+	t_vec	coordinate;
+	t_color	color;
+	
+}	t_object;
+
 typedef struct s_cylinder
 {
 	t_vec				coordinate;
-	t_vec				normal;
 	t_color				color;
+	t_vec				normal;
 
 	float				diameter;
 	float				radius;

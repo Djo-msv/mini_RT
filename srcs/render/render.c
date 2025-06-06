@@ -131,27 +131,14 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 	hit = nearest_obj(data, ray);
 	if (hit.t <= 0)
 		return ((mlx_color){.rgba = 0x000000FF});
+	point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
+	color = mul_color(color_to_vec(((t_object *)hit.obj)->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
 	if (hit.type == 0)
-	{
-		plane = (t_plane *)hit.obj;
-		point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		normal = normalize(vec_sub(point, plane->coordinate));
-		color = mul_color(color_to_vec(plane->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
-	}
+		normal = normalize(vec_sub(point, ((t_plane *)plane)->coordinate));
 	else if (hit.type == 1)
-	{
-		sphere = (t_sphere *)hit.obj;
-		point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		normal = normalize(vec_sub(point, sphere->coordinate));
-		color = mul_color(color_to_vec(sphere->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
-	}
+		normal = normalize(vec_sub(point, ((t_sphere *)sphere)->coordinate));
 	else
-	{
-		cylinder = (t_cylinder *)hit.obj;
-		point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-		normal = normalize(vec_sub(point, cylinder->coordinate));
-		color = mul_color(color_to_vec(cylinder->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
-	}
+		normal = normalize(vec_sub(point, ((t_cylinder *)cylinder)->coordinate));
 	light.origin = vec_add(point, vec_mul(point, 0.01));
 	light.direction = normalize(vec_sub(((t_light *)(data->scene.light->content))->coordinate, point));
 	hit = nearest_obj(data, light);
