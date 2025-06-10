@@ -27,14 +27,26 @@ void	create_ray_direction(t_setting_cam *scene)
 
 void	calcule_res(t_data *data, t_setting_cam *cam)
 {
-	cam->pixel_delta_h = vec_div(cam->viewport_h, cam->width);
-	cam->pixel_delta_v = vec_div(cam->viewport_v, cam->height);
+	t_vec viewport_center = vec_add(
+		cam->camera_center,
+		vec_scale(cam->forward, cam->focal_length));
+
+	t_vec half_h = vec_scale(cam->viewport_h, 0.5);
+	t_vec half_v = vec_scale(cam->viewport_v, 0.5);
+
 	cam->viewport_upper_left = vec_sub(
-    vec_sub(
-        vec_sub(cam->camera_center, create_vec(0, 0, cam->focal_length)),
-        vec_div(cam->viewport_h, 2)),
-    	vec_div(cam->viewport_v, 2));
-	cam->pixel00_loc = vec_add(cam->viewport_upper_left, vec_mul(vec_add(cam->pixel_delta_h, cam->pixel_delta_v), 0.5f));
+	    vec_sub(viewport_center, half_h),
+	    half_v);
+
+	cam->pixel_delta_h = vec_scale(cam->viewport_h, 1.0f / cam->width);
+	cam->pixel_delta_v = vec_scale(cam->viewport_v, 1.0f / cam->height);
+
+	t_vec half_delta_h = vec_scale(cam->pixel_delta_h, 0.5f);
+	t_vec half_delta_v = vec_scale(cam->pixel_delta_v, 0.5f);
+
+	cam->pixel00_loc = vec_add(
+		vec_add(cam->viewport_upper_left, half_delta_h),
+		half_delta_v);
 	cam->res_h = length(cam->pixel_delta_h) * data->image.resolution;
 	cam->res_v = length(cam->pixel_delta_v) * data->image.resolution;
 }
@@ -48,8 +60,6 @@ void	calcule_scene(t_data *data, t_setting_cam *scene)
 	scene->viewport_height = 2.0f;
 	scene->viewport_width = scene->viewport_height * scene->ratio;
 	scene->camera_center = create_vec(0, 0, 0);
-	scene->viewport_h = create_vec(scene->viewport_width, 0, 0);
-	scene->viewport_v = create_vec(0, scene->viewport_height, 0);
 }
 
 void	setup_camera_setting(t_data *data)
@@ -58,6 +68,7 @@ void	setup_camera_setting(t_data *data)
 
 	scene = &data->setting_cam;
 	calcule_scene(data, scene);
+	angle_camera(data, scene->pitch, scene->yaw);
 	calcule_res(data, scene);
 	create_ray_direction(scene);
 }

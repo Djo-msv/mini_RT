@@ -16,6 +16,7 @@ void	display_screen(t_data *data);
 
 int	setup_mlx(t_data *data);
 void	mouse(t_data *data);
+void	rotate_camera(t_data *data, float pitch, float yaw);
 
 void	change_antialiasing_mode(t_data *data);
 void	change_mode(t_data *data);

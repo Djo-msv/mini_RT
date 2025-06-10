@@ -78,6 +78,17 @@ typedef struct s_cylinder
 }	t_cylinder
 __attribute__((aligned(1)));
 
+typedef struct	s_hit
+{
+	float	t;
+	void	*obj;
+	int		type;
+	t_vec	position;
+	t_vec	normal;
+	mlx_color	color;
+}				t_hit
+__attribute__((aligned(1)));
+
 typedef struct s_scene
 {
 	t_a_light	a_light;

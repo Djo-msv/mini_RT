@@ -8,7 +8,7 @@ void	move_camera_forward(t_data *data, t_setting_cam *cam)
 	flat = normalize(flat);
 	cam->camera_center.i += flat.i * 0.1f;
 	cam->camera_center.k += flat.k * 0.1f;
-	angle_camera(data, cam->pitch, cam->yaw);
+	rotate_camera(data, cam->pitch, cam->yaw);
 }
 
 void	move_camera_backward(t_data *data, t_setting_cam *cam)
@@ -19,8 +19,7 @@ void	move_camera_backward(t_data *data, t_setting_cam *cam)
 	flat = normalize(flat);
 	cam->camera_center.i -= flat.i * 0.1f;
 	cam->camera_center.k -= flat.k * 0.1f;
-	angle_camera(data, cam->pitch, cam->yaw);
-	(void)data;
+	rotate_camera(data, cam->pitch, cam->yaw);
 }
 
 void	move_camera_left(t_data *data, t_setting_cam *cam)
@@ -34,7 +33,7 @@ void	move_camera_left(t_data *data, t_setting_cam *cam)
     
 	cam->camera_center.i -= left.i * 0.1f;
     cam->camera_center.k -= left.k * 0.1f;
-    angle_camera(data, cam->pitch, cam->yaw);
+    rotate_camera(data, cam->pitch, cam->yaw);
 }
 
 void	move_camera_right(t_data *data, t_setting_cam *cam)
@@ -47,19 +46,19 @@ void	move_camera_right(t_data *data, t_setting_cam *cam)
     t_vec right = cross(up, flat);
 	cam->camera_center.i += right.i * 0.1f;
     cam->camera_center.k += right.k * 0.1f;
-    angle_camera(data, cam->pitch, cam->yaw);
+	rotate_camera(data, cam->pitch, cam->yaw);
 }
 
 void	move_camera_up(t_data *data, t_setting_cam *cam)
 {
 	cam->camera_center.j -= 0.1f;
-	angle_camera(data, cam->pitch, cam->yaw);
+	rotate_camera(data, cam->pitch, cam->yaw);
 }
 
 void	move_camera_down(t_data *data, t_setting_cam *cam)
 {
 	cam->camera_center.j += 0.1f;
-	angle_camera(data, cam->pitch, cam->yaw);
+	rotate_camera(data, cam->pitch, cam->yaw);
 }
 
 void key_hook(int key, void* param)
@@ -91,7 +90,6 @@ void key_hook(int key, void* param)
 	}
 	if (key == 43)
 		change_antialiasing_mode((t_data *)param);
-	printf("->%d\n", key);
 }
 
 void window_hook(int event, void* param)

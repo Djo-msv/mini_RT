@@ -1,13 +1,6 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-typedef struct	s_hit
-{
-	float	t;
-	void	*obj;
-	int		type;
-}				t_hit;
-
 float	hit_sphere(t_coordinate center, double radius, t_ray r);
 
 float	hit_plane(t_coordinate c, t_vec normal, t_ray r);

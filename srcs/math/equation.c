@@ -44,3 +44,8 @@ t_vec vec_scale(t_vec v, float s)
 	result.k = v.k * s;
 	return result;
 }
+
+t_vec vec_neg(t_vec v)
+{
+    return (t_vec){-v.i, -v.j, -v.k};
+}

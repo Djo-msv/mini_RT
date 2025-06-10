@@ -22,7 +22,7 @@ void	mouse(t_data *data)
 			pitch = -1.5707f;
 		cam->yaw = yaw;
 		cam->pitch = pitch;
-		angle_camera(data, pitch, yaw);
+		rotate_camera(data, pitch, yaw);
 	}
 }
 
