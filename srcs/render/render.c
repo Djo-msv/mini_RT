@@ -206,6 +206,9 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 	buf_hit = nearest_cylinder(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
+	buf_hit = nearest_light(data, ray);
+	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
+		hit = buf_hit;
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
 	if (hit.type == 0)
 	{
@@ -295,13 +298,18 @@ mlx_color scalar_color(mlx_color c1, mlx_color c2)
     return result;
 }
 
+float vec_dot(t_vec a, t_vec b)
+{
+    return a.i * b.i + a.j * b.j + a.k * b.k;
+}
+
 mlx_color	shade_pixel(t_data *data, t_ray ray)
 {
 	int			depth = 0;
-	mlx_color	throughput = {.rgba = 0xFFFFFFFF};
-	mlx_color	color = {.rgba = 0x000000ff};
+	mlx_color	throughput = {.rgba = 0x000000FF};
+	mlx_color	color = {.rgba = 0x000000FF};
 
-	while (depth < data->setting_cam.rbon_nb)
+	while (depth < 5)
 	{
 		t_hit	hit = intersectScene(data, ray);
 		if (hit.type == -1)
@@ -315,7 +323,9 @@ mlx_color	shade_pixel(t_data *data, t_ray ray)
 		color = add_color(color, scalar_color(localColor, throughput));
 		ray.origin = vec_add(hit.position, vec_mul(ray.direction, 0.0001f));
 		ray.direction = random_in_hemisphere(hit.normal);
-		throughput = scale_mlx_color(throughput, 0.001f);
+		float cos_theta = fmaxf(vec_dot(hit.normal, ray.direction), 0.0f);
+		throughput = scalar_color(throughput, hit.color);
+		throughput = scale_mlx_color(throughput, cos_theta);
 		depth += 1;
 	}
 	return (color);
