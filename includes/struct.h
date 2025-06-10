@@ -70,7 +70,9 @@ typedef struct s_object
 	t_vec	coordinate;
 	t_color	color;
 	
-}	t_object;
+}	t_object
+__attribute__((aligned(1)));
+
 
 typedef struct s_cylinder
 {
