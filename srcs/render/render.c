@@ -141,7 +141,6 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 			return ((mlx_color){.rgba = 0x000000FF});
 		point = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
 		r_color = mul_color(color_to_vec(((t_object *)hit.obj)->color), color_to_vec(((t_light *)(data->scene.light->content))->color));
-		// printf("  %lf  ", r_color.x);
 		if (hit.type == 0)
 			normal = normalize(vec_sub(point, ((t_plane *)hit.obj)->coordinate));///////////pu du cul ;arche pas 
 		else if (hit.type == 1)
@@ -151,10 +150,8 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 		light.origin = vec_add(point, vec_mul(point, 0.01));
 		light.direction = normalize(vec_sub(((t_light *)(data->scene.light->content))->coordinate, point));
 		hit = nearest_obj(data, light);
-		// printf("  %lf ", hit.t);
-		if (hit.t <= 0.0)
+		if (hit.t <= 0.0 || length(light.origin) <= hit.t)
 		{
-			// printf("  %lf ", l_intensity.x);
 			float	intensity;
 			intensity = scalar_product(normal, light.direction);
 			if (intensity <= 0.0)
