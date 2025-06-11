@@ -18,9 +18,10 @@ void	setup_images(t_data *data)
 {
 	data->image.resolution = 1;
 	data->image.antialiasing = 1;
-	data->setting_cam.rbon_nb = 1;
-	data->image.new_img = ft_calloc(800 * 800, sizeof(mlx_color));
-	data->image.old_img = ft_calloc(800 * 800, sizeof(mlx_color));
+	data->setting_cam.rbon_nb = 2;
+	data->image.new_img = ft_calloc(800 * 800, sizeof(t_fcolor));
+	data->image.old_img = ft_calloc(800 * 800, sizeof(t_fcolor));
+	data->image.mlx_img = ft_calloc(800 * 800, sizeof(mlx_color));
 }
 
 void	setup_events(t_data *data, t_mlx *mlx)

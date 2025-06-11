@@ -19,7 +19,7 @@ void	handle_pixel(t_data *data, int x, int y, int resolution)
 
 void	swap_img_buf(t_data *data)
 {
-	mlx_color	*buf;
+	t_fcolor	*buf;
 
 	buf = 	data->image.new_img;
 	data->image.new_img = data->image.old_img;
@@ -47,7 +47,8 @@ void	display_screen(t_data *data)
 		}
 		y += resolution;
 	}
-	mlx_set_image_region(data->mlx.mlx, data->mlx.img, 0, 0, info.width, info.height, data->image.new_img);
+	fcolor_to_mlxcolor(data->image.new_img, data->image.mlx_img, info.width * info.height);
+	mlx_set_image_region(data->mlx.mlx, data->mlx.img, 0, 0, info.width, info.height, data->image.mlx_img);
 	mlx_clear_window(data->mlx.mlx, data->mlx.win, (mlx_color){ .rgba = 0x000000FF});
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
 	swap_img_buf(data);

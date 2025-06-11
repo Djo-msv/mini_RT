@@ -37,5 +37,9 @@ t_vec	cross(t_vec a, t_vec b);
 t_vec vec_neg(t_vec v);
 t_vec vec_scale(t_vec v, float s);
 
+uint8_t clamp(int x);
+uint8_t clamp_float(float value);
+
+float vec_dot(t_vec a, t_vec b);
 
 #endif

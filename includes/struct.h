@@ -18,6 +18,14 @@ typedef struct s_color
 }	t_color
 __attribute__((aligned(1)));
 
+typedef struct s_fcolor
+{
+	double	r;
+	double	g;
+	double	b;
+}	t_fcolor
+__attribute__((aligned(1)));
+
 typedef struct s_a_light
 {
 	t_color	color;
@@ -85,7 +93,7 @@ typedef struct	s_hit
 	int		type;
 	t_vec	position;
 	t_vec	normal;
-	mlx_color	color;
+	t_fcolor	color;
 }				t_hit
 __attribute__((aligned(1)));
 
@@ -103,13 +111,14 @@ __attribute__((aligned(1)));
 typedef struct s_render_image
 {
 	size_t		nb_images;
-	float		coef_new_p;
-	float		coef_old_p;
+	double		coef_new_p;
+	double		coef_old_p;
 	int			resolution;
 	bool		antialiasing;
 
-	mlx_color	*new_img;
-	mlx_color	*old_img;
+	t_fcolor	*new_img;
+	t_fcolor	*old_img;
+	mlx_color	*mlx_img;
 }	t_render_image
 __attribute__((aligned(1)));
 

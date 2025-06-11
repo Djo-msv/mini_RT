@@ -5,8 +5,8 @@ void	handle_low_resolution(t_data *data, int x, int y, int resolution)
 	int	end_x;
 	int	end_y;
 	int	base_x = x;
-	mlx_color	*image;
-	mlx_color	pixel;
+	t_fcolor	*image;
+	t_fcolor	pixel;
 
 	end_x = x + resolution;
 	end_y = y + resolution;
