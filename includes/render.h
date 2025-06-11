@@ -6,6 +6,7 @@ typedef struct	s_hit
 	float	t;
 	void	*obj;
 	int		type;
+	int		part;
 }				t_hit;
 
 float	hit_sphere(t_vec center, double radius, t_ray r);
@@ -13,6 +14,8 @@ float	hit_sphere(t_vec center, double radius, t_ray r);
 float	hit_plane(t_vec c, t_vec normal, t_ray r);
 
 float hit_cylinder(t_cylinder *cy, float rad, t_ray r);
+
+float	hit_base_cylinder(t_cylinder *cy, t_vec center, t_ray r);
 
 void	average_pixel(mlx_color *n_pixel, mlx_color o_pixel, float coef_new_p, float coef_old_p);
 

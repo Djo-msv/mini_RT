@@ -6,6 +6,7 @@ float hit_cylinder(t_cylinder *cy, float rad, t_ray r)
 	float	b;
 	float	c;
 	float	delta;
+	float	t;
 	t_vec	o_c;
 	t_vec	d_perpendicular;
 	t_vec	o_c_perpendicular;
@@ -21,5 +22,21 @@ float hit_cylinder(t_cylinder *cy, float rad, t_ray r)
 	if (delta < 0.0)
 		return (-1.0);
 	else
-		return ((-b - sqrt(delta)) / (2.0 * a));
+		t = ((-b - sqrt(delta)) / (2.0 * a));
+	o_c = vec_sub(vec_add(r.origin, vec_mul(r.direction, t)), cy->coordinate);
+	float	height;
+	height = scalar_product(o_c, cy->normal);
+	if (height < -cy->height / 2.0 || height > cy->height / 2.0)
+		return (-1.0);
+	return (t);
+}
+
+float	hit_base_cylinder(t_cylinder *cy, t_vec center, t_ray r)
+{
+	float	t;
+
+	t = hit_plane(center, cy->normal, r);
+	if (length(vec_sub(vec_add(r.origin, vec_mul(r.direction, t)), center)) <= cy->radius)
+		return (t);
+	return (-1.0);
 }

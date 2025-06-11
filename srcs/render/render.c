@@ -1,26 +1,70 @@
 #include "miniRT.h"
 
+t_hit	cylinder_part(t_cylinder *cy, t_ray ray)
+{
+	float	t1;
+	float	t2;
+	float	t3;
+	t_hit	hit;
+
+	hit.t = 0;
+	hit.obj = cy;
+	hit.type = 2;
+	hit.part = 0;
+	t1 = hit_cylinder(cy, cy->radius, ray);
+	t2 = hit_base_cylinder(cy, vec_add(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
+	t3 = hit_base_cylinder(cy, vec_sub(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
+	if (t1 < 0.0 && t2 < 0.0 && t3 < 0.0)
+	{
+		printf("bruh");
+		return (hit);
+	}
+	if (t1 > 0 && (t1 < t2 && t1 < t3))
+	{
+		printf("bruh1");
+
+		hit.t = t1;
+		hit.part = 1;
+	}
+	else if (t2 > 0 && (t2 < t1 && t2 < t3))
+	{
+		printf("bruh2");
+
+		hit.t = t2;
+		hit.part = 2;
+	}
+	else
+	{
+		printf("bruh3");
+
+		hit.t = t3;
+		hit.part = 3;
+	}
+	return (hit);
+}
+
 t_hit	nearest_cylinder(t_data *data, t_ray ray)
 {
 	t_hit		hit;
+	t_hit		n;
 	t_list		*tmp;
 	t_cylinder	*cylinder;
-	float		t;
 	
-	t = -1;
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
+	hit.part = n.part;
 	tmp = data->scene.cylinder;
 	while (tmp)
 	{
 		cylinder = (t_cylinder *)tmp->content;
-		t = hit_cylinder(cylinder, cylinder->radius, ray);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		n = cylinder_part(cylinder, ray);
+		if (n.t > 0.0f && (n.t < hit.t || hit.t == 0))
 		{
-			hit.t = t;
+			hit.t = n.t;
 			hit.obj = cylinder;
 			hit.type = 2;
+			hit.part = n.part;
 		}
 		tmp = tmp->next;
 	}
@@ -102,9 +146,18 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	return (hit);
 }
 
+int clamp(float v)
+{
+	if (v < 0)
+		return (0);
+	if (v > 255)
+		return (255);
+	return (v);
+}
+
 t_color	vec_to_color(t_vec vec)
 {
-	return ((t_color){vec.x * 255, vec.y * 255, vec.z * 255});
+	return ((t_color){clamp(vec.x * 255), clamp(vec.y * 255), clamp(vec.z * 255)});
 }
 
 t_vec	color_to_vec(t_color c)
@@ -120,14 +173,6 @@ t_vec	mul_color(t_vec c1, t_vec c2)
 t_vec	add_light(t_vec vec, float i)
 {
 	return (create_vec(vec.x + i, vec.y + i, vec.z + i));
-}
-
-t_vec	get_new_point(t_vec v, t_vec v2)
-{
-	v.x = v2.x - v.x;
-	v.y = v2.y - v.y;
-	v.z = v2.z - v.z;
-	return (v);
 }
 
 mlx_color	ray_color(t_data *data, t_ray ray)
@@ -155,7 +200,23 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 		else if (hit.type == 1)
 			normal = normalize(vec_sub(point, ((t_sphere *)hit.obj)->coordinate));
 		else
-			normal = normalize(vec_sub(point, ((t_cylinder *)hit.obj)->coordinate));
+		{
+			if (hit.part == 1)
+			{
+				t_vec	o_c;
+				t_vec	projection;
+				float	lenght;
+
+				o_c = vec_sub(point, ((t_cylinder *)hit.obj)->coordinate);
+				lenght = scalar_product(o_c, ((t_cylinder *)hit.obj)->normal);
+				projection = vec_add(((t_cylinder *)hit.obj)->coordinate, vec_mul(((t_cylinder *)hit.obj)->normal, lenght));
+				normal = normalize(vec_sub(point, projection));
+			}
+			else if (hit.part == 2)
+				normal = normalize(((t_cylinder *)hit.obj)->normal);
+			else
+				normal = vec_mul(((t_cylinder *)hit.obj)->normal, -1);
+		}
 		point = vec_add(point, vec_mul(normal, 0.00001));
 		light.origin = point;
 		light.direction = normalize(vec_sub(((t_light *)(data->scene.light->content))->coordinate, point));
@@ -164,7 +225,6 @@ mlx_color	ray_color(t_data *data, t_ray ray)
 		{
 			float	intensity;
 			intensity = scalar_product(normal, light.direction);
-			printf("%f\n", intensity);
 			if (intensity <= 0.0)
 				break ;
 			l_intensity = add_light(l_intensity, intensity);
