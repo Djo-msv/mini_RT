@@ -36,6 +36,8 @@ float	hit_base_cylinder(t_cylinder *cy, t_vec center, t_ray r)
 	float	t;
 
 	t = hit_plane(center, cy->normal, r);
+	if (t < 0.0)
+		return (-1.0);
 	if (length(vec_sub(vec_add(r.origin, vec_mul(r.direction, t)), center)) <= cy->radius)
 		return (t);
 	return (-1.0);

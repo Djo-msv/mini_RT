@@ -14,30 +14,22 @@ t_hit	cylinder_part(t_cylinder *cy, t_ray ray)
 	t1 = hit_cylinder(cy, cy->radius, ray);
 	t2 = hit_base_cylinder(cy, vec_add(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
 	t3 = hit_base_cylinder(cy, vec_sub(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
-	if (t1 < 0.0 && t2 < 0.0 && t3 < 0.0)
+	if (t1 > 0.0f && (t1 < hit.t || hit.t == 0))
 	{
-		printf("bruh");
-		return (hit);
-	}
-	if (t1 > 0 && (t1 < t2 && t1 < t3))
-	{
-		printf("bruh1");
-
 		hit.t = t1;
+		hit.type = 2;
 		hit.part = 1;
 	}
-	else if (t2 > 0 && (t2 < t1 && t2 < t3))
+	if (t2 > 0.0f && (t2 < hit.t || hit.t == 0))
 	{
-		printf("bruh2");
-
 		hit.t = t2;
+		hit.type = 2;
 		hit.part = 2;
 	}
-	else
+	if (t3 > 0.0f && (t3 < hit.t || hit.t == 0))
 	{
-		printf("bruh3");
-
 		hit.t = t3;
+		hit.type = 2;
 		hit.part = 3;
 	}
 	return (hit);
@@ -53,7 +45,7 @@ t_hit	nearest_cylinder(t_data *data, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	hit.part = n.part;
+	hit.part = 0;
 	tmp = data->scene.cylinder;
 	while (tmp)
 	{
@@ -136,6 +128,7 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
+	hit.part = 0;
 	hit = nearest_sphere(data, ray);
 	pl = nearest_plane(data, ray);
 	if (pl.t > 0.0f && (pl.t < hit.t || hit.t == 0))
