@@ -89,28 +89,33 @@ float vec_dot(t_vec a, t_vec b)
     return a.i * b.i + a.j * b.j + a.k * b.k;
 }
 
-void fcolor_to_mlxcolor(t_fcolor *src, mlx_color *dst, size_t n)
+void fcolor_to_mlxcolor(t_data *data, t_fcolor *src, mlx_color *dst, size_t n)
 {
+	double	coef_new_p = data->image.coef_new_p;
+	double	coef_old_p = data->image.coef_old_p;
+	
+
     for (size_t i = 0; i < n; ++i)
     {
-        float rf = src[i].r * 255.0f;
-        float gf = src[i].g * 255.0f;
-        float bf = src[i].b * 255.0f;
+        double rf = src[i].r * 255.0f;
+        double gf = src[i].g * 255.0f;
+        double bf = src[i].b * 255.0f;
 
-        uint8_t r = (uint8_t)(fminf(fmaxf(rf, 0.0f), 255.0f));
-        uint8_t g = (uint8_t)(fminf(fmaxf(gf, 0.0f), 255.0f));
-        uint8_t b = (uint8_t)(fminf(fmaxf(bf, 0.0f), 255.0f));
-
-        #if MLX_BYTEORDER == MLX_LITTLE_ENDIAN
-            dst[i].r = r;
-            dst[i].g = g;
-            dst[i].b = b;
-            dst[i].a = 255;
-        #else
-            dst[i].r = r;
-            dst[i].g = g;
-            dst[i].b = b;
-            dst[i].a = 255;
-        #endif
-    }
+        double r = (uint8_t)(fminf(fmaxf(rf, 0.0f), 255.0f));
+        double g = (uint8_t)(fminf(fmaxf(gf, 0.0f), 255.0f));
+        double b = (uint8_t)(fminf(fmaxf(bf, 0.0f), 255.0f));
+		if (!1)
+		{
+			dst[i].r = (uint8_t)((r * coef_old_p) + ((double)dst[i].r * coef_new_p));
+			dst[i].g = (uint8_t)((g * coef_old_p) + ((double)dst[i].g * coef_new_p));
+			dst[i].b = (uint8_t)((b * coef_old_p) + ((double)dst[i].b * coef_new_p));
+		}
+		else
+		{
+			dst[i].r = r;
+			dst[i].g = g;
+			dst[i].b = b;
+		}
+		dst[i].a = 255;
+	}
 }

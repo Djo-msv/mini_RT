@@ -138,6 +138,7 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 
 	hit = nearest_sphere(data, ray);
 	buf_hit = nearest_plane(data, ray);
+	hit.material = 0;
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
 	buf_hit = nearest_cylinder(data, ray);
@@ -151,6 +152,9 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 	{
 		hit.color = t_color_to_fcolor(((t_plane *)hit.obj)->color);
 		hit.normal = normalize(((t_plane *)hit.obj)->normal);
+		hit.material = 1;
+//		hit.normal = ((t_plane *)hit.obj)->normal;
+//		hit.normal = (t_vec){-hit.normal.i, -hit.normal.j, -hit.normal.k};
 	}
 	else if (hit.type == 1)
 	{
@@ -186,9 +190,57 @@ t_vec random_in_hemisphere(t_vec normal)
     return (scalar_product(dir, normal) > 0.0f) ? dir : vec_neg(dir);
 }
 
+t_vec cosine_weighted_hemisphere(t_vec normal)
+{
+    float r1 = drand48(); // random [0,1]
+    float r2 = drand48(); // random [0,1]
+
+    float phi = 2.0f * M_PI * r1;
+    float r = sqrtf(r2);           // sqrt pour densité cos
+    float x = r * cosf(phi);
+    float y = r * sinf(phi);
+    float z = sqrtf(1.0f - r2);    // z ~ cos(theta)
+
+    // Orthonormal basis (TBN)
+    t_vec up = (fabsf(normal.k) < 0.999f) ? (t_vec){0, 0, 1} : (t_vec){1, 0, 0};
+    t_vec tangent = normalize(cross(up, normal));
+    t_vec bitangent = cross(normal, tangent);
+
+    // Convert from local to world space
+    t_vec local = vec_add(
+        vec_add(vec_mul(tangent, x), vec_mul(bitangent, y)),
+        vec_mul(normal, z)
+    );
+    return normalize(local);
+}
+
+t_vec	reflect(t_vec v, t_vec n)
+{
+	return vec_sub(v, vec_mul(vec_mul(n, vec_dot(v, n)), 2));
+}
+
+void	plastic_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
+{
+	ray->direction = cosine_weighted_hemisphere(hit->normal);
+	ray->origin = vec_add(hit->position, vec_mul(ray->direction, 0.0001f));
+
+	float cos_theta = fmaxf(vec_dot(hit->normal, ray->direction), 0.0f);
+	*throughput = scalar_color(*throughput, hit->color);
+	*throughput = scale_mlx_color(*throughput, cos_theta);
+}
+
+void	miror_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
+{
+	ray->direction = reflect(ray->direction, hit->normal);
+	ray->origin = vec_add(hit->position, vec_mul(ray->direction, 0.0001f));
+
+	*throughput = scalar_color(*throughput, hit->color);
+}
+
 t_fcolor	shade_pixel(t_data *data, t_ray ray)
 {
 	int			depth = 0;
+	bool		direct_light = true;
 	t_fcolor	throughput = {1.0f, 1.0f, 1.0f};
 	t_fcolor	color = {0.0f, 0.0f, 0.0f};
 
@@ -199,23 +251,31 @@ t_fcolor	shade_pixel(t_data *data, t_ray ray)
 			return (add_color(color, scalar_color((t_fcolor){0.0f, 0.0f, 0.0f}, throughput)));
 		if (hit.type == 3)
 		{
-    		t_fcolor emission = scale_mlx_color(hit.color, 100.0f);
-    		return scalar_color(emission, throughput);
+    		t_fcolor emission = scale_mlx_color(hit.color, 1.0f);
+			if (!direct_light)
+	    		color = add_color(color, scalar_color(emission, throughput));
+			else
+				break;
 		}
-		ray.origin = vec_add(hit.position, vec_mul(ray.direction, 0.0001f));
-		ray.direction = random_in_hemisphere(hit.normal);
-		float cos_theta = fmaxf(vec_dot(hit.normal, ray.direction), 0.0f);
-		throughput = scalar_color(throughput, hit.color);
-		throughput = scale_mlx_color(throughput, cos_theta);
-		depth += 1;
+		if (hit.material == 0)
+		{
+			plastic_light(&hit, &ray, &throughput);
+			direct_light = false;
+		}
+		else if (hit.material == 1)
+			miror_light(&hit, &ray, &throughput);
+//		else if (hit.material == 2)
+//			metal_light();
+		depth++;
 	}
 	return (color);
 }
 
-t_fcolor	render(t_data *data, int x, int y)
+void	render(t_data *data, t_fcolor *pixel, t_vec ray_direction)
 {
 	t_setting_cam	camera;
 
 	camera = data->setting_cam;
-	return (shade_pixel(data, get_antialiasing(data, camera.ray_direction[x][y])));
+	sampling(pixel, shade_pixel(data, get_antialiasing(data, ray_direction)),
+		  data->image.coef_new_p, data->image.coef_old_p);
 }

@@ -7,11 +7,11 @@ void	handle_pixel(t_data *data, int x, int y, int resolution)
 
 	mlx = &data->mlx;
 	pos = y * mlx->info.width + x;
-	data->image.new_img[pos] = render(data, x, y);
-	if (data->image.nb_images >= 1)
-		average_pixel(&data->image.new_img[pos], \
-			data->image.old_img[pos], \
-			data->image.coef_new_p, data->image.coef_old_p);
+	render(data, &data->image.new_img[pos], data->setting_cam.ray_direction[x][y]);
+//	if (data->image.nb_images >= 1)
+//		average_pixel(&data->image.new_img[pos], \
+//			data->image.old_img[pos], \
+//			data->image.coef_new_p, data->image.coef_old_p);
 	if (resolution != 1)
 		handle_low_resolution(data, x, y, resolution);
 
@@ -34,8 +34,9 @@ void	display_screen(t_data *data)
 	mlx_window_create_info	info = data->mlx.info;
 
 	y = 0;
-	data->image.coef_new_p = ((float)data->image.nb_images / (float)(data->image.nb_images + 1));
-	data->image.coef_old_p = (1.0f / (data->image.nb_images + 1));
+	data->image.coef_new_p = ((double)data->image.nb_images / (double)(data->image.nb_images + 1));
+	data->image.coef_old_p = ((double)1.0 / (data->image.nb_images + 1));
+//	printf("%lf - %lf\n", data->image.coef_new_p, data->image.coef_old_p);
 	resolution = data->image.resolution;
 	while (y < info.height)
 	{
@@ -47,10 +48,10 @@ void	display_screen(t_data *data)
 		}
 		y += resolution;
 	}
-	fcolor_to_mlxcolor(data->image.new_img, data->image.mlx_img, info.width * info.height);
+	fcolor_to_mlxcolor(data, data->image.new_img, data->image.mlx_img, info.width * info.height);
 	mlx_set_image_region(data->mlx.mlx, data->mlx.img, 0, 0, info.width, info.height, data->image.mlx_img);
 	mlx_clear_window(data->mlx.mlx, data->mlx.win, (mlx_color){ .rgba = 0x000000FF});
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
-	swap_img_buf(data);
+//	swap_img_buf(data);
 	data->image.nb_images++;
 }

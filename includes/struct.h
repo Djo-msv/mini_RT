@@ -91,6 +91,7 @@ typedef struct	s_hit
 	float	t;
 	void	*obj;
 	int		type;
+	int		material;
 	t_vec	position;
 	t_vec	normal;
 	t_fcolor	color;

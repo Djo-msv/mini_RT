@@ -59,7 +59,7 @@ void	calcule_scene(t_data *data, t_setting_cam *scene)
 	scene->focal_length = 1.0f;
 	scene->viewport_height = 2.0f;
 	scene->viewport_width = scene->viewport_height * scene->ratio;
-	scene->camera_center = create_vec(0, 0, 0);
+//	scene->camera_center = create_vec(0, 0, 0);
 }
 
 void	setup_camera_setting(t_data *data)
