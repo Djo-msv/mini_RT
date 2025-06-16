@@ -64,19 +64,20 @@ void	move_camera_down(t_data *data, t_setting_cam *cam)
 
 void	change_obj(t_data *d)
 {
-	t_ray ray = create_ray(d->setting_cam.camera_center, d->setting_cam.camera_center);
+	t_ray ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
 	t_hit hit;
 
 	hit = nearest_obj(d, ray);
 	if (hit.t <= 0)
-	{
-		printf("cc");
 		return ;
-	}
-	if (hit.type == 2)
+	if (hit.type == 1)
 	{
-		((t_cylinder *)hit.obj)->normal = vec_add(((t_cylinder *)hit.obj)->normal, create_vec(0.1, 0.0, 0.0));
-		printf("ccq");
+		// t_list	*tmp;
+		// tmp = (t_list *)hit.obj;
+		// d->scene.cylinder = tmp->next;
+		// ft_lstdelone(tmp, free);
+		ft_lstclear(&d->scene.sphere, free);
+		// ((t_cylinder *)hit.obj)->normal = vec_add(((t_cylinder *)hit.obj)->normal, create_vec(0.0, 0.0, 0.1));
 	}
 }
 
@@ -139,10 +140,7 @@ void mouse_hook(int button, void* param)
 		change_mode(data);
 	}
 	if (button == 1)
-	{
-		printf("yes");
 		change_obj((t_data *)param);
-	}
 }
 
 void mouse_wheel_hook(int button, void* param)
