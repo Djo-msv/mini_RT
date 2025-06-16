@@ -9,6 +9,8 @@ typedef struct	s_hit
 	int		part;
 }				t_hit;
 
+t_hit	nearest_obj(t_data *data, t_ray ray);
+
 float	hit_sphere(t_vec center, double radius, t_ray r);
 
 float	hit_plane(t_vec c, t_vec normal, t_ray r);

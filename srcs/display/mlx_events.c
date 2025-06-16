@@ -62,6 +62,24 @@ void	move_camera_down(t_data *data, t_setting_cam *cam)
 	angle_camera(data, cam->pitch, cam->yaw);
 }
 
+void	change_obj(t_data *d)
+{
+	t_ray ray = create_ray(d->setting_cam.camera_center, d->setting_cam.camera_center);
+	t_hit hit;
+
+	hit = nearest_obj(d, ray);
+	if (hit.t <= 0)
+	{
+		printf("cc");
+		return ;
+	}
+	if (hit.type == 2)
+	{
+		((t_cylinder *)hit.obj)->normal = vec_add(((t_cylinder *)hit.obj)->normal, create_vec(0.1, 0.0, 0.0));
+		printf("ccq");
+	}
+}
+
 void key_hook(int key, void* param)
 {
 	static bool	fullscreen = false;
@@ -119,6 +137,11 @@ void mouse_hook(int button, void* param)
 	{
 		data->setting_cam.move = !data->setting_cam.move;
 		change_mode(data);
+	}
+	if (button == 1)
+	{
+		printf("yes");
+		change_obj((t_data *)param);
 	}
 }
 
