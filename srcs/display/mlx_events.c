@@ -62,6 +62,30 @@ void	move_camera_down(t_data *data, t_setting_cam *cam)
 	angle_camera(data, cam->pitch, cam->yaw);
 }
 
+void	delete_one(t_list **list, void *obj)
+{
+	t_list	*lst;
+	t_list	*prev;
+
+	prev = NULL;
+	lst = *list;
+	while (lst)
+	{
+		if (lst->content == obj)
+		{
+			if (prev)
+				prev->next = lst->next;
+			else
+				*list = lst->next;
+			ft_lstdelone(lst, free);
+			return ;
+		}
+		prev = lst;
+		lst = lst->next;
+	}
+}
+
+
 void	change_obj(t_data *d)
 {
 	t_ray ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
@@ -72,13 +96,12 @@ void	change_obj(t_data *d)
 		return ;
 	if (hit.type == 1)
 	{
-		// t_list	*tmp;
-		// tmp = (t_list *)hit.obj;
-		// d->scene.cylinder = tmp->next;
-		// ft_lstdelone(tmp, free);
-		ft_lstclear(&d->scene.sphere, free);
-		// ((t_cylinder *)hit.obj)->normal = vec_add(((t_cylinder *)hit.obj)->normal, create_vec(0.0, 0.0, 0.1));
+		delete_one(&d->scene.sphere, hit.obj);
 	}
+	if (hit.type == 2)
+		delete_one(&d->scene.cylinder, hit.obj);
+	// ((t_cylinder *)hit.obj)->normal = vec_add(((t_cylinder *)hit.obj)->normal, create_vec(0.0, 0.0, 0.1));
+
 }
 
 void key_hook(int key, void* param)
