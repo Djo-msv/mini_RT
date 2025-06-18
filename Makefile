@@ -3,7 +3,7 @@ MAKEFLAGS += --no-print-directory
 
 #==============================COMPIL===========================#
 
-CC = cc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror
 
 ifeq ($(DEBUG), 1)
@@ -70,34 +70,34 @@ LIBRT_DIR		:=	lib_RT
 #==============================SOURCES===========================#
 
 SRCS_FILES:=	main.c \
-				display/mlx_events.c \
-				display/mlx_image.c \
-				display/mlx_loop.c \
-				display/mlx_screen.c \
-				display/mlx_setting.c \
-				display/mlx_setup.c \
-				display/mlx_mouse.c \
-				math/equation.c \
-				math/vector.c \
-				math/ray.c \
-				parsing/parse_cam_light.c \
-				parsing/parse_sphere_plane.c \
-				parsing/parsing.c \
-				parsing/scene.c \
-				parsing/print_scene.c	\
-				parsing/verif_utils.c \
-				parsing/verif_float.c	\
-				parsing/parse_cylinder.c	\
-				render/shape/cylinder.c \
-				render/shape/plane.c \
-				render/shape/sphere.c \
-				render/antialiasing.c \
-				render/camera.c \
-				render/make_average_pixel.c \
-				render/render.c \
-				render/resolution.c \
-				render/setup_render.c \
-				utils/free.c
+		display/display_screen.c \
+		display/make_average_pixel.c \
+		display/resolution.c \
+		math/color.c \
+		math/ray.c \
+		math/vector.c \
+		mlx/mlx_events.c \
+		mlx/mlx_loop.c \
+		mlx/mlx_mouse.c \
+		mlx/mlx_setup.c \
+		parsing/parse_cam_light.c \
+		parsing/parse_sphere_plane.c \
+		parsing/parsing.c \
+		parsing/scene.c \
+		parsing/verif_utils.c \
+		parsing/verif_float.c	\
+		parsing/parse_cylinder.c	\
+		render/shape/cylinder.c \
+		render/shape/plane.c \
+		render/shape/sphere.c \
+		render/nearest_obj.c \
+		render/pathtracing.c \
+		render/raytracing.c \
+		render/render.c \
+		utils/alloc.c \
+		view/angle_camera.c \
+		view/move_camera.c \
+		view/setup_camera.c
 
 #SRCS_FILES_BONUS:=
 

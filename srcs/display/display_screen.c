@@ -36,7 +36,6 @@ void	display_screen(t_data *data)
 	y = 0;
 	data->image.coef_new_p = ((double)data->image.nb_images / (double)(data->image.nb_images + 1));
 	data->image.coef_old_p = ((double)1.0 / (data->image.nb_images + 1));
-//	printf("%lf - %lf\n", data->image.coef_new_p, data->image.coef_old_p);
 	resolution = data->image.resolution;
 	while (y < info.height)
 	{

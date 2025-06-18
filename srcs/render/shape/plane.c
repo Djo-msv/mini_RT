@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-float hit_plane(t_coordinate c, t_vec normal, t_ray r)
+float hit_plane(t_vec c, t_vec normal, t_ray r)
 {
 	float	t;
 	float	denominator;

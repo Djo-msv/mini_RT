@@ -13,7 +13,7 @@ void	fps_cnt(void)
 
 	frames++;
 
-	if (currentTime - lastTime >= 1.0) // 1 seconde écoulée
+	if (currentTime - lastTime >= 1.0)
 	{
 		fps = frames / (currentTime - lastTime);
 		printf("FPS: %.2f\n", fps);
@@ -31,7 +31,6 @@ void	update_ray(t_data *data)
 
 void update(void* param)
 {
-	(void)param;
 	update_ray((t_data *)param);
 	mouse((t_data *)param);
 	display_screen((t_data *)param);
@@ -45,5 +44,4 @@ void	run_minirt(t_data *data)
 	mlx = &data->mlx;
 	mlx_add_loop_hook(mlx->mlx, update, data);
 	mlx_loop(mlx->mlx);
-	free_data(data);
 }

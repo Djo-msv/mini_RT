@@ -1,6 +1,6 @@
 #include "miniRT.h"
 
-float hit_sphere(t_coordinate center, double radius, t_ray r)
+float hit_sphere(t_vec center, double radius, t_ray r)
 {
     t_vec oc = vec_sub((t_vec){center.x, center.y, center.z}, r.origin);
     float a = scalar_product(r.direction, r.direction);

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 15:46:26 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/28 19:12:19 by nrolland         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -23,12 +11,17 @@
 # include "../MacroLibX/includes/mlx.h"
 # include "../MacroLibX/includes/mlx_extended.h"
 
-# include "math_rt.h"
-# include "struct.h"
-# include "render.h"
-# include "display.h"
-# include "utils.h"
+# include "color.h"
+# include "vector.h"
+# include "objet.h"
+# include "setup.h"
 # include "parsing.h"
+# include "alloc.h"
+# include "mlx.h"
+# include "render.h"
+# include "camera.h"
 
+# define MAX_RES_H 1920;
+# define MAX_RES_V 1080;
 
 #endif
