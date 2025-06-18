@@ -14,7 +14,7 @@ int	main(int argc, char **argv)
 	if (parse(&data, argc, argv))
 		return (1);
 	setup_minirt(&data);
-//	run_minirt(&data);
+	run_minirt(&data);
 	free_data(&data);
 	return(0);
 }

@@ -41,8 +41,6 @@ void window_hook(int event, void* param)
 	if (event == 8)
 	{
 		mlx_get_window_size(mlx->mlx, mlx->win, &mlx->info.width, &mlx->info.height);
-		new_image((t_data *)param, mlx);
-		ft_free_2d_tab((void **)((t_data *)param)->setting_cam.ray_direction);
 		setup_camera_setting((t_data *)param);
 	}
 }

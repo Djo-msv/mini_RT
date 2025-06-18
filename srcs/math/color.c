@@ -20,7 +20,13 @@ t_fcolor scalar_color(t_fcolor c1, t_fcolor c2)
 	return ((t_fcolor){c1.r * c2.r, c1.g * c2.g, c1.b * c2.b});
 }
 
-void fcolor_to_mlxcolor(t_data *data, t_fcolor *src, mlx_color *dst, size_t n)
+
+t_fcolor	mlxcolor_to_fcolor(mlx_color color)
+{
+	return ((t_fcolor){color.r / 255.0f, color.g / 255.0f, color.b / 255.0f});
+}
+
+void	fcolor_to_mlxcolor(t_data *data, t_fcolor *src, mlx_color *dst, size_t n)
 {
 	double	coef_new_p = data->image.coef_new_p;
 	double	coef_old_p = data->image.coef_old_p;

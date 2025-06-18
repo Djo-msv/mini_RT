@@ -11,17 +11,22 @@
 # include "../MacroLibX/includes/mlx.h"
 # include "../MacroLibX/includes/mlx_extended.h"
 
-# include "color.h"
 # include "vector.h"
 # include "objet.h"
 # include "setup.h"
+# include "render.h"
+# include "color.h"
+# include "display.h"
+# include "camera.h"
+# include "mlx.h"
 # include "parsing.h"
 # include "alloc.h"
-# include "mlx.h"
-# include "render.h"
-# include "camera.h"
 
-# define MAX_RES_H 1920;
-# define MAX_RES_V 1080;
+# define MAX_RES_H 1920
+# define MAX_RES_V 1080
+
+t_hit	nearest_cylinder(t_data *data, t_ray ray);
+t_hit	nearest_sphere(t_data *data, t_ray ray);
+t_hit	nearest_plane(t_data *data, t_ray ray);
 
 #endif

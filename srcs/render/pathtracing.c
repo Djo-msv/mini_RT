@@ -1,4 +1,4 @@
-#include "miniRT"
+#include "miniRT.h"
 
 t_vec cosine_weighted_hemisphere(t_vec normal)
 {
@@ -11,7 +11,7 @@ t_vec cosine_weighted_hemisphere(t_vec normal)
     float y = r * sinf(phi);
     float z = sqrtf(1.0f - r2);
 
-    t_vec up = (fabsf(normal.k) < 0.999f) ? (t_vec){0, 0, 1} : (t_vec){1, 0, 0};
+    t_vec up = (fabsf(normal.z) < 0.999f) ? (t_vec){0, 0, 1} : (t_vec){1, 0, 0};
     t_vec tangent = normalize(cross(up, normal));
     t_vec bitangent = cross(normal, tangent);
 
@@ -24,7 +24,7 @@ t_vec cosine_weighted_hemisphere(t_vec normal)
 
 t_vec	reflect(t_vec v, t_vec n)
 {
-	return vec_sub(v, vec_mul(vec_mul(n, vec_dot(v, n)), 2));
+	return vec_sub(v, vec_mul(vec_mul(n, scalar_product(v, n)), 2));
 }
 
 void	plastic_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
@@ -32,7 +32,7 @@ void	plastic_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
 	ray->direction = cosine_weighted_hemisphere(hit->normal);
 	ray->origin = vec_add(hit->position, vec_mul(ray->direction, 0.0001f));
 
-	float cos_theta = fmaxf(vec_dot(hit->normal, ray->direction), 0.0f);
+	float cos_theta = fmaxf(scalar_product(hit->normal, ray->direction), 0.0f);
 	*throughput = scalar_color(*throughput, hit->color);
 	*throughput = scale_mlx_color(*throughput, cos_theta);
 }
@@ -45,7 +45,7 @@ void	miror_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
 	*throughput = scalar_color(*throughput, hit->color);
 }
 
-t_fcolor	shade_pixel(t_data *data, t_ray ray)
+t_fcolor	shade_pathtracing_pixel(t_data *data, t_ray ray)
 {
 	int			depth = 0;
 	bool		direct_light = true;
