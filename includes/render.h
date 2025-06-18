@@ -1,14 +1,6 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-typedef struct	s_hit
-{
-	float	t;
-	void	*obj;
-	int		type;
-	int		part;
-}				t_hit;
-
 t_hit	nearest_obj(t_data *data, t_ray ray);
 
 float	hit_sphere(t_vec center, double radius, t_ray r);

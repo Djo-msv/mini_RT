@@ -1,6 +1,14 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
+typedef struct	s_hit
+{
+	float	t;
+	void	*obj;
+	int		type;
+	int		part;
+}				t_hit;
+
 typedef struct s_mlx
 {
 	mlx_context				mlx;
@@ -95,6 +103,7 @@ typedef struct s_scene
 	t_list		*sphere;
 	t_list		*plane;
 	t_list		*cylinder;
+	t_hit		select;
 }	t_scene
 __attribute__((aligned(1)));
 

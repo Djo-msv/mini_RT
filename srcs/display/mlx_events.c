@@ -85,21 +85,29 @@ void	delete_one(t_list **list, void *obj)
 	}
 }
 
-
-void	change_obj(t_data *d)
+void	destroy_obj(t_data *d, t_hit select)
 {
-	t_ray ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
-	t_hit hit;
+	if (select.type == 1)
+		delete_one(&d->scene.sphere, select.obj);
+	else if (select.type == 2)
+		delete_one(&d->scene.cylinder, select.obj);
+	else
+		delete_one(&d->scene.plane, select.obj);
+	d->image.nb_images = 0;
+}
 
-	hit = nearest_obj(d, ray);
-	if (hit.t <= 0)
-		return ;
-	if (hit.type == 1)
+void	change_obj(t_data *d, t_hit select, int key)
+{
+	if (key == 79)
+	if (key == 80)
+	if (key == 82)
+	if (key == 41)
+	if (select.type == 1)
 	{
-		delete_one(&d->scene.sphere, hit.obj);
+		delete_one(&d->scene.sphere, select.obj);
 	}
-	if (hit.type == 2)
-		delete_one(&d->scene.cylinder, hit.obj);
+	if (select.type == 2)
+		delete_one(&d->scene.cylinder, select.obj);
 	// ((t_cylinder *)hit.obj)->normal = vec_add(((t_cylinder *)hit.obj)->normal, create_vec(0.0, 0.0, 0.1));
 
 }
@@ -133,6 +141,8 @@ void key_hook(int key, void* param)
 	}
 	if (key == 43)
 		change_antialiasing_mode((t_data *)param);
+	if (!(((t_data *)param)->scene.select.t <= 0))
+		change_obj((t_data *)param, ((t_data *)param)->scene.select, key);
 	printf("->%d\n", key);
 }
 
@@ -152,6 +162,28 @@ void window_hook(int event, void* param)
 	}
 }
 
+void	handle_select_obj(t_data *d)
+{
+	t_ray	ray;
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	if (d->setting_cam.move)
+		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
+	else
+	{
+		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
+		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.ray_direction[x][y]);
+	}
+	d->scene.select = nearest_obj(d, ray);
+	if (d->scene.select.t <= 0)
+		return ;
+	if (d->setting_cam.move)
+		destroy_obj(d, d->scene.select);
+}
+
 void mouse_hook(int button, void* param)
 {
 	t_data	*data = (t_data *)param;
@@ -163,7 +195,7 @@ void mouse_hook(int button, void* param)
 		change_mode(data);
 	}
 	if (button == 1)
-		change_obj((t_data *)param);
+		handle_select_obj(data);
 }
 
 void mouse_wheel_hook(int button, void* param)
@@ -181,5 +213,4 @@ void mouse_wheel_hook(int button, void* param)
 		data->image.nb_images = 0;
 		calcule_res(data, &data->setting_cam);
 	}
-
 }
