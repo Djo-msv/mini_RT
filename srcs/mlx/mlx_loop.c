@@ -31,9 +31,10 @@ void	update_ray(t_data *data)
 
 void update(void* param)
 {
-	update_ray((t_data *)param);
-	mouse((t_data *)param);
-	display_screen((t_data *)param);
+//	update_ray((t_data *)param);
+//	mouse((t_data *)param);
+//	display_screen((t_data *)param);
+	(void)param;
 	fps_cnt();
 }
 
@@ -42,6 +43,7 @@ void	run_minirt(t_data *data)
 	t_mlx	*mlx;
 
 	mlx = &data->mlx;
+	init_thread(data);
 	mlx_add_loop_hook(mlx->mlx, update, data);
 	mlx_loop(mlx->mlx);
 }

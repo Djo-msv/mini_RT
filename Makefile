@@ -96,7 +96,10 @@ SRCS_FILES:=	main.c \
 		render/pathtracing.c \
 		render/raytracing.c \
 		render/render.c \
+		thread/setup_thread.c \
+		thread/run_thread.c \
 		utils/alloc.c \
+		utils/alloc_thread.c \
 		view/angle_camera.c \
 		view/move_camera.c \
 		view/setup_camera.c

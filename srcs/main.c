@@ -3,6 +3,9 @@
 void		setup_minirt(t_data *data)
 {
 	setup_mlx(data);
+	alloc_thread(data);
+	if (!data->thread)
+		printf("caca\n");
 	setup_camera_setting(data);
 }
 

@@ -67,9 +67,10 @@ __attribute__((aligned(1)));
 
 typedef struct s_data
 {
-	struct s_mlx		mlx;
-	struct s_scene		scene;
+	struct s_mlx			mlx;
+	struct s_scene			scene;
 	struct s_setting_cam	setting_cam;
+	struct s_thread			*thread;
 	struct s_image	image;
 }t_data
 __attribute__((aligned(1)));
