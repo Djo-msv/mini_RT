@@ -104,6 +104,7 @@ typedef struct s_scene
 	t_list		*plane;
 	t_list		*cylinder;
 	t_hit		select;
+	int			mode_up;
 }	t_scene
 __attribute__((aligned(1)));
 

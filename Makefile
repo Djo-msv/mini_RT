@@ -3,7 +3,7 @@ MAKEFLAGS += --no-print-directory
 
 #==============================COMPIL===========================#
 
-CC = cc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror
 
 ifeq ($(DEBUG), 1)

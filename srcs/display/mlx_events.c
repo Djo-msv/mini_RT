@@ -62,6 +62,75 @@ void	move_camera_down(t_data *data, t_setting_cam *cam)
 	angle_camera(data, cam->pitch, cam->yaw);
 }
 
+void	move_obj_x(t_data *d, t_hit select, int is_left)
+{
+	if (!is_left)
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->coordinate.x += 0.1f;
+		if (select.type == 1)
+			((t_sphere *)select.obj)->coordinate.x += 0.1f;
+		else
+			((t_cylinder *)select.obj)->coordinate.x += 0.1f;
+	}
+	else
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->coordinate.x -= 0.1f;
+		if (select.type == 1)
+			((t_sphere *)select.obj)->coordinate.x -= 0.1f;
+		else
+			((t_cylinder *)select.obj)->coordinate.x -= 0.1f;
+	}
+	d->image.nb_images = 0;
+}
+
+void	move_obj_z(t_data *d, t_hit select, int is_forward)
+{
+	if (is_forward)
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->coordinate.z += 0.1f;
+		if (select.type == 1)
+			((t_sphere *)select.obj)->coordinate.z += 0.1f;
+		else
+			((t_cylinder *)select.obj)->coordinate.z += 0.1f;
+	}
+	else
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->coordinate.z -= 0.1f;
+		if (select.type == 1)
+			((t_sphere *)select.obj)->coordinate.z -= 0.1f;
+		else
+			((t_cylinder *)select.obj)->coordinate.z -= 0.1f;
+	}
+	d->image.nb_images = 0;
+}
+
+void	move_obj_y(t_data *d, t_hit select, int is_up)
+{
+	if (is_up)
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->coordinate.y += 0.1f;
+		if (select.type == 1)
+			((t_sphere *)select.obj)->coordinate.y += 0.1f;
+		else
+			((t_cylinder *)select.obj)->coordinate.y += 0.1f;
+	}
+	else
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->coordinate.y -= 0.1f;
+		if (select.type == 1)
+			((t_sphere *)select.obj)->coordinate.y -= 0.1f;
+		else
+			((t_cylinder *)select.obj)->coordinate.y -= 0.1f;
+	}
+	d->image.nb_images = 0;
+}
+
 void	delete_one(t_list **list, void *obj)
 {
 	t_list	*lst;
@@ -96,20 +165,28 @@ void	destroy_obj(t_data *d, t_hit select)
 	d->image.nb_images = 0;
 }
 
+
+
 void	change_obj(t_data *d, t_hit select, int key)
 {
-	if (key == 79)
-	if (key == 80)
-	if (key == 82)
-	if (key == 41)
-	if (select.type == 1)
+	if (d->scene.mode_up)
 	{
-		delete_one(&d->scene.sphere, select.obj);
+		if (key == 82)
+			move_obj_y(d, select, 1);
+		if (key == 81)
+			move_obj_y(d, select, 0);
 	}
-	if (select.type == 2)
-		delete_one(&d->scene.cylinder, select.obj);
-	// ((t_cylinder *)hit.obj)->normal = vec_add(((t_cylinder *)hit.obj)->normal, create_vec(0.0, 0.0, 0.1));
-
+	else
+	{
+		if (key == 79)
+			move_obj_x(d, select, 0);
+		if (key == 80)
+			move_obj_x(d, select, 1);
+		if (key == 82)
+			move_obj_z(d, select, 1);
+		if (key == 81)
+			move_obj_z(d, select, 0);
+	}
 }
 
 void key_hook(int key, void* param)
@@ -143,6 +220,8 @@ void key_hook(int key, void* param)
 		change_antialiasing_mode((t_data *)param);
 	if (!(((t_data *)param)->scene.select.t <= 0))
 		change_obj((t_data *)param, ((t_data *)param)->scene.select, key);
+	if (key == 51)
+		((t_data *)param)->scene.mode_up = !((t_data *)param)->scene.mode_up;
 	printf("->%d\n", key);
 }
 
