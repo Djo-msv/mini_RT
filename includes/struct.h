@@ -95,6 +95,14 @@ typedef struct s_cylinder
 }	t_cylinder
 __attribute__((aligned(1)));
 
+typedef struct s_select
+{
+	t_hit		hit;
+	int			up_mode;
+	int			rotate_mode;
+}				t_select
+__attribute__((aligned(1)));
+
 typedef struct s_scene
 {
 	t_a_light	a_light;
@@ -103,8 +111,7 @@ typedef struct s_scene
 	t_list		*sphere;
 	t_list		*plane;
 	t_list		*cylinder;
-	t_hit		select;
-	int			mode_up;
+	t_select	select;
 }	t_scene
 __attribute__((aligned(1)));
 

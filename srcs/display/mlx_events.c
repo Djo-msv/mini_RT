@@ -85,6 +85,63 @@ void	move_obj_x(t_data *d, t_hit select, int is_left)
 	d->image.nb_images = 0;
 }
 
+void	rotate_obj_x(t_data *d, t_hit select, int is_left)
+{
+	if (!is_left)
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->normal.x += 0.1f;
+		else if (select.type == 2)
+			((t_cylinder *)select.obj)->normal.x += 0.1f;
+	}
+	else
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->normal.x -= 0.1f;
+		else if (select.type == 2)
+			((t_cylinder *)select.obj)->normal.x -= 0.1f;
+	}
+	d->image.nb_images = 0;
+}
+
+void	rotate_obj_z(t_data *d, t_hit select, int is_left)
+{
+	if (!is_left)
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->normal.z += 0.1f;
+		else if (select.type == 2)
+			((t_cylinder *)select.obj)->normal.z += 0.1f;
+	}
+	else
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->normal.z -= 0.1f;
+		else if (select.type == 2)
+			((t_cylinder *)select.obj)->normal.z -= 0.1f;
+	}
+	d->image.nb_images = 0;
+}
+
+void	rotate_obj_y(t_data *d, t_hit select, int is_left)
+{
+	if (!is_left)
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->normal.y += 0.1f;
+		else if (select.type == 2)
+			((t_cylinder *)select.obj)->normal.y += 0.1f;
+	}
+	else
+	{
+		if (select.type == 0)
+			((t_plane *)select.obj)->normal.y -= 0.1f;
+		else if (select.type == 2)
+			((t_cylinder *)select.obj)->normal.y -= 0.1f;
+	}
+	d->image.nb_images = 0;
+}
+
 void	move_obj_z(t_data *d, t_hit select, int is_forward)
 {
 	if (is_forward)
@@ -167,25 +224,40 @@ void	destroy_obj(t_data *d, t_hit select)
 
 
 
+
 void	change_obj(t_data *d, t_hit select, int key)
 {
-	if (d->scene.mode_up)
+	if (d->scene.select.rotate_mode)
 	{
+		if (key == 79)
+			rotate_obj_x(d, select, 0);
+		if (key == 80)
+			rotate_obj_x(d, select, 1);
 		if (key == 82)
-			move_obj_y(d, select, 1);
+			rotate_obj_z(d, select, 1);
 		if (key == 81)
-			move_obj_y(d, select, 0);
+			rotate_obj_z(d, select, 0);
 	}
 	else
 	{
-		if (key == 79)
-			move_obj_x(d, select, 0);
-		if (key == 80)
-			move_obj_x(d, select, 1);
-		if (key == 82)
-			move_obj_z(d, select, 1);
-		if (key == 81)
-			move_obj_z(d, select, 0);
+		if (d->scene.select.up_mode)
+		{
+			if (key == 82)
+				move_obj_y(d, select, 1);
+			if (key == 81)
+				move_obj_y(d, select, 0);
+		}
+		else
+		{
+			if (key == 79)
+				move_obj_x(d, select, 0);
+			if (key == 80)
+				move_obj_x(d, select, 1);
+			if (key == 82)
+				move_obj_z(d, select, 1);
+			if (key == 81)
+				move_obj_z(d, select, 0);
+		}
 	}
 }
 
@@ -218,10 +290,12 @@ void key_hook(int key, void* param)
 	}
 	if (key == 43)
 		change_antialiasing_mode((t_data *)param);
-	if (!(((t_data *)param)->scene.select.t <= 0))
-		change_obj((t_data *)param, ((t_data *)param)->scene.select, key);
+	if (!(((t_data *)param)->scene.select.hit.t <= 0))
+		change_obj((t_data *)param, ((t_data *)param)->scene.select.hit, key);
 	if (key == 51)
-		((t_data *)param)->scene.mode_up = !((t_data *)param)->scene.mode_up;
+		((t_data *)param)->scene.select.up_mode = !((t_data *)param)->scene.select.up_mode;
+	if (key == 21)
+		((t_data *)param)->scene.select.rotate_mode = !((t_data *)param)->scene.select.rotate_mode;
 	printf("->%d\n", key);
 }
 
@@ -256,11 +330,11 @@ void	handle_select_obj(t_data *d)
 		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
 		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.ray_direction[x][y]);
 	}
-	d->scene.select = nearest_obj(d, ray);
-	if (d->scene.select.t <= 0)
+	d->scene.select.hit = nearest_obj(d, ray);
+	if (d->scene.select.hit.t <= 0)
 		return ;
 	if (d->setting_cam.move)
-		destroy_obj(d, d->scene.select);
+		destroy_obj(d, d->scene.select.hit);
 }
 
 void mouse_hook(int button, void* param)
