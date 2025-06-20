@@ -1,19 +1,6 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-typedef struct	s_hit
-{
-	float	t;
-	void	*obj;
-	int		type;
-	int		material;
-	int		part;
-	t_vec	position;
-	t_vec	normal;
-	t_fcolor	color;
-}	t_hit
-__attribute__((aligned(1)));
-
 void		render(t_data *data, t_fcolor *pixel, t_vec ray_direction);
 
 t_hit		intersectScene(t_data *data, t_ray ray);

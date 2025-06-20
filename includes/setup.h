@@ -11,6 +11,19 @@ __attribute__((aligned(1)));
 
 # include "image.h"
 
+typedef struct	s_hit
+{
+	float	t;
+	void	*obj;
+	int		type;
+	int		material;
+	int		part;
+	t_vec	position;
+	t_vec	normal;
+	t_fcolor	color;
+}	t_hit
+__attribute__((aligned(1)));
+
 typedef struct s_setting_cam
 {
 	float	ratio;
@@ -45,6 +58,14 @@ typedef struct s_setting_cam
 }	t_setting_cam
 __attribute__((aligned(1)));
 
+typedef struct s_select
+{
+	t_hit		hit;
+	int			up_mode;
+	int			rotate_mode;
+}				t_select
+__attribute__((aligned(1)));
+
 typedef struct s_scene
 {
 	t_a_light	a_light;
@@ -53,6 +74,7 @@ typedef struct s_scene
 	t_list		*sphere;
 	t_list		*plane;
 	t_list		*cylinder;
+	t_select	select;
 }	t_scene
 __attribute__((aligned(1)));
 
