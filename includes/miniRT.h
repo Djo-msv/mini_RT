@@ -7,6 +7,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <pthread.h>
+# include <stdatomic.h>
 
 # include "../lib_RT/includes/lib_rt.h"
 # include "../MacroLibX/includes/mlx.h"

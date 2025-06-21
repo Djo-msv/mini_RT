@@ -46,4 +46,5 @@ void	run_minirt(t_data *data)
 	init_thread(data);
 	mlx_add_loop_hook(mlx->mlx, update, data);
 	mlx_loop(mlx->mlx);
+	kill_thread(data->thread);
 }

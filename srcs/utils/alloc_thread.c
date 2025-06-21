@@ -1,5 +1,15 @@
 #include "miniRT.h"
 
+void	calculate_thread_buffer(t_data *data)
+{
+	t_thread	*thread = data->thread;
+
+	while (thread->next)
+	{
+		atomic_store(&thread->should_break, true);
+		thread = thread->next;
+	}
+}
 
 t_thread	*create_node(t_data *data, int id)
 {
@@ -17,6 +27,8 @@ t_thread	*create_node(t_data *data, int id)
 	node->x_max = 0;
 	node->y_min = 0;
 	node->y_max = 0;
+	node->run = true;
+	node->should_break = false;
 	node->next = NULL;
 	node->thread_t = 0;
 	return (node);
@@ -55,6 +67,9 @@ void	alloc_thread(t_data *data)
 	i = 0;
 	chained_list = NULL;
 	while (i != NB_THREAD)
+	{
+		printf("%d\n", i);
 		new_node(data, &chained_list, i++);
+	}
 	data->thread = chained_list;
 }

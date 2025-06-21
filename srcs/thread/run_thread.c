@@ -5,11 +5,10 @@ void	*rt_thread(void *list)
 	t_thread	*thread;
 
 	thread = (t_thread *)list;
+//	char c = thread->id + '0';
 	while (true)
 	{
 //		run image
-		sleep(1);
-		printf("-> %d\n", thread->id);
 		if (stop_rt(thread))
 			break ;
 	}
