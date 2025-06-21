@@ -9,7 +9,7 @@ void	setup_mlx_window(t_mlx *mlx)
 	mlx->info.is_fullscreen = false;
 	mlx->win = mlx_new_window(mlx->mlx, &mlx->info);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
-	mlx_set_window_max_size(mlx->mlx, mlx->win, MAX_RES_V, MAX_RES_H);
+	mlx_set_window_max_size(mlx->mlx, mlx->win, MAX_RES_H, MAX_RES_V);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
 //	mlx_set_fps_goal(mlx->mlx, 60);
 }
