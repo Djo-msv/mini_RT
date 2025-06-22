@@ -16,10 +16,10 @@ void	alloc_thread_ray(t_thread *thread)
 	int		x;
 
 	x = 0;
-	thread->ray_direction = malloc(MAX_RES_H * sizeof(t_vec *));
-	while (x != MAX_RES_H)
+	thread->ray_direction = malloc(((MAX_RES_V / NB_THREAD) + NB_THREAD + 1) * sizeof(t_vec *));
+	while (x != ((MAX_RES_V / NB_THREAD) + NB_THREAD))
 	{
-		thread->ray_direction[x] = malloc(((MAX_RES_V / NB_THREAD) + NB_THREAD) * sizeof(t_vec));
+		thread->ray_direction[x] = malloc(MAX_RES_H * sizeof(t_vec));
 		x++;
 	}
 }

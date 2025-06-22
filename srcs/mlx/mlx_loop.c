@@ -32,7 +32,7 @@ void	update_ray(t_data *data)
 void update(void* param)
 {
 //	update_ray((t_data *)param);
-//	mouse((t_data *)param);
+	mouse((t_data *)param);
 	display_screen((t_data *)param);
 	(void)param;
 //	fps_cnt();

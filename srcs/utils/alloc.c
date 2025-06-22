@@ -11,6 +11,9 @@ void	free_thread(t_thread *thread)
 		to_kill = thread;
 		thread = thread->next;
 		pthread_rwlock_destroy(to_kill->run_mutex);
+		ft_free_2d_tab((void **)to_kill->ray_direction);
+		free(to_kill->buffer_a);
+		free(to_kill->buffer_b);
 		free(to_kill);
 	}
 }
@@ -21,7 +24,7 @@ void	free_data(t_data *data)
 	free(data->image.old_img);
 	free(data->image.mlx_img);
 	free_thread(data->thread);
-	ft_free_2d_tab((void **)data->setting_cam.ray_direction);
+//	ft_free_2d_tab((void **)data->setting_cam.ray_direction);
 	ft_lstclear(&data->scene.light, free);
 	ft_lstclear(&data->scene.cylinder, free);
 	ft_lstclear(&data->scene.plane, free);

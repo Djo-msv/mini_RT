@@ -26,27 +26,28 @@ t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 	return ((t_fcolor){color.r / 255.0f, color.g / 255.0f, color.b / 255.0f});
 }
 
-void	fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
+void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 {
-	int			x;
-	int			y;
-	int			z;
+    int width = data->setting_cam.width;
+    t_thread *thread = data->thread;
 
-	t_thread	*thread = data->thread;
+    while (thread)
+    {
+        int y_local;
+        for (y_local = 0; y_local < (thread->y_max - thread->y_min); y_local++)
+        {
+            int y_global = thread->y_min + y_local;
+            for (int x = 0; x < width; x++)
+            {
+                int local_index = y_local * width + x;
+                int global_index = y_global * width + x;
 
-	while (thread)
-	{
-		y = thread->y_min * thread->x;
-		x = thread->y_max * thread->x;
-		z = y;
-		while (y != x)
-		{
-			dst[y].r = thread->buffer_b[y - z].r * 255.0f;
-    		dst[y].g = thread->buffer_b[y - z].g * 255.0f;
-        	dst[y].b = thread->buffer_b[y - z].b * 255.0f;
-			dst[y].a = 255;
-			y++;
-		}
-		thread = thread->next;
-	}
+                dst[global_index].r = thread->buffer_b[local_index].r * 255.0f;
+                dst[global_index].g = thread->buffer_b[local_index].g * 255.0f;
+                dst[global_index].b = thread->buffer_b[local_index].b * 255.0f;
+                dst[global_index].a = 255;
+            }
+        }
+        thread = thread->next;
+    }
 }

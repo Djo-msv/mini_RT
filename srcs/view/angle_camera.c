@@ -20,6 +20,6 @@ void	rotate_camera(t_data *data, float pitch, float yaw)
 	angle_camera(data, pitch, yaw);
 	calcule_res(data, &data->setting_cam);
 
-//	calculate_ray_direction(&data->setting_cam);
+	threads_ray_direction(data);
 	data->image.nb_images = 0;
 }

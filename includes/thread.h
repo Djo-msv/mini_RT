@@ -15,6 +15,7 @@ typedef struct s_thread
 	int			y_max;
 	int			x;
 
+	t_data		*data;
 	pthread_t	thread_t;
 	pthread_rwlock_t	*run_mutex;
 
@@ -26,5 +27,6 @@ int		stop_rt(t_thread *thread);
 void	*rt_thread(void *list);
 void	kill_thread(t_thread *thread);
 void	change_thread_setting(t_data *data);
+void	threads_ray_direction(t_data *data);
 
 #endif

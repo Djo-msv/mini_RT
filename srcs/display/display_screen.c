@@ -1,30 +1,8 @@
 #include "miniRT.h"
 
-void	handle_pixel(t_data *data, int x, int y, int resolution)
-{
-	int			pos;
-	t_mlx		*mlx;
 
-	mlx = &data->mlx;
-	pos = y * mlx->info.width + x;
-	render(data, &data->image.new_img[pos], data->setting_cam.ray_direction[x][y]);
-//	if (data->image.nb_images >= 1)
-//		average_pixel(&data->image.new_img[pos], \
-//			data->image.old_img[pos], \
-//			data->image.coef_new_p, data->image.coef_old_p);
-	if (resolution != 1)
-		handle_low_resolution(data, x, y, resolution);
 
-}
 
-void	swap_img_buf(t_data *data)
-{
-	t_fcolor	*buf;
-
-	buf = 	data->image.new_img;
-	data->image.new_img = data->image.old_img;
-	data->image.old_img = buf;
-}
 
 void	display_screen(t_data *data)
 {

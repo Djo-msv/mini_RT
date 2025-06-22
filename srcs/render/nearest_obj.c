@@ -1,62 +1,26 @@
 #include "miniRT.h"
 
-t_hit	cylinder_part(t_cylinder *cy, t_ray ray)
-{
-	float	t1;
-	float	t2;
-	float	t3;
-	t_hit	hit;
-
-	hit.t = 0;
-	hit.obj = cy;
-	hit.type = 2;
-	hit.part = 0;
-	t1 = hit_cylinder(cy, cy->radius, ray);
-	t2 = hit_base_cylinder(cy, vec_add(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
-	t3 = hit_base_cylinder(cy, vec_sub(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
-	if (t1 > 0.0f && (t1 < hit.t || hit.t == 0))
-	{
-		hit.t = t1;
-		hit.type = 2;
-		hit.part = 1;
-	}
-	if (t2 > 0.0f && (t2 < hit.t || hit.t == 0))
-	{
-		hit.t = t2;
-		hit.type = 2;
-		hit.part = 2;
-	}
-	if (t3 > 0.0f && (t3 < hit.t || hit.t == 0))
-	{
-		hit.t = t3;
-		hit.type = 2;
-		hit.part = 3;
-	}
-	return (hit);
-}
-
 t_hit	nearest_cylinder(t_data *data, t_ray ray)
 {
 	t_hit		hit;
-	t_hit		n;
 	t_list		*tmp;
 	t_cylinder	*cylinder;
+	float		t;
 	
+	t = -1;
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	hit.part = 0;
 	tmp = data->scene.cylinder;
 	while (tmp)
 	{
 		cylinder = (t_cylinder *)tmp->content;
-		n = cylinder_part(cylinder, ray);
-		if (n.t > 0.0f && (n.t < hit.t || hit.t == 0))
+		t = hit_cylinder(cylinder, cylinder->radius, ray);
+		if (t > 0.0f && (t < hit.t || hit.t == 0))
 		{
-			hit.t = n.t;
+			hit.t = t;
 			hit.obj = cylinder;
 			hit.type = 2;
-			hit.part = n.part;
 		}
 		tmp = tmp->next;
 	}
