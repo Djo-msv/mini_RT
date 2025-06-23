@@ -7,7 +7,7 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror
 
 ifeq ($(DEBUG), 1)
-	CFLAGS += -g
+	CFLAGS += -g -pthread
 endif
 
 ifeq ($(MEGA_PERF), 1)

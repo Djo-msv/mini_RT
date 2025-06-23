@@ -32,33 +32,58 @@ void	threads_ray_direction(t_data *data)
 	}
 }
 
+void	lock_all_mutex(t_thread *thread)
+{
+	while (thread)
+	{
+		if  (pthread_rwlock_wrlock(thread->data_mutex))
+			printf("hello\n");
+		thread = thread->next;
+	}
+}
+
+void	unlock_all_mutex(t_thread *thread)
+{
+	while (thread)
+	{
+		pthread_rwlock_unlock(thread->data_mutex);
+		thread = thread->next;
+	}
+}
+
 void	change_thread_setting(t_data *data)
 {
-	int			ratio = data->setting_cam.height / NB_THREAD;
+	int			ratio = data->mlx.info.height / NB_THREAD;
 	t_thread 	*thread = data->thread;
 
+	printf("\033[2J");
+	printf("\033[H");
+	lock_all_mutex(data->thread);
 	while (thread)
 	{
 		thread->y_min = ratio * thread->id;
 		if (thread->next)
 			thread->y_max = (ratio * (thread->id + 1)) - 1;
 		else
-			thread->y_max = data->setting_cam.height;
-		thread->x = data->setting_cam.width;
-		thread_ray_direction(data, thread);
+			thread->y_max = data->mlx.info.height;
+		thread->x = data->mlx.info.width;
+//		thread_ray_direction(data, thread);
 		printf("thread %d, %d - %d\n", thread->id, thread->y_min, thread->y_max);
 		thread = thread->next;
 	}
+	unlock_all_mutex(data->thread);
 }
 
 void	handle_pixel(t_thread *thread, int x, int y, int resolution)
 {
     int pos = y * thread->x + x;
 
-	if (y == 0 || x == 0 || y == thread->y_max - thread->y_min || x == thread->x - 1)
+	if (y == 0 || x == 0 || y == thread->y_max - thread->y_min || x == thread->x)
 		thread->buffer_a[pos] = (t_fcolor){0.0f, 0.0f, 1.0f};
 	else
-		render(thread->data, &thread->buffer_a[pos], thread->ray_direction[x][y]);
+		thread->buffer_a[pos] = (t_fcolor){0.0f, 0.0f, 0.0f};
+//	else
+//		render(thread->data, &thread->buffer_a[pos], thread->ray_direction[x][y]);
 //	if (resolution != 1)
 //		handle_low_resolution(thread->data, x, y, resolution);
 	(void)resolution;
@@ -79,17 +104,19 @@ void	select_pixel(t_thread *thread)
 	int	x;
 	int	y = thread->y_min;
 
+	pthread_rwlock_rdlock(thread->data_mutex);
 	while (y <= thread->y_max)
 	{
 		x = 0;
 		while (x <= thread->x)
 		{
-			handle_pixel(thread, x, y - thread->y_min, thread->data->image.resolution);
-			x += thread->data->image.resolution;
+			handle_pixel(thread, x, y - thread->y_min, 1);
+			x += 1;
 		}
-		y += thread->data->image.resolution;
+		y += 1;
 	}
 	swap_buffer(&thread);
+	pthread_rwlock_unlock(thread->data_mutex);
 }
 
 void	*rt_thread(void *list)

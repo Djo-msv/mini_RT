@@ -18,6 +18,7 @@ typedef struct s_thread
 	t_data		*data;
 	pthread_t	thread_t;
 	pthread_rwlock_t	*run_mutex;
+	pthread_rwlock_t	*data_mutex;
 
 	struct s_thread	*next;
 }	t_thread;

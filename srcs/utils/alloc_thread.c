@@ -29,7 +29,7 @@ t_thread	*create_node(t_data *data, int id)
 {
 	t_thread	*node;
 
-	(void)data;
+	int			ratio = data->mlx.info.height / NB_THREAD;
 	node = malloc(sizeof(t_thread));
 	if (!node)
 		return (NULL);
@@ -39,10 +39,16 @@ t_thread	*create_node(t_data *data, int id)
 	node->run_mutex = malloc(sizeof(pthread_rwlock_t));
 	if (node->run_mutex)
 		pthread_rwlock_init(node->run_mutex, NULL);
+	node->data_mutex = malloc(sizeof(pthread_rwlock_t));
+	if (node->data_mutex)
+		pthread_rwlock_init(node->data_mutex, NULL);
 	alloc_thread_ray(node);
-	node->y_min = 0;
-	node->y_max = 0;
-	node->x = 0;
+	node->y_min = ratio * node->id;
+	if (node->next)
+		node->y_max = (ratio * (node->id + 1)) - 1;
+	else
+		node->y_max = data->mlx.info.height;
+	node->x = data->mlx.info.width;
 	node->run = true;
 	node->should_break = false;
 	node->next = NULL;
