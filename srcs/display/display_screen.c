@@ -21,7 +21,7 @@ void	swap_img_buf(t_data *data)
 {
 	t_fcolor	*buf;
 
-	buf = 	data->image.new_img;
+	buf = data->image.new_img;
 	data->image.new_img = data->image.old_img;
 	data->image.old_img = buf;
 }

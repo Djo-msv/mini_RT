@@ -47,6 +47,6 @@ void	render(t_data *data, t_fcolor *pixel, t_vec ray_direction)
 //	t_setting_cam	camera;
 
 //	camera = data->setting_cam;
-	sampling(pixel, shade_raytracing_pixel(data, get_antialiasing(data, ray_direction)),
+	sampling(pixel, shade_pathtracing_pixel(data, get_antialiasing(data, ray_direction)),
 		  data->image.coef_new_p, data->image.coef_old_p);
 }

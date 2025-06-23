@@ -76,6 +76,7 @@ SRCS_FILES:=	main.c \
 		math/color.c \
 		math/ray.c \
 		math/vector.c \
+		math/matrix.c	\
 		mlx/mlx_events.c \
 		mlx/mlx_loop.c \
 		mlx/mlx_mouse.c \

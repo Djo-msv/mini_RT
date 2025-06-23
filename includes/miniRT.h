@@ -12,6 +12,7 @@
 # include "../MacroLibX/includes/mlx_extended.h"
 
 # include "vector.h"
+# include "matrix.h"
 # include "objet.h"
 # include "setup.h"
 # include "render.h"
