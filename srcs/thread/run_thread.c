@@ -3,10 +3,10 @@
 void	thread_ray_direction(t_data *data, t_thread *thread)
 {
 	int		x;
-	int		y = thread->y_min;
+	int		y = 0;
 	t_vec	pixel_center;
 
-	while (y != thread->y_max)
+	while (y != thread->y_max - thread->y_min)
 	{
 		x = 0;
 		while (x != data->setting_cam.width)
@@ -14,7 +14,7 @@ void	thread_ray_direction(t_data *data, t_thread *thread)
 			pixel_center = vec_add(
     			vec_add(data->setting_cam.pixel00_loc, vec_mul(data->setting_cam.pixel_delta_h, x)),
     			vec_mul(data->setting_cam.pixel_delta_v, y));
-			thread->ray_direction[x][y] = vec_sub(pixel_center, data->setting_cam.camera_center);
+			thread->ray_direction[y][x] = vec_sub(pixel_center, data->setting_cam.camera_center);
 			x++;
 		}
 		y++;

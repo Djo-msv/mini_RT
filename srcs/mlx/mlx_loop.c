@@ -43,8 +43,8 @@ void	run_minirt(t_data *data)
 	t_mlx	*mlx;
 
 	mlx = &data->mlx;
-	init_thread(data);
+//	init_thread(data);
 	mlx_add_loop_hook(mlx->mlx, update, data);
 	mlx_loop(mlx->mlx);
-	kill_thread(data->thread);
+//	kill_thread(data->thread);
 }
