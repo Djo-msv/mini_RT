@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:08:21 by star              #+#    #+#             */
-/*   Updated: 2025/06/23 18:24:24 by star             ###   ########.fr       */
+/*   Updated: 2025/06/25 17:47:10 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,12 @@ t_matrix	mat4_scale(float x, float y, float z)
 	t.m[2][0] = 0;		t.m[2][1] = 0;		t.m[2][2] = z;		t.m[2][3] = 0;
 	t.m[3][0] = 0;		t.m[3][1] = 0;		t.m[3][2] = 0;		t.m[3][3] = 1;
 	return (t);
+}
+
+t_matrix	mat4_init(void)
+{
+	t_matrix id = {0};
+	for (int i = 0; i < 4; i++)
+		id.m[i][i] = 1.0f;
+	return (id);
 }

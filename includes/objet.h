@@ -53,11 +53,9 @@ typedef struct s_cylinder
 	t_vec		coordinate;
 	mlx_color	color;
 	t_vec		normal;
-
-	float			diameter;
-	float			radius;
-	float			height;
-
+	float		diameter;
+	float		radius;
+	float		height;
 }	t_cylinder
 __attribute__((aligned(1)));
 

@@ -13,8 +13,8 @@ void	calculate_ray_direction(t_setting_cam *scene)
 		while (y != scene->height)
 		{
 			pixel_center = vec_add(
-    			vec_add(scene->pixel00_loc, vec_mul(scene->pixel_delta_h, x)),
-    			vec_mul(scene->pixel_delta_v, y));
+    			vec_add(scene->pixel00_loc, vec_mul(scene->pixel_delta_h, (scene->width - 1 - x))),
+    			vec_mul(scene->pixel_delta_v, (scene->height - 1 - y)));
 			scene->ray_direction[x][y] = vec_sub(pixel_center, scene->camera_center);
 			y++;
 		}

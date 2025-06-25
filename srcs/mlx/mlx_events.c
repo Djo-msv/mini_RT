@@ -2,127 +2,118 @@
 
 void	move_obj_x(t_data *d, t_hit select, int is_left)
 {
+	t_matrix		t_x;
+
 	if (!is_left)
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->coordinate.x += 0.1f;
-		if (select.type == 1)
-			((t_sphere *)select.obj)->coordinate.x += 0.1f;
-		else
-			((t_cylinder *)select.obj)->coordinate.x += 0.1f;
-	}
+		t_x = mat4_translation(0.1, 0.0, 0.0);
 	else
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->coordinate.x -= 0.1f;
-		if (select.type == 1)
-			((t_sphere *)select.obj)->coordinate.x -= 0.1f;
-		else
-			((t_cylinder *)select.obj)->coordinate.x -= 0.1f;
-	}
+		t_x = mat4_translation(-0.1, 0.0, 0.0);
+	if (select.type == 0)
+		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_plane *)select.obj)->coordinate, 1);
+	if (select.type == 1)
+		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_sphere *)select.obj)->coordinate, 1);
+	else
+		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_cylinder *)select.obj)->coordinate, 1);
 	d->image.nb_images = 0;
 }
 
 void	rotate_obj_x(t_data *d, t_hit select, int is_left)
 {
+	t_matrix	r_x;
+
 	if (!is_left)
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->normal.x += 0.1f;
-		else if (select.type == 2)
-			((t_cylinder *)select.obj)->normal.x += 0.1f;
-	}
+		r_x = mat4_rotation_x(0.1);
 	else
+		r_x = mat4_rotation_x(-0.1);
+	if (select.type == 0)
 	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->normal.x -= 0.1f;
-		else if (select.type == 2)
-			((t_cylinder *)select.obj)->normal.x -= 0.1f;
+		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_x, ((t_plane *)select.obj)->normal, 0);
+		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
+	}
+	else if (select.type == 2)
+	{
+		t_cylinder *c = (t_cylinder *)select.obj;
+		c->normal = mul_mat4_to_vec(r_x, c->normal, 0);
+		c->normal = normalize(c->normal);
 	}
 	d->image.nb_images = 0;
 }
 
 void	rotate_obj_z(t_data *d, t_hit select, int is_left)
 {
+	t_matrix	r_z;
+
 	if (!is_left)
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->normal.z += 0.1f;
-		else if (select.type == 2)
-			((t_cylinder *)select.obj)->normal.z += 0.1f;
-	}
+		r_z = mat4_rotation_z(0.1);
 	else
+		r_z = mat4_rotation_z(-0.1);
+	if (select.type == 0)
 	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->normal.z -= 0.1f;
-		else if (select.type == 2)
-			((t_cylinder *)select.obj)->normal.z -= 0.1f;
+		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_z, ((t_plane *)select.obj)->normal, 0);
+		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
+	}
+	else if (select.type == 2)
+	{
+		t_cylinder *c = (t_cylinder *)select.obj;
+		c->normal = mul_mat4_to_vec(r_z, c->normal, 0);
+		c->normal = normalize(c->normal);
 	}
 	d->image.nb_images = 0;
 }
 
 void	rotate_obj_y(t_data *d, t_hit select, int is_left)
 {
+	t_matrix	r_y;
+
 	if (!is_left)
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->normal.y += 0.1f;
-		else if (select.type == 2)
-			((t_cylinder *)select.obj)->normal.y += 0.1f;
-	}
+		r_y = mat4_rotation_y(0.1);
 	else
+		r_y = mat4_rotation_y(-0.1);
+	if (select.type == 0)
 	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->normal.y -= 0.1f;
-		else if (select.type == 2)
-			((t_cylinder *)select.obj)->normal.y -= 0.1f;
+		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_y, ((t_plane *)select.obj)->normal, 0);
+		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
+	}
+	else if (select.type == 2)
+	{
+		t_cylinder *c = (t_cylinder *)select.obj;
+		c->normal = mul_mat4_to_vec(r_y, c->normal, 0);
+		c->normal = normalize(c->normal);
 	}
 	d->image.nb_images = 0;
 }
 
 void	move_obj_z(t_data *d, t_hit select, int is_forward)
 {
-	if (is_forward)
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->coordinate.z += 0.1f;
-		if (select.type == 1)
-			((t_sphere *)select.obj)->coordinate.z += 0.1f;
-		else
-			((t_cylinder *)select.obj)->coordinate.z += 0.1f;
-	}
+	t_matrix		t_z;
+
+	if (!is_forward)
+		t_z = mat4_translation(0.0, 0.0, -0.1);
 	else
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->coordinate.z -= 0.1f;
-		if (select.type == 1)
-			((t_sphere *)select.obj)->coordinate.z -= 0.1f;
-		else
-			((t_cylinder *)select.obj)->coordinate.z -= 0.1f;
-	}
+		t_z = mat4_translation(0.0, 0.0, 0.1);
+	if (select.type == 0)
+		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_plane *)select.obj)->coordinate, 1);
+	if (select.type == 1)
+		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_sphere *)select.obj)->coordinate, 1);
+	else
+		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_cylinder *)select.obj)->coordinate, 1);
 	d->image.nb_images = 0;
 }
 
 void	move_obj_y(t_data *d, t_hit select, int is_up)
 {
-	if (is_up)
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->coordinate.y += 0.1f;
-		if (select.type == 1)
-			((t_sphere *)select.obj)->coordinate.y += 0.1f;
-		else
-			((t_cylinder *)select.obj)->coordinate.y += 0.1f;
-	}
+	t_matrix		t_y;
+
+	if (!is_up)
+		t_y = mat4_translation(0.0, -0.1, 0.0);
 	else
-	{
-		if (select.type == 0)
-			((t_plane *)select.obj)->coordinate.y -= 0.1f;
-		if (select.type == 1)
-			((t_sphere *)select.obj)->coordinate.y -= 0.1f;
-		else
-			((t_cylinder *)select.obj)->coordinate.y -= 0.1f;
-	}
+		t_y = mat4_translation(0.0, 0.1, 0.0);
+	if (select.type == 0)
+		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_plane *)select.obj)->coordinate, 1);
+	if (select.type == 1)
+		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_sphere *)select.obj)->coordinate, 1);
+	else
+		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_cylinder *)select.obj)->coordinate, 1);
 	d->image.nb_images = 0;
 }
 
@@ -170,9 +161,9 @@ void	change_obj(t_data *d, t_hit select, int key)
 		if (key == 80)
 			rotate_obj_x(d, select, 1);
 		if (key == 82)
-			rotate_obj_z(d, select, 1);
+			rotate_obj_y(d, select, 1);
 		if (key == 81)
-			rotate_obj_z(d, select, 0);
+			rotate_obj_y(d, select, 0);
 	}
 	else
 	{
@@ -232,6 +223,7 @@ void key_hook(int key, void* param)
 		((t_data *)param)->scene.select.up_mode = !((t_data *)param)->scene.select.up_mode;
 	if (key == 21)
 		((t_data *)param)->scene.select.rotate_mode = !((t_data *)param)->scene.select.rotate_mode;
+	printf("%d\n", key);
 }
 
 void window_hook(int event, void* param)
