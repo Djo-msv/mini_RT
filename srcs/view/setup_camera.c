@@ -36,13 +36,34 @@ void	calcule_scene(t_data *data, t_setting_cam *scene)
 	scene->viewport_width = scene->viewport_height * scene->ratio;
 }
 
+void	lock_all_mutex(t_thread *thread)
+{
+	while (thread)
+	{
+		if  (pthread_rwlock_wrlock(thread->data_mutex))
+			printf("hello\n");
+		thread = thread->next;
+	}
+}
+
+void	unlock_all_mutex(t_thread *thread)
+{
+	while (thread)
+	{
+		pthread_rwlock_unlock(thread->data_mutex);
+		thread = thread->next;
+	}
+}
+
 void	setup_camera_setting(t_data *data)
 {
 	t_setting_cam *scene;
 
+	lock_all_mutex(data->thread);
 	scene = &data->setting_cam;
 	calcule_scene(data, scene);
 	angle_camera(data, scene->pitch, scene->yaw);
 	calcule_res(data, scene);
 	change_thread_setting(data);
+	unlock_all_mutex(data->thread);
 }

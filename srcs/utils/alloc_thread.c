@@ -47,7 +47,7 @@ t_thread	*create_node(t_data *data, int id)
 		pthread_mutex_init(node->buffer_mutex, NULL);
 	alloc_thread_ray(node);
 	node->y_min = ratio * node->id;
-	if (node->next)
+	if (node->id + 1 != NB_THREAD)
 		node->y_max = (ratio * (node->id + 1)) - 1;
 	else
 		node->y_max = data->mlx.info.height;
@@ -56,6 +56,7 @@ t_thread	*create_node(t_data *data, int id)
 	node->should_break = false;
 	node->next = NULL;
 	node->thread_t = 0;
+	node->data = data;
 	return (node);
 }
 

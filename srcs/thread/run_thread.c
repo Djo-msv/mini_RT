@@ -14,7 +14,7 @@ void	thread_ray_direction(t_data *data, t_thread *thread)
 			pixel_center = vec_add(
     			vec_add(data->setting_cam.pixel00_loc, vec_mul(data->setting_cam.pixel_delta_h, x)),
     			vec_mul(data->setting_cam.pixel_delta_v, y));
-			thread->ray_direction[x][y] = vec_sub(pixel_center, data->setting_cam.camera_center);
+			thread->ray_direction[y][x] = vec_sub(pixel_center, data->setting_cam.camera_center);
 			x++;
 		}
 		y++;
@@ -32,25 +32,6 @@ void	threads_ray_direction(t_data *data)
 	}
 }
 
-void	lock_all_mutex(t_thread *thread)
-{
-	while (thread)
-	{
-		if  (pthread_rwlock_wrlock(thread->data_mutex))
-			printf("hello\n");
-		thread = thread->next;
-	}
-}
-
-void	unlock_all_mutex(t_thread *thread)
-{
-	while (thread)
-	{
-		pthread_rwlock_unlock(thread->data_mutex);
-		thread = thread->next;
-	}
-}
-
 void	change_thread_setting(t_data *data)
 {
 	int			ratio = data->mlx.info.height / NB_THREAD;
@@ -58,7 +39,6 @@ void	change_thread_setting(t_data *data)
 
 	printf("\033[2J");
 	printf("\033[H");
-	lock_all_mutex(data->thread);
 	while (thread)
 	{
 		thread->y_min = ratio * thread->id;
@@ -67,21 +47,22 @@ void	change_thread_setting(t_data *data)
 		else
 			thread->y_max = data->mlx.info.height;
 		thread->x = data->mlx.info.width;
-		thread_ray_direction(data, thread);
 		printf("thread %d, %d - %d\n", thread->id, thread->y_min, thread->y_max);
+		thread_ray_direction(data, thread);
 		thread = thread->next;
 	}
-	unlock_all_mutex(data->thread);
 }
 
 void	handle_pixel(t_thread *thread, int x, int y, int resolution)
 {
 	int pos = y * thread->x + x;
 
+//	if (thread->id == 0)
+//		printf("%d - %d\n", thread->y_min, 0);
 	if (y == 0 || x == 0 || y == thread->y_max - thread->y_min || x == thread->x)
 		thread->buffer_a[pos] = (t_fcolor){0.0f, 0.0f, 1.0f};
 	else
-		render(thread->data, &thread->buffer_a[pos], thread->ray_direction[0][0]);
+		render(thread->data, &thread->buffer_a[pos], thread->ray_direction[y][x]);
 //	if (resolution != 1)
 //		handle_low_resolution(thread->data, x, y, resolution);
 //	t_vec	**ray = thread->ray_direction;

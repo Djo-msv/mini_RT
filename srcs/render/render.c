@@ -47,6 +47,6 @@ void	render(t_data *data, t_fcolor *pixel, t_vec ray_direction)
 //	t_setting_cam	camera;
 
 //	camera = data->setting_cam;
-	return ;
+//	return ;
 	*pixel = shade_raytracing_pixel(data, get_antialiasing(data, ray_direction));
 }
