@@ -26,8 +26,8 @@
 # include "thread.h"
 # include "alloc.h"
 
-# define MAX_RES_H 1920
-# define MAX_RES_V 1080
+# define MAX_RES_W 1920
+# define MAX_RES_H 1080
 # define NB_THREAD 8
 
 

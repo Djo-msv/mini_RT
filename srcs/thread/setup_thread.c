@@ -24,7 +24,7 @@ void	join_thread(t_thread *thread)
 
 void	kill_thread(t_thread *thread)
 {
-	pthread_rwlock_wrlock(thread->run_mutex);
+	pthread_rwlock_rdlock(thread->data_mutex);
 	while (thread->next)
 	{
 		thread->run = false;
@@ -41,7 +41,7 @@ int	init_thread(t_data *data)
 	t_thread	*thread;
 
 	thread = data->thread;
-	while (thread)
+	while (thread->id != 1)
 	{
 		printf("thread id = %d\n", thread->id);
 		if (pthread_create(&thread->thread_t, NULL, rt_thread, thread))

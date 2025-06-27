@@ -42,7 +42,7 @@ void window_hook(int event, void* param)
 	{
 		mlx_get_window_size(mlx->mlx, mlx->win, &mlx->info.width, &mlx->info.height);
 		setup_camera_setting((t_data *)param);
-//		change_thread_setting((t_data *)param);
+		change_thread_setting((t_data *)param);
 	}
 }
 
