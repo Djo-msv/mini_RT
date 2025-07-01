@@ -72,6 +72,7 @@ typedef struct s_data
 	struct s_setting_cam	setting_cam;
 	struct s_thread			*thread;
 	struct s_image	image;
+	atomic_uint				*generation_id;
 }t_data
 __attribute__((aligned(1)));
 

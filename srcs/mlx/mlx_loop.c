@@ -8,8 +8,9 @@ void	fps_cnt(void)
 	static double lastTime = 0.0;
 	static double fps = 0.0;
 
-	clock_t currentClock = clock();
-	double currentTime = (double)currentClock / CLOCKS_PER_SEC;
+	struct timespec ts;
+	clock_gettime(CLOCK_MONOTONIC, &ts);  // temps système monotone
+	double currentTime = ts.tv_sec + ts.tv_nsec / 1e9;
 
 	frames++;
 
@@ -35,7 +36,7 @@ void update(void* param)
 	mouse((t_data *)param);
 	display_screen((t_data *)param);
 	(void)param;
-//	fps_cnt();
+	fps_cnt();
 }
 
 void	run_minirt(t_data *data)

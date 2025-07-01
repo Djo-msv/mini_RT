@@ -2,6 +2,8 @@
 
 void		setup_minirt(t_data *data)
 {
+	data->generation_id = malloc(sizeof(atomic_uint));
+	atomic_init(data->generation_id, 0);
 	setup_mlx(data);
 	alloc_thread(data);
 }

@@ -6,11 +6,11 @@ typedef struct s_thread
 	int			id;
 	bool		is_set;
 	bool		run;
-	atomic_bool	should_break;
 
 	t_fcolor	*buffer_a;
 	t_fcolor	*buffer_b;
 	t_vec		*ray_direction;
+	unsigned int	local_generation;
 	int			y_min;
 	int			y_max;
 	int			x;
@@ -19,8 +19,8 @@ typedef struct s_thread
 	pthread_t	thread_t;
 	pthread_rwlock_t	*run_mutex;
 	pthread_rwlock_t	*data_mutex;
-	pthread_mutex_t		*buffer_mutex;
-
+	atomic_bool			*should_break;
+	atomic_bool			*ready;
 	struct s_thread	*next;
 }	t_thread;
 

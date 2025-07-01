@@ -34,12 +34,14 @@ void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 	while (thread)
 	{
 		int y_local;
-		pthread_mutex_lock(thread->buffer_mutex);
+
+		while(!atomic_load_explicit(thread->ready, memory_order_acquire))
+			usleep(100);
 		t_fcolor *buffer_copy = thread->buffer_b;
 		for (y_local = 0; y_local <= (thread->y_max - thread->y_min); y_local++)
 		{
 			int y_global = thread->y_min + y_local;
-			for (int x = 0; x <= width; x++)
+			for (int x = 0; x < width; x++)
 			{
 				int local_index = y_local * width + x;
 				int global_index = y_global * width + x;
@@ -50,7 +52,7 @@ void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 				dst[global_index].a = 255;
 			}
 		}
-		pthread_mutex_unlock(thread->buffer_mutex);
+		atomic_store_explicit(thread->ready, false, memory_order_release);
 		thread = thread->next;
 	}
 }

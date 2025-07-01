@@ -96,7 +96,7 @@ void	handle_pixel(t_thread *thread, int x, int y, t_vec ray_direction, int resol
 	(void)resolution;
 }
 
-void	swap_buffer(t_thread **thread)
+/*void	swap_buffer(t_thread **thread)
 {
 	t_fcolor	*buffer;
 
@@ -105,6 +105,20 @@ void	swap_buffer(t_thread **thread)
 	(*thread)->buffer_a = (*thread)->buffer_b;
 	(*thread)->buffer_b = buffer;
 	pthread_mutex_unlock((*thread)->buffer_mutex);
+}*/
+
+void	swap_buffer(t_thread *thread)
+{
+	t_fcolor *buffer;
+
+	while (atomic_load_explicit(thread->ready, memory_order_acquire))
+		usleep(100);
+
+	buffer = thread->buffer_a;
+	thread->buffer_a = thread->buffer_b;
+	thread->buffer_b = buffer;
+
+	atomic_store_explicit(thread->ready, true, memory_order_release);
 }
 
 void	select_pixel(t_thread *thread)
@@ -114,17 +128,19 @@ void	select_pixel(t_thread *thread)
 	t_vec	*ray_direction = thread->ray_direction;
 	t_fcolor	*buf = thread->buffer_a;
 
-	pthread_rwlock_rdlock(thread->data_mutex);
 	y = thread->y_min;
 	while (y <= thread->y_max)
 	{
 		x = 0;
 		while (x <= thread->x)
 		{
-			if (y == 0 || x == 0 || y == thread->y_max - thread->y_min || x == thread->x)
-				(*buf) = (t_fcolor){0.0f, 0.0f, 1.0f};
-//			else if (true)
-//				(*buf) = (t_fcolor){(ray_direction->x * 0.5f) + 0.5f, (ray_direction->y * 0.5f) + 0.5f, (ray_direction->z * 0.5f) + 0.5f};
+			if (atomic_load(thread->data->generation_id) != thread->local_generation)
+			{
+				while (atomic_load(thread->data->generation_id) % 2)
+					usleep(100);
+				thread->local_generation = atomic_load(thread->data->generation_id);
+				return ;
+			}
 			render(thread->data, buf, *ray_direction);
 			buf++;
 			ray_direction++;
@@ -132,8 +148,7 @@ void	select_pixel(t_thread *thread)
 		}
 		y += 1;
 	}
-	swap_buffer(&thread);
-	pthread_rwlock_unlock(thread->data_mutex);
+	swap_buffer(thread);
 }
 
 void	*rt_thread(void *list)
