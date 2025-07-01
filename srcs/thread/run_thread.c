@@ -22,24 +22,26 @@ void	unlock_all_mutex(t_thread *thread)
 void	thread_ray_direction(t_data *data, t_thread *thread)
 {
 	int		x = 0;
-	int		y;
+	int		y = 0;
 	t_vec	pixel_center;
+	t_vec	*ray_direction = thread->ray_direction;
 
-	while (x != thread->x)
+	while (y != thread->y_max - thread->y_min + 1)
 	{
-		y = 0;
-		while (y != thread->y_max - thread->y_min)
+		x = 0;
+		while (x != thread->x)
 		{
 			pixel_center = vec_add(
-    			vec_add(data->setting_cam.pixel00_loc, vec_mul(data->setting_cam.pixel_delta_h, x)),
-    			vec_mul(data->setting_cam.pixel_delta_v, y + thread->y_min));
-			printf("%d - %d\n", x, y);
-			thread->ray_direction[x][y] = vec_sub(pixel_center, data->setting_cam.camera_center);
-//			if (y == 0 && thread->id == 0)
-//				printf("%d (%f, %f, %f)\n", x, thread->ray_direction[x][y].x , thread->ray_direction[y][x].y, thread->ray_direction[y][x].z);
-			y++;
+				vec_add(data->setting_cam.pixel00_loc, vec_mul(data->setting_cam.pixel_delta_h, x)),
+				vec_mul(data->setting_cam.pixel_delta_v, y + thread->y_min));
+			(*ray_direction) = vec_sub(pixel_center, data->setting_cam.camera_center);
+//			(*ray_direction) = (t_vec){(double)(y + thread->y_min) / data->mlx.info.height, (double)x / thread->x, 1.0f};
+//			if (y == 0 && thread->id == 1)
+//				printf("%d (%f, %f, %f)\n", x, (*ray_direction).x , (*ray_direction).y, (*ray_direction).z);
+			ray_direction++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
 
@@ -77,16 +79,16 @@ void	change_thread_setting(t_data *data)
 	unlock_all_mutex(data->thread);
 }
 
-void	handle_pixel(t_thread *thread, int x, int y, int resolution)
+void	handle_pixel(t_thread *thread, int x, int y, t_vec ray_direction, int resolution)
 {
 	int pos = y * thread->x + x;
 
-//	if (thread->id == 0)
-//		printf("%d - %d\n", thread->y_min, 0);
 	if (y == 0 || x == 0 || y == thread->y_max - thread->y_min || x == thread->x)
 		thread->buffer_a[pos] = (t_fcolor){0.0f, 0.0f, 1.0f};
+	else if (true)
+		thread->buffer_a[pos] = (t_fcolor){(ray_direction.x * 0.5f) + 0.5f, (ray_direction.y * 0.5f) + 0.5f, (ray_direction.z * 0.5f) + 0.5f};
 	else
-		render(thread->data, &thread->buffer_a[pos], thread->ray_direction[x][y]);
+		render(thread->data, &thread->buffer_a[pos], ray_direction);
 //	if (resolution != 1)
 //		handle_low_resolution(thread->data, x, y, resolution);
 //	t_vec	**ray = thread->ray_direction;
@@ -109,18 +111,26 @@ void	select_pixel(t_thread *thread)
 {
 	int	x = 0;
 	int	y;
+	t_vec	*ray_direction = thread->ray_direction;
+	t_fcolor	*buf = thread->buffer_a;
 
 	pthread_rwlock_rdlock(thread->data_mutex);
-	while (x <= thread->x)
+	y = thread->y_min;
+	while (y <= thread->y_max)
 	{
-		y = thread->y_min;
-		while (y <= thread->y_max)
+		x = 0;
+		while (x <= thread->x)
 		{
-			printf("%d - %d\n", x, y);
-			handle_pixel(thread, x, y - thread->y_min, 1);
-			y += 1;
+			if (y == 0 || x == 0 || y == thread->y_max - thread->y_min || x == thread->x)
+				(*buf) = (t_fcolor){0.0f, 0.0f, 1.0f};
+//			else if (true)
+//				(*buf) = (t_fcolor){(ray_direction->x * 0.5f) + 0.5f, (ray_direction->y * 0.5f) + 0.5f, (ray_direction->z * 0.5f) + 0.5f};
+			render(thread->data, buf, *ray_direction);
+			buf++;
+			ray_direction++;
+			x += 1;
 		}
-		x += 1;
+		y += 1;
 	}
 	swap_buffer(&thread);
 	pthread_rwlock_unlock(thread->data_mutex);

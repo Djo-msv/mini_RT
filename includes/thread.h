@@ -10,7 +10,7 @@ typedef struct s_thread
 
 	t_fcolor	*buffer_a;
 	t_fcolor	*buffer_b;
-	t_vec		**ray_direction;
+	t_vec		*ray_direction;
 	int			y_min;
 	int			y_max;
 	int			x;
