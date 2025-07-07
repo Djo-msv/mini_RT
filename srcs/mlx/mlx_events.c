@@ -208,7 +208,7 @@ void key_hook(int key, void* param)
 		move_camera_right((t_data *)param, &((t_data *)param)->setting_cam);
 	if (key == 44)
 		move_camera_up((t_data *)param, &((t_data *)param)->setting_cam);
-	if (key == 225)
+	if (key == 224)
 		move_camera_down((t_data *)param, &((t_data *)param)->setting_cam);
 	if (key == 68)
 	{

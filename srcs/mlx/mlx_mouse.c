@@ -14,8 +14,8 @@ void	mouse(t_data *data)
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win, cam->width >> 1, cam->height >> 1);
 		if (x - (cam->width >> 1) == 0 && y - (cam->height >> 1) == 0)
 			return ;
-		yaw -= (x - (float)(cam->width >> 1)) * 0.001f;
-		pitch += (y - (float)(cam->height >> 1)) * 0.001f;
+		yaw += (x - (float)(cam->width >> 1)) * 0.001f;
+		pitch -= (y - (float)(cam->height >> 1)) * 0.001f;
 		if (pitch > 1.5708f)
 			pitch = 1.5707f;
 		if (pitch < -1.5708f)

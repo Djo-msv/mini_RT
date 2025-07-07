@@ -31,8 +31,8 @@ void	move_camera_left(t_data *data, t_setting_cam *cam)
 	flat = normalize(flat);
     t_vec left = cross(up, flat);
     
-	cam->camera_center.x -= left.x * 0.1f;
-    cam->camera_center.z -= left.z * 0.1f;
+	cam->camera_center.x += left.x * 0.1f;
+    cam->camera_center.z += left.z * 0.1f;
     rotate_camera(data, cam->pitch, cam->yaw);
 }
 
@@ -44,19 +44,19 @@ void	move_camera_right(t_data *data, t_setting_cam *cam)
 	flat.y = 0;
 	flat = normalize(flat);
     t_vec right = cross(up, flat);
-	cam->camera_center.x += right.x * 0.1f;
-    cam->camera_center.z += right.z * 0.1f;
+	cam->camera_center.x -= right.x * 0.1f;
+    cam->camera_center.z -= right.z * 0.1f;
 	rotate_camera(data, cam->pitch, cam->yaw);
 }
 
 void	move_camera_up(t_data *data, t_setting_cam *cam)
 {
-	cam->camera_center.y -= 0.1f;
+	cam->camera_center.y += 0.1f;
 	rotate_camera(data, cam->pitch, cam->yaw);
 }
 
 void	move_camera_down(t_data *data, t_setting_cam *cam)
 {
-	cam->camera_center.y += 0.1f;
+	cam->camera_center.y -= 0.1f;
 	rotate_camera(data, cam->pitch, cam->yaw);
 }

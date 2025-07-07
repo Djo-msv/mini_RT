@@ -42,6 +42,7 @@ void	run_minirt(t_data *data)
 	t_mlx	*mlx;
 
 	mlx = &data->mlx;
+	data->img= mlx_new_image_from_file(data->mlx.mlx, "texture/ea.jpg", 0, 0);
 	mlx_add_loop_hook(mlx->mlx, update, data);
 	mlx_loop(mlx->mlx);
 }

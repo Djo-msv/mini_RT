@@ -9,11 +9,29 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 	{
 		hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
 		hit.normal = normalize(((t_plane *)hit.obj)->normal);
-		hit.material = 1;
+		hit.material = 0;
 	}
 	else if (hit.type == 1)
 	{
-		hit.color = mlxcolor_to_fcolor(((t_sphere *)hit.obj)->color);
+		if (1)
+		{
+			mlx_color	pixel;
+			t_vec		p;
+			int			x;
+			int			y;
+			float		u;
+			float		v;
+
+			p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
+			u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
+			v = 0.5 - asin(p.y) / M_PI;
+			x = u * 8192;
+			y = v * 4096;
+			mlx_get_image_region(data->mlx.mlx, data->img, x, y ,1 ,1, &pixel);
+			hit.color = mlxcolor_to_fcolor(pixel);
+		}
+		else
+			hit.color = mlxcolor_to_fcolor(((t_sphere *)hit.obj)->color);
 		hit.normal = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
 	}
 	else if (hit.type == 2)
