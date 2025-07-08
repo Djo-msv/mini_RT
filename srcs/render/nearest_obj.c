@@ -118,6 +118,33 @@ t_hit	nearest_light(t_data *data, t_ray ray)
 	return (hit);
 }
 
+t_hit	nearest_triangle(t_data *data, t_ray ray)
+{
+	t_hit		hit;
+	t_list		*tmp;
+	t_triangle	*triangle;
+	float		t;
+
+	t = -1;
+	hit.t = 0;
+	hit.obj = NULL;
+	hit.type = -1;
+	tmp = data->scene.triangle;
+	while (tmp)
+	{
+		triangle = (t_triangle *)tmp->content;
+		t = hit_triangle(triangle, ray);
+		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		{
+			hit.t = t;
+			hit.obj = triangle;
+			hit.type = 4;
+		}
+		tmp = tmp->next;
+	}
+	return (hit);
+}
+
 
 t_hit	nearest_sphere(t_data *data, t_ray ray)
 {
@@ -160,6 +187,9 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
 	buf_hit = nearest_light(data, ray);
+	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
+		hit = buf_hit;
+	buf_hit = nearest_triangle(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));

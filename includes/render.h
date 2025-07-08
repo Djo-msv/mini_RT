@@ -10,10 +10,13 @@ t_fcolor	shade_raytracing_pixel(t_data *data, t_ray ray);
 
 t_hit	nearest_obj(t_data *data, t_ray ray);
 
-float hit_cylinder(t_cylinder *cy, float rad, t_ray r);
+float	hit_cylinder(t_cylinder *cy, float rad, t_ray r);
 float	hit_base_cylinder(t_cylinder *cy, t_vec center, t_ray r);
-float hit_plane(t_vec center, t_vec normal, t_ray r);
-float hit_sphere(t_vec center, double radius, t_ray r);
+float	hit_plane(t_vec center, t_vec normal, t_ray r);
+float	hit_sphere(t_vec center, double radius, t_ray r);
+float 	hit_triangle(t_triangle *tr, t_ray r);
+
+t_vec	get_triangle_normal(t_triangle *t);
 
 t_ray get_antialiasing(t_data *data, t_vec base_ray);
 

@@ -77,6 +77,7 @@ SRCS_FILES:=	main.c \
 		math/ray.c \
 		math/vector.c \
 		math/matrix.c	\
+		mlx/move_obj.c	\
 		mlx/mlx_events.c \
 		mlx/mlx_loop.c \
 		mlx/mlx_mouse.c \
@@ -84,6 +85,7 @@ SRCS_FILES:=	main.c \
 		mlx/mlx_setup.c \
 		parsing/parse_cam_light.c \
 		parsing/parse_sphere_plane.c \
+		parsing/parse_triangle.c \
 		parsing/parsing.c \
 		parsing/scene.c \
 		parsing/verif_utils.c \
@@ -93,6 +95,7 @@ SRCS_FILES:=	main.c \
 		render/shape/cylinder.c \
 		render/shape/plane.c \
 		render/shape/sphere.c \
+		render/shape/triangle.c \
 		render/nearest_obj.c \
 		render/pathtracing.c \
 		render/raytracing.c \

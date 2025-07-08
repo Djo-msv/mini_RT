@@ -14,5 +14,6 @@ void  mouse_wheel_hook(int button, void* param);
 
 void	change_antialiasing_mode(t_data *data);
 void	change_mode(t_data *data);
+void	change_obj(t_data *d, t_hit select, int key);
 
 #endif

@@ -59,6 +59,16 @@ typedef struct s_cylinder
 }	t_cylinder
 __attribute__((aligned(1)));
 
+typedef struct s_triangle
+{
+	t_vec		a;
+	t_vec		b;
+	t_vec		c;
+	mlx_color	color;
+	t_vec		normal;
+}				t_triangle
+__attribute__((aligned(1)));
+
 typedef struct s_object
 {
 	t_vec	coordinate;
@@ -66,6 +76,5 @@ typedef struct s_object
 	
 }	t_object
 __attribute__((aligned(1)));
-
 
 #endif
