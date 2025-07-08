@@ -24,6 +24,15 @@ void	setup_images(t_data *data)
 	data->image.mlx_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(mlx_color));
 }
 
+void	setup_info(t_data *data, t_print_info *info)
+{
+	info->resolution = data->image.resolution;
+	info->aa = data->image.antialiasing;
+	info->x = data->mlx.info.width;
+	info->y = data->mlx.info.height;
+	info->first_display = true;
+}
+
 void	setup_events(t_data *data, t_mlx *mlx)
 {
 	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook, data);
@@ -35,11 +44,14 @@ void	setup_events(t_data *data, t_mlx *mlx)
 int	setup_mlx(t_data *data)
 {
 	t_mlx	*mlx;
+	t_print_info	*info;
 
 	mlx = &data->mlx;
+	info = &data->info;
 	mlx->mlx = mlx_init();
 	setup_mlx_window(mlx);
 	setup_images(data);
+	setup_info(data, info);
 	setup_events(data, mlx);
 	return (0);
 }

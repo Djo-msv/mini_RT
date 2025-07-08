@@ -2,13 +2,10 @@
 
 int	stop_rt(t_thread *thread)
 {
-	pthread_rwlock_rdlock(thread->run_mutex);
+	while (atomic_load(thread->data->generation_id) % 2)
+		usleep(100);
 	if (thread->run == false)
-	{
-		pthread_rwlock_unlock(thread->run_mutex);
 		return (1);
-	}
-	pthread_rwlock_unlock(thread->run_mutex);
 	return (0);
 }
 
@@ -24,7 +21,7 @@ void	join_thread(t_thread *thread)
 
 void	kill_thread(t_thread *thread)
 {
-	pthread_rwlock_rdlock(thread->data_mutex);
+	atomic_fetch_add(thread->data->generation_id, 1);
 	while (thread->next)
 	{
 		thread->run = false;
@@ -33,7 +30,7 @@ void	kill_thread(t_thread *thread)
 		pthread_rwlock_wrlock(thread->run_mutex);
 	}
 	thread->run = false;
-	pthread_rwlock_unlock(thread->run_mutex);
+	atomic_fetch_add(thread->data->generation_id, 1);
 }
 
 int	init_thread(t_data *data)
@@ -43,7 +40,6 @@ int	init_thread(t_data *data)
 	thread = data->thread;
 	while (thread)
 	{
-		printf("thread id = %d\n", thread->id);
 		if (pthread_create(&thread->thread_t, NULL, rt_thread, thread))
 		{
 			kill_thread(data->thread);

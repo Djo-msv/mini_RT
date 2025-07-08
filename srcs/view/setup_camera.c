@@ -40,10 +40,8 @@ void	setup_camera_setting(t_data *data)
 {
 	t_setting_cam *scene;
 
-	atomic_fetch_add(data->generation_id, 1);
 	scene = &data->setting_cam;
 	calcule_scene(data, scene);
 	angle_camera(data, scene->pitch, scene->yaw);
 	calcule_res(data, scene);
-	atomic_fetch_add(data->generation_id, 1);
 }

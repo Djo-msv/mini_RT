@@ -25,6 +25,7 @@
 # include "ray_tracing.h"
 # include "thread.h"
 # include "alloc.h"
+# include "print.h"
 
 # define MAX_RES_W 1920
 # define MAX_RES_H 1080

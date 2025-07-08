@@ -41,8 +41,13 @@ void window_hook(int event, void* param)
 	if (event == 8)
 	{
 		mlx_get_window_size(mlx->mlx, mlx->win, &mlx->info.width, &mlx->info.height);
+		((t_data *)param)->info.y = mlx->info.width;
+		((t_data *)param)->info.x = mlx->info.height;
+		print_info(&((t_data *)param)->info);
+		atomic_fetch_add(((t_data *)param)->generation_id, 1);
 		setup_camera_setting((t_data *)param);
 		change_thread_setting((t_data *)param);
+		atomic_fetch_add(((t_data *)param)->generation_id, 1);
 	}
 }
 
@@ -50,7 +55,6 @@ void mouse_hook(int button, void* param)
 {
 	t_data	*data = (t_data *)param;
 
-    printf("-> %d\n", button);
 	if (button == 3)
 	{
 		data->setting_cam.move = !data->setting_cam.move;

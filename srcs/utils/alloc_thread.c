@@ -79,9 +79,6 @@ void	alloc_thread(t_data *data)
 	i = 0;
 	chained_list = NULL;
 	while (i != NB_THREAD)
-	{
-		printf("%d\n", i);
 		new_node(data, &chained_list, i++);
-	}
 	data->thread = chained_list;
 }

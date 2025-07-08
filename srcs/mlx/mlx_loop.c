@@ -2,7 +2,7 @@
 
 #include <time.h>
 
-void	fps_cnt(void)
+void	fps_cnt(t_data *data)
 {
 	static int frames = 0;
 	static double lastTime = 0.0;
@@ -17,7 +17,8 @@ void	fps_cnt(void)
 	if (currentTime - lastTime >= 1.0)
 	{
 		fps = frames / (currentTime - lastTime);
-		printf("FPS: %.2f\n", fps);
+		data->info.fps = fps;
+		print_info(&data->info);
 		frames = 0;
 		lastTime = currentTime;
 	}
@@ -36,7 +37,7 @@ void update(void* param)
 	mouse((t_data *)param);
 	display_screen((t_data *)param);
 	(void)param;
-	fps_cnt();
+	fps_cnt((t_data *)param);
 }
 
 void	run_minirt(t_data *data)
