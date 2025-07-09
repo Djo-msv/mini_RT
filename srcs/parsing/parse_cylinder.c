@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/06/25 19:10:31 by star             ###   ########.fr       */
+/*   Updated: 2025/07/09 15:34:35 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static int	init_d_h_rgb_cylinder(t_cylinder *cylinder, char **args)
 	if (!v)
 		return (1);
 	if (verif_int(v[0], "255") || verif_int(v[1], "255")
-		|| verif_int(v[2], "255"))
+		|| verif_int(v[2], "255") || v[3] || args[6])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	cylinder->color = (mlx_color){{ft_atoi(v[0]), ft_atoi(v[1]), ft_atoi(v[2]), 255}};
+	cylinder->color = (mlx_color){{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
 	return (0);
 }
@@ -45,7 +45,7 @@ static int	init_normal_cylinder(t_cylinder *cylinder, char **args)
 	if (!v)
 		return (1);
 	if (verfi_float(v[0]) || verfi_float(v[1])
-		|| verfi_float(v[2]))
+		|| verfi_float(v[2]) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
@@ -68,12 +68,14 @@ int	parse_cylinder(t_scene *scene, char **args)
 	if (!v)
 		return (1);
 	if (verfi_float(v[0]) || verfi_float(v[1])
-		|| verfi_float(v[2]))
+		|| verfi_float(v[2]) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
 	cylinder = malloc(sizeof(t_cylinder));
+	if (!cylinder)
+		return (1);
 	cylinder->coordinate = (t_vec)
 	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);

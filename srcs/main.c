@@ -14,6 +14,7 @@ int	main(int argc, char **argv)
 	if (parse(&data, argc, argv))
 		return (1);
 	setup_minirt(&data);
+	data.texture= mlx_new_image_from_file(data.mlx.mlx, "texture/bumb.jpg", 0, 0);
 	run_minirt(&data);
 	free_data(&data);
 	return(0);

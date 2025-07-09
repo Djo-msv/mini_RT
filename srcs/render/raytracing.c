@@ -35,13 +35,13 @@ t_fcolor	shade_raytracing_pixel(t_data *data, t_ray ray)
 	if (hit.t <= 0)
 		return ((t_fcolor){0.0f, 0.0f, 0.0f});
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-//	printf("%d - %d - %d\n", ((t_object *)hit.obj)->color.r, ((t_object *)hit.obj)->color.g, ((t_object *)hit.obj)->color.b);
+	// printf("%d - %d - %d\n", ((t_sphere *)hit.obj)->color.r, ((t_sphere *)hit.obj)->color.g, ((t_sphere *)hit.obj)->color.b);
 	color = scalar_color(mlxcolor_to_fcolor(((t_object *)hit.obj)->color), mlxcolor_to_fcolor(((t_light *)(data->scene.light->content))->color));
 	if (hit.type == 0)
 		hit.normal = normalize(((t_plane *)hit.obj)->normal);
 	else if (hit.type == 1)
 		hit.normal = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
-	else
+	else if (hit.type == 2)
 	{
 		if (hit.part == 1)
 		{

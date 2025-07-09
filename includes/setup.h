@@ -90,7 +90,7 @@ __attribute__((aligned(1)));
 
 typedef struct s_data
 {
-	mlx_image	img;
+	mlx_image			texture;
 	struct s_mlx		mlx;
 	struct s_scene		scene;
 	struct s_setting_cam	setting_cam;

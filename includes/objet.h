@@ -20,8 +20,8 @@ __attribute__((aligned(1)));
 
 typedef struct s_light
 {
-	t_vec		coordinate;
 	mlx_color	color;
+	t_vec		coordinate;
 
 	float		bright;
 
@@ -30,8 +30,8 @@ __attribute__((aligned(1)));
 
 typedef struct s_sphere
 {
-	t_vec		coordinate;
 	mlx_color	color;
+	t_vec		coordinate;
 
 	float		diameter;
 	float		radius;
@@ -41,8 +41,9 @@ __attribute__((aligned(1)));
 
 typedef struct s_plane
 {
-	t_vec		coordinate;
 	mlx_color	color;
+	t_vec		coordinate;
+
 	t_vec		normal;
 
 }	t_plane
@@ -50,8 +51,9 @@ __attribute__((aligned(1)));
 
 typedef struct s_cylinder
 {
-	t_vec		coordinate;
 	mlx_color	color;
+	t_vec		coordinate;
+
 	t_vec		normal;
 	float		diameter;
 	float		radius;
@@ -71,8 +73,8 @@ __attribute__((aligned(1)));
 
 typedef struct s_object
 {
-	t_vec	coordinate;
 	mlx_color	color;
+	t_vec	coordinate;
 	
 }	t_object
 __attribute__((aligned(1)));

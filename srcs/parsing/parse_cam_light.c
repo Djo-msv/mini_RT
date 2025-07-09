@@ -8,7 +8,7 @@ static int	init_cam(t_scene *scene, char **args)
 	if (!value)
 		return (1);
 	if (verfi_float(value[0]) || verfi_float(value[1])
-		|| verfi_float(value[2]))
+		|| verfi_float(value[2]) || value[3])
 	{
 		ft_free_2d_tab((void **)value);
 		return (1);
@@ -21,7 +21,7 @@ static int	init_cam(t_scene *scene, char **args)
 		|| verif_fvalue(-1, 1, scene->camera.orientation.y)
 		|| verif_fvalue(-1, 1, scene->camera.orientation.z))
 		return (1);
-	if (verif_int(args[3], "180"))
+	if (verif_int(args[3], "180") || args[4])
 		return (1);
 	scene->camera.fov = ft_atof(args[3]);
 	return (0);
@@ -37,7 +37,7 @@ int	parse_camera(t_scene *scene, char **args)
 	if (!value)
 		return (1);
 	if (verfi_float(value[0]) || verfi_float(value[1])
-		|| verfi_float(value[2]))
+		|| verfi_float(value[2]) || value[3])
 	{
 		ft_free_2d_tab((void **)value);
 		return (1);
@@ -64,7 +64,7 @@ int	parse_ambient_light(t_scene *scene, char **args)
 	if (!value)
 		return (1);
 	if (verif_int(value[0], "255") || verif_int(value[1], "255")
-		|| verif_int(value[2], "255"))
+		|| verif_int(value[2], "255") || value[3] || args[3])
 	{
 		ft_free_2d_tab((void **)value);
 		return (1);
@@ -90,7 +90,7 @@ static int	init_light(t_light *light, char **args)
 	if (!value)
 		return (1);
 	if (verif_int(value[0], "255") || verif_int(value[1], "255")
-		|| verif_int(value[2], "255"))
+		|| verif_int(value[2], "255") || value[3] || args[4])
 	{
 		ft_free_2d_tab((void **)value);
 		return (1);
@@ -112,14 +112,16 @@ int	parse_light(t_scene *scene, char **args)
 	if (!v)
 		return (1);
 	if (verfi_float(v[0]) || verfi_float(v[1])
-		|| verfi_float(v[2]))
+		|| verfi_float(v[2]) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
 	light = malloc(sizeof(t_light));
+	if (!light)
+		return (1);
 	light->coordinate = (t_vec)
-	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2]) || v[3]};
 	ft_free_2d_tab((void **)v);
 	if (init_light(light, args))
 	{

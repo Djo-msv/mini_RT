@@ -25,9 +25,9 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 			p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
 			u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
 			v = 0.5 - asin(p.y) / M_PI;
-			x = u * 8192;
-			y = v * 4096;
-			mlx_get_image_region(data->mlx.mlx, data->img, x, y ,1 ,1, &pixel);
+			x = u * 6016;
+			y = v * 4016;
+			mlx_get_image_region(data->mlx.mlx, data->texture, x, y ,1 ,1, &pixel);
 			hit.color = mlxcolor_to_fcolor(pixel);
 		}
 		else
