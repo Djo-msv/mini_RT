@@ -4,6 +4,8 @@ void	change_antialiasing_mode(t_data *data)
 {
 	data->image.antialiasing = !data->image.antialiasing;
 	data->image.nb_images = 0;
+	data->info.aa = !data->info.aa;
+	print_info(&data->info);
 }
 
 

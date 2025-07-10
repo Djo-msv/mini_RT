@@ -17,11 +17,9 @@ void	angle_camera(t_data *data, float pitch, float yaw)
 
 void	rotate_camera(t_data *data, float pitch, float yaw)
 {
-	atomic_fetch_add(data->generation_id, 1);
 	angle_camera(data, pitch, yaw);
 	calcule_res(data, &data->setting_cam);
 
 	threads_ray_direction(data);
-	atomic_fetch_add(data->generation_id, 1);
 	data->image.nb_images = 0;
 }

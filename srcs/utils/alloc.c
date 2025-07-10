@@ -22,8 +22,8 @@ void	free_thread(t_thread *thread)
 
 void	free_data(t_data *data)
 {
-	free(data->image.new_img);
-	free(data->image.old_img);
+	free(data->image.buf_img);
+//	free(data->image.old_img);
 	free(data->image.mlx_img);
 	free(data->generation_id);
 	free_thread(data->thread);

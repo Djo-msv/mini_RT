@@ -29,30 +29,20 @@ t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 {
 	int width = data->mlx.info.width;
-	t_thread *thread = data->thread;
 
-	while (thread)
+	
+	t_fcolor *buffer_img = data->image.buf_img;
+	for (int y = 0; y < data->mlx.info.height; y++)
 	{
-		int y_local;
 
-		while(!atomic_load_explicit(thread->ready, memory_order_acquire))
-			usleep(100);
-		t_fcolor *buffer_copy = thread->buffer_b;
-		for (y_local = 0; y_local <= (thread->y_max - thread->y_min); y_local++)
+		for (int x = 0; x < width; x++)
 		{
-			int y_global = thread->y_min + y_local;
-			for (int x = 0; x < width; x++)
-			{
-				int local_index = y_local * width + x;
-				int global_index = y_global * width + x;
+			int global_index = y * width + x;
 
-				dst[global_index].r = buffer_copy[local_index].r * 255.0f;
-				dst[global_index].g = buffer_copy[local_index].g * 255.0f;
-				dst[global_index].b = buffer_copy[local_index].b * 255.0f;
-				dst[global_index].a = 255;
-			}
+			dst[global_index].r = buffer_img[global_index].r;
+			dst[global_index].g = buffer_img[global_index].g;
+			dst[global_index].b = buffer_img[global_index].b;
+			dst[global_index].a = 255;
 		}
-		atomic_store_explicit(thread->ready, false, memory_order_release);
-		thread = thread->next;
 	}
 }

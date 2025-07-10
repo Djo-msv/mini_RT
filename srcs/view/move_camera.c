@@ -6,9 +6,11 @@ void	move_camera_forward(t_data *data, t_setting_cam *cam)
 
 	flat.y = 0;
 	flat = normalize(flat);
+	atomic_fetch_add(data->generation_id, 1);
 	cam->camera_center.x += flat.x * 0.1f;
 	cam->camera_center.z += flat.z * 0.1f;
 	rotate_camera(data, cam->pitch, cam->yaw);
+	atomic_fetch_add(data->generation_id, 1);
 }
 
 void	move_camera_backward(t_data *data, t_setting_cam *cam)
@@ -17,9 +19,11 @@ void	move_camera_backward(t_data *data, t_setting_cam *cam)
 
 	flat.y = 0;
 	flat = normalize(flat);
+	atomic_fetch_add(data->generation_id, 1);
 	cam->camera_center.x -= flat.x * 0.1f;
 	cam->camera_center.z -= flat.z * 0.1f;
 	rotate_camera(data, cam->pitch, cam->yaw);
+	atomic_fetch_add(data->generation_id, 1);
 }
 
 void	move_camera_left(t_data *data, t_setting_cam *cam)
@@ -30,10 +34,12 @@ void	move_camera_left(t_data *data, t_setting_cam *cam)
 	flat.y = 0;
 	flat = normalize(flat);
     t_vec left = cross(up, flat);
-    
+
+	atomic_fetch_add(data->generation_id, 1);
 	cam->camera_center.x -= left.x * 0.1f;
     cam->camera_center.z -= left.z * 0.1f;
     rotate_camera(data, cam->pitch, cam->yaw);
+	atomic_fetch_add(data->generation_id, 1);
 }
 
 void	move_camera_right(t_data *data, t_setting_cam *cam)
@@ -44,19 +50,25 @@ void	move_camera_right(t_data *data, t_setting_cam *cam)
 	flat.y = 0;
 	flat = normalize(flat);
     t_vec right = cross(up, flat);
+	atomic_fetch_add(data->generation_id, 1);
 	cam->camera_center.x += right.x * 0.1f;
     cam->camera_center.z += right.z * 0.1f;
 	rotate_camera(data, cam->pitch, cam->yaw);
+	atomic_fetch_add(data->generation_id, 1);
 }
 
 void	move_camera_up(t_data *data, t_setting_cam *cam)
 {
+	atomic_fetch_add(data->generation_id, 1);
 	cam->camera_center.y -= 0.1f;
 	rotate_camera(data, cam->pitch, cam->yaw);
+	atomic_fetch_add(data->generation_id, 1);
 }
 
 void	move_camera_down(t_data *data, t_setting_cam *cam)
 {
+	atomic_fetch_add(data->generation_id, 1);
 	cam->camera_center.y += 0.1f;
 	rotate_camera(data, cam->pitch, cam->yaw);
+	atomic_fetch_add(data->generation_id, 1);
 }

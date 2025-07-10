@@ -39,8 +39,6 @@ void	change_thread_setting(t_data *data)
 	int			ratio = data->mlx.info.height / NB_THREAD;
 	t_thread 	*thread = data->thread;
 
-//	printf("\033[2J");
-//	printf("\033[H");
 	while (thread)
 	{
 		thread->y_min = ratio * thread->id;
@@ -49,25 +47,9 @@ void	change_thread_setting(t_data *data)
 		else
 			thread->y_max = data->mlx.info.height;
 		thread->x = data->mlx.info.width;
-//		printf("thread %d, %d - %d\n", thread->id, thread->y_min, thread->y_max);
 		thread_ray_direction(data, thread);
 		thread = thread->next;
 	}
-}
-
-void	handle_pixel(t_thread *thread, int x, int y, t_vec ray_direction, int resolution)
-{
-	int pos = y * thread->x + x;
-
-	if (y == 0 || x == 0 || y == thread->y_max - thread->y_min || x == thread->x)
-		thread->buffer_a[pos] = (t_fcolor){0.0f, 0.0f, 1.0f};
-	else if (true)
-		thread->buffer_a[pos] = (t_fcolor){(ray_direction.x * 0.5f) + 0.5f, (ray_direction.y * 0.5f) + 0.5f, (ray_direction.z * 0.5f) + 0.5f};
-	else
-		render(thread->data, &thread->buffer_a[pos], ray_direction);
-//	if (resolution != 1)
-//		handle_low_resolution(thread->data, x, y, resolution);
-	(void)resolution;
 }
 
 void	swap_buffer(t_thread *thread)
@@ -89,6 +71,7 @@ void	select_pixel(t_thread *thread)
 {
 	int	x = 0;
 	int	y;
+	int resolution = thread->data->image.resolution;
 	t_vec	*ray_direction = thread->ray_direction;
 	t_fcolor	*buf = thread->buffer_a;
 
@@ -107,11 +90,13 @@ void	select_pixel(t_thread *thread)
 				return ;
 			}
 			render(thread->data, buf, *ray_direction);
+//			if (resolution != 1)
+//				handle_low_resolution(buf, x, y, resolution);
 			buf++;
 			ray_direction++;
-			x += 1;
+			x += resolution;
 		}
-		y += 1;
+		y += resolution;
 	}
 	swap_buffer(thread);
 }
