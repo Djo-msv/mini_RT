@@ -13,5 +13,7 @@ t_matrix	mat4_rotation_x(float angle);
 t_matrix	mat4_translation(float x, float y, float z);
 t_matrix	mul_mat4(t_matrix m1, t_matrix m2);
 t_matrix	mat4_scale(float x, float y, float z);
+t_matrix	mat4_transpose(t_matrix m);
+t_matrix	mat4_inverse(t_matrix m);
 
 #endif

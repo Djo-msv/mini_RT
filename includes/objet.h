@@ -71,6 +71,18 @@ typedef struct s_triangle
 }				t_triangle
 __attribute__((aligned(1)));
 
+typedef struct s_ellipsoid
+{
+	mlx_color	color;
+	t_vec		coordinate;
+	t_vec		normal;
+	t_vec		scale;
+	t_matrix	tran;
+	t_matrix	t_inv;
+	t_matrix	t_inv_t;
+}				t_ellipsoid
+__attribute__((aligned(1)));
+
 typedef struct s_object
 {
 	mlx_color	color;

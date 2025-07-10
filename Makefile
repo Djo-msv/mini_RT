@@ -86,6 +86,7 @@ SRCS_FILES:=	main.c \
 		parsing/parse_cam_light.c \
 		parsing/parse_sphere_plane.c \
 		parsing/parse_triangle.c \
+		parsing/parse_ellipsoid.c \
 		parsing/parsing.c \
 		parsing/scene.c \
 		parsing/verif_utils.c \
@@ -96,6 +97,7 @@ SRCS_FILES:=	main.c \
 		render/shape/plane.c \
 		render/shape/sphere.c \
 		render/shape/triangle.c \
+		render/shape/ellipsoid.c \
 		render/nearest_obj.c \
 		render/pathtracing.c \
 		render/raytracing.c \

@@ -1,5 +1,32 @@
 #include "miniRT.h"
 
+t_hit	nearest_ellipsoid(t_data *data, t_ray ray)
+{
+	t_hit		hit;
+	t_list		*tmp;
+	t_ellipsoid	*ellipsoid;
+	float		t;
+
+	t = -1;
+	hit.t = 0;
+	hit.obj = NULL;
+	hit.type = -1;
+	tmp = data->scene.ellipsoid;
+	while (tmp)
+	{
+		ellipsoid = (t_ellipsoid *)tmp->content;
+		t = hit_ellipsoid(ellipsoid, ray);
+		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		{
+			hit.t = t;
+			hit.obj = ellipsoid;
+			hit.type = 5;
+		}
+		tmp = tmp->next;
+	}
+	return (hit);
+}
+
 t_hit	cylinder_part(t_cylinder *cy, t_ray ray)
 {
 	float	t1;
@@ -145,7 +172,6 @@ t_hit	nearest_triangle(t_data *data, t_ray ray)
 	return (hit);
 }
 
-
 t_hit	nearest_sphere(t_data *data, t_ray ray)
 {
 	t_hit		hit;
@@ -190,6 +216,9 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
 	buf_hit = nearest_triangle(data, ray);
+	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
+		hit = buf_hit;
+	buf_hit = nearest_ellipsoid(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));

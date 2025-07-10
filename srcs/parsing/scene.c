@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/08 17:00:13 by star             ###   ########.fr       */
+/*   Updated: 2025/07/10 20:02:44 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	check_args(t_data *data, char **args)
 	else if (!ft_strcmp(args[0], "cy"))
 		return (parse_cylinder(&data->scene, args));
 	else if (!ft_strcmp(args[0], "tr"))
+		return (parse_triangle(&data->scene, args));
+	else if (!ft_strcmp(args[0], "el"))
 		return (parse_triangle(&data->scene, args));
 	else if (!args || !*args || args[0][0] == '#')
 		return (0);

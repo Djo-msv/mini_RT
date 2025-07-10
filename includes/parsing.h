@@ -14,5 +14,6 @@ int verfi_float(char *str);
 int verif_fvalue(float min, float max, float value);
 int verif_str(char *str);
 int	parse_triangle(t_scene *scene, char **args);
+int	parse_ellipsoid(t_scene *scene, char **args);
 
 # endif

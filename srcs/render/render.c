@@ -7,7 +7,16 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 	hit = nearest_obj(data, ray);
 	if (hit.type == 0)
 	{
-		hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
+		if (1)
+		{
+			int	checker = ((int)floor(hit.position.x / 2) + (int)floor(hit.position.z / 2)) % 2;
+			if (checker)
+				hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
+			else 
+				hit.color = (t_fcolor){0.0f, 0.0f, 0.0f};
+		}
+		else
+			hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
 		hit.normal = normalize(((t_plane *)hit.obj)->normal);
 		hit.material = 0;
 	}
@@ -61,6 +70,14 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 	{
 		hit.color = mlxcolor_to_fcolor(((t_triangle *)hit.obj)->color);
 		hit.normal = ((t_triangle *)hit.obj)->normal;
+	}
+	else if (hit.type == 5)
+	{
+		t_ellipsoid	*e = (t_ellipsoid *)hit.obj;
+		t_vec	hit_local = mul_mat4_to_vec(e->t_inv, hit.position, 1);
+		t_vec	normal = normalize(hit_local);
+		hit.normal = normalize(mul_mat4_to_vec(e->t_inv_t, normal, 0));
+		hit.color = mlxcolor_to_fcolor(e->color);
 	}
 	return (hit);
 }

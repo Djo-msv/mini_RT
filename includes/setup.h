@@ -75,6 +75,7 @@ typedef struct s_scene
 	t_list		*plane;
 	t_list		*cylinder;
 	t_list		*triangle;
+	t_list		*ellipsoid;
 	t_select	select;
 }	t_scene
 __attribute__((aligned(1)));
