@@ -14,6 +14,7 @@ t_hit	nearest_ellipsoid(t_data *data, t_ray ray)
 	tmp = data->scene.ellipsoid;
 	while (tmp)
 	{
+		// printf("alo \n");
 		ellipsoid = (t_ellipsoid *)tmp->content;
 		t = hit_ellipsoid(ellipsoid, ray);
 		if (t > 0.0f && (t < hit.t || hit.t == 0))

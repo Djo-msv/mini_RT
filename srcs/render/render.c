@@ -64,7 +64,7 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 	else if (hit.type == 3)
 	{
 		hit.color = mlxcolor_to_fcolor(((t_light *)hit.obj)->color);
-		hit.normal = normalize(vec_sub(hit.position, ((t_cylinder *)hit.obj)->coordinate));	
+		hit.normal = normalize(vec_sub(hit.position, ((t_light *)hit.obj)->coordinate));	
 	}
 	else if (hit.type == 4)
 	{
