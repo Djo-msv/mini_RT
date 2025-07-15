@@ -2,21 +2,23 @@
 
 #include <time.h>
 
-void	fps_cnt(void)
+void	fps_cnt(t_data *data)
 {
 	static int frames = 0;
 	static double lastTime = 0.0;
 	static double fps = 0.0;
 
-	clock_t currentClock = clock();
-	double currentTime = (double)currentClock / CLOCKS_PER_SEC;
+	struct timespec ts;
+	clock_gettime(CLOCK_MONOTONIC, &ts);  // temps système monotone
+	double currentTime = ts.tv_sec + ts.tv_nsec / 1e9;
 
 	frames++;
 
 	if (currentTime - lastTime >= 1.0)
 	{
 		fps = frames / (currentTime - lastTime);
-		printf("FPS: %.2f\n", fps);
+		data->info.fps = fps;
+		print_info(&data->info);
 		frames = 0;
 		lastTime = currentTime;
 	}
@@ -34,7 +36,8 @@ void update(void* param)
 	update_ray((t_data *)param);
 	mouse((t_data *)param);
 	display_screen((t_data *)param);
-	fps_cnt();
+	(void)param;
+	fps_cnt((t_data *)param);
 }
 
 void	run_minirt(t_data *data)
@@ -42,6 +45,8 @@ void	run_minirt(t_data *data)
 	t_mlx	*mlx;
 
 	mlx = &data->mlx;
+	init_thread(data);
 	mlx_add_loop_hook(mlx->mlx, update, data);
 	mlx_loop(mlx->mlx);
+	kill_thread(data->thread);
 }

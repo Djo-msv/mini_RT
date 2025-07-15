@@ -1,41 +1,5 @@
 #include "miniRT.h"
 
-void	calculate_ray_direction(t_setting_cam *scene)
-{
-	int		x;
-	int		y;
-	t_vec	pixel_center;
-
-	x = 0;
-	while (x != scene->width)
-	{
-		y = 0;
-		while (y != scene->height)
-		{
-			pixel_center = vec_add(
-    			vec_add(scene->pixel00_loc, vec_mul(scene->pixel_delta_h, (scene->width - 1 - x))),
-    			vec_mul(scene->pixel_delta_v, (scene->height - 1 - y)));
-			scene->ray_direction[x][y] = vec_sub(pixel_center, scene->camera_center);
-			y++;
-		}
-		x++;
-	}
-}
-
-void	alloc_ray_direction(t_setting_cam *scene)
-{
-	int		x;
-
-	x = 0;
-	scene->ray_direction = ft_calloc((MAX_RES_H + 1), sizeof(t_vec *));
-	scene->ray_direction[(int)scene->width] = NULL;
-	while (x != scene->width)
-	{
-		scene->ray_direction[x] = malloc(MAX_RES_V * sizeof(t_vec));
-		x++;
-	}
-}
-
 void	calcule_res(t_data *data, t_setting_cam *cam)
 {
 	t_vec viewport_center = vec_add(
@@ -80,6 +44,4 @@ void	setup_camera_setting(t_data *data)
 	calcule_scene(data, scene);
 	angle_camera(data, scene->pitch, scene->yaw);
 	calcule_res(data, scene);
-	alloc_ray_direction(scene);
-	calculate_ray_direction(scene);
 }

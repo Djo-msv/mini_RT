@@ -54,12 +54,12 @@ t_fcolor	shade_pathtracing_pixel(t_data *data, t_ray ray)
 
 	while (depth < data->setting_cam.rbon_nb)
 	{
-		t_hit	hit = intersectScene(data, ray);
+		t_hit	hit = intersectScene(data, ray, direct_light);
 		if (hit.type == -1)
 			return (add_color(color, scalar_color((t_fcolor){0.0f, 0.0f, 0.0f}, throughput)));
 		if (hit.type == 3)
 		{
-    		t_fcolor emission = scale_mlx_color(hit.color, 5.0f);
+    		t_fcolor emission = scale_mlx_color(hit.color, 1.0f);
 			if (!direct_light)
 	    		color = add_color(color, scalar_color(emission, throughput));
 			else

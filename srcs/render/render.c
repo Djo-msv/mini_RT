@@ -1,10 +1,10 @@
 #include "miniRT.h"
 
-t_hit	intersectScene(t_data *data, t_ray ray)
+t_hit	intersectScene(t_data *data, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
 
-	hit = nearest_obj(data, ray);
+	hit = nearest_obj(data, ray, direct_light);
 	if (hit.type == 0)
 	{
 		if (1)
@@ -87,6 +87,6 @@ void	render(t_data *data, t_fcolor *pixel, t_vec ray_direction)
 //	t_setting_cam	camera;
 
 //	camera = data->setting_cam;
-	sampling(pixel, shade_pathtracing_pixel(data, get_antialiasing(data, ray_direction)),
-		  data->image.coef_new_p, data->image.coef_old_p);
+//	return ;
+	*pixel = shade_pathtracing_pixel(data, get_antialiasing(data, ray_direction));
 }

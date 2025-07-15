@@ -26,33 +26,23 @@ t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 	return ((t_fcolor){color.r / 255.0f, color.g / 255.0f, color.b / 255.0f});
 }
 
-void	fcolor_to_mlxcolor(t_data *data, t_fcolor *src, mlx_color *dst, size_t n)
+void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 {
-	double	coef_new_p = data->image.coef_new_p;
-	double	coef_old_p = data->image.coef_old_p;
+	int width = data->mlx.info.width;
+
 	
+	t_fcolor *buffer_img = data->image.buf_img;
+	for (int y = 0; y < data->mlx.info.height; y++)
+	{
 
-    for (size_t i = 0; i < n; ++i)
-    {
-        double rf = src[i].r * 255.0f;
-        double gf = src[i].g * 255.0f;
-        double bf = src[i].b * 255.0f;
+		for (int x = 0; x < width; x++)
+		{
+			int global_index = y * width + x;
 
-        double r = (uint8_t)(fminf(fmaxf(rf, 0.0f), 255.0f));
-        double g = (uint8_t)(fminf(fmaxf(gf, 0.0f), 255.0f));
-        double b = (uint8_t)(fminf(fmaxf(bf, 0.0f), 255.0f));
-		if (!1)
-		{
-			dst[i].r = (uint8_t)((r * coef_old_p) + ((double)dst[i].r * coef_new_p));
-			dst[i].g = (uint8_t)((g * coef_old_p) + ((double)dst[i].g * coef_new_p));
-			dst[i].b = (uint8_t)((b * coef_old_p) + ((double)dst[i].b * coef_new_p));
+			dst[global_index].r = buffer_img[global_index].r;
+			dst[global_index].g = buffer_img[global_index].g;
+			dst[global_index].b = buffer_img[global_index].b;
+			dst[global_index].a = 255;
 		}
-		else
-		{
-			dst[i].r = r;
-			dst[i].g = g;
-			dst[i].b = b;
-		}
-		dst[i].a = 255;
 	}
 }

@@ -2,8 +2,10 @@
 
 void		setup_minirt(t_data *data)
 {
+	data->generation_id = malloc(sizeof(atomic_uint));
+	atomic_init(data->generation_id, 0);
 	setup_mlx(data);
-	setup_camera_setting(data);
+	alloc_thread(data);
 }
 
 int	main(int argc, char **argv)

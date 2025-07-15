@@ -11,8 +11,8 @@ void	mouse(t_data *data)
 	mlx_mouse_get_pos(data->mlx.mlx, &x, &y);
 	if (data->setting_cam.move)
 	{
-		mlx_mouse_move(data->mlx.mlx, data->mlx.win, cam->width >> 1, cam->height >> 1);
-		if (x - (cam->width >> 1) == 0 && y - (cam->height >> 1) == 0)
+		mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.info.width >> 1, data->mlx.info.height >> 1);
+		if (x - (data->mlx.info.width >> 1) == 0 && y - (data->mlx.info.height >> 1) == 0)
 			return ;
 		yaw += (x - (float)(cam->width >> 1)) * 0.001f;
 		pitch -= (y - (float)(cam->height >> 1)) * 0.001f;

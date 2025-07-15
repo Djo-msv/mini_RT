@@ -66,25 +66,24 @@ t_hit	cylinder_part(t_cylinder *cy, t_ray ray)
 t_hit	nearest_cylinder(t_data *data, t_ray ray)
 {
 	t_hit		hit;
-	t_hit		n;
 	t_list		*tmp;
 	t_cylinder	*cylinder;
+	float		t;
 	
+	t = -1;
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	hit.part = 0;
 	tmp = data->scene.cylinder;
 	while (tmp)
 	{
 		cylinder = (t_cylinder *)tmp->content;
-		n = cylinder_part(cylinder, ray);
-		if (n.t > 0.0f && (n.t < hit.t || hit.t == 0))
+		t = hit_cylinder(cylinder, cylinder->radius, ray);
+		if (t > 0.0f && (t < hit.t || hit.t == 0))
 		{
-			hit.t = n.t;
+			hit.t = t;
 			hit.obj = cylinder;
 			hit.type = 2;
-			hit.part = n.part;
 		}
 		tmp = tmp->next;
 	}
@@ -200,7 +199,7 @@ t_hit	nearest_sphere(t_data *data, t_ray ray)
 	return (hit);
 }
 
-t_hit	nearest_obj(t_data *data, t_ray ray)
+t_hit	nearest_obj(t_data *data, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
 	t_hit	buf_hit;
@@ -213,15 +212,18 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	buf_hit = nearest_cylinder(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
-	buf_hit = nearest_light(data, ray);
-	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
-		hit = buf_hit;
 	buf_hit = nearest_triangle(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
 	buf_hit = nearest_ellipsoid(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
+	if (direct_light == false)
+	{
+		buf_hit = nearest_light(data, ray);
+		if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
+			hit = buf_hit;
+	}
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
 	return (hit);
 }

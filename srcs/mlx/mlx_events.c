@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/09 15:49:38 by star             ###   ########.fr       */
+/*   Updated: 2025/07/15 17:43:06 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void key_hook(int key, void* param)
 		((t_data *)param)->scene.select.up_mode = !((t_data *)param)->scene.select.up_mode;
 	if (key == 21)
 		((t_data *)param)->scene.select.rotate_mode = !((t_data *)param)->scene.select.rotate_mode;
-	printf("%d\n", key);
+	// printf("%d\n", key);
 }
 
 void window_hook(int event, void* param)
@@ -98,7 +98,13 @@ void window_hook(int event, void* param)
 	if (event == 8)
 	{
 		mlx_get_window_size(mlx->mlx, mlx->win, &mlx->info.width, &mlx->info.height);
+		((t_data *)param)->info.y = mlx->info.width;
+		((t_data *)param)->info.x = mlx->info.height;
+		print_info(&((t_data *)param)->info);
+		atomic_fetch_add(((t_data *)param)->generation_id, 1);
 		setup_camera_setting((t_data *)param);
+		change_thread_setting((t_data *)param);
+		atomic_fetch_add(((t_data *)param)->generation_id, 1);
 	}
 }
 
@@ -115,9 +121,13 @@ void	handle_select_obj(t_data *d)
 	else
 	{
 		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
-		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.ray_direction[x][y]);
+		t_vec	pixel_center;
+		pixel_center = vec_add(
+			vec_add(d->setting_cam.pixel00_loc, vec_mul(d->setting_cam.pixel_delta_h, x)),
+			vec_mul(d->setting_cam.pixel_delta_v, y));
+		ray = create_ray(d->setting_cam.camera_center, vec_sub(pixel_center, d->setting_cam.camera_center));
 	}
-	d->scene.select.hit = nearest_obj(d, ray);
+	d->scene.select.hit = nearest_obj(d, ray, true);
 	if (d->scene.select.hit.t <= 0)
 		return ;
 	if (d->setting_cam.move)
@@ -129,7 +139,6 @@ void mouse_hook(int button, void* param)
 {
 	t_data	*data = (t_data *)param;
 
-    printf("-> %d\n", button);
 	if (button == 3)
 	{
 		data->setting_cam.move = !data->setting_cam.move;

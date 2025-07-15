@@ -46,8 +46,6 @@ typedef struct s_setting_cam
 	t_vec	pixel00_loc;
 	t_vec	forward;
 
-	t_vec	**ray_direction;
-
 	float	rand_h;
 	float	rand_v;
 	float	res_h;
@@ -89,14 +87,28 @@ typedef struct s_mlx
 }	t_mlx
 __attribute__((aligned(1)));
 
+typedef struct s_print_info
+{
+	int		x;
+	int		y;
+	int		resolution;
+	float	fps;
+	bool	aa;
+	bool	first_display;
+}	t_print_info
+__attribute__((aligned(1)));
+
 typedef struct s_data
 {
 	mlx_image			texture;
 	struct s_mlx		mlx;
 	struct s_scene		scene;
 	struct s_setting_cam	setting_cam;
+	struct s_thread			*thread;
 	struct s_image	image;
-}t_data
+	struct s_print_info		info;
+	atomic_uint				*generation_id;
+}	t_data
 __attribute__((aligned(1)));
 
 #endif
