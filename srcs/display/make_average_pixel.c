@@ -20,6 +20,7 @@ void	sampling(t_data *data)
 	t_thread *thread = data->thread;
 	t_fcolor	*buf_img = data->image.buf_img;
 
+//	printf("%f - %f - %zu\n", data->image.coef_new_p, data->image.coef_old_p, data->image.nb_images);
 	while (thread)
 	{
 		int y_local;

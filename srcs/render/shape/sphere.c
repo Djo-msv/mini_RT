@@ -9,7 +9,15 @@ float hit_sphere(t_vec center, double radius, t_ray r)
     float discriminant = b * b - a * c;
 
     if (discriminant < 0.0)
-        return -1.0;
-        else
-        return (b - sqrt(discriminant)) / (a);
+	{
+		return -1.0;
+	}
+	float t1 = (b - sqrt(discriminant)) / (a);
+	float t2 = (b + sqrt(discriminant)) / (a);
+
+	if (t1 > 0.0)
+		return t1;
+	if (t2 > 0.0)
+		return t2;
+	return -1.0;
 }

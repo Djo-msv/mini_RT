@@ -22,7 +22,9 @@ void	mouse(t_data *data)
 			pitch = -1.5707f;
 		cam->yaw = yaw;
 		cam->pitch = pitch;
+		atomic_fetch_add(data->generation_id, 1);
 		rotate_camera(data, pitch, yaw);
+		atomic_fetch_add(data->generation_id, 1);
 	}
 }
 

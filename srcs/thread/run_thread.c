@@ -83,10 +83,11 @@ void	select_pixel(t_thread *thread)
 		{
 			if (atomic_load(thread->data->generation_id) != thread->local_generation)
 			{
+				thread->local_generation += 2;
 				atomic_store_explicit(thread->ready, false, memory_order_release);
 				while (atomic_load(thread->data->generation_id) % 2)
-					usleep(100);
-				thread->local_generation = atomic_load(thread->data->generation_id);
+					usleep(10);
+//				thread->local_generation = atomic_load(thread->data->generation_id);
 				return ;
 			}
 			render(thread->data, buf, *ray_direction);

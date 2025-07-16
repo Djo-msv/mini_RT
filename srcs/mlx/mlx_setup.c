@@ -19,9 +19,9 @@ void	setup_images(t_data *data)
 	data->image.resolution = 1;
 	data->image.antialiasing = 1;
 	data->setting_cam.rbon_nb = 8;
-	data->image.buf_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(t_fcolor));
+	data->image.buf_img = ft_calloc(MAX_RES_H * MAX_RES_W + 10, sizeof(t_fcolor));
 //	data->image.old_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(t_fcolor));
-	data->image.mlx_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(mlx_color));
+	data->image.mlx_img = ft_calloc(MAX_RES_H * MAX_RES_W + 10, sizeof(mlx_color));
 }
 
 void	setup_info(t_data *data, t_print_info *info)

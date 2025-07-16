@@ -47,6 +47,7 @@ void window_hook(int event, void* param)
 		atomic_fetch_add(((t_data *)param)->generation_id, 1);
 		setup_camera_setting((t_data *)param);
 		change_thread_setting((t_data *)param);
+		((t_data *)param)->image.nb_images = 0;
 		atomic_fetch_add(((t_data *)param)->generation_id, 1);
 	}
 }
