@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 15:08:21 by star              #+#    #+#             */
-/*   Updated: 2025/07/10 19:12:47 by star             ###   ########.fr       */
+/*   Updated: 2025/07/16 19:24:13 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,26 +128,13 @@ t_matrix	mat4_transpose(t_matrix m)
 	return (t);
 }
 
-
-t_matrix	mat4_inverse(t_matrix m)
+t_matrix	mat4_id(void)
 {
-	t_matrix	inv;
+	t_matrix	n = {0};
 	int			i;
-	int			j;
 
 	i = -1;
-	j = -1;
-	while (++i < 3)
-	{
-		while (++j < 3)
-			inv.m[i][j] = m.m[j][i];
-	}
-	inv.m[0][3] = -(inv.m[0][0]*m.m[0][3] + inv.m[0][1]*m.m[1][3] + inv.m[0][2]*m.m[2][3]);
-	inv.m[1][3] = -(inv.m[1][0]*m.m[0][3] + inv.m[1][1]*m.m[1][3] + inv.m[1][2]*m.m[2][3]);
-	inv.m[2][3] = -(inv.m[2][0]*m.m[0][3] + inv.m[2][1]*m.m[1][3] + inv.m[2][2]*m.m[2][3]);
-	inv.m[3][0] = 0;
-	inv.m[3][1] = 0;
-	inv.m[3][2] = 0;
-	inv.m[3][3] = 1;
-	return (inv);
+	while (++i < 4)
+		n.m[i][i] = 1.0;
+	return (n);
 }

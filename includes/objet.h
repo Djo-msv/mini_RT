@@ -80,6 +80,8 @@ typedef struct s_ellipsoid
 	t_matrix	tran;
 	t_matrix	t_inv;
 	t_matrix	t_inv_t;
+	t_vec		word;
+	t_vec		n_word;
 }				t_ellipsoid
 __attribute__((aligned(1)));
 

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:57:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/12 17:51:51 by star             ###   ########.fr       */
+/*   Updated: 2025/07/16 19:59:44 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,14 @@ int	parse_ellipsoid(t_scene *scene, char **args)
 		free(ellipsoid);
 		return (1);
 	}
-	t_matrix	tr;
-	t_matrix	ro;
-	t_matrix	s;
-
-	tr = mat4_translation(ellipsoid->coordinate.x, ellipsoid->coordinate.y, ellipsoid->coordinate.z);
-	ro = mul_mat4(mat4_rotation_z(ellipsoid->normal.z), mul_mat4(mat4_rotation_y(ellipsoid->normal.y), mat4_rotation_x(ellipsoid->normal.x)));
-	s = mat4_scale(ellipsoid->scale.x, ellipsoid->scale.y, ellipsoid->scale.z);
+	t_matrix tr = mat4_translation(ellipsoid->coordinate.x, ellipsoid->coordinate.y, ellipsoid->coordinate.z);
+	t_matrix ro = mul_mat4(mul_mat4(mat4_rotation_z(ellipsoid->normal.z), mat4_rotation_y(ellipsoid->normal.y)), mat4_rotation_x(ellipsoid->normal.x));
+	t_matrix s = mat4_scale(ellipsoid->scale.x, ellipsoid->scale.y, ellipsoid->scale.z);
 	ellipsoid->tran = mul_mat4(tr, mul_mat4(ro, s));
-	ellipsoid->t_inv = mat4_inverse(ellipsoid->tran);
+	t_matrix s_inv = mat4_scale(1.0 / ellipsoid->scale.x, 1.0 / ellipsoid->scale.y, 1.0 / ellipsoid->scale.z);
+	t_matrix ro_inv = mul_mat4(mat4_rotation_x(-ellipsoid->normal.x), mul_mat4(mat4_rotation_y(-ellipsoid->normal.y), mat4_rotation_z(-ellipsoid->normal.z)));
+	t_matrix tr_inv = mat4_translation(-ellipsoid->coordinate.x, -ellipsoid->coordinate.y, -ellipsoid->coordinate.z);
+	ellipsoid->t_inv = mul_mat4(s_inv, mul_mat4(ro_inv, tr_inv));
 	ellipsoid->t_inv_t = mat4_transpose(ellipsoid->t_inv);
 	ft_lstadd_back(&scene->ellipsoid, ft_lstnew(ellipsoid));
 	return (0);

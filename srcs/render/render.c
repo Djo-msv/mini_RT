@@ -74,9 +74,9 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 	else if (hit.type == 5)
 	{
 		t_ellipsoid	*e = (t_ellipsoid *)hit.obj;
-		t_vec	hit_local = mul_mat4_to_vec(e->t_inv, hit.position, 1);
-		t_vec	normal = normalize(hit_local);
-		hit.normal = normalize(mul_mat4_to_vec(e->t_inv_t, normal, 0));
+		hit.normal = e->n_word;
+		hit.position = e->word;
+		// hit.normal = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
 		hit.color = mlxcolor_to_fcolor(e->color);
 	}
 	return (hit);
