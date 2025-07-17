@@ -77,6 +77,7 @@ typedef struct s_ellipsoid
 	t_vec		coordinate;
 	t_vec		normal;
 	t_vec		scale;
+	float		size;
 	t_matrix	tran;
 	t_matrix	t_inv;
 	t_matrix	t_inv_t;
