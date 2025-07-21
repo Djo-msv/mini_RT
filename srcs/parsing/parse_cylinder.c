@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/09 15:34:35 by star             ###   ########.fr       */
+/*   Updated: 2025/07/21 19:00:08 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static int	init_d_h_rgb_cylinder(t_cylinder *cylinder, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	cylinder->color = (mlx_color){{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
+	cylinder->color = (mlx_color)
+	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
 	return (0);
 }
@@ -76,8 +77,7 @@ int	parse_cylinder(t_scene *scene, char **args)
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (1);
-	cylinder->coordinate = (t_vec)
-	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	cylinder->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	if (init_normal_cylinder(cylinder, args)
 		|| init_d_h_rgb_cylinder(cylinder, args)

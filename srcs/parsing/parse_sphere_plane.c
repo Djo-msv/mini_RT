@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/09 15:37:44 by star             ###   ########.fr       */
+/*   Updated: 2025/07/21 19:00:49 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	init_sphere(t_sphere *sphere, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	sphere->color = (mlx_color){{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
+	sphere->color = (mlx_color)
+	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
 	return (0);
 }
@@ -79,7 +80,8 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	plane->color = (mlx_color){{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
+	plane->color = (mlx_color)
+	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
 	return (0);
 }
