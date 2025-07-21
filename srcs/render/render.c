@@ -1,5 +1,17 @@
 #include "miniRT.h"
 
+static t_hit	checkerboard_pattern(t_hit hit)
+{
+	int	checker;
+
+	checker = ((int)floor(hit.position.x / 1) + (int)floor(hit.position.z / 1)) % 2;
+	if (checker)
+		hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
+	else 
+		hit.color = (t_fcolor){0.0f, 0.0f, 0.0f};
+	return (hit);
+}
+
 t_hit	intersectScene(t_data *data, t_ray ray)
 {
 	t_hit	hit;
@@ -8,13 +20,7 @@ t_hit	intersectScene(t_data *data, t_ray ray)
 	if (hit.type == 0)
 	{
 		if (1)
-		{
-			int	checker = ((int)floor(hit.position.x / 2) + (int)floor(hit.position.z / 2)) % 2;
-			if (checker)
-				hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
-			else 
-				hit.color = (t_fcolor){0.0f, 0.0f, 0.0f};
-		}
+			hit = checkerboard_pattern(hit);
 		else
 			hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
 		hit.normal = normalize(((t_plane *)hit.obj)->normal);
