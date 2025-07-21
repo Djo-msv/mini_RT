@@ -6,93 +6,11 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/08 17:45:13 by star             ###   ########.fr       */
+/*   Updated: 2025/07/21 20:48:26 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-void	rotate_move_triangle(t_triangle *tr, t_matrix t, int is_rotate)
-{
-	tr->a = mul_mat4_to_vec(t, tr->a, 1);
-	tr->b = mul_mat4_to_vec(t, tr->b, 1);
-	tr->c = mul_mat4_to_vec(t, tr->c, 1);
-	if (is_rotate)
-		tr->normal = get_triangle_normal(tr);
-
-}
-
-void	rotate_obj_x(t_data *d, t_hit select, int is_left)
-{
-	t_matrix	r_x;
-
-	if (!is_left)
-		r_x = mat4_rotation_x(0.1);
-	else
-		r_x = mat4_rotation_x(-0.1);
-	if (select.type == 0)
-	{
-		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_x, ((t_plane *)select.obj)->normal, 0);
-		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
-	}
-	else if (select.type == 2)
-	{
-		t_cylinder *c = (t_cylinder *)select.obj;
-		c->normal = mul_mat4_to_vec(r_x, c->normal, 0);
-		c->normal = normalize(c->normal);
-	}
-	else if (select.type == 4)
-		rotate_move_triangle((t_triangle *)select.obj, r_x, 1);
-	d->image.nb_images = 0;
-}
-
-void	rotate_obj_z(t_data *d, t_hit select, int is_left)
-{
-	t_matrix	r_z;
-
-	if (!is_left)
-		r_z = mat4_rotation_z(0.1);
-	else
-		r_z = mat4_rotation_z(-0.1);
-	if (select.type == 0)
-	{
-		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_z, ((t_plane *)select.obj)->normal, 0);
-		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
-	}
-	else if (select.type == 2)
-	{
-		t_cylinder *c = (t_cylinder *)select.obj;
-		c->normal = mul_mat4_to_vec(r_z, c->normal, 0);
-		c->normal = normalize(c->normal);
-	}
-	else if (select.type == 4)
-		rotate_move_triangle((t_triangle *)select.obj, r_z, 1);
-	d->image.nb_images = 0;
-}
-
-void	rotate_obj_y(t_data *d, t_hit select, int is_left)
-{
-	t_matrix	r_y;
-
-	if (!is_left)
-		r_y = mat4_rotation_y(0.1);
-	else
-		r_y = mat4_rotation_y(-0.1);
-	if (select.type == 0)
-	{
-		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_y, ((t_plane *)select.obj)->normal, 0);
-		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
-	}
-	else if (select.type == 2)
-	{
-		t_cylinder *c = (t_cylinder *)select.obj;
-		c->normal = mul_mat4_to_vec(r_y, c->normal, 0);
-		c->normal = normalize(c->normal);
-	}
-	else if (select.type == 4)
-		rotate_move_triangle((t_triangle *)select.obj, r_y, 1);
-	d->image.nb_images = 0;
-}
 
 void	move_obj_x(t_data *d, t_hit select, int is_left)
 {
@@ -151,20 +69,22 @@ void	move_obj_y(t_data *d, t_hit select, int is_up)
 	d->image.nb_images = 0;
 }
 
+static void	rotate(t_data *d, t_hit select, int key)
+{
+	if (key == 79)
+		rotate_obj_x(d, select, 0);
+	if (key == 80)
+		rotate_obj_x(d, select, 1);
+	if (key == 82)
+		rotate_obj_y(d, select, 1);
+	if (key == 81)
+		rotate_obj_y(d, select, 0);
+}
 
 void	change_obj(t_data *d, t_hit select, int key)
 {
 	if (d->scene.select.rotate_mode)
-	{
-		if (key == 79)
-			rotate_obj_x(d, select, 0);
-		if (key == 80)
-			rotate_obj_x(d, select, 1);
-		if (key == 82)
-			rotate_obj_y(d, select, 1);
-		if (key == 81)
-			rotate_obj_y(d, select, 0);
-	}
+		rotate(d, select, key);
 	else
 	{
 		if (d->scene.select.up_mode)

@@ -15,5 +15,9 @@ void  mouse_wheel_hook(int button, void* param);
 void	change_antialiasing_mode(t_data *data);
 void	change_mode(t_data *data);
 void	change_obj(t_data *d, t_hit select, int key);
+void	rotate_move_triangle(t_triangle *tr, t_matrix t, int is_rotate);
+void	rotate_obj_x(t_data *d, t_hit select, int is_left);
+void	rotate_obj_z(t_data *d, t_hit select, int is_left);
+void	rotate_obj_y(t_data *d, t_hit select, int is_left);
 
 #endif

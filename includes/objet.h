@@ -35,6 +35,7 @@ typedef struct s_sphere
 
 	float		diameter;
 	float		radius;
+	int			is_texture;
 
 }	t_sphere
 __attribute__((aligned(1)));
@@ -45,6 +46,11 @@ typedef struct s_plane
 	t_vec		coordinate;
 
 	t_vec		normal;
+	float		l_x_pattern;
+	float		l_z_pattern;
+	mlx_color	pattern_color;
+	int			mat;
+	int			is_pattern;
 
 }	t_plane
 __attribute__((aligned(1)));

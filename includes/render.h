@@ -17,6 +17,11 @@ float	hit_sphere(t_vec center, double radius, t_ray r);
 float 	hit_triangle(t_triangle *tr, t_ray r);
 float	hit_ellipsoid(t_ellipsoid *e, t_ray r);
 
+t_hit	plane(t_hit hit);
+t_hit	sphere(t_data *data, t_hit hit);
+t_hit	cylinder(t_hit hit);
+t_hit	ellipsoid(t_hit hit);
+
 t_vec	get_triangle_normal(t_triangle *t);
 
 t_ray get_antialiasing(t_data *data, t_vec base_ray);
