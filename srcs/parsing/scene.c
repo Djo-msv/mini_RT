@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/12 17:02:12 by star             ###   ########.fr       */
+/*   Updated: 2025/07/22 16:08:05 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	creat_scene(t_data *data, int fd)
 			ft_lstclear(&data->scene.cylinder, free);
 			ft_lstclear(&data->scene.plane, free);
 			ft_lstclear(&data->scene.sphere, free);
+			ft_lstclear(&data->scene.ellipsoid, free);
+			ft_lstclear(&data->scene.triangle, free);
 			ft_free_2d_tab((void **)args);
 			return (1);
 		}

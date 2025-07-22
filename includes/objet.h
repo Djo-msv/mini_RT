@@ -64,6 +64,8 @@ typedef struct s_cylinder
 	float		diameter;
 	float		radius;
 	float		height;
+	t_vec		top;
+	t_vec		bottom;
 }	t_cylinder
 __attribute__((aligned(1)));
 

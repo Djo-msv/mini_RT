@@ -6,23 +6,23 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/21 19:00:08 by star             ###   ########.fr       */
+/*   Updated: 2025/07/22 15:49:07 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static int	init_d_h_rgb_cylinder(t_cylinder *cylinder, char **args)
+static int	init_d_h_rgb_cylinder(t_cylinder *c, char **args)
 {
 	char	**v;
 
 	if (verfi_float(args[3]))
 		return (1);
-	cylinder->diameter = ft_atof(args[3]);
-	cylinder->radius = cylinder->diameter / 2;
+	c->diameter = ft_atof(args[3]);
+	c->radius = c->diameter / 2;
 	if (verfi_float(args[4]))
 		return (1);
-	cylinder->height = ft_atof(args[4]);
+	c->height = ft_atof(args[4]);
 	v = ft_split(args[5], ",");
 	if (!v)
 		return (1);
@@ -32,9 +32,11 @@ static int	init_d_h_rgb_cylinder(t_cylinder *cylinder, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	cylinder->color = (mlx_color)
+	c->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
+	c->top = vec_add(c->coordinate, vec_mul(c->normal, c->height / 2));
+	c->bottom = vec_sub(c->coordinate, vec_mul(c->normal, c->height / 2));
 	return (0);
 }
 
@@ -57,6 +59,7 @@ static int	init_normal_cylinder(t_cylinder *cylinder, char **args)
 		|| verif_fvalue(-1, 1, cylinder->normal.y)
 		|| verif_fvalue(-1, 1, cylinder->normal.z))
 		return (1);
+	cylinder->normal = normalize(cylinder->normal);
 	return (0);
 }
 

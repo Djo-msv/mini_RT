@@ -19,5 +19,6 @@ void	rotate_move_triangle(t_triangle *tr, t_matrix t, int is_rotate);
 void	rotate_obj_x(t_data *d, t_hit select, int is_left);
 void	rotate_obj_z(t_data *d, t_hit select, int is_left);
 void	rotate_obj_y(t_data *d, t_hit select, int is_left);
+void	destroy_obj(t_data *d, t_hit select);
 
 #endif

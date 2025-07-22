@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/22 16:12:03 by star              #+#    #+#             */
+/*   Updated: 2025/07/22 16:16:48 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 float hit_cylinder(t_cylinder *cy, float rad, t_ray r)
@@ -11,7 +23,6 @@ float hit_cylinder(t_cylinder *cy, float rad, t_ray r)
 	t_vec	d_perpendicular;
 	t_vec	o_c_perpendicular;
 
-	cy->normal = normalize(cy->normal);
 	o_c = vec_sub(r.origin, cy->coordinate);
 	d_perpendicular = vec_sub(r.direction, vec_mul(cy->normal, scalar_product(r.direction, cy->normal)));
 	o_c_perpendicular = vec_sub(o_c, vec_mul(cy->normal, scalar_product(o_c, cy->normal)));

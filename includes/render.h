@@ -9,6 +9,8 @@ t_fcolor	shade_raytracing_pixel(t_data *data, t_ray ray);
 
 
 t_hit	nearest_obj(t_data *data, t_ray ray);
+t_hit	nearest_ellipsoid(t_data *data, t_ray ray);
+t_hit	nearest_cylinder(t_data *data, t_ray ray);
 
 float	hit_cylinder(t_cylinder *cy, float rad, t_ray r);
 float	hit_base_cylinder(t_cylinder *cy, t_vec center, t_ray r);
