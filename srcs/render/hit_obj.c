@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/07/21 20:34:31 by star             ###   ########.fr       */
+/*   Updated: 2025/07/22 19:52:47 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ t_hit	sphere(t_data *data, t_hit hit)
 		p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
 		u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
 		v = 0.5 - asin(p.y) / M_PI;
-		x = u * 6016;
-		y = v * 4016;
-		mlx_get_image_region(data->mlx.mlx, data->texture, x, y ,1 ,1, &pixel);
+		x = u * data->tex.width;
+		y = v * data->tex.height;
+		pixel = mlx_get_image_pixel(data->mlx.mlx, data->tex.image, x, y);
 		hit.color = mlxcolor_to_fcolor(pixel);
 	}
 	else

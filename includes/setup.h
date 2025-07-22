@@ -1,6 +1,14 @@
 #ifndef SETUP_H
 # define SETUP_H
 
+typedef struct s_texture
+{
+	mlx_image	image;
+	int			width;
+	int			height;
+}				t_texture
+__attribute__((aligned(1)));
+
 typedef struct s_fcolor
 {
 	double	r;
@@ -91,7 +99,7 @@ __attribute__((aligned(1)));
 
 typedef struct s_data
 {
-	mlx_image			texture;
+	t_texture			tex;
 	struct s_mlx		mlx;
 	struct s_scene		scene;
 	struct s_setting_cam	setting_cam;
