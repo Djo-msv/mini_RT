@@ -15,7 +15,7 @@ typedef struct s_a_light
 {
 	mlx_color	color;
 
-	float		range;
+	float		ratio;
 }	t_a_light
 __attribute__((aligned(1)));
 

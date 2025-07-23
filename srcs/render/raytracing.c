@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:25:10 by star              #+#    #+#             */
-/*   Updated: 2025/07/23 19:09:14 by star             ###   ########.fr       */
+/*   Updated: 2025/07/23 19:20:53 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ t_fcolor	ft_color_ray(t_hit hit, t_data *data, t_ray ray, t_fcolor l_intensity)
 
 t_fcolor	shade_raytracing_pixel(t_data *data, t_ray ray)
 {
-	t_fcolor	l_intensity = {0.05f, 0.05f, 0.05f};
+	t_fcolor	l_intensity;
 	t_hit		hit;
 
+	l_intensity = (t_fcolor){0.0, 0.0, 0.0};
+	l_intensity = add_light(l_intensity, data->scene.a_light.ratio);
 	hit = intersectScene(data, ray);
 	if (hit.t <= 0)
 		return ((t_fcolor){0.0f, 0.0f, 0.0f});

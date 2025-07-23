@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 19:02:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/21 19:02:14 by star             ###   ########.fr       */
+/*   Updated: 2025/07/23 19:19:51 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	parse_ambient_light(t_scene *scene, char **args)
 
 	if (verfi_float(args[1]))
 		return (1);
-	scene->a_light.range = ft_atof(args[1]);
-	if (verif_fvalue(0.0, 1.0, scene->a_light.range))
+	scene->a_light.ratio = ft_atof(args[1]);
+	if (verif_fvalue(0.0, 1.0, scene->a_light.ratio))
 		return (1);
 	value = ft_split(args[2], ",");
 	if (!value)
