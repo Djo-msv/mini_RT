@@ -109,6 +109,7 @@ SRCS_FILES:=	main.c \
 		render/hit_obj.c \
 		render/nearest_elli_cyl.c \
 		utils/alloc.c \
+		utils/add_texture.c \
 		view/angle_camera.c \
 		view/move_camera.c \
 		view/setup_camera.c

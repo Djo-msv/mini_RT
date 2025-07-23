@@ -1,6 +1,16 @@
 #ifndef OBJET_H
 # define OBJET_H
 
+typedef struct s_texture
+{
+	mlx_image	image;
+	char		*name;
+	int			width;
+	int			height;
+	int			is_texture;
+}				t_texture
+__attribute__((aligned(1)));
+
 typedef struct s_a_light
 {
 	mlx_color	color;
@@ -35,7 +45,8 @@ typedef struct s_sphere
 
 	float		diameter;
 	float		radius;
-	int			is_texture;
+	t_texture	tex;
+
 
 }	t_sphere
 __attribute__((aligned(1)));

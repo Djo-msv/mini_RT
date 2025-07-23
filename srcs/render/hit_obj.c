@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/07/22 19:52:47 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:42:04 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ t_hit	plane(t_hit hit)
 
 t_hit	sphere(t_data *data, t_hit hit)
 {
-	if (((t_sphere *)hit.obj)->is_texture)
+	t_sphere	*s;
+
+	s = (t_sphere *)hit.obj;
+	if (s->tex.is_texture)
 	{
 		mlx_color	pixel;
 		t_vec		p;
@@ -43,17 +46,17 @@ t_hit	sphere(t_data *data, t_hit hit)
 		float		u;
 		float		v;
 
-		p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
+		p = normalize(vec_sub(hit.position, s->coordinate));
 		u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
 		v = 0.5 - asin(p.y) / M_PI;
-		x = u * data->tex.width;
-		y = v * data->tex.height;
-		pixel = mlx_get_image_pixel(data->mlx.mlx, data->tex.image, x, y);
+		x = u * s->tex.width;
+		y = v * s->tex.height;
+		pixel = mlx_get_image_pixel(data->mlx.mlx, s->tex.image, x, y);
 		hit.color = mlxcolor_to_fcolor(pixel);
 	}
 	else
-		hit.color = mlxcolor_to_fcolor(((t_sphere *)hit.obj)->color);
-	hit.normal = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
+		hit.color = mlxcolor_to_fcolor(s->color);
+	hit.normal = normalize(vec_sub(hit.position, s->coordinate));
 	return (hit);
 }
 

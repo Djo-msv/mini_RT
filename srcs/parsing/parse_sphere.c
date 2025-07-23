@@ -6,11 +6,29 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/21 20:27:59 by star             ###   ########.fr       */
+/*   Updated: 2025/07/23 15:58:17 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+int	verif_file(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (1);
+	while (ft_isascii(str[i]) && str[i] != '.')
+		i++;
+	if (ft_strncmp(".jpg\0", str + i, 5)
+		&& ft_strncmp(".png\0", str + i, 5)
+		&& ft_strncmp(".bmp\0", str + i, 5))
+		return (1);
+	if (access(str, F_OK) == -1)
+		return (1);
+	return (0);
+}
 
 static int	init_sphere(t_sphere *sphere, char **args)
 {
@@ -32,9 +50,12 @@ static int	init_sphere(t_sphere *sphere, char **args)
 	sphere->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[4], "1") || args[5])
+	if (verif_int(args[4], "1"))
 		return (1);
-	sphere->is_texture = ft_atoi(args[4]);
+	sphere->tex.is_texture = ft_atoi(args[4]);
+	if (verif_file(args[5]) || args[6])
+		return (1);
+	sphere->tex.name = ft_strdup(args[5]);
 	return (0);
 }
 
