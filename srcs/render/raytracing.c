@@ -6,16 +6,11 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:25:10 by star              #+#    #+#             */
-/*   Updated: 2025/07/23 19:20:53 by star             ###   ########.fr       */
+/*   Updated: 2025/07/24 16:08:42 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-t_fcolor	add_light(t_fcolor color, float i)
-{
-	return ((t_fcolor){color.r + i, color.g + i, color.b + i});
-}
 
 t_fcolor	ft_color_ray(t_hit hit, t_data *data, t_ray ray, t_fcolor l_intensity)
 {
@@ -50,10 +45,12 @@ t_fcolor	ft_color_ray(t_hit hit, t_data *data, t_ray ray, t_fcolor l_intensity)
 t_fcolor	shade_raytracing_pixel(t_data *data, t_ray ray)
 {
 	t_fcolor	l_intensity;
+	t_fcolor	a_light;
 	t_hit		hit;
 
 	l_intensity = (t_fcolor){0.0, 0.0, 0.0};
-	l_intensity = add_light(l_intensity, data->scene.a_light.ratio);
+	a_light = scale_mlx_color(mlxcolor_to_fcolor(data->scene.a_light.color), data->scene.a_light.ratio);
+	l_intensity = add_color(l_intensity, a_light);
 	hit = intersectScene(data, ray);
 	if (hit.t <= 0)
 		return ((t_fcolor){0.0f, 0.0f, 0.0f});
