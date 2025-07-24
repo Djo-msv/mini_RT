@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:25:10 by star              #+#    #+#             */
-/*   Updated: 2025/07/24 16:08:42 by star             ###   ########.fr       */
+/*   Updated: 2025/07/24 16:34:57 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_fcolor	ft_color_ray(t_hit hit, t_data *data, t_ray ray, t_fcolor l_intensity)
 			intensity = scalar_product(hit.normal, ray.direction);
 			if (intensity > 0.0)
 			{
-				l_color = scale_mlx_color(mlxcolor_to_fcolor(l->color), intensity);
+				l_color = scale_mlx_color(mlxcolor_to_fcolor(l->color), intensity * l->brightness);
 				l_intensity = add_color(l_intensity, l_color);
 			}
 		}

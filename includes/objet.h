@@ -33,7 +33,7 @@ typedef struct s_light
 	mlx_color	color;
 	t_vec		coordinate;
 
-	float		bright;
+	float		brightness;
 
 }	t_light
 __attribute__((aligned(1)));

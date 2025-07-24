@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 19:02:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/23 19:19:51 by star             ###   ########.fr       */
+/*   Updated: 2025/07/24 16:30:48 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ static int	init_light(t_light *light, char **args)
 
 	if (verfi_float(args[2]))
 		return (1);
-	light->bright = ft_atof(args[2]);
-	if (verif_fvalue(0, 1, light->bright))
+	light->brightness = ft_atof(args[2]);
+	if (verif_fvalue(0, 1, light->brightness))
 		return (1);
 	value = ft_split(args[3], ",");
 	if (!value)
