@@ -1,5 +1,6 @@
 #include "miniRT.h"
 
+/*
 t_ray get_antialiasing(t_data *data, t_vec base_ray)
 {
 	t_setting_cam	cam = data->setting_cam;
@@ -11,4 +12,4 @@ t_ray get_antialiasing(t_data *data, t_vec base_ray)
 	dir.y += cam.rand_v;
 	dir = normalize(dir);
 	return create_ray (cam.camera_center, dir);
-}
+}*/

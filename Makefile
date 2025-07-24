@@ -110,10 +110,8 @@ SRCS_FILES:=	main.c \
 		thread/setup_thread.c \
 		thread/run_thread.c \
 		utils/alloc.c \
-		utils/alloc_thread.c \
-		view/angle_camera.c \
-		view/move_camera.c \
-		view/setup_camera.c
+		utils/input.c \
+		view/camera.c
 
 #SRCS_FILES_BONUS:=
 

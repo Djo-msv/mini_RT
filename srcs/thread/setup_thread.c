@@ -1,53 +1,21 @@
 #include "miniRT.h"
 
-int	stop_rt(t_thread *thread)
+void	init_thread(t_data *data)
 {
-	while (atomic_load(thread->data->generation_id) % 2)
-		usleep(100);
-	if (thread->run == false)
-		return (1);
-	return (0);
+	data->pool = tpool_create(NB_THREAD);
 }
 
-void	join_thread(t_thread *thread)
+void	set_param(t_data *data)
 {
-	while (thread)
-	{
-		pthread_join(thread->thread_t, NULL);
-		thread->is_set = false;
-		thread = thread->next;
-	}
+	data->param.nb_chunk = ((data->mlx.info.height * data->mlx.info.width) / SIZE_CHUNK) + 1;
 }
 
-void	kill_thread(t_thread *thread)
+void	swap_buffer(t_tpool *pool)
 {
-	atomic_fetch_add(thread->data->generation_id, 1);
-	while (thread->next)
-	{
-		thread->run = false;
-		pthread_rwlock_unlock(thread->run_mutex);
-		thread = thread->next;
-		pthread_rwlock_wrlock(thread->run_mutex);
-	}
-	thread->run = false;
-	atomic_fetch_add(thread->data->generation_id, 1);
-}
+	t_fcolor	*tmp;
 
-int	init_thread(t_data *data)
-{
-	t_thread	*thread;
-
-	thread = data->thread;
-	while (thread)
-	{
-		if (pthread_create(&thread->thread_t, NULL, rt_thread, thread))
-		{
-			kill_thread(data->thread);
-			join_thread(data->thread);
-			return (1);
-		}
-		thread->is_set = true;
-		thread = thread->next;
-	}
-	return (0);
+	tpool_wait(pool);
+	tmp = pool->buffer_a;
+	pool->buffer_a = pool->buffer_b;
+	pool->buffer_b = tmp;
 }

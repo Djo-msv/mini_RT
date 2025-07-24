@@ -1,5 +1,6 @@
 #include "miniRT.h"
 
+/*
 t_vec cosine_weighted_hemisphere(t_vec normal)
 {
     float r1 = drand48();
@@ -77,4 +78,4 @@ t_fcolor	shade_pathtracing_pixel(t_data *data, t_ray ray)
 		depth++;
 	}
 	return (color);
-}
+} */

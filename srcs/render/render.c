@@ -1,5 +1,5 @@
 #include "miniRT.h"
-
+/*
 t_hit	intersectScene(t_data *data, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
@@ -34,8 +34,8 @@ t_hit	intersectScene(t_data *data, t_ray ray, bool direct_light)
 			p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
 			u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
 			v = 0.5 - asin(p.y) / M_PI;
-			x = u * 6016;
-			y = v * 4016;
+			x = u;
+			y = v;
 			mlx_get_image_region(data->mlx.mlx, data->texture, x, y ,1 ,1, &pixel);
 			hit.color = mlxcolor_to_fcolor(pixel);
 		}
@@ -89,4 +89,4 @@ void	render(t_data *data, t_fcolor *pixel, t_vec ray_direction)
 //	camera = data->setting_cam;
 //	return ;
 	*pixel = shade_pathtracing_pixel(data, get_antialiasing(data, ray_direction));
-}
+}*/

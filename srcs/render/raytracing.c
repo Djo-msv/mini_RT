@@ -1,5 +1,6 @@
 #include "miniRT.h"
 
+/*
 t_hit	nearest_obj_rt(t_data *data, t_ray ray)
 {
 	t_hit	hit;
@@ -72,3 +73,5 @@ t_fcolor	shade_raytracing_pixel(t_data *data, t_ray ray)
 	color = scalar_color(l_intensity, color);
 	return (color);
 }
+
+*/

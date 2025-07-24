@@ -1,5 +1,6 @@
 #include "miniRT.h"
 
+/*
 void	average_pixel(t_fcolor *n_pixel, t_fcolor o_pixel, float coef_new_p, float coef_old_p)
 {
 	float	tmp;
@@ -47,4 +48,4 @@ void	sampling(t_data *data)
 		atomic_store_explicit(thread->ready, false, memory_order_release);
 		thread = thread->next;
 	}
-}
+}*/

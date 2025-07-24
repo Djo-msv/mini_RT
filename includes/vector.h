@@ -8,6 +8,12 @@ typedef struct s_vec
 	float	z;
 }	t_vec;
 
+typedef struct s_vec2
+{
+	float	x;
+	float	y;
+}	t_vec2;
+
 typedef struct s_ray
 {
     t_vec origin;

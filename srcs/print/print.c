@@ -38,10 +38,11 @@ void	print_nb_fps(float fps)
 
 void	print_info(t_print_info *info)
 {
-//	(void)info;
-//	return ;
+	(void)info;
+//	printf("hello\n");
+	return ;
 	if (!info->first_display)
-		printf("\033[11A");
+		printf("\033[10A");
 	else
 		info->first_display = false;
 	printf("%s%s┌──FPS──┐\n", P_GREEN, P_BOLD);
@@ -55,8 +56,9 @@ void	print_info(t_print_info *info)
 		printf("AA : %sfalse%s\n\n", P_RED, P_NOC);
 
 
-	printf("%s%s╔══════CAMERA══════╗\n", P_TEAL, P_BOLD);
+//	printf("%s%s╔══════CAMERA══════╗\n", P_TEAL, P_BOLD);
 //	print_cam_info
-	printf("╚══════════════════╝%s\n\n", P_NOC);
+//	printf("╚══════════════════╝%s\n\n", P_NOC);
+	printf("input : %d\n\n", info->nb_input);
 //	if obj select, print obj info
 }

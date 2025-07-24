@@ -24,36 +24,23 @@ typedef struct	s_hit
 }	t_hit
 __attribute__((aligned(1)));
 
-typedef struct s_setting_cam
+typedef struct s_camera
 {
-	float	ratio;
-	int		width;
-	int		height;
-	float	focal_length;
-	float	viewport_height;
-	float	viewport_width;
-	float	pixel_samples_scale;
-	int		rbon_nb;
-	float	yaw;
-	float	pitch;
+	float		fov_rad;
+	float		d_height;
+	float		d_width;
+	t_vec		forward;
+	t_vec		up;
+	t_vec		right;
+	t_vec		coordinate;
+	t_matrix	cam_rotation;
+}	t_camera
+__attribute__((aligned(1)));
 
-	t_vec	camera_center;
-	t_vec	viewport_h;
-	t_vec	viewport_v;
-	t_vec	pixel_delta_h;
-	t_vec	pixel_delta_v;
-	t_vec	viewport_upper_left;
-	t_vec	pixel00_loc;
-	t_vec	forward;
-
-	float	rand_h;
-	float	rand_v;
-	float	res_h;
-	float	res_v;
-
-	bool	move;
-
-}	t_setting_cam
+typedef struct	s_param
+{
+	int	nb_chunk;
+}	t_param
 __attribute__((aligned(1)));
 
 typedef struct s_select
@@ -92,22 +79,34 @@ typedef struct s_print_info
 	int		x;
 	int		y;
 	int		resolution;
+	int		nb_input;
 	float	fps;
 	bool	aa;
 	bool	first_display;
 }	t_print_info
 __attribute__((aligned(1)));
 
+typedef struct s_input
+{
+	bool	z_button;
+	bool	s_button;
+	bool	a_button;
+	bool	d_button;
+	bool	space_button;
+	bool	shift_button;
+}	t_input
+__attribute__((aligned(1)));
+
 typedef struct s_data
 {
-	mlx_image			texture;
 	struct s_mlx		mlx;
 	struct s_scene		scene;
-	struct s_setting_cam	setting_cam;
-	struct s_thread			*thread;
-	struct s_image	image;
-	struct s_print_info		info;
-	atomic_uint				*generation_id;
+	struct s_tpool		*pool;
+	struct s_camera		cam;
+	struct s_image		image;
+	struct s_param		param;
+	struct s_input		input;
+	struct s_print_info	info;
 }	t_data
 __attribute__((aligned(1)));
 

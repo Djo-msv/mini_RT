@@ -1,116 +1,214 @@
 #include "miniRT.h"
 
-void	thread_ray_direction(t_data *data, t_thread *thread)
+static t_tpool_work *tpool_work_create(thread_func_t func, void *arg)
 {
-	int		x = 0;
-	int		y = 0;
-	t_vec	pixel_center;
-	t_vec	*ray_direction = thread->ray_direction;
+	t_tpool_work	*work;
 
-	while (y != thread->y_max - thread->y_min + 1)
-	{
-		x = 0;
-		while (x != thread->x)
-		{
-			pixel_center = vec_add(
-				vec_add(data->setting_cam.pixel00_loc, vec_mul(data->setting_cam.pixel_delta_h, x)),
-				vec_mul(data->setting_cam.pixel_delta_v, y + thread->y_min));
-			(*ray_direction) = vec_sub(pixel_center, data->setting_cam.camera_center);
-			ray_direction++;
-			x++;
-		}
-		y++;
-	}
+	if (func == NULL)
+		return NULL;
+
+	work       = malloc(sizeof(*work));
+	work->func = func;
+	work->arg  = arg;
+	work->next = NULL;
+	return work;
 }
 
-void	threads_ray_direction(t_data *data)
+static void tpool_work_destroy(t_tpool_work *work)
 {
-	t_thread	*thread = data->thread;
-
-	while (thread)
-	{
-		thread_ray_direction(data, thread);
-		thread = thread->next;
-	}
+    if (work == NULL)
+        return;
+    free(work);
 }
 
-void	change_thread_setting(t_data *data)
+static t_tpool_work *tpool_work_get(t_tpool *tm)
 {
-	int			ratio = data->mlx.info.height / NB_THREAD;
-	t_thread 	*thread = data->thread;
+	t_tpool_work *work;
 
-	while (thread)
-	{
-		thread->y_min = ratio * thread->id;
-		if (thread->next)
-			thread->y_max = (ratio * (thread->id + 1)) - 1;
-		else
-			thread->y_max = data->mlx.info.height;
-		thread->x = data->mlx.info.width;
-		thread_ray_direction(data, thread);
-		thread = thread->next;
-	}
+	if (tm == NULL)
+		return NULL;
+
+    work = tm->work_first;
+    if (work == NULL)
+        return NULL;
+
+    if (work->next == NULL) {
+        tm->work_first = NULL;
+        tm->work_last  = NULL;
+    }
+	else {
+        tm->work_first = work->next;
+    }
+
+    return work;
 }
 
-void	swap_buffer(t_thread *thread)
+static void *tpool_worker(void *arg)
 {
-	t_fcolor *buffer;
+    t_tpool      *tm = arg;
+    t_tpool_work *work;
 
-	while (atomic_load_explicit(thread->ready, memory_order_acquire))
-		usleep(100);
-	if (atomic_load(thread->data->generation_id) != thread->local_generation)
-		return ;
-	buffer = thread->buffer_a;
-	thread->buffer_a = thread->buffer_b;
-	thread->buffer_b = buffer;
+    while (1) {
+        pthread_mutex_lock(&(tm->work_mutex));
 
-	atomic_store_explicit(thread->ready, true, memory_order_release);
+        while (tm->work_first == NULL && !tm->stop)
+            pthread_cond_wait(&(tm->work_cond), &(tm->work_mutex));
+
+        if (tm->stop)
+            break;
+
+        work = tpool_work_get(tm);
+        tm->working_cnt++;
+        pthread_mutex_unlock(&(tm->work_mutex));
+
+        if (work != NULL) {
+            work->func(work->arg); //render
+            tpool_work_destroy(work);
+        }
+
+        pthread_mutex_lock(&(tm->work_mutex));
+        tm->working_cnt--;
+		if (!tm->stop && tm->working_cnt == 0 && tm->work_first == NULL)
+			pthread_cond_signal(&(tm->working_cond));
+		pthread_mutex_unlock(&(tm->work_mutex));
+	}
+
+    tm->thread_cnt--;
+    pthread_cond_signal(&(tm->working_cond));
+    pthread_mutex_unlock(&(tm->work_mutex));
+    return NULL;
 }
 
-void	select_pixel(t_thread *thread)
+t_tpool *tpool_create(size_t num)
 {
-	int	x = 0;
-	int	y;
-	int resolution = thread->data->image.resolution;
-	t_vec	*ray_direction = thread->ray_direction;
-	t_fcolor	*buf = thread->buffer_a;
+    t_tpool   *tm;
+    pthread_t  thread;
+    size_t     i;
 
-	y = thread->y_min;
-	while (y <= thread->y_max)
-	{
-		x = 0;
-		while (x <= thread->x)
-		{
-			if (atomic_load(thread->data->generation_id) != thread->local_generation)
-			{
-				atomic_store_explicit(thread->ready, false, memory_order_release);
-				while (atomic_load(thread->data->generation_id) % 2)
-					usleep(100);
-				thread->local_generation = atomic_load(thread->data->generation_id);
-				return ;
-			}
-			render(thread->data, buf, *ray_direction);
-//			if (resolution != 1)
-//				handle_low_resolution(buf, x, y, resolution);
-			buf++;
-			ray_direction++;
-			x += resolution;
-		}
-		y += resolution;
-	}
-	swap_buffer(thread);
+    if (num == 0)
+        num = 2;
+
+    tm = calloc(2, sizeof(*tm));
+    tm->thread_cnt = num;
+	tm->buffer_a = malloc(MAX_RES_H * MAX_RES_W * sizeof(mlx_color));
+	tm->buffer_b = malloc(MAX_RES_H * MAX_RES_W * sizeof(mlx_color));
+	tm->ray_direction = malloc(MAX_RES_H * MAX_RES_W * sizeof(t_vec));
+	tm->arg = malloc(((MAX_RES_H * MAX_RES_W) / SIZE_CHUNK + 1) * sizeof(t_thread_arg));
+
+    pthread_mutex_init(&(tm->work_mutex), NULL);
+    pthread_cond_init(&(tm->work_cond), NULL);
+    pthread_cond_init(&(tm->working_cond), NULL);
+
+    tm->work_first = NULL;
+    tm->work_last  = NULL;
+
+    for (i=0; i<num; i++) {
+        pthread_create(&thread, NULL, tpool_worker, tm);
+        pthread_detach(thread);
+    }
+
+    return tm;
 }
 
-void	*rt_thread(void *list)
+void tpool_wait(t_tpool *tm)
 {
-	t_thread	*thread;
+    if (tm == NULL)
+        return;
 
-	thread = (t_thread *)list;
-	while (true)
+    pthread_mutex_lock(&(tm->work_mutex));
+    while (1)
 	{
-		select_pixel(thread);
-		if (stop_rt(thread))
-			break ;
-	}
-	return (NULL);
+        if (tm->work_first != NULL || (!tm->stop && tm->working_cnt != 0) || (tm->stop && tm->thread_cnt != 0)) {
+            pthread_cond_wait(&(tm->working_cond), &(tm->work_mutex));
+        }
+		else {
+            break;
+        }
+    }
+    pthread_mutex_unlock(&(tm->work_mutex));
+}
+
+void tpool_destroy(t_tpool *tm)
+{
+    t_tpool_work *work;
+    t_tpool_work *work2;
+
+    if (tm == NULL)
+        return;
+
+    pthread_mutex_lock(&(tm->work_mutex));
+    work = tm->work_first;
+    while (work != NULL) {
+        work2 = work->next;
+        tpool_work_destroy(work);
+        work = work2;
+    }
+    tm->work_first = NULL;
+    tm->stop = true;
+    pthread_cond_broadcast(&(tm->work_cond));
+    pthread_mutex_unlock(&(tm->work_mutex));
+
+    tpool_wait(tm);
+
+    pthread_mutex_destroy(&(tm->work_mutex));
+    pthread_cond_destroy(&(tm->work_cond));
+    pthread_cond_destroy(&(tm->working_cond));
+
+	free(tm->buffer_a);
+	free(tm->buffer_b);
+	free(tm->ray_direction);
+	free(tm->arg);
+    free(tm);
+}
+
+bool tpool_add_work(t_tpool *tm, thread_func_t func, void *arg)
+{
+    t_tpool_work *work;
+
+    if (tm == NULL)
+        return false;
+
+    work = tpool_work_create(func, arg);
+    if (work == NULL)
+        return false;
+
+    pthread_mutex_lock(&(tm->work_mutex));
+    if (tm->work_first == NULL)
+	{
+		tm->work_first = work;
+		tm->work_last  = tm->work_first;
+    }
+	else
+	{
+		tm->work_last->next = work;
+        tm->work_last       = work;
+    }
+
+    pthread_cond_broadcast(&(tm->work_cond));
+    pthread_mutex_unlock(&(tm->work_mutex));
+
+    return true;
+}
+
+void worker(void *arg)
+{
+	(void)arg;
+//	printf("tid=%lu, size=%zu\n", pthread_self(), ((t_thread_arg *)arg)->size);
+	usleep(100);
+}
+
+int lunch_thread(t_data *data)
+{
+	t_tpool			*tm = data->pool;
+	int				nb_chunk = data->param.nb_chunk;
+	t_thread_arg	*arg = tm->arg;
+
+    for (int i = 0; i < nb_chunk; i ++)
+	{
+		*arg = (t_thread_arg){SIZE_CHUNK, &(tm->buffer_a[i * SIZE_CHUNK]), &(tm->ray_direction[i * SIZE_CHUNK])};
+		if (i == nb_chunk)
+			(*arg).size = data->mlx.info.height * data->mlx.info.width;
+		tpool_add_work(tm, (thread_func_t)worker, arg++);
+    }
+    return 0;
 }

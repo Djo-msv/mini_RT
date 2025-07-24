@@ -18,10 +18,10 @@ void	setup_images(t_data *data)
 {
 	data->image.resolution = 1;
 	data->image.antialiasing = 1;
-	data->setting_cam.rbon_nb = 8;
-	data->image.buf_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(t_fcolor));
+//	data->setting_cam.rbon_nb = 8;
+//	data->image.buf_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(t_fcolor));
 //	data->image.old_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(t_fcolor));
-	data->image.mlx_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(mlx_color));
+//	data->image.mlx_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(mlx_color));
 }
 
 void	setup_info(t_data *data, t_print_info *info)
@@ -35,10 +35,11 @@ void	setup_info(t_data *data, t_print_info *info)
 
 void	setup_events(t_data *data, t_mlx *mlx)
 {
-	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook, data);
+	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook_down, data);
+	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYUP, key_hook_up, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_WINDOW_EVENT, window_hook, data);
-	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEDOWN, mouse_hook, data);
-	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEWHEEL, mouse_wheel_hook, data);
+//	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEDOWN, mouse_hook, data);
+//	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEWHEEL, mouse_wheel_hook, data);
 }
 
 int	setup_mlx(t_data *data)

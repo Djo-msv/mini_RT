@@ -9,6 +9,7 @@ void	change_antialiasing_mode(t_data *data)
 }
 
 
+/*
 void	change_mode(t_data *data)
 {
 	t_setting_cam cam = data->setting_cam;
@@ -20,4 +21,4 @@ void	change_mode(t_data *data)
 	}
 	else
 		mlx_mouse_show(data->mlx.mlx);
-}
+}*/

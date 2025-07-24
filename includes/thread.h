@@ -1,37 +1,49 @@
 #ifndef THREAD_H
 # define THREAD_H
 
-typedef struct s_thread
+typedef struct s_thread_arg
 {
-	int			id;
-	bool		is_set;
-	bool		run;
-
-	t_fcolor	*buffer_a;
-	t_fcolor	*buffer_b;
+	size_t		size;
+	t_fcolor	*buffer_pnt;
 	t_vec		*ray_direction;
-	unsigned int	local_generation;
-	int			y_min;
-	int			y_max;
-	int			x;
+} t_thread_arg;
 
-	t_data		*data;
-	pthread_t	thread_t;
-	pthread_rwlock_t	*run_mutex;
-	pthread_rwlock_t	*data_mutex;
-	atomic_bool			*should_break;
-	atomic_bool			*ready;
-	struct s_thread	*next;
-}	t_thread;
+typedef void (*thread_func_t)(t_thread_arg *);
 
-int		init_thread(t_data *data);
-int		stop_rt(t_thread *thread);
-void	*rt_thread(void *list);
-void	kill_thread(t_thread *thread);
-void	change_thread_setting(t_data *data);
-void	threads_ray_direction(t_data *data);
+typedef struct s_tpool_work
+{
+	thread_func_t			func;
+	void			*arg;
+	struct s_tpool_work		*next;
+} t_tpool_work;
 
-void	lock_all_mutex(t_thread *thread);
-void	unlock_all_mutex(t_thread *thread);
+typedef struct s_tpool
+{
+	t_tpool_work	*work_first;
+	t_tpool_work	*work_last;
+	t_fcolor		*buffer_a;
+	t_fcolor		*buffer_b;
+	t_vec			*ray_direction;
+	t_thread_arg	*arg;
+	pthread_mutex_t	work_mutex;
+	pthread_cond_t	work_cond;
+	pthread_cond_t	working_cond;
+	size_t			working_cnt;
+	size_t			thread_cnt;
+	bool			stop;
+} t_tpool;
+
+t_tpool	*tpool_create(size_t num);
+void	tpool_wait(t_tpool *tm);
+void	tpool_destroy(t_tpool *tm);
+bool	tpool_add_work(t_tpool *tm, thread_func_t func, void *arg);
+void	worker(void *arg);
+int		lunch_thread(t_data *data);
+
+void	swap_buffer(t_tpool *pool);
+void	init_thread(t_data *data);
+void	set_param(t_data *data);
+
+# define SIZE_CHUNK 4096
 
 #endif
