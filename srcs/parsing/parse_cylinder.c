@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/22 15:49:07 by star             ###   ########.fr       */
+/*   Updated: 2025/07/24 18:20:50 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ static int	init_d_h_rgb_cylinder(t_cylinder *c, char **args)
 	c->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	c->top = vec_add(c->coordinate, vec_mul(c->normal, c->height / 2));
-	c->bottom = vec_sub(c->coordinate, vec_mul(c->normal, c->height / 2));
 	return (0);
 }
 
-static int	init_normal_cylinder(t_cylinder *cylinder, char **args)
+static int	init_normal_cylinder(t_cylinder *cy, char **args)
 {
 	char	**v;
 
@@ -53,13 +51,15 @@ static int	init_normal_cylinder(t_cylinder *cylinder, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	cylinder->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	cy->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
-	if (verif_fvalue(-1, 1, cylinder->normal.x)
-		|| verif_fvalue(-1, 1, cylinder->normal.y)
-		|| verif_fvalue(-1, 1, cylinder->normal.z))
+	if (verif_fvalue(-1, 1, cy->normal.x)
+		|| verif_fvalue(-1, 1, cy->normal.y)
+		|| verif_fvalue(-1, 1, cy->normal.z))
 		return (1);
-	cylinder->normal = normalize(cylinder->normal);
+	if (cy->normal.x == 0 && cy->normal.y == 0 && cy->normal.z == 0)
+		cy->normal = (t_vec){0, 0, 1};
+	cy->normal = normalize(cy->normal);
 	return (0);
 }
 

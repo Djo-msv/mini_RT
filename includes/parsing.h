@@ -16,5 +16,6 @@ int     verif_str(char *str);
 int	    parse_triangle(t_scene *scene, char **args);
 int	    parse_ellipsoid(t_scene *scene, char **args);
 void	ft_add_texture(t_data *d);
+void	init_elli_mat(t_ellipsoid *ellipsoid);
 
 # endif

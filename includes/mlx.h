@@ -20,5 +20,6 @@ void	rotate_obj_x(t_data *d, t_hit select, int is_left);
 void	rotate_obj_z(t_data *d, t_hit select, int is_left);
 void	rotate_obj_y(t_data *d, t_hit select, int is_left);
 void	destroy_obj(t_data *d, t_hit select);
+void	resize_obj(t_data *d, t_hit select, int key);
 
 #endif

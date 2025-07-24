@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:04 by star              #+#    #+#             */
-/*   Updated: 2025/07/22 15:56:59 by star             ###   ########.fr       */
+/*   Updated: 2025/07/24 19:29:42 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_hit	nearest_ellipsoid(t_data *data, t_ray ray)
 {
 	t_hit		hit;
+	t_hit		hit_tmp;
 	t_list		*tmp;
 	t_ellipsoid	*ellipsoid;
 	float		t;
@@ -27,13 +28,9 @@ t_hit	nearest_ellipsoid(t_data *data, t_ray ray)
 	while (tmp)
 	{
 		ellipsoid = (t_ellipsoid *)tmp->content;
-		t = hit_ellipsoid(ellipsoid, ray);
+		t = hit_ellipsoid(ellipsoid, ray, &hit_tmp);
 		if (t > 0.0f && (t < hit.t || hit.t == 0))
-		{
-			hit.t = t;
-			hit.obj = ellipsoid;
-			hit.type = 5;
-		}
+			hit = hit_tmp;
 		tmp = tmp->next;
 	}
 	return (hit);
@@ -51,9 +48,9 @@ t_hit	cylinder_part(t_cylinder *cy, t_ray ray)
 	hit.type = 2;
 	hit.part = 0;
 	t[0] = hit_cylinder(cy, cy->radius, ray);
-	t[1] = hit_base_cylinder(cy, cy->top, ray);
-	t[2] = hit_base_cylinder(cy, cy->bottom, ray);
-	while (++i < 2)
+	t[1] = hit_base_cylinder(cy, vec_add(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
+	t[2] = hit_base_cylinder(cy, vec_sub(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
+	while (++i < 3)
 	{
 		if (t[i] > 0.0f && (t[i] < hit.t || hit.t == 0))
 		{

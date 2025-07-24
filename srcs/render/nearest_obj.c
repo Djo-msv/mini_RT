@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:10 by star              #+#    #+#             */
-/*   Updated: 2025/07/23 17:48:00 by star             ###   ########.fr       */
+/*   Updated: 2025/07/24 19:26:17 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,10 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 		hit = buf_hit;
 	buf_hit = nearest_ellipsoid(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
+	{
 		hit = buf_hit;
+		return (hit);
+	}
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
 	return (hit);
 }

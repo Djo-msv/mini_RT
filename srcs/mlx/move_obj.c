@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/21 20:48:26 by star             ###   ########.fr       */
+/*   Updated: 2025/07/24 18:29:03 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@ void	move_obj_x(t_data *d, t_hit select, int is_left)
 		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_sphere *)select.obj)->coordinate, 1);
 	else if (select.type == 4)
 		rotate_move_triangle(((t_triangle *)select.obj), t_x, 0);
-	else
+	else if (select.type == 2)
 		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_cylinder *)select.obj)->coordinate, 1);
+	else if (select.type == 5)
+	{
+		((t_ellipsoid *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_ellipsoid *)select.obj)->coordinate, 1);
+		init_elli_mat((t_ellipsoid *)select.obj);
+	}
 	d->image.nb_images = 0;
 }
 
@@ -45,8 +50,13 @@ void	move_obj_z(t_data *d, t_hit select, int is_forward)
 		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_sphere *)select.obj)->coordinate, 1);
 	else if (select.type == 4)
 		rotate_move_triangle(((t_triangle *)select.obj), t_z, 0);
-	else
+	else if (select.type == 2)
 		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_cylinder *)select.obj)->coordinate, 1);
+	else if (select.type == 5)
+	{
+		((t_ellipsoid *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_ellipsoid *)select.obj)->coordinate, 1);
+		init_elli_mat((t_ellipsoid *)select.obj);
+	}
 	d->image.nb_images = 0;
 }
 
@@ -64,8 +74,13 @@ void	move_obj_y(t_data *d, t_hit select, int is_up)
 		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_sphere *)select.obj)->coordinate, 1);
 	else if (select.type == 4)
 		rotate_move_triangle(((t_triangle *)select.obj), t_y, 0);
-	else
+	else if (select.type == 2)
 		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_cylinder *)select.obj)->coordinate, 1);
+	else if (select.type == 5)
+	{
+		((t_ellipsoid *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_ellipsoid *)select.obj)->coordinate, 1);
+		init_elli_mat((t_ellipsoid *)select.obj);
+	}
 	d->image.nb_images = 0;
 }
 
@@ -83,6 +98,7 @@ static void	rotate(t_data *d, t_hit select, int key)
 
 void	change_obj(t_data *d, t_hit select, int key)
 {
+	resize_obj(d, select, key);
 	if (d->scene.select.rotate_mode)
 		rotate(d, select, key);
 	else

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/07/23 15:42:04 by star             ###   ########.fr       */
+/*   Updated: 2025/07/24 19:29:52 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ t_hit	cylinder(t_hit hit)
 t_hit	ellipsoid(t_hit hit)
 {
 	t_ellipsoid	*e = (t_ellipsoid *)hit.obj;
-	hit.normal = e->n_word;
-	hit.position = e->word;
 	hit.color = mlxcolor_to_fcolor(e->color);
 	return (hit);
 }
