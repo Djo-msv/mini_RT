@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:42:45 by star              #+#    #+#             */
-/*   Updated: 2025/07/24 17:53:38 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 16:36:41 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,22 @@ void	resize_obj(t_data *d, t_hit select, int key)
 	{
 		if (select.type == 2)
 			((t_cylinder *)select.obj)->height += 0.1;
+		if (select.type == 5)
+		{
+			((t_ellipsoid *)select.obj)->scale.x += 0.1;
+			init_elli_mat((t_ellipsoid *)select.obj);
+		}
 		d->image.nb_images = 0;
 	}
 	if (key == 39)
 	{
 		if (select.type == 2)
 			((t_cylinder *)select.obj)->height -= 0.1;
+		if (select.type == 5)
+		{
+			((t_ellipsoid *)select.obj)->scale.x -= 0.1;
+			init_elli_mat((t_ellipsoid *)select.obj);
+		}
 		d->image.nb_images = 0;
 	}
 }
@@ -79,6 +89,14 @@ void	rotate_obj_x(t_data *d, t_hit select, int is_left)
 	}
 	else if (select.type == 4)
 		rotate_move_triangle((t_triangle *)select.obj, r_x, 1);
+	else if (select.type == 5)
+	{
+		if (!is_left)
+			((t_ellipsoid *)select.obj)->rotation.x += 0.1;
+		else
+			((t_ellipsoid *)select.obj)->rotation.x -= 0.1;
+		init_elli_mat((t_ellipsoid *)select.obj);
+	}
 	d->image.nb_images = 0;
 }
 
@@ -103,6 +121,14 @@ void	rotate_obj_z(t_data *d, t_hit select, int is_left)
 	}
 	else if (select.type == 4)
 		rotate_move_triangle((t_triangle *)select.obj, r_z, 1);
+	else if (select.type == 5)
+	{
+		if (!is_left)
+			((t_ellipsoid *)select.obj)->rotation.z += 0.1;
+		else
+			((t_ellipsoid *)select.obj)->rotation.z -= 0.1;
+		init_elli_mat((t_ellipsoid *)select.obj);
+	}
 	d->image.nb_images = 0;
 }
 
@@ -127,5 +153,13 @@ void	rotate_obj_y(t_data *d, t_hit select, int is_left)
 	}
 	else if (select.type == 4)
 		rotate_move_triangle((t_triangle *)select.obj, r_y, 1);
+	else if (select.type == 5)
+	{
+		if (!is_left)
+			((t_ellipsoid *)select.obj)->rotation.y += 0.1;
+		else
+			((t_ellipsoid *)select.obj)->rotation.y -= 0.1;
+		init_elli_mat((t_ellipsoid *)select.obj);
+	}
 	d->image.nb_images = 0;
 }

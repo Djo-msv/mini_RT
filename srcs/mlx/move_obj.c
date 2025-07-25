@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/24 18:29:03 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 16:42:59 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,20 @@ static void	rotate(t_data *d, t_hit select, int key)
 void	change_obj(t_data *d, t_hit select, int key)
 {
 	resize_obj(d, select, key);
-	if (d->scene.select.rotate_mode)
+	if (d->scene.select.scale_mode && select.type == 5)
+	{
+		if (key == 82)
+			((t_ellipsoid *)select.obj)->scale.y += 0.1;
+		if (key == 81)
+			((t_ellipsoid *)select.obj)->scale.y -= 0.1;
+		if (key == 79)
+			((t_ellipsoid *)select.obj)->scale.z += 0.1;
+		if (key == 80)
+			((t_ellipsoid *)select.obj)->scale.z -= 0.1;
+		init_elli_mat((t_ellipsoid *)select.obj);
+		d->image.nb_images = 0;
+	}
+	else if (d->scene.select.rotate_mode)
 		rotate(d, select, key);
 	else
 	{

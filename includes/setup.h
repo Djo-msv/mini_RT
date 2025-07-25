@@ -62,6 +62,7 @@ typedef struct s_select
 {
 	t_hit		hit;
 	int			up_mode;
+	int			scale_mode;
 	int			rotate_mode;
 }				t_select
 __attribute__((aligned(1)));
