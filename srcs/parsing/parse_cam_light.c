@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 19:02:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/24 16:30:48 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 20:22:58 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ static int	init_cam(t_scene *scene, char **args)
 
 int	parse_camera(t_scene *scene, char **args)
 {
-	char	**value;
+	char		**value;
+	static int	verif = 0;
 
+	if (verif++)
+		return (1);
 	if (!args[1])
 		return (1);
 	value = ft_split(args[1], ",");
@@ -60,32 +63,6 @@ int	parse_camera(t_scene *scene, char **args)
 	ft_free_2d_tab((void **)value);
 	if (init_cam(scene, args))
 		return (1);
-	return (0);
-}
-
-int	parse_ambient_light(t_scene *scene, char **args)
-{
-	char	**value;
-
-	if (verfi_float(args[1]))
-		return (1);
-	scene->a_light.ratio = ft_atof(args[1]);
-	if (verif_fvalue(0.0, 1.0, scene->a_light.ratio))
-		return (1);
-	value = ft_split(args[2], ",");
-	if (!value)
-		return (1);
-	if (verif_int(value[0], "255") || verif_int(value[1], "255")
-		|| verif_int(value[2], "255") || value[3] || args[3])
-	{
-		ft_free_2d_tab((void **)value);
-		return (1);
-	}
-	scene->a_light.color.r = ft_atoi(value[0]);
-	scene->a_light.color.g = ft_atoi(value[1]);
-	scene->a_light.color.b = ft_atoi(value[2]);
-	scene->a_light.color.a = 255;
-	ft_free_2d_tab((void **)value);
 	return (0);
 }
 
@@ -115,27 +92,31 @@ static int	init_light(t_light *light, char **args)
 	return (0);
 }
 
-int	parse_light(t_scene *scene, char **args)
+static int	init_co_light(t_light *l, char **args)
 {
-	char	**v;
-	t_light	*light;
+	char		**v;
 
 	v = ft_split(args[1], ",");
 	if (!v)
 		return (1);
-	if (verfi_float(v[0]) || verfi_float(v[1])
-		|| verfi_float(v[2]) || v[3])
+	if (verfi_float(v[0]) || verfi_float(v[1]) || verfi_float(v[2]) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
+	l->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	ft_free_2d_tab((void **)v);
+	return (0);
+}
+
+int	parse_light(t_scene *scene, char **args)
+{
+	t_light	*light;
+
 	light = malloc(sizeof(t_light));
 	if (!light)
 		return (1);
-	light->coordinate = (t_vec)
-	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2]) || v[3]};
-	ft_free_2d_tab((void **)v);
-	if (init_light(light, args))
+	if (init_co_light(light, args) || init_light(light, args))
 	{
 		free(light);
 		return (1);

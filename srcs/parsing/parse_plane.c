@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:27:22 by star              #+#    #+#             */
-/*   Updated: 2025/07/21 20:28:54 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 20:28:52 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	init_checkerboard_pattern(t_plane *plane, char **args)
 
 	if (verfi_float(args[5]))
 		return (1);
-	plane->l_x_pattern = ft_atof(args[5]);	
+	plane->l_x_pattern = ft_atof(args[5]);
 	if (verfi_float(args[6]))
 		return (1);
 	plane->l_z_pattern = ft_atof(args[6]);
@@ -68,28 +68,9 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 	return (0);
 }
 
-static int	init_normal_plane(t_plane *plane, char **args)
+static int	init_normal_plane(t_plane *p, char **args)
 {
 	char	**v;
-
-	v = ft_split(args[2], ",");
-	if (!v)
-		return (1);
-	if (verfi_float(v[0]) || verfi_float(v[1])
-		|| verfi_float(v[2]) || v[3])
-	{
-		ft_free_2d_tab((void **)v);
-		return (1);
-	}
-	plane->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
-	ft_free_2d_tab((void **)v);
-	return (0);
-}
-
-int	parse_plane(t_scene *scene, char **args)
-{
-	char	**v;
-	t_plane	*plane;
 
 	v = ft_split(args[1], ",");
 	if (!v)
@@ -100,17 +81,34 @@ int	parse_plane(t_scene *scene, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	plane = malloc(sizeof(t_plane));
-	if (!plane)
-		return (1);
-	plane->coordinate = (t_vec)
-	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	p->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
-	if (init_normal_plane(plane, args) || init_rgb_plane(plane, args))
+	v = ft_split(args[2], ",");
+	if (!v)
+		return (1);
+	if (verfi_float(v[0]) || verfi_float(v[1])
+		|| verfi_float(v[2]) || v[3])
 	{
-		free(plane);
+		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	ft_lstadd_back(&scene->plane, ft_lstnew(plane));
+	p->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	ft_free_2d_tab((void **)v);
+	return (0);
+}
+
+int	parse_plane(t_scene *scene, char **args)
+{
+	t_plane	*p;
+
+	p = malloc(sizeof(t_plane));
+	if (!p)
+		return (1);
+	if (init_normal_plane(p, args) || init_rgb_plane(p, args))
+	{
+		free(p);
+		return (1);
+	}
+	ft_lstadd_back(&scene->plane, ft_lstnew(p));
 	return (0);
 }

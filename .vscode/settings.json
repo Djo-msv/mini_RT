@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "minirt.h": "c",
-        "numbers": "c"
+        "numbers": "c",
+        "ranges": "c"
     }
 }

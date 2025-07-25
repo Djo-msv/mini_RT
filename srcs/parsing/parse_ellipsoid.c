@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:57:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 16:17:41 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 20:33:07 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,20 @@ void	init_elli_mat(t_ellipsoid *e)
 	t_matrix	r;
 	t_matrix	s_inv;
 	t_matrix	r_inv;
-	t_matrix	tr_inv;
 
 	tr = mat4_translation(e->coordinate.x, e->coordinate.y, e->coordinate.z);
 	s = mat4_scale(e->scale.x, e->scale.y, e->scale.z);
-	r = mul_mat4(mul_mat4(mat4_rotation_z(e->rotation.z), mat4_rotation_y(e->rotation.y)), mat4_rotation_x(e->rotation.x));
+	r = mul_mat4(mul_mat4(mat4_rotation_z(e->rotation.z),
+				mat4_rotation_y(e->rotation.y)),
+			mat4_rotation_x(e->rotation.x));
 	e->tran = mul_mat4(tr, mul_mat4(r, s));
 	s_inv = mat4_scale(1.0 / e->scale.x, 1.0 / e->scale.y, 1.0 / e->scale.z);
-	tr_inv = mat4_translation(-e->coordinate.x, -e->coordinate.y, -e->coordinate.z);
-	r_inv = mul_mat4(mat4_rotation_x(-e->rotation.x), mul_mat4(mat4_rotation_y(-e->rotation.y), mat4_rotation_z(-e->rotation.z)));
-	e->t_inv = mul_mat4(s_inv, mul_mat4(r_inv, tr_inv));
+	r_inv = mul_mat4(mat4_rotation_x(-e->rotation.x),
+			mul_mat4(mat4_rotation_y(-e->rotation.y),
+				mat4_rotation_z(-e->rotation.z)));
+	e->t_inv = mul_mat4(s_inv, mul_mat4(r_inv,
+				mat4_translation(-e->coordinate.x,
+					-e->coordinate.y, -e->coordinate.z)));
 	e->t_inv_t = mul_mat4(mat4_transpose(r_inv), mat4_transpose(s_inv));
 }
 
@@ -80,10 +84,9 @@ static int	init_ellipsoid(t_ellipsoid *e, char **args)
 	return (0);
 }
 
-int	parse_ellipsoid(t_scene *scene, char **args)
+static int	init_co_elli(t_ellipsoid *e, char **args)
 {
 	char		**v;
-	t_ellipsoid	*ellipsoid;
 
 	v = ft_split(args[1], ",");
 	if (!v)
@@ -93,13 +96,20 @@ int	parse_ellipsoid(t_scene *scene, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
+	e->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	ft_free_2d_tab((void **)v);
+	return (0);
+}
+
+int	parse_ellipsoid(t_scene *scene, char **args)
+{
+	t_ellipsoid	*ellipsoid;
+
 	ellipsoid = malloc(sizeof(t_ellipsoid));
 	if (!ellipsoid)
 		return (1);
-	ellipsoid->coordinate = (t_vec)
-	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
-	ft_free_2d_tab((void **)v);
-	if (init_ellipsoid(ellipsoid, args) || init_elli_color(ellipsoid, args))
+	if (init_co_elli(ellipsoid, args) || init_ellipsoid(ellipsoid, args)
+		|| init_elli_color(ellipsoid, args))
 	{
 		free(ellipsoid);
 		return (1);

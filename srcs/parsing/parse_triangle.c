@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:35:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 15:51:43 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 20:25:24 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,9 @@ static int	init_triangle(t_triangle *triangle, char **args)
 	return (0);
 }
 
-int	parse_triangle(t_scene *scene, char **args)
+static int	init_a_tri(t_triangle *t, char **args)
 {
 	char		**v;
-	t_triangle	*triangle;
 
 	v = ft_split(args[1], ",");
 	if (!v)
@@ -69,13 +68,20 @@ int	parse_triangle(t_scene *scene, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
+	t->a = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	ft_free_2d_tab((void **)v);
+	return (0);
+}
+
+int	parse_triangle(t_scene *scene, char **args)
+{
+	t_triangle	*triangle;
+
 	triangle = malloc(sizeof(t_triangle));
 	if (!triangle)
 		return (1);
-	triangle->a = (t_vec)
-	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
-	ft_free_2d_tab((void **)v);
-	if (init_triangle(triangle, args) || init_tri_color(triangle, args))
+	if (init_a_tri(triangle, args) || init_triangle(triangle, args)
+		|| init_tri_color(triangle, args))
 	{
 		free(triangle);
 		return (1);
