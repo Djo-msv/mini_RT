@@ -1,6 +1,6 @@
 #include "miniRT.h"
 
-t_hit	nearest_ellipsoid(t_data *data, t_ray ray)
+t_hit	nearest_ellipsoid(t_scene scene, t_ray ray)
 {
 	t_hit		hit;
 	t_list		*tmp;
@@ -11,7 +11,7 @@ t_hit	nearest_ellipsoid(t_data *data, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	tmp = data->scene.ellipsoid;
+	tmp = scene.ellipsoid;
 	while (tmp)
 	{
 		// printf("alo \n");
@@ -63,7 +63,7 @@ t_hit	cylinder_part(t_cylinder *cy, t_ray ray)
 	return (hit);
 }
 
-t_hit	nearest_cylinder(t_data *data, t_ray ray)
+t_hit	nearest_cylinder(t_scene scene, t_ray ray)
 {
 	t_hit		hit;
 	t_list		*tmp;
@@ -74,7 +74,7 @@ t_hit	nearest_cylinder(t_data *data, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	tmp = data->scene.cylinder;
+	tmp = scene.cylinder;
 	while (tmp)
 	{
 		cylinder = (t_cylinder *)tmp->content;
@@ -91,7 +91,7 @@ t_hit	nearest_cylinder(t_data *data, t_ray ray)
 }
 
 
-t_hit	nearest_plane(t_data *data, t_ray ray)
+t_hit	nearest_plane(t_scene scene, t_ray ray)
 {
 	t_hit		hit;
 	t_list		*tmp;
@@ -102,7 +102,7 @@ t_hit	nearest_plane(t_data *data, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	tmp = data->scene.plane;
+	tmp = scene.plane;
 	while (tmp)
 	{
 		plane = (t_plane *)tmp->content;
@@ -118,7 +118,7 @@ t_hit	nearest_plane(t_data *data, t_ray ray)
 	return (hit);
 }
 
-t_hit	nearest_light(t_data *data, t_ray ray)
+t_hit	nearest_light(t_scene scene, t_ray ray)
 {
 	t_hit		hit;
 	t_list		*tmp;
@@ -129,7 +129,7 @@ t_hit	nearest_light(t_data *data, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	tmp = data->scene.light;
+	tmp = scene.light;
 	while (tmp)
 	{
 		light = (t_light *)tmp->content;
@@ -145,7 +145,7 @@ t_hit	nearest_light(t_data *data, t_ray ray)
 	return (hit);
 }
 
-t_hit	nearest_triangle(t_data *data, t_ray ray)
+t_hit	nearest_triangle(t_scene scene, t_ray ray)
 {
 	t_hit		hit;
 	t_list		*tmp;
@@ -156,7 +156,7 @@ t_hit	nearest_triangle(t_data *data, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	tmp = data->scene.triangle;
+	tmp = scene.triangle;
 	while (tmp)
 	{
 		triangle = (t_triangle *)tmp->content;
@@ -172,7 +172,7 @@ t_hit	nearest_triangle(t_data *data, t_ray ray)
 	return (hit);
 }
 
-t_hit	nearest_sphere(t_data *data, t_ray ray)
+t_hit	nearest_sphere(t_scene scene, t_ray ray)
 {
 	t_hit		hit;
 	t_list		*tmp;
@@ -183,7 +183,7 @@ t_hit	nearest_sphere(t_data *data, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
-	tmp = data->scene.sphere;
+	tmp = scene.sphere;
 	while (tmp)
 	{
 		sphere = (t_sphere *)tmp->content;
@@ -199,28 +199,28 @@ t_hit	nearest_sphere(t_data *data, t_ray ray)
 	return (hit);
 }
 
-t_hit	nearest_obj(t_data *data, t_ray ray, bool direct_light)
+t_hit	nearest_obj(t_scene scene, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
 	t_hit	buf_hit;
 
-	hit = nearest_sphere(data, ray);
-	buf_hit = nearest_plane(data, ray);
+	hit = nearest_sphere(scene, ray);
+	buf_hit = nearest_plane(scene, ray);
 	hit.material = 0;
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
-	buf_hit = nearest_cylinder(data, ray);
+	buf_hit = nearest_cylinder(scene, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
-	buf_hit = nearest_triangle(data, ray);
+	buf_hit = nearest_triangle(scene, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
-	buf_hit = nearest_ellipsoid(data, ray);
+	buf_hit = nearest_ellipsoid(scene, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
 	if (direct_light == false)
 	{
-		buf_hit = nearest_light(data, ray);
+		buf_hit = nearest_light(scene, ray);
 		if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 			hit = buf_hit;
 	}

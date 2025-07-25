@@ -130,8 +130,8 @@ void	set_camera_ray(t_vec *ray_direction, t_camera *camera, mlx_window_create_in
 		while (j != info.width)
 		{
 			*ray_direction = calcule_ray_direction(camera, info, j, i);
-			if ((i == 0 && j == 0) || (i == info.height - 1 && j == info.width - 1) || (i == 0 && j == info.width - 1) || (i == info.height -1 && j == 0))
-				printf("%f - %f - %f\n", ray_direction->x, ray_direction->y, ray_direction->z);
+//			if ((i == 0 && j == 0) || (i == info.height - 1 && j == info.width - 1) || (i == 0 && j == info.width - 1) || (i == info.height -1 && j == 0))
+//				printf("%f - %f - %f\n", ray_direction->x, ray_direction->y, ray_direction->z);
 			ray_direction++;
 			j++;
 		}

@@ -1,10 +1,10 @@
 #include "miniRT.h"
-/*
-t_hit	intersectScene(t_data *data, t_ray ray, bool direct_light)
+
+t_hit	intersectScene(t_scene scene, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
 
-	hit = nearest_obj(data, ray, direct_light);
+	hit = nearest_obj(scene, ray, direct_light);
 	if (hit.type == 0)
 	{
 		if (1)
@@ -22,7 +22,7 @@ t_hit	intersectScene(t_data *data, t_ray ray, bool direct_light)
 	}
 	else if (hit.type == 1)
 	{
-		if (1)
+		if (0)
 		{
 			mlx_color	pixel;
 			t_vec		p;
@@ -36,7 +36,7 @@ t_hit	intersectScene(t_data *data, t_ray ray, bool direct_light)
 			v = 0.5 - asin(p.y) / M_PI;
 			x = u;
 			y = v;
-			mlx_get_image_region(data->mlx.mlx, data->texture, x, y ,1 ,1, &pixel);
+//			mlx_get_image_region(data->mlx.mlx, data->texture, x, y ,1 ,1, &pixel); a changer car texxture dans scene
 			hit.color = mlxcolor_to_fcolor(pixel);
 		}
 		else
@@ -82,11 +82,12 @@ t_hit	intersectScene(t_data *data, t_ray ray, bool direct_light)
 	return (hit);
 }
 
-void	render(t_data *data, t_fcolor *pixel, t_vec ray_direction)
+void	render(t_fcolor *pixel, t_vec ray_direction, t_scene scene)
 {
 //	t_setting_cam	camera;
 
 //	camera = data->setting_cam;
 //	return ;
-	*pixel = shade_pathtracing_pixel(data, get_antialiasing(data, ray_direction));
-}*/
+
+	*pixel = shade_pathtracing_pixel(scene, get_antialiasing(scene, ray_direction));
+}

@@ -192,9 +192,18 @@ bool tpool_add_work(t_tpool *tm, thread_func_t func, void *arg)
 
 void worker(void *arg)
 {
-	(void)arg;
-//	printf("tid=%lu, size=%zu\n", pthread_self(), ((t_thread_arg *)arg)->size);
-	usleep(100);
+	int			i = 0;
+	t_fcolor	*buffer	= ((t_thread_arg *)arg)->buffer_pnt;
+	t_vec		*ray_direction = ((t_thread_arg *)arg)->ray_direction;
+
+	while (i != SIZE_CHUNK)
+	{
+		printf("hello\n");
+		render(buffer, *ray_direction, ((t_thread_arg *)arg)->scene);
+		buffer++;
+		ray_direction++;
+		i++;
+	}
 }
 
 int lunch_thread(t_data *data)
@@ -205,7 +214,7 @@ int lunch_thread(t_data *data)
 
     for (int i = 0; i < nb_chunk; i ++)
 	{
-		*arg = (t_thread_arg){SIZE_CHUNK, &(tm->buffer_a[i * SIZE_CHUNK]), &(tm->ray_direction[i * SIZE_CHUNK])};
+		*arg = (t_thread_arg){SIZE_CHUNK, &(tm->buffer_a[i * SIZE_CHUNK]), &(tm->ray_direction[i * SIZE_CHUNK]), data->scene};
 		if (i == nb_chunk)
 			(*arg).size = data->mlx.info.height * data->mlx.info.width;
 		tpool_add_work(tm, (thread_func_t)worker, arg++);

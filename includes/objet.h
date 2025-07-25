@@ -13,6 +13,7 @@ typedef struct s_cam
 {
 	t_vec	coordinate;
 	t_vec	orientation;
+	int		rbon_nb;
 
 	float	fov;
 }	t_cam

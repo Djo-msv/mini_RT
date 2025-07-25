@@ -38,9 +38,9 @@ void	print_nb_fps(float fps)
 
 void	print_info(t_print_info *info)
 {
-	(void)info;
+//	(void)info;
 //	printf("hello\n");
-	return ;
+//	return ;
 	if (!info->first_display)
 		printf("\033[10A");
 	else

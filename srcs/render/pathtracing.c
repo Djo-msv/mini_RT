@@ -1,6 +1,6 @@
 #include "miniRT.h"
 
-/*
+
 t_vec cosine_weighted_hemisphere(t_vec normal)
 {
     float r1 = drand48();
@@ -46,16 +46,16 @@ void	miror_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
 	*throughput = scalar_color(*throughput, hit->color);
 }
 
-t_fcolor	shade_pathtracing_pixel(t_data *data, t_ray ray)
+t_fcolor	shade_pathtracing_pixel(t_scene scene, t_ray ray)
 {
 	int			depth = 0;
 	bool		direct_light = true;
 	t_fcolor	throughput = {1.0f, 1.0f, 1.0f};
 	t_fcolor	color = {0.0f, 0.0f, 0.0f};
 
-	while (depth < data->setting_cam.rbon_nb)
+	while (depth < 5)
 	{
-		t_hit	hit = intersectScene(data, ray, direct_light);
+		t_hit	hit = intersectScene(scene, ray, direct_light);
 		if (hit.type == -1)
 			return (add_color(color, scalar_color((t_fcolor){0.0f, 0.0f, 0.0f}, throughput)));
 		if (hit.type == 3)
@@ -78,4 +78,4 @@ t_fcolor	shade_pathtracing_pixel(t_data *data, t_ray ray)
 		depth++;
 	}
 	return (color);
-} */
+}

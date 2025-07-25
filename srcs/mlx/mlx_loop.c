@@ -36,8 +36,8 @@ void update(void* param)
 //	update_ray((t_data *)param);
 	set_param((t_data *)param);
 
-	update_input((t_data *)param);
 	swap_buffer(((t_data *)param)->pool);
+	update_input((t_data *)param);
 	lunch_thread((t_data *)param);
 
 //	if buffer ready	
