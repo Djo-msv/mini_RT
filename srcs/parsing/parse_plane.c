@@ -6,39 +6,11 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:27:22 by star              #+#    #+#             */
-/*   Updated: 2025/07/21 20:28:54 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 19:57:32 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static int	init_checkerboard_pattern(t_plane *plane, char **args)
-{
-	char	**v;
-
-	if (verfi_float(args[5]))
-		return (1);
-	plane->l_x_pattern = ft_atof(args[5]);	
-	if (verfi_float(args[6]))
-		return (1);
-	plane->l_z_pattern = ft_atof(args[6]);
-	v = ft_split(args[7], ",");
-	if (!v)
-		return (1);
-	if (verif_int(v[0], "255") || verif_int(v[1], "255")
-		|| verif_int(v[2], "255") || v[3])
-	{
-		ft_free_2d_tab((void **)v);
-		return (1);
-	}
-	plane->pattern_color = (mlx_color)
-	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
-	ft_free_2d_tab((void **)v);
-	if (verif_int(args[8], "1") || args[9])
-		return (1);
-	plane->mat = ft_atoi(args[8]);
-	return (0);
-}
 
 static int	init_rgb_plane(t_plane *plane, char **args)
 {
@@ -52,7 +24,7 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 	if (!v)
 		return (1);
 	if (verif_int(v[0], "255") || verif_int(v[1], "255")
-		|| verif_int(v[2], "255") || v[3])
+		|| verif_int(v[2], "255") || v[3] || args[4])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
@@ -60,11 +32,6 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 	plane->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[4], "1"))
-		return (1);
-	plane->is_pattern = ft_atoi(args[4]);
-	if (init_checkerboard_pattern(plane, args))
-		return (1);
 	return (0);
 }
 
@@ -88,9 +55,12 @@ static int	init_normal_plane(t_plane *plane, char **args)
 
 int	parse_plane(t_scene *scene, char **args)
 {
-	char	**v;
-	t_plane	*plane;
+	char		**v;
+	t_plane		*plane;
+	static int	verif = 0;
 
+	if (verif++)
+		return (1);
 	v = ft_split(args[1], ",");
 	if (!v)
 		return (1);
@@ -102,7 +72,10 @@ int	parse_plane(t_scene *scene, char **args)
 	}
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
+	{
+		ft_free_2d_tab((void **)v);
 		return (1);
+	}
 	plane->coordinate = (t_vec)
 	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);

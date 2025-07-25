@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:02:27 by star              #+#    #+#             */
-/*   Updated: 2025/07/22 16:04:47 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 19:39:10 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	destroy_obj(t_data *d, t_hit select)
 		delete_one(&d->scene.cylinder, select.obj);
 	else if (select.type == 3)
 		delete_one(&d->scene.light, select.obj);
-	else if (select.type == 4)
-		delete_one(&d->scene.triangle, select.obj);
 	else if (select.type == 0)
 		delete_one(&d->scene.plane, select.obj);
 	d->image.nb_images = 0;

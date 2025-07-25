@@ -10,6 +10,4 @@ void	free_data(t_data *data)
 	ft_lstclear(&data->scene.cylinder, free);
 	ft_lstclear(&data->scene.plane, free);
 	ft_lstclear(&data->scene.sphere, free);
-	ft_lstclear(&data->scene.ellipsoid, free);
-	ft_lstclear(&data->scene.triangle, free);
 }

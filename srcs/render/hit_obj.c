@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/07/23 15:42:04 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 19:42:04 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,17 @@
 
 t_hit	plane(t_hit hit)
 {
-	int	checker;
-
-	if (((t_plane *)hit.obj)->is_pattern)
-	{
-		checker = ((int)floor(hit.position.x / ((t_plane *)hit.obj)->l_x_pattern)
-				+ (int)floor(hit.position.z / ((t_plane *)hit.obj)->l_x_pattern)) % 2;
-		if (checker)
-			hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
-		else 
-			hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->pattern_color);
-	}
-	else
-		hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
+	hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
 	hit.normal = normalize(((t_plane *)hit.obj)->normal);
-	hit.material = ((t_plane *)hit.obj)->mat;
 	return (hit);
 }
 
-t_hit	sphere(t_data *data, t_hit hit)
+t_hit	sphere(t_hit hit)
 {
 	t_sphere	*s;
 
 	s = (t_sphere *)hit.obj;
-	if (s->tex.is_texture)
-	{
-		mlx_color	pixel;
-		t_vec		p;
-		int			x;
-		int			y;
-		float		u;
-		float		v;
-
-		p = normalize(vec_sub(hit.position, s->coordinate));
-		u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
-		v = 0.5 - asin(p.y) / M_PI;
-		x = u * s->tex.width;
-		y = v * s->tex.height;
-		pixel = mlx_get_image_pixel(data->mlx.mlx, s->tex.image, x, y);
-		hit.color = mlxcolor_to_fcolor(pixel);
-	}
-	else
-		hit.color = mlxcolor_to_fcolor(s->color);
+	hit.color = mlxcolor_to_fcolor(s->color);
 	hit.normal = normalize(vec_sub(hit.position, s->coordinate));
 	return (hit);
 }
@@ -77,14 +46,5 @@ t_hit	cylinder(t_hit hit)
 		hit.normal = normalize(((t_cylinder *)hit.obj)->normal);
 	else
 		hit.normal = vec_mul(((t_cylinder *)hit.obj)->normal, -1);
-	return (hit);
-}
-
-t_hit	ellipsoid(t_hit hit)
-{
-	t_ellipsoid	*e = (t_ellipsoid *)hit.obj;
-	hit.normal = e->n_word;
-	hit.position = e->word;
-	hit.color = mlxcolor_to_fcolor(e->color);
 	return (hit);
 }

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/22 16:08:05 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 19:32:29 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ static int	check_args(t_data *data, char **args)
 		return (parse_plane(&data->scene, args));
 	else if (!ft_strcmp(args[0], "cy"))
 		return (parse_cylinder(&data->scene, args));
-	else if (!ft_strcmp(args[0], "tr"))
-		return (parse_triangle(&data->scene, args));
-	else if (!ft_strcmp(args[0], "el"))
-		return (parse_ellipsoid(&data->scene, args));
 	else if (!args || !*args || args[0][0] == '#')
 		return (0);
 	return (1);
@@ -56,8 +52,6 @@ int	creat_scene(t_data *data, int fd)
 			ft_lstclear(&data->scene.cylinder, free);
 			ft_lstclear(&data->scene.plane, free);
 			ft_lstclear(&data->scene.sphere, free);
-			ft_lstclear(&data->scene.ellipsoid, free);
-			ft_lstclear(&data->scene.triangle, free);
 			ft_free_2d_tab((void **)args);
 			return (1);
 		}

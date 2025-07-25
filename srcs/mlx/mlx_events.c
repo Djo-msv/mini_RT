@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/22 16:02:43 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 19:38:55 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void key_hook(int key, void* param)
 		((t_data *)param)->scene.select.up_mode = !((t_data *)param)->scene.select.up_mode;
 	if (key == 21)
 		((t_data *)param)->scene.select.rotate_mode = !((t_data *)param)->scene.select.rotate_mode;
-	printf("%d\n", key);
 }
 
 void window_hook(int event, void* param)

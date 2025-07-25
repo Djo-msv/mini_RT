@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:12:03 by star              #+#    #+#             */
-/*   Updated: 2025/07/22 16:16:48 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 19:35:19 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ float hit_cylinder(t_cylinder *cy, float rad, t_ray r)
 	t_vec	d_perpendicular;
 	t_vec	o_c_perpendicular;
 
+	if (rad <= 0.01)
+		cy->radius = 0.01;
+	if (cy->height <= 0.01)
+		cy->height = 0.01;
 	o_c = vec_sub(r.origin, cy->coordinate);
 	d_perpendicular = vec_sub(r.direction, vec_mul(cy->normal, scalar_product(r.direction, cy->normal)));
 	o_c_perpendicular = vec_sub(o_c, vec_mul(cy->normal, scalar_product(o_c, cy->normal)));
