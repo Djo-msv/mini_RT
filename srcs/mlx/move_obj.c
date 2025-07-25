@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 16:42:59 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 19:16:00 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	move_obj_x(t_data *d, t_hit select, int is_left)
 	t_matrix		t_x;
 
 	if (!is_left)
-		t_x = mat4_translation(0.1, 0.0, 0.0);
+		t_x = mat4_translation(0.01, 0.0, 0.0);
 	else
-		t_x = mat4_translation(-0.1, 0.0, 0.0);
+		t_x = mat4_translation(-0.01, 0.0, 0.0);
 	if (select.type == 0)
 		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_plane *)select.obj)->coordinate, 1);
 	else if (select.type == 1 || select.type == 3)
@@ -41,9 +41,9 @@ void	move_obj_z(t_data *d, t_hit select, int is_forward)
 	t_matrix		t_z;
 
 	if (!is_forward)
-		t_z = mat4_translation(0.0, 0.0, -0.1);
+		t_z = mat4_translation(0.0, 0.0, -0.01);
 	else
-		t_z = mat4_translation(0.0, 0.0, 0.1);
+		t_z = mat4_translation(0.0, 0.0, 0.01);
 	if (select.type == 0)
 		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_plane *)select.obj)->coordinate, 1);
 	else if (select.type == 1 || select.type == 3)
@@ -65,9 +65,9 @@ void	move_obj_y(t_data *d, t_hit select, int is_up)
 	t_matrix		t_y;
 
 	if (!is_up)
-		t_y = mat4_translation(0.0, -0.1, 0.0);
+		t_y = mat4_translation(0.0, -0.01, 0.0);
 	else
-		t_y = mat4_translation(0.0, 0.1, 0.0);
+		t_y = mat4_translation(0.0, 0.01, 0.0);
 	if (select.type == 0)
 		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_plane *)select.obj)->coordinate, 1);
 	else if (select.type == 1 || select.type == 3)
@@ -102,13 +102,13 @@ void	change_obj(t_data *d, t_hit select, int key)
 	if (d->scene.select.scale_mode && select.type == 5)
 	{
 		if (key == 82)
-			((t_ellipsoid *)select.obj)->scale.y += 0.1;
+			((t_ellipsoid *)select.obj)->scale.y += 0.01;
 		if (key == 81)
-			((t_ellipsoid *)select.obj)->scale.y -= 0.1;
+			((t_ellipsoid *)select.obj)->scale.y -= 0.01;
 		if (key == 79)
-			((t_ellipsoid *)select.obj)->scale.z += 0.1;
+			((t_ellipsoid *)select.obj)->scale.z += 0.01;
 		if (key == 80)
-			((t_ellipsoid *)select.obj)->scale.z -= 0.1;
+			((t_ellipsoid *)select.obj)->scale.z -= 0.01;
 		init_elli_mat((t_ellipsoid *)select.obj);
 		d->image.nb_images = 0;
 	}
