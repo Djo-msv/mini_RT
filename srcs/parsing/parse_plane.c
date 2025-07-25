@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:27:22 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 19:57:32 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 20:39:15 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,10 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 	return (0);
 }
 
-static int	init_normal_plane(t_plane *plane, char **args)
+static int	init_normal_plane(t_plane *p, char **args)
 {
 	char	**v;
 
-	v = ft_split(args[2], ",");
-	if (!v)
-		return (1);
-	if (verfi_float(v[0]) || verfi_float(v[1])
-		|| verfi_float(v[2]) || v[3])
-	{
-		ft_free_2d_tab((void **)v);
-		return (1);
-	}
-	plane->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
-	ft_free_2d_tab((void **)v);
-	return (0);
-}
-
-int	parse_plane(t_scene *scene, char **args)
-{
-	char		**v;
-	t_plane		*plane;
-	static int	verif = 0;
-
-	if (verif++)
-		return (1);
 	v = ft_split(args[1], ",");
 	if (!v)
 		return (1);
@@ -70,20 +48,37 @@ int	parse_plane(t_scene *scene, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	plane = malloc(sizeof(t_plane));
-	if (!plane)
+	p->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	ft_free_2d_tab((void **)v);
+	v = ft_split(args[2], ",");
+	if (!v)
+		return (1);
+	if (verfi_float(v[0]) || verfi_float(v[1])
+		|| verfi_float(v[2]) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	plane->coordinate = (t_vec)
-	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	p->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
-	if (init_normal_plane(plane, args) || init_rgb_plane(plane, args))
+	return (0);
+}
+
+int	parse_plane(t_scene *scene, char **args)
+{
+	t_plane		*p;
+	static int	verif = 0;
+
+	if (verif++)
+		return (1);
+	p = malloc(sizeof(t_plane));
+	if (!p)
+		return (1);
+	if (init_normal_plane(p, args) || init_rgb_plane(p, args))
 	{
-		free(plane);
+		free(p);
 		return (1);
 	}
-	ft_lstadd_back(&scene->plane, ft_lstnew(plane));
+	ft_lstadd_back(&scene->plane, ft_lstnew(p));
 	return (0);
 }

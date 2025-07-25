@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/25 19:57:11 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 20:36:41 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,32 +63,34 @@ static int	init_normal_cylinder(t_cylinder *cy, char **args)
 	return (0);
 }
 
-int	parse_cylinder(t_scene *scene, char **args)
+static int	init_co_cy(t_cylinder *c, char **args)
 {
 	char		**v;
+
+	v = ft_split(args[1], ",");
+	if (!v)
+		return (1);
+	if (verfi_float(v[0]) || verfi_float(v[1]) || verfi_float(v[2]) || v[3])
+	{
+		ft_free_2d_tab((void **)v);
+		return (1);
+	}
+	c->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	ft_free_2d_tab((void **)v);
+	return (0);
+}
+
+int	parse_cylinder(t_scene *scene, char **args)
+{
 	t_cylinder	*cylinder;
 	static int	verif = 0;
 
 	if (verif++)
 		return (1);
-	v = ft_split(args[1], ",");
-	if (!v)
-		return (1);
-	if (verfi_float(v[0]) || verfi_float(v[1])
-		|| verfi_float(v[2]) || v[3])
-	{
-		ft_free_2d_tab((void **)v);
-		return (1);
-	}
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
-	{
-		ft_free_2d_tab((void **)v);
 		return (1);
-	}
-	cylinder->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
-	ft_free_2d_tab((void **)v);
-	if (init_normal_cylinder(cylinder, args)
+	if (init_co_cy(cylinder, args) || init_normal_cylinder(cylinder, args)
 		|| init_d_h_rgb_cylinder(cylinder, args)
 		|| ft_lstadd_back(&scene->cylinder, ft_lstnew(cylinder)))
 	{

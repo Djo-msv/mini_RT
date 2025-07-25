@@ -87,7 +87,7 @@ SRCS_FILES:=	main.c \
 		mlx/rotate_obj.c \
 		mlx/del_obj.c \
 		parsing/parse_cam_light.c \
-		parsing/parse_sphere.c \
+		parsing/parse_sphere_a_light.c \
 		parsing/parse_plane.c \
 		parsing/parsing.c \
 		parsing/scene.c \

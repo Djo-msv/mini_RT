@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 19:02:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 19:56:39 by star             ###   ########.fr       */
+/*   Updated: 2025/07/25 20:39:25 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,6 @@ int	parse_camera(t_scene *scene, char **args)
 	return (0);
 }
 
-int	parse_ambient_light(t_scene *scene, char **args)
-{
-	char		**value;
-	static int	verif = 0;
-
-	if (verif++)
-		return (1);
-	if (verfi_float(args[1]))
-		return (1);
-	scene->a_light.ratio = ft_atof(args[1]);
-	if (verif_fvalue(0.0, 1.0, scene->a_light.ratio))
-		return (1);
-	value = ft_split(args[2], ",");
-	if (!value)
-		return (1);
-	if (verif_int(value[0], "255") || verif_int(value[1], "255")
-		|| verif_int(value[2], "255") || value[3] || args[3])
-	{
-		ft_free_2d_tab((void **)value);
-		return (1);
-	}
-	scene->a_light.color.r = ft_atoi(value[0]);
-	scene->a_light.color.g = ft_atoi(value[1]);
-	scene->a_light.color.b = ft_atoi(value[2]);
-	scene->a_light.color.a = 255;
-	ft_free_2d_tab((void **)value);
-	return (0);
-}
-
 static int	init_light(t_light *light, char **args)
 {
 	char		**value;
@@ -121,14 +92,10 @@ static int	init_light(t_light *light, char **args)
 	return (0);
 }
 
-int	parse_light(t_scene *scene, char **args)
+static int	init_co_light(t_light *l, char **args)
 {
-	char	**v;
-	t_light	*l;
-	static int	verif = 0;
+	char		**v;
 
-	if (verif++)
-		return (1);
 	v = ft_split(args[1], ",");
 	if (!v)
 		return (1);
@@ -137,19 +104,26 @@ int	parse_light(t_scene *scene, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	l = malloc(sizeof(t_light));
-	if (!l)
-	{
-		ft_free_2d_tab((void **)v);
-		return (1);
-	}
-	l->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2]) || v[3]};
+	l->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
-	if (init_l(l, args))
+	return (0);
+}
+
+int	parse_light(t_scene *scene, char **args)
+{
+	t_light		*light;
+	static int	verif = 0;
+
+	if (verif++)
+		return (1);
+	light = malloc(sizeof(t_light));
+	if (!light)
+		return (1);
+	if (init_co_light(light, args) || init_light(light, args))
 	{
-		free(l);
+		free(light);
 		return (1);
 	}
-	ft_lstadd_back(&scene->light, ft_lstnew(l));
+	ft_lstadd_back(&scene->light, ft_lstnew(light));
 	return (0);
 }
