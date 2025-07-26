@@ -3,7 +3,7 @@
 
 void		render(t_data *data, t_fcolor *pixel, t_vec ray_direction);
 
-t_hit		intersectScene(t_data *data, t_ray ray);
+t_hit		intersectscene(t_data *data, t_ray ray);
 t_fcolor	shade_pathtracing_pixel(t_data *data, t_ray ray);
 t_fcolor	shade_raytracing_pixel(t_data *data, t_ray ray);
 

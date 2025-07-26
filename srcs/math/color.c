@@ -6,32 +6,31 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 20:40:34 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 20:40:40 by star             ###   ########.fr       */
+/*   Updated: 2025/07/26 15:54:51 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_fcolor add_color(t_fcolor c1, t_fcolor c2)
+t_fcolor	add_color(t_fcolor c1, t_fcolor c2)
 {
 	return ((t_fcolor){c1.r + c2.r, c1.g + c2.g, c1.b + c2.b});
 }
 
-t_fcolor scale_mlx_color(t_fcolor color, float factor)
+t_fcolor	scale_mlx_color(t_fcolor color, float factor)
 {
-    t_fcolor result;
+	t_fcolor	result;
 
-    result.r = color.r * factor;
-    result.g = color.g * factor;
-    result.b = color.b * factor;
-    return result;
+	result.r = color.r * factor;
+	result.g = color.g * factor;
+	result.b = color.b * factor;
+	return (result);
 }
 
-t_fcolor scalar_color(t_fcolor c1, t_fcolor c2)
+t_fcolor	scalar_color(t_fcolor c1, t_fcolor c2)
 {
 	return ((t_fcolor){c1.r * c2.r, c1.g * c2.g, c1.b * c2.b});
 }
-
 
 t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 {
@@ -44,15 +43,15 @@ void	fcolor_to_mlxcolor(t_data *data, t_fcolor *src, mlx_color *dst, size_t n)
 	double	coef_old_p = data->image.coef_old_p;
 	
 
-    for (size_t i = 0; i < n; ++i)
-    {
-        double rf = src[i].r * 255.0f;
-        double gf = src[i].g * 255.0f;
-        double bf = src[i].b * 255.0f;
+	for (size_t i = 0; i < n; ++i)
+	{
+		double rf = src[i].r * 255.0f;
+		double gf = src[i].g * 255.0f;
+		double bf = src[i].b * 255.0f;
 
-        double r = (uint8_t)(fminf(fmaxf(rf, 0.0f), 255.0f));
-        double g = (uint8_t)(fminf(fmaxf(gf, 0.0f), 255.0f));
-        double b = (uint8_t)(fminf(fmaxf(bf, 0.0f), 255.0f));
+		double r = (uint8_t)(fminf(fmaxf(rf, 0.0f), 255.0f));
+		double g = (uint8_t)(fminf(fmaxf(gf, 0.0f), 255.0f));
+		double b = (uint8_t)(fminf(fmaxf(bf, 0.0f), 255.0f));
 		if (!1)
 		{
 			dst[i].r = (uint8_t)((r * coef_old_p) + ((double)dst[i].r * coef_new_p));

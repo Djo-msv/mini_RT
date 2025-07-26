@@ -1,6 +1,18 @@
-#include "miniRT.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_loop.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/26 16:41:41 by star              #+#    #+#             */
+/*   Updated: 2025/07/26 16:42:56 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "miniRT.h"
 #include <time.h>
+//on a pas le droit
 
 void	fps_cnt(void)
 {
@@ -29,7 +41,7 @@ void	update_ray(t_data *data)
 	(void)data;
 }
 
-void update(void* param)
+void	update(void *param)
 {
 	update_ray((t_data *)param);
 	mouse((t_data *)param);

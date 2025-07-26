@@ -78,6 +78,7 @@ SRCS_FILES:=	main.c \
 		math/vector.c \
 		math/matrix.c	\
 		math/move_matrix.c \
+		math/change_vector.c \
 		mlx/move_obj.c	\
 		mlx/mlx_events.c \
 		mlx/mlx_loop.c \

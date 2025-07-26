@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_screen.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/26 16:30:46 by star              #+#    #+#             */
+/*   Updated: 2025/07/26 16:33:19 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 void	handle_pixel(t_data *data, int x, int y, int resolution)
@@ -7,14 +19,14 @@ void	handle_pixel(t_data *data, int x, int y, int resolution)
 
 	mlx = &data->mlx;
 	pos = y * mlx->info.width + x;
-	render(data, &data->image.new_img[pos], data->setting_cam.ray_direction[x][y]);
+	render(data, &data->image.new_img[pos],
+		data->setting_cam.ray_direction[x][y]);
 //	if (data->image.nb_images >= 1)
 //		average_pixel(&data->image.new_img[pos], \
 //			data->image.old_img[pos], \
 //			data->image.coef_new_p, data->image.coef_old_p);
 	if (resolution != 1)
 		handle_low_resolution(data, x, y, resolution);
-
 }
 
 void	swap_img_buf(t_data *data)
@@ -28,11 +40,12 @@ void	swap_img_buf(t_data *data)
 
 void	display_screen(t_data *data)
 {
-	int	x;
-	int	y;
-	int	resolution;
-	mlx_window_create_info	info = data->mlx.info;
+	int						x;
+	int						y;
+	int						resolution;
+	mlx_window_create_info	info;
 
+	info = data->mlx.info;
 	y = 0;
 	data->image.coef_new_p = ((double)data->image.nb_images / (double)(data->image.nb_images + 1));
 	data->image.coef_old_p = ((double)1.0 / (data->image.nb_images + 1));
@@ -49,7 +62,7 @@ void	display_screen(t_data *data)
 	}
 	fcolor_to_mlxcolor(data, data->image.new_img, data->image.mlx_img, info.width * info.height);
 	mlx_set_image_region(data->mlx.mlx, data->mlx.img, 0, 0, info.width, info.height, data->image.mlx_img);
-	mlx_clear_window(data->mlx.mlx, data->mlx.win, (mlx_color){ .rgba = 0x000000FF});
+	mlx_clear_window(data->mlx.mlx, data->mlx.win, (mlx_color){.rgba = 0x000000FF});
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
 //	swap_img_buf(data);
 	data->image.nb_images++;

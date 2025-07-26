@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 19:42:04 by star             ###   ########.fr       */
+/*   Updated: 2025/07/26 16:27:39 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ t_hit	sphere(t_hit hit)
 
 t_hit	cylinder(t_hit hit)
 {
+	t_vec	o_c;
+	t_vec	projection;
+	float	lenght;
+
 	if (hit.part == 1)
 	{
-		t_vec	o_c;
-		t_vec	projection;
-		float	lenght;
-
 		o_c = vec_sub(hit.position, ((t_cylinder *)hit.obj)->coordinate);
 		lenght = scalar_product(o_c, ((t_cylinder *)hit.obj)->normal);
-		projection = vec_add(((t_cylinder *)hit.obj)->coordinate, vec_mul(((t_cylinder *)hit.obj)->normal, lenght));
+		projection = vec_add(((t_cylinder *)hit.obj)->coordinate,
+				vec_mul(((t_cylinder *)hit.obj)->normal, lenght));
 		hit.normal = normalize(vec_sub(hit.position, projection));
 	}
 	else if (hit.part == 2)

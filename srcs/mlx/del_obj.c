@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:02:27 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 19:39:10 by star             ###   ########.fr       */
+/*   Updated: 2025/07/26 16:41:32 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,27 @@ void	destroy_obj(t_data *d, t_hit select)
 	else if (select.type == 0)
 		delete_one(&d->scene.plane, select.obj);
 	d->image.nb_images = 0;
+}
+
+void	handle_select_obj(t_data *d)
+{
+	t_ray	ray;
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	if (d->setting_cam.move)
+		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
+	else
+	{
+		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
+		ray = create_ray(d->setting_cam.camera_center,
+				d->setting_cam.ray_direction[x][y]);
+	}
+	d->scene.select.hit = nearest_obj(d, ray);
+	if (d->scene.select.hit.t <= 0)
+		return ;
+	if (d->setting_cam.move)
+		destroy_obj(d, d->scene.select.hit);
 }

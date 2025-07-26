@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 19:34:30 by star             ###   ########.fr       */
+/*   Updated: 2025/07/26 16:40:57 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,14 @@ void	move_obj_x(t_data *d, t_hit select, int is_left)
 	else
 		t_x = mat4_translation(-0.01, 0.0, 0.0);
 	if (select.type == 0)
-		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_plane *)select.obj)->coordinate, 1);
+		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_x,
+				((t_plane *)select.obj)->coordinate, 1);
 	else if (select.type == 1 || select.type == 3)
-		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_sphere *)select.obj)->coordinate, 1);
+		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_x,
+				((t_sphere *)select.obj)->coordinate, 1);
 	else if (select.type == 2)
-		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_cylinder *)select.obj)->coordinate, 1);
+		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_x,
+				((t_cylinder *)select.obj)->coordinate, 1);
 	d->image.nb_images = 0;
 }
 
@@ -38,11 +41,14 @@ void	move_obj_z(t_data *d, t_hit select, int is_forward)
 	else
 		t_z = mat4_translation(0.0, 0.0, 0.01);
 	if (select.type == 0)
-		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_plane *)select.obj)->coordinate, 1);
+		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_z,
+				((t_plane *)select.obj)->coordinate, 1);
 	else if (select.type == 1 || select.type == 3)
-		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_sphere *)select.obj)->coordinate, 1);
+		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_z,
+				((t_sphere *)select.obj)->coordinate, 1);
 	else if (select.type == 2)
-		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_cylinder *)select.obj)->coordinate, 1);
+		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_z,
+				((t_cylinder *)select.obj)->coordinate, 1);
 	d->image.nb_images = 0;
 }
 
@@ -55,11 +61,14 @@ void	move_obj_y(t_data *d, t_hit select, int is_up)
 	else
 		t_y = mat4_translation(0.0, 0.01, 0.0);
 	if (select.type == 0)
-		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_plane *)select.obj)->coordinate, 1);
+		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_y,
+				((t_plane *)select.obj)->coordinate, 1);
 	else if (select.type == 1 || select.type == 3)
-		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_sphere *)select.obj)->coordinate, 1);
+		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_y,
+				((t_sphere *)select.obj)->coordinate, 1);
 	else if (select.type == 2)
-		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_cylinder *)select.obj)->coordinate, 1);
+		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_y,
+				((t_cylinder *)select.obj)->coordinate, 1);
 	d->image.nb_images = 0;
 }
 

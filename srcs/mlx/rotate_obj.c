@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:42:45 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 19:34:34 by star             ###   ########.fr       */
+/*   Updated: 2025/07/26 16:46:47 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	resize_obj(t_data *d, t_hit select, int key)
 void	rotate_obj_x(t_data *d, t_hit select, int is_left)
 {
 	t_matrix	r_x;
+	t_cylinder	*c;
+	t_plane		*p;
 
 	if (!is_left)
 		r_x = mat4_rotation_x(0.01);
@@ -61,12 +63,14 @@ void	rotate_obj_x(t_data *d, t_hit select, int is_left)
 		r_x = mat4_rotation_x(-0.01);
 	if (select.type == 0)
 	{
-		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_x, ((t_plane *)select.obj)->normal, 0);
-		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
+		p = (t_plane *)select.obj;
+		p->normal = mul_mat4_to_vec(r_x,
+				p->normal, 0);
+		p->normal = normalize(p->normal);
 	}
 	else if (select.type == 2)
 	{
-		t_cylinder *c = (t_cylinder *)select.obj;
+		c = (t_cylinder *)select.obj;
 		c->normal = mul_mat4_to_vec(r_x, c->normal, 0);
 		c->normal = normalize(c->normal);
 	}
@@ -76,6 +80,8 @@ void	rotate_obj_x(t_data *d, t_hit select, int is_left)
 void	rotate_obj_z(t_data *d, t_hit select, int is_left)
 {
 	t_matrix	r_z;
+	t_cylinder	*c;
+	t_plane		*p;
 
 	if (!is_left)
 		r_z = mat4_rotation_z(0.01);
@@ -83,12 +89,13 @@ void	rotate_obj_z(t_data *d, t_hit select, int is_left)
 		r_z = mat4_rotation_z(-0.01);
 	if (select.type == 0)
 	{
-		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_z, ((t_plane *)select.obj)->normal, 0);
-		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
+		p = (t_plane *)select.obj;
+		p->normal = mul_mat4_to_vec(r_z, p->normal, 0);
+		p->normal = normalize(p->normal);
 	}
 	else if (select.type == 2)
 	{
-		t_cylinder *c = (t_cylinder *)select.obj;
+		c = (t_cylinder *)select.obj;
 		c->normal = mul_mat4_to_vec(r_z, c->normal, 0);
 		c->normal = normalize(c->normal);
 	}
@@ -98,6 +105,8 @@ void	rotate_obj_z(t_data *d, t_hit select, int is_left)
 void	rotate_obj_y(t_data *d, t_hit select, int is_left)
 {
 	t_matrix	r_y;
+	t_cylinder	*c;
+	t_plane		*p;
 
 	if (!is_left)
 		r_y = mat4_rotation_y(0.01);
@@ -105,12 +114,13 @@ void	rotate_obj_y(t_data *d, t_hit select, int is_left)
 		r_y = mat4_rotation_y(-0.01);
 	if (select.type == 0)
 	{
-		((t_plane *)select.obj)->normal = mul_mat4_to_vec(r_y, ((t_plane *)select.obj)->normal, 0);
-		((t_plane *)select.obj)->normal = normalize(((t_plane *)select.obj)->normal);
+		p = (t_plane *)select.obj;
+		p->normal = mul_mat4_to_vec(r_y, p->normal, 0);
+		p->normal = normalize(p->normal);
 	}
 	else if (select.type == 2)
 	{
-		t_cylinder *c = (t_cylinder *)select.obj;
+		c = (t_cylinder *)select.obj;
 		c->normal = mul_mat4_to_vec(r_y, c->normal, 0);
 		c->normal = normalize(c->normal);
 	}

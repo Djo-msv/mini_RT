@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:04 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 19:40:10 by star             ###   ########.fr       */
+/*   Updated: 2025/07/26 16:28:33 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ t_hit	cylinder_part(t_cylinder *cy, t_ray ray)
 	hit.type = 2;
 	hit.part = 0;
 	t[0] = hit_cylinder(cy, cy->radius, ray);
-	t[1] = hit_base_cylinder(cy, vec_add(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
-	t[2] = hit_base_cylinder(cy, vec_sub(cy->coordinate, vec_mul(cy->normal, cy->height / 2)), ray);
+	t[1] = hit_base_cylinder(cy, vec_add(cy->coordinate,
+				vec_mul(cy->normal, cy->height / 2)), ray);
+	t[2] = hit_base_cylinder(cy, vec_sub(cy->coordinate,
+				vec_mul(cy->normal, cy->height / 2)), ray);
 	while (++i < 3)
 	{
 		if (t[i] > 0.0f && (t[i] < hit.t || hit.t == 0))
@@ -43,7 +45,7 @@ t_hit	nearest_cylinder(t_data *data, t_ray ray)
 	t_hit		n;
 	t_list		*tmp;
 	t_cylinder	*cylinder;
-	
+
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
