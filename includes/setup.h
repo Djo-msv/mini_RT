@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 15:50:04 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 16:36:16 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,13 @@
 
 # include "image.h"
 
-typedef struct s_fcolor
-{
-	double	r;
-	double	g;
-	double	b;
-}	t_fcolor
-__attribute__((aligned(1)));
-
 typedef struct s_hit
 {
 	float		t;
 	void		*obj;
 	int			type;
 	int			part;
-	t_vec		tion;
+	t_vec		position;
 	t_vec		normal;
 	t_fcolor	color;
 }	t_hit

@@ -6,12 +6,20 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:57 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 15:51:35 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 16:35:34 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
+
+typedef struct s_fcolor
+{
+	double	r;
+	double	g;
+	double	b;
+}	t_fcolor
+__attribute__((aligned(1)));
 
 typedef struct s_vec
 {
