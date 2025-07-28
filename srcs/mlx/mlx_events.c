@@ -68,6 +68,7 @@ void window_hook(int event, void* param)
 		((t_data *)param)->info.y = mlx->info.width;
 		((t_data *)param)->info.x = mlx->info.height;
 		print_info(&((t_data *)param)->info);
+		((t_data *)param)->pool->restart = 1;
 	}
 }
 

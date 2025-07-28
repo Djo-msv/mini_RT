@@ -6,7 +6,7 @@ typedef struct s_thread_arg
 	size_t		size;
 	t_fcolor	*buffer_pnt;
 	t_vec		*ray_direction;
-	t_scene		scene;
+	t_scene		*scene;
 } t_thread_arg;
 
 typedef void (*thread_func_t)(t_thread_arg *);
@@ -32,6 +32,7 @@ typedef struct s_tpool
 	size_t			working_cnt;
 	size_t			thread_cnt;
 	bool			stop;
+	bool			restart;
 } t_tpool;
 
 t_tpool	*tpool_create(size_t num);

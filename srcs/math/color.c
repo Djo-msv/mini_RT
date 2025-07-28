@@ -30,19 +30,18 @@ void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 {
 	int width = data->mlx.info.width;
 
-	
 	t_fcolor *buffer_img = data->image.buf_img;
 	for (int y = 0; y < data->mlx.info.height; y++)
 	{
-
 		for (int x = 0; x < width; x++)
 		{
 			int global_index = y * width + x;
-
+//			printf("hello\n");
 			dst[global_index].r = buffer_img[global_index].r;
 			dst[global_index].g = buffer_img[global_index].g;
 			dst[global_index].b = buffer_img[global_index].b;
 			dst[global_index].a = 255;
-		}
+
+	}
 	}
 }

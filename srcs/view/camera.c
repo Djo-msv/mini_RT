@@ -106,8 +106,8 @@ t_vec	calcule_ray_direction(t_camera *cam, mlx_window_create_info info, int x, i
 	float	x_ray;
 	float	y_ray;
 
-	x_ray = ((x + 0.5f) / info.width - 0.5f) * cam->d_width;
-	y_ray = ((y + 0.5f) / info.height - 0.5f) * cam->d_height;
+	x_ray = ((x + 0.5f) / info.width - 0.5f);
+	y_ray = ((y + 0.5f) / info.height - 0.5f);
 	dir = vec_add(
 		vec_add(
 			cam->forward,

@@ -25,17 +25,17 @@ t_hit	intersectScene(t_scene scene, t_ray ray, bool direct_light)
 		if (0)
 		{
 			mlx_color	pixel;
-			t_vec		p;
-			int			x;
-			int			y;
-			float		u;
-			float		v;
+//			t_vec		p;
+//			int			x;
+//			int			y;
+//			float		u;
+//			float		v;
 
-			p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
-			u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
-			v = 0.5 - asin(p.y) / M_PI;
-			x = u;
-			y = v;
+//			p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
+//			u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
+//			v = 0.5 - asin(p.y) / M_PI;
+//			x = u;
+//			y = v;
 //			mlx_get_image_region(data->mlx.mlx, data->texture, x, y ,1 ,1, &pixel); a changer car texxture dans scene
 			hit.color = mlxcolor_to_fcolor(pixel);
 		}
@@ -82,12 +82,19 @@ t_hit	intersectScene(t_scene scene, t_ray ray, bool direct_light)
 	return (hit);
 }
 
-void	render(t_fcolor *pixel, t_vec ray_direction, t_scene scene)
+void	render(t_fcolor *pixel, t_vec ray_direction, t_scene *scene)
 {
 //	t_setting_cam	camera;
-
+	t_fcolor	tkt;
 //	camera = data->setting_cam;
 //	return ;
 
-	*pixel = shade_pathtracing_pixel(scene, get_antialiasing(scene, ray_direction));
+	(void)pixel;
+	(void)ray_direction;
+	(void)scene;
+	(void)tkt;
+//	printf("%p \n", pixel);
+	*pixel = shade_pathtracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
+//	if ((*pixel).r != 0.0f)
+//		printf("hello\n");
 }

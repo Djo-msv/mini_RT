@@ -90,10 +90,11 @@ t_tpool *tpool_create(size_t num)
 
     tm = calloc(2, sizeof(*tm));
     tm->thread_cnt = num;
-	tm->buffer_a = malloc(MAX_RES_H * MAX_RES_W * sizeof(mlx_color));
-	tm->buffer_b = malloc(MAX_RES_H * MAX_RES_W * sizeof(mlx_color));
+	tm->buffer_a = malloc(MAX_RES_H * MAX_RES_W * sizeof(t_fcolor));
+	tm->buffer_b = malloc(MAX_RES_H * MAX_RES_W * sizeof(t_fcolor));
 	tm->ray_direction = malloc(MAX_RES_H * MAX_RES_W * sizeof(t_vec));
 	tm->arg = malloc(((MAX_RES_H * MAX_RES_W) / SIZE_CHUNK + 1) * sizeof(t_thread_arg));
+	tm->restart = 1;
 
     pthread_mutex_init(&(tm->work_mutex), NULL);
     pthread_cond_init(&(tm->work_cond), NULL);
@@ -192,13 +193,16 @@ bool tpool_add_work(t_tpool *tm, thread_func_t func, void *arg)
 
 void worker(void *arg)
 {
-	int			i = 0;
+	size_t			i = 0;
 	t_fcolor	*buffer	= ((t_thread_arg *)arg)->buffer_pnt;
 	t_vec		*ray_direction = ((t_thread_arg *)arg)->ray_direction;
 
-	while (i != SIZE_CHUNK)
+//	if (((t_thread_arg *)arg)->size != SIZE_CHUNK)
+//		printf("%zu\n", ((t_thread_arg *)arg)->size);
+	while ((size_t)i != ((t_thread_arg *)arg)->size)
 	{
-		printf("hello\n");
+//		if (((t_thread_arg *)arg)->size != SIZE_CHUNK)
+//			printf("%zu - %zu\n", i, ((t_thread_arg *)arg)->size);
 		render(buffer, *ray_direction, ((t_thread_arg *)arg)->scene);
 		buffer++;
 		ray_direction++;
@@ -214,9 +218,9 @@ int lunch_thread(t_data *data)
 
     for (int i = 0; i < nb_chunk; i ++)
 	{
-		*arg = (t_thread_arg){SIZE_CHUNK, &(tm->buffer_a[i * SIZE_CHUNK]), &(tm->ray_direction[i * SIZE_CHUNK]), data->scene};
-		if (i == nb_chunk)
-			(*arg).size = data->mlx.info.height * data->mlx.info.width;
+		*arg = (t_thread_arg){SIZE_CHUNK, &(tm->buffer_a[i * SIZE_CHUNK]), &(tm->ray_direction[i * SIZE_CHUNK]), &data->scene};
+		if (i == nb_chunk - 1)
+			  (*arg).size = (data->mlx.info.height * data->mlx.info.width) - ((nb_chunk - 1) * SIZE_CHUNK);
 		tpool_add_work(tm, (thread_func_t)worker, arg++);
     }
     return 0;

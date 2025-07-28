@@ -209,9 +209,9 @@ t_hit	nearest_obj(t_scene scene, t_ray ray, bool direct_light)
 	hit.material = 0;
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
-	buf_hit = nearest_cylinder(scene, ray);
-	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
-		hit = buf_hit;
+//	buf_hit = nearest_cylinder(scene, ray);
+//	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
+//		hit = buf_hit;
 	buf_hit = nearest_triangle(scene, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;

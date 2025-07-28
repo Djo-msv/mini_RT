@@ -5,16 +5,16 @@ void	mouse_update(t_data *data)
 {
 	int	x;
 	int	y;
-	float	pitch = 0;
-	float	yaw = 0;
+//	float	pitch = 0;
+//	float	yaw = 0;
 
 	t_camera *cam = &data->cam;
 	mlx_mouse_get_pos(data->mlx.mlx, &x, &y);
 	mlx_mouse_move(data->mlx.mlx, data->mlx.win, data->mlx.info.width >> 1, data->mlx.info.height >> 1);
 	if (x - (data->mlx.info.width >> 1) == 0 && y - (data->mlx.info.height >> 1) == 0)
 		return ;
-	yaw += (x - (float)(data->mlx.info.width >> 1)) * 0.001f;
-	pitch += (y - (float)(data->mlx.info.height >> 1)) * 0.001f;
+//	yaw += (x - (float)(data->mlx.info.width >> 1)) * 0.001f;
+//	pitch += (y - (float)(data->mlx.info.height >> 1)) * 0.001f;
 
 //	printf("\033[3A");
 //	printf("forward : %f - %f - %f       \n", cam->forward.x, cam->forward.y, cam->forward.z);

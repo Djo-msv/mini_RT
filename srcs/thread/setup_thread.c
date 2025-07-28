@@ -2,7 +2,7 @@
 
 void	init_thread(t_data *data)
 {
-	data->pool = tpool_create(NB_THREAD);
+	data->pool = tpool_create(32);
 }
 
 void	set_param(t_data *data)

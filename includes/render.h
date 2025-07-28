@@ -1,7 +1,7 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-void		render(t_fcolor *pixel, t_vec ray_direction, t_scene scene);
+void		render(t_fcolor *pixel, t_vec ray_direction, t_scene *scene);
 
 t_hit		intersectScene(t_scene scene, t_ray ray, bool direct_light);
 t_fcolor	shade_pathtracing_pixel(t_scene scene, t_ray ray);
