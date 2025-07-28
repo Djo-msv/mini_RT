@@ -53,7 +53,7 @@ t_fcolor	shade_pathtracing_pixel(t_scene scene, t_ray ray)
 	t_fcolor	throughput = {1.0f, 1.0f, 1.0f};
 	t_fcolor	color = {0.0f, 0.0f, 0.0f};
 
-	while (depth < 5)
+	while (depth < 8)
 	{
 		t_hit	hit = intersectScene(scene, ray, direct_light);
 		if (hit.type == -1)

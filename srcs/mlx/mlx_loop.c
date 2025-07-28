@@ -23,17 +23,17 @@ void	fps_cnt(t_data *data)
 		lastTime = currentTime;
 	}
 }
-/*
-void	update_ray(t_data *data)
+
+void	update_antialiasing(t_data *data)
 {
-	data->setting_cam.rand_h = ((drand48() - 0.5) * data->setting_cam.res_h);
-	data->setting_cam.rand_v = ((drand48() - 0.5) * data->setting_cam.res_v);
+	data->scene.camera.rand_h = ((drand48() - 0.5) * (data->cam.d_width / data->mlx.info.width));
+	data->scene.camera.rand_v = ((drand48() - 0.5) * (data->cam.d_height / data->mlx.info.height));
 	(void)data;
-}*/
+}
 
 void update(void* param)
 {
-
+	update_antialiasing((t_data *)param);
 	swap_buffer(((t_data *)param)->pool);
 	update_input((t_data *)param);
 	lunch_thread((t_data *)param);

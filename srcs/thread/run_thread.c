@@ -197,12 +197,8 @@ void worker(void *arg)
 	t_fcolor	*buffer	= ((t_thread_arg *)arg)->buffer_pnt;
 	t_vec		*ray_direction = ((t_thread_arg *)arg)->ray_direction;
 
-//	if (((t_thread_arg *)arg)->size != SIZE_CHUNK)
-//		printf("%zu\n", ((t_thread_arg *)arg)->size);
-	while ((size_t)i != ((t_thread_arg *)arg)->size)
+	while (i != ((t_thread_arg *)arg)->size)
 	{
-//		if (((t_thread_arg *)arg)->size != SIZE_CHUNK)
-//			printf("%zu - %zu\n", i, ((t_thread_arg *)arg)->size);
 		render(buffer, *ray_direction, ((t_thread_arg *)arg)->scene);
 		buffer++;
 		ray_direction++;

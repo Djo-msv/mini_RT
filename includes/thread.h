@@ -7,7 +7,8 @@ typedef struct s_thread_arg
 	t_fcolor	*buffer_pnt;
 	t_vec		*ray_direction;
 	t_scene		*scene;
-} t_thread_arg;
+} t_thread_arg
+__attribute__((aligned(64)));
 
 typedef void (*thread_func_t)(t_thread_arg *);
 
