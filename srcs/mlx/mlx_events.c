@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:45:29 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 15:41:41 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	mouse_hook(int button, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	printf("-> %d\n", button);
 	if (button == 3)
 	{
 		data->setting_cam.move = !data->setting_cam.move;
