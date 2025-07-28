@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/25 20:39:01 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 19:48:54 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,6 @@ static int	init_sphere(t_sphere *sphere, char **args)
 {
 	char	**v;
 
-	if (verfi_float(args[2]))
-		return (1);
-	sphere->diameter = ft_atof(args[2]);
-	sphere->radius = sphere->diameter / 2;
-	if (sphere->radius <= 0.01)
-		sphere->radius = 0.01;
 	v = ft_split(args[3], ",");
 	if (!v)
 		return (1);

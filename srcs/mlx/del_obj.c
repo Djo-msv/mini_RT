@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:02:27 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:41:32 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 19:53:43 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	handle_select_obj(t_data *d)
 		ray = create_ray(d->setting_cam.camera_center,
 				d->setting_cam.ray_direction[x][y]);
 	}
-	d->scene.select.hit = nearest_obj(d, ray);
+	d->scene.select.hit = nearest_obj(d, ray, true);
 	if (d->scene.select.hit.t <= 0)
 		return ;
 	if (d->setting_cam.move)

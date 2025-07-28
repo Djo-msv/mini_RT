@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:49 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 15:51:17 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 19:56:24 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 void		render(t_data *data, t_fcolor *pixel, t_vec ray_direction);
 
-t_hit		intersectscene(t_data *data, t_ray ray);
+t_hit		intersectscene(t_data *data, t_ray ray, bool direct_light);
 t_fcolor	shade_pathtracing_pixel(t_data *data, t_ray ray);
 t_fcolor	shade_raytracing_pixel(t_data *data, t_ray ray);
 
-t_hit		nearest_obj(t_data *data, t_ray ray);
+t_hit		nearest_obj(t_data *data, t_ray ray, bool direct_light);
 t_hit		nearest_cylinder(t_data *data, t_ray ray);
 
 float		hit_cylinder(t_cylinder *cy, float rad, t_ray r);

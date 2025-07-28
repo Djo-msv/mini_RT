@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:42:45 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:46:47 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 19:47:42 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	resize(t_data *d, t_hit select, int is_min)
 	float	s;
 
 	if (!is_min)
-		s = -0.01;
+		s = -0.05;
 	else
-		s = 0.01;
+		s = 0.05;
 	if (select.type == 1)
 	{
 		((t_sphere *)select.obj)->radius += s;
-		if (((t_sphere *)select.obj)->radius <= 0.01)
-			((t_sphere *)select.obj)->radius = 0.01;
+		if (((t_sphere *)select.obj)->radius <= 0.05)
+			((t_sphere *)select.obj)->radius = 0.05;
 	}
 	else if (select.type == 2)
 		((t_cylinder *)select.obj)->radius += s;
@@ -40,13 +40,13 @@ void	resize_obj(t_data *d, t_hit select, int key)
 	if (key == 38)
 	{
 		if (select.type == 2)
-			((t_cylinder *)select.obj)->height += 0.01;
+			((t_cylinder *)select.obj)->height += 0.05;
 		d->image.nb_images = 0;
 	}
 	if (key == 39)
 	{
 		if (select.type == 2)
-			((t_cylinder *)select.obj)->height -= 0.01;
+			((t_cylinder *)select.obj)->height -= 0.05;
 		d->image.nb_images = 0;
 	}
 }
@@ -58,9 +58,9 @@ void	rotate_obj_x(t_data *d, t_hit select, int is_left)
 	t_plane		*p;
 
 	if (!is_left)
-		r_x = mat4_rotation_x(0.01);
+		r_x = mat4_rotation_x(0.05);
 	else
-		r_x = mat4_rotation_x(-0.01);
+		r_x = mat4_rotation_x(-0.05);
 	if (select.type == 0)
 	{
 		p = (t_plane *)select.obj;
@@ -84,9 +84,9 @@ void	rotate_obj_z(t_data *d, t_hit select, int is_left)
 	t_plane		*p;
 
 	if (!is_left)
-		r_z = mat4_rotation_z(0.01);
+		r_z = mat4_rotation_z(0.05);
 	else
-		r_z = mat4_rotation_z(-0.01);
+		r_z = mat4_rotation_z(-0.05);
 	if (select.type == 0)
 	{
 		p = (t_plane *)select.obj;
@@ -109,9 +109,9 @@ void	rotate_obj_y(t_data *d, t_hit select, int is_left)
 	t_plane		*p;
 
 	if (!is_left)
-		r_y = mat4_rotation_y(0.01);
+		r_y = mat4_rotation_y(0.05);
 	else
-		r_y = mat4_rotation_y(-0.01);
+		r_y = mat4_rotation_y(-0.05);
 	if (select.type == 0)
 	{
 		p = (t_plane *)select.obj;

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:40:57 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 19:47:41 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	move_obj_x(t_data *d, t_hit select, int is_left)
 	t_matrix		t_x;
 
 	if (!is_left)
-		t_x = mat4_translation(0.01, 0.0, 0.0);
+		t_x = mat4_translation(0.05, 0.0, 0.0);
 	else
-		t_x = mat4_translation(-0.01, 0.0, 0.0);
+		t_x = mat4_translation(-0.05, 0.0, 0.0);
 	if (select.type == 0)
 		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_x,
 				((t_plane *)select.obj)->coordinate, 1);
@@ -37,9 +37,9 @@ void	move_obj_z(t_data *d, t_hit select, int is_forward)
 	t_matrix		t_z;
 
 	if (!is_forward)
-		t_z = mat4_translation(0.0, 0.0, -0.01);
+		t_z = mat4_translation(0.0, 0.0, -0.05);
 	else
-		t_z = mat4_translation(0.0, 0.0, 0.01);
+		t_z = mat4_translation(0.0, 0.0, 0.05);
 	if (select.type == 0)
 		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_z,
 				((t_plane *)select.obj)->coordinate, 1);
@@ -57,9 +57,9 @@ void	move_obj_y(t_data *d, t_hit select, int is_up)
 	t_matrix		t_y;
 
 	if (!is_up)
-		t_y = mat4_translation(0.0, -0.01, 0.0);
+		t_y = mat4_translation(0.0, -0.05, 0.0);
 	else
-		t_y = mat4_translation(0.0, 0.01, 0.0);
+		t_y = mat4_translation(0.0, 0.05, 0.0);
 	if (select.type == 0)
 		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_y,
 				((t_plane *)select.obj)->coordinate, 1);

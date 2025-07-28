@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:12:03 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:17:17 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:01:21 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static float	height(t_cylinder *cy, t_vec abc, t_ray r)
 		return (-1.0);
 	else
 		t = ((-abc.y - sqrt(delta)) / (2.0 * abc.x));
+	if (t <= 0.0)
+		t = ((-abc.y + sqrt(delta)) / (2.0 * abc.x));
 	o_c = vec_sub(vec_add(r.origin, vec_mul(r.direction, t)), cy->coordinate);
 	height = scalar_product(o_c, cy->normal);
 	if (height < -cy->height / 2.0 || height > cy->height / 2.0)

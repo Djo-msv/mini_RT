@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 15:56:39 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:02:37 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:05:37 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	rotate_camera(t_data *data, float pitch, float yaw)
 
 void	move_camera_down(t_data *data, t_setting_cam *cam)
 {
-	cam->camera_center.y -= 0.1f;
+	cam->camera_center.y -= 0.05f;
 	rotate_camera(data, cam->pitch, cam->yaw);
 }

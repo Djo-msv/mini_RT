@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:10 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 18:05:25 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 19:52:57 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_hit	nearest_sphere(t_data *data, t_ray ray)
 	return (hit);
 }
 
-t_hit	nearest_obj(t_data *data, t_ray ray)
+t_hit	nearest_obj(t_data *data, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
 	t_hit	buf_hit;
@@ -105,9 +105,12 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	buf_hit = nearest_cylinder(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
-	buf_hit = nearest_light(data, ray);
-	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
-		hit = buf_hit;
+	if (direct_light)
+	{
+		buf_hit = nearest_light(data, ray);
+		if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
+			hit = buf_hit;
+	}
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
 	return (hit);
 }
