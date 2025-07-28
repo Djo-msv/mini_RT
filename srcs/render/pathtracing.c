@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:25:05 by star              #+#    #+#             */
-/*   Updated: 2025/07/22 15:25:06 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:16:16 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_fcolor	shade_pathtracing_pixel(t_data *data, t_ray ray)
 
 	while (depth < data->setting_cam.rbon_nb)
 	{
-		t_hit	hit = intersectScene(data, ray);
+		t_hit	hit = intersectscene(data, ray, true);
 		if (hit.type == -1)
 			return (add_color(color, scalar_color((t_fcolor){0.0f, 0.0f, 0.0f}, throughput)));
 		if (hit.type == 3)

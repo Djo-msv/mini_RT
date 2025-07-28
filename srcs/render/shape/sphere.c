@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 14:02:47 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 19:13:38 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:09:31 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,23 @@
 
 float	hit_sphere(t_vec center, double radius, t_ray r)
 {
+	t_vec	abc;
+	t_vec	oc;
+	float	discriminant;
+	float	t;
+
 	if (radius <= 0)
 		return (-1);
-	t_vec oc = vec_sub(center, r.origin);
-	float a = scalar_product(r.direction, r.direction);
-	float b = scalar_product(r.direction, oc);
-	float c = scalar_product(oc, oc) - radius * radius;
-	float discriminant = b * b - a * c;
+	oc = vec_sub(center, r.origin);
+	abc.x = scalar_product(r.direction, r.direction);
+	abc.y = scalar_product(r.direction, oc);
+	abc.z = scalar_product(oc, oc) - radius * radius;
+	discriminant = abc.y * abc.y - abc.x * abc.z;
 	if (discriminant < 0.0)
-		return -1.0;
-		else
-		return (b - sqrt(discriminant)) / (a);
+		return (-1.0);
+	else
+		t = (abc.y - sqrt(discriminant)) / (abc.x);
+	if (t < 0.0)
+		t = (abc.y + sqrt(discriminant)) / (abc.x);
+	return (t);
 }

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:10 by star              #+#    #+#             */
-/*   Updated: 2025/07/24 19:26:17 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:12:59 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_hit	nearest_sphere(t_data *data, t_ray ray)
 	return (hit);
 }
 
-t_hit	nearest_obj(t_data *data, t_ray ray)
+t_hit	nearest_obj(t_data *data, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
 	t_hit	buf_hit;
@@ -133,9 +133,12 @@ t_hit	nearest_obj(t_data *data, t_ray ray)
 	buf_hit = nearest_cylinder(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
-	buf_hit = nearest_light(data, ray);
-	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
-		hit = buf_hit;
+	if (direct_light)
+	{
+		buf_hit = nearest_light(data, ray);
+		if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
+			hit = buf_hit;
+	}
 	buf_hit = nearest_triangle(data, ray);
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;

@@ -6,17 +6,17 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:21:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 20:16:19 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:16:26 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_hit	intersectScene(t_data *data, t_ray ray)
+t_hit	intersectscene(t_data *data, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
 
-	hit = nearest_obj(data, ray);
+	hit = nearest_obj(data, ray, direct_light);
 	if (hit.type == 0)
 		hit = plane(hit);
 	else if (hit.type == 1)

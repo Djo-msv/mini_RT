@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/07/24 19:29:52 by star             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:11:03 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_hit	cylinder(t_hit hit)
 		hit.normal = normalize(((t_cylinder *)hit.obj)->normal);
 	else
 		hit.normal = vec_mul(((t_cylinder *)hit.obj)->normal, -1);
+	hit.color = mlxcolor_to_fcolor(((t_cylinder *)hit.obj)->color);
 	return (hit);
 }
 
