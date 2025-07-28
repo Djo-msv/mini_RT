@@ -1,5 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/28 15:48:52 by star              #+#    #+#             */
+/*   Updated: 2025/07/28 15:50:04 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SETUP_H
 # define SETUP_H
+
+# include "image.h"
 
 typedef struct s_fcolor
 {
@@ -9,16 +23,14 @@ typedef struct s_fcolor
 }	t_fcolor
 __attribute__((aligned(1)));
 
-# include "image.h"
-
-typedef struct	s_hit
+typedef struct s_hit
 {
-	float	t;
-	void	*obj;
-	int		type;
-	int		part;
-	t_vec	position;
-	t_vec	normal;
+	float		t;
+	void		*obj;
+	int			type;
+	int			part;
+	t_vec		tion;
+	t_vec		normal;
 	t_fcolor	color;
 }	t_hit
 __attribute__((aligned(1)));

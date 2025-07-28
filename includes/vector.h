@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/28 15:48:57 by star              #+#    #+#             */
+/*   Updated: 2025/07/28 15:51:35 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VECTOR_H
 # define VECTOR_H
 
@@ -10,8 +22,8 @@ typedef struct s_vec
 
 typedef struct s_ray
 {
-    t_vec origin;
-    t_vec direction;
+	t_vec	origin;
+	t_vec	direction;
 }	t_ray;
 
 t_vec	vec_add(t_vec vec1, t_vec vec2);
