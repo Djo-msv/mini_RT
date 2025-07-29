@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 18:48:55 by star             ###   ########.fr       */
+/*   Updated: 2025/07/29 18:52:22 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,33 @@ void window_hook(int event, void* param)
 		((t_data *)param)->pool->restart = 1;
 	}
 }
+
+// void	handle_select_obj(t_data *d)
+// {
+// 	t_ray	ray;
+// 	int		x;
+// 	int		y;
+
+// 	x = 0;
+// 	y = 0;
+// 	if (d->setting_cam.move)
+// 		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
+// 	else
+// 	{
+// 		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
+// 		t_vec	pixel_center;
+// 		pixel_center = vec_add(
+// 			vec_add(d->setting_cam.pixel00_loc, vec_mul(d->setting_cam.pixel_delta_h, x)),
+// 			vec_mul(d->setting_cam.pixel_delta_v, y));
+// 		ray = create_ray(d->setting_cam.camera_center, vec_sub(pixel_center, d->setting_cam.camera_center));
+// 	}
+// 	d->scene.select.hit = nearest_obj(d, ray, true);
+// 	if (d->scene.select.hit.t <= 0)
+// 		return ;
+// 	if (d->setting_cam.move)
+// 		destroy_obj(d, d->scene.select.hit);
+// }
+
 
 
 // void mouse_hook(int button, void* param)
