@@ -44,7 +44,7 @@ void	setup_events(t_data *data, t_mlx *mlx)
 
 int	setup_mlx(t_data *data)
 {
-	t_mlx	*mlx;
+	t_mlx			*mlx;
 	t_print_info	*info;
 
 	mlx = &data->mlx;
@@ -54,5 +54,6 @@ int	setup_mlx(t_data *data)
 	setup_images(data);
 	setup_info(data, info);
 	setup_events(data, mlx);
+	data->scene.mlx = mlx;
 	return (0);
 }

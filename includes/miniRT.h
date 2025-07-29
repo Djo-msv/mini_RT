@@ -15,6 +15,7 @@
 
 # include "vector.h"
 # include "matrix.h"
+# include "texture.h"
 # include "objet.h"
 # include "setup.h"
 # include "render.h"

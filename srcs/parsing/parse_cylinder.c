@@ -6,23 +6,23 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/09 15:34:35 by star             ###   ########.fr       */
+/*   Updated: 2025/07/29 16:27:35 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static int	init_d_h_rgb_cylinder(t_cylinder *cylinder, char **args)
+static int	init_d_h_rgb_cylinder(t_cylinder *c, char **args)
 {
 	char	**v;
 
 	if (verfi_float(args[3]))
 		return (1);
-	cylinder->diameter = ft_atof(args[3]);
-	cylinder->radius = cylinder->diameter / 2;
+	c->diameter = ft_atof(args[3]);
+	c->radius = c->diameter / 2;
 	if (verfi_float(args[4]))
 		return (1);
-	cylinder->height = ft_atof(args[4]);
+	c->height = ft_atof(args[4]);
 	v = ft_split(args[5], ",");
 	if (!v)
 		return (1);
@@ -32,12 +32,13 @@ static int	init_d_h_rgb_cylinder(t_cylinder *cylinder, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	cylinder->color = (mlx_color){{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
+	c->color = (mlx_color)
+	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
 	return (0);
 }
 
-static int	init_normal_cylinder(t_cylinder *cylinder, char **args)
+static int	init_normal_cylinder(t_cylinder *cy, char **args)
 {
 	char	**v;
 
@@ -50,36 +51,43 @@ static int	init_normal_cylinder(t_cylinder *cylinder, char **args)
 		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	cylinder->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	cy->normal = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
-	if (verif_fvalue(-1, 1, cylinder->normal.x)
-		|| verif_fvalue(-1, 1, cylinder->normal.y)
-		|| verif_fvalue(-1, 1, cylinder->normal.z))
+	if (verif_fvalue(-1, 1, cy->normal.x)
+		|| verif_fvalue(-1, 1, cy->normal.y)
+		|| verif_fvalue(-1, 1, cy->normal.z))
 		return (1);
+	if (cy->normal.x == 0 && cy->normal.y == 0 && cy->normal.z == 0)
+		cy->normal = (t_vec){0, 0, 1};
+	cy->normal = normalize(cy->normal);
+	return (0);
+}
+
+static int	init_co_cy(t_cylinder *c, char **args)
+{
+	char		**v;
+
+	v = ft_split(args[1], ",");
+	if (!v)
+		return (1);
+	if (verfi_float(v[0]) || verfi_float(v[1]) || verfi_float(v[2]) || v[3])
+	{
+		ft_free_2d_tab((void **)v);
+		return (1);
+	}
+	c->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	ft_free_2d_tab((void **)v);
 	return (0);
 }
 
 int	parse_cylinder(t_scene *scene, char **args)
 {
-	char		**v;
 	t_cylinder	*cylinder;
 
-	v = ft_split(args[1], ",");
-	if (!v)
-		return (1);
-	if (verfi_float(v[0]) || verfi_float(v[1])
-		|| verfi_float(v[2]) || v[3])
-	{
-		ft_free_2d_tab((void **)v);
-		return (1);
-	}
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (1);
-	cylinder->coordinate = (t_vec)
-	{ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
-	ft_free_2d_tab((void **)v);
-	if (init_normal_cylinder(cylinder, args)
+	if (init_co_cy(cylinder, args) || init_normal_cylinder(cylinder, args)
 		|| init_d_h_rgb_cylinder(cylinder, args)
 		|| ft_lstadd_back(&scene->cylinder, ft_lstnew(cylinder)))
 	{

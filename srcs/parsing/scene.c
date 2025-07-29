@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/12 17:02:12 by star             ###   ########.fr       */
+/*   Updated: 2025/07/29 16:28:56 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,18 @@ static int	check_args(t_data *data, char **args)
 	return (1);
 }
 
+static void	clear(t_data *data, char **args)
+{
+	ft_putstr_fd("Error\nInvalid arguments in .rt file\n", 2);
+	ft_lstclear(&data->scene.light, free);
+	ft_lstclear(&data->scene.cylinder, free);
+	ft_lstclear(&data->scene.plane, free);
+	ft_lstclear(&data->scene.sphere, free);
+	ft_lstclear(&data->scene.ellipsoid, free);
+	ft_lstclear(&data->scene.triangle, free);
+	ft_free_2d_tab((void **)args);
+}
+
 int	creat_scene(t_data *data, int fd)
 {
 	char	*line;
@@ -51,12 +63,7 @@ int	creat_scene(t_data *data, int fd)
 		free(line);
 		if (check_args(data, args))
 		{
-			ft_putstr_fd("Error\nInvalid arguments in .rt file\n", 2);
-			ft_lstclear(&data->scene.light, free);
-			ft_lstclear(&data->scene.cylinder, free);
-			ft_lstclear(&data->scene.plane, free);
-			ft_lstclear(&data->scene.sphere, free);
-			ft_free_2d_tab((void **)args);
+			clear(data, args);
 			return (1);
 		}
 		ft_free_2d_tab((void **)args);

@@ -1,25 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/29 17:02:45 by star              #+#    #+#             */
+/*   Updated: 2025/07/29 17:02:53 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
-t_fcolor add_color(t_fcolor c1, t_fcolor c2)
+t_fcolor	add_color(t_fcolor c1, t_fcolor c2)
 {
 	return ((t_fcolor){c1.r + c2.r, c1.g + c2.g, c1.b + c2.b});
 }
 
-t_fcolor scale_mlx_color(t_fcolor color, float factor)
+t_fcolor	scale_mlx_color(t_fcolor color, float factor)
 {
-    t_fcolor result;
+	t_fcolor	result;
 
-    result.r = color.r * factor;
-    result.g = color.g * factor;
-    result.b = color.b * factor;
-    return result;
+	result.r = color.r * factor;
+	result.g = color.g * factor;
+	result.b = color.b * factor;
+	return (result);
 }
 
-t_fcolor scalar_color(t_fcolor c1, t_fcolor c2)
+t_fcolor	scalar_color(t_fcolor c1, t_fcolor c2)
 {
 	return ((t_fcolor){c1.r * c2.r, c1.g * c2.g, c1.b * c2.b});
 }
-
 
 t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 {
@@ -41,7 +52,6 @@ void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 			dst[global_index].g = buffer_img[global_index].g;
 			dst[global_index].b = buffer_img[global_index].b;
 			dst[global_index].a = 255;
-
-	}
+		}
 	}
 }

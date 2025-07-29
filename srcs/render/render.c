@@ -1,66 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/29 17:38:19 by star              #+#    #+#             */
+/*   Updated: 2025/07/29 17:38:20 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
-t_hit	intersectScene(t_scene scene, t_ray ray, bool direct_light)
+t_hit	intersectscene(t_scene scene, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
 
 	hit = nearest_obj(scene, ray, direct_light);
 	if (hit.type == 0)
-	{
-		if (1)
-		{
-			int	checker = ((int)floor(hit.position.x / 2) + (int)floor(hit.position.z / 2)) % 2;
-			if (checker)
-				hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
-			else 
-				hit.color = (t_fcolor){0.0f, 0.0f, 0.0f};
-		}
-		else
-			hit.color = mlxcolor_to_fcolor(((t_plane *)hit.obj)->color);
-		hit.normal = normalize(((t_plane *)hit.obj)->normal);
-		hit.material = 0;
-	}
+		hit = plane(hit);
 	else if (hit.type == 1)
-	{
-		if (0)
-		{
-			mlx_color	pixel;
-//			t_vec		p;
-//			int			x;
-//			int			y;
-//			float		u;
-//			float		v;
-
-//			p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
-//			u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
-//			v = 0.5 - asin(p.y) / M_PI;
-//			x = u;
-//			y = v;
-//			mlx_get_image_region(data->mlx.mlx, data->texture, x, y ,1 ,1, &pixel); a changer car texxture dans scene
-			hit.color = mlxcolor_to_fcolor(pixel);
-		}
-		else
-			hit.color = mlxcolor_to_fcolor(((t_sphere *)hit.obj)->color);
-		hit.normal = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
-	}
+		hit = sphere(scene, hit);
 	else if (hit.type == 2)
-	{
-		if (hit.part == 1)
-		{
-			t_vec	o_c;
-			t_vec	projection;
-			float	lenght;
-
-			o_c = vec_sub(hit.position, ((t_cylinder *)hit.obj)->coordinate);
-			lenght = scalar_product(o_c, ((t_cylinder *)hit.obj)->normal);
-			projection = vec_add(((t_cylinder *)hit.obj)->coordinate, vec_mul(((t_cylinder *)hit.obj)->normal, lenght));
-			hit.normal = normalize(vec_sub(hit.position, projection));
-		}
-		else if (hit.part == 2)
-			hit.normal = normalize(((t_cylinder *)hit.obj)->normal);
-		else
-			hit.normal = vec_mul(((t_cylinder *)hit.obj)->normal, -1);
-	}
+		hit = cylinder(hit);
 	else if (hit.type == 3)
 	{
 		hit.color = mlxcolor_to_fcolor(((t_light *)hit.obj)->color);
@@ -72,13 +34,7 @@ t_hit	intersectScene(t_scene scene, t_ray ray, bool direct_light)
 		hit.normal = ((t_triangle *)hit.obj)->normal;
 	}
 	else if (hit.type == 5)
-	{
-		t_ellipsoid	*e = (t_ellipsoid *)hit.obj;
-		t_vec	hit_local = mul_mat4_to_vec(e->t_inv, hit.position, 1);
-		t_vec	normal = normalize(hit_local);
-		hit.normal = normalize(mul_mat4_to_vec(e->t_inv_t, normal, 0));
-		hit.color = mlxcolor_to_fcolor(e->color);
-	}
+		hit = ellipsoid(hit);
 	return (hit);
 }
 

@@ -48,11 +48,22 @@ typedef struct s_select
 	t_hit		hit;
 	int			up_mode;
 	int			rotate_mode;
+	int			scale_mode;
 }				t_select
+__attribute__((aligned(1)));
+
+typedef struct s_mlx
+{
+	mlx_context		mlx;
+	mlx_window		win;
+	mlx_window_create_info	info;
+	mlx_image		img;
+}	t_mlx
 __attribute__((aligned(1)));
 
 typedef struct s_scene
 {
+	t_mlx		*mlx;
 	t_a_light	a_light;
 	t_cam		camera;
 	t_list		*light;
@@ -63,15 +74,6 @@ typedef struct s_scene
 	t_list		*ellipsoid;
 	t_select	select;
 }	t_scene
-__attribute__((aligned(1)));
-
-typedef struct s_mlx
-{
-	mlx_context		mlx;
-	mlx_window		win;
-	mlx_window_create_info	info;
-	mlx_image		img;
-}	t_mlx
 __attribute__((aligned(1)));
 
 typedef struct s_print_info
@@ -109,5 +111,7 @@ typedef struct s_data
 	struct s_print_info	info;
 }	t_data
 __attribute__((aligned(1)));
+
+void	ft_add_texture(t_data *d);
 
 #endif

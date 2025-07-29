@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   texture.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/29 17:38:36 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:38:38 by star             ###   ########.fr       */
+/*   Created: 2025/07/29 16:20:53 by star              #+#    #+#             */
+/*   Updated: 2025/07/29 16:26:50 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#ifndef TEXTURE_H
+# define TEXTURE_H
 
-void		setup_minirt(t_data *data)
+typedef struct s_texture
 {
-	init_thread(data);
-	setup_mlx(data);
-	set_camera_value(data, &data->cam);
-}
+	mlx_image	image;
+	char		*name;
+	int			width;
+	int			height;
+	int			is_texture;
+}				t_texture
+__attribute__((aligned(1)));
 
-int	main(int argc, char **argv)
-{
-	t_data	data;
-
-	ft_memset(&data, 0, sizeof(data));
-	if (parse(&data, argc, argv))
-		return (1);
-	setup_minirt(&data);
-	ft_add_texture(&data);
-	run_minirt(&data);
-	free_data(&data);
-	return(0);
-}
+#endif

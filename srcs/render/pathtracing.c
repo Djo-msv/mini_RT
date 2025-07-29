@@ -1,6 +1,5 @@
 #include "miniRT.h"
 
-
 t_vec cosine_weighted_hemisphere(t_vec normal)
 {
     float r1 = drand48();
@@ -55,7 +54,7 @@ t_fcolor	shade_pathtracing_pixel(t_scene scene, t_ray ray)
 
 	while (depth < 8)
 	{
-		t_hit	hit = intersectScene(scene, ray, direct_light);
+		t_hit	hit = intersectscene(scene, ray, direct_light);
 		if (hit.type == -1)
 			return (add_color(color, scalar_color((t_fcolor){0.0f, 0.0f, 0.0f}, throughput)));
 		if (hit.type == 3)

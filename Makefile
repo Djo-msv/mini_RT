@@ -81,15 +81,20 @@ SRCS_FILES:=	main.c \
 		math/ray.c \
 		math/vector.c \
 		math/matrix.c	\
+		math/move_matrix.c \
+		math/change_vector.c \
 		mlx/move_obj.c	\
 		mlx/mlx_events.c \
 		mlx/mlx_loop.c \
 		mlx/mlx_mouse.c \
 		mlx/mlx_setting.c \
 		mlx/mlx_setup.c \
+		mlx/rotate_obj.c \
+		mlx/del_obj.c \
 		print/print.c \
 		parsing/parse_cam_light.c \
-		parsing/parse_sphere_plane.c \
+		parsing/parse_sphere_a_light.c \
+		parsing/parse_plane.c \
 		parsing/parse_triangle.c \
 		parsing/parse_ellipsoid.c \
 		parsing/parsing.c \
@@ -107,10 +112,13 @@ SRCS_FILES:=	main.c \
 		render/pathtracing.c \
 		render/raytracing.c \
 		render/render.c \
+		render/hit_obj.c \
+		render/nearest_elli_cyl.c \
 		thread/setup_thread.c \
 		thread/run_thread.c \
 		utils/alloc.c \
 		utils/input.c \
+		utils/add_texture.c	\
 		view/camera.c
 
 #SRCS_FILES_BONUS:=
