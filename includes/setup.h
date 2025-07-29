@@ -96,6 +96,13 @@ typedef struct s_input
 	bool	d_button;
 	bool	space_button;
 	bool	shift_button;
+	bool	up_button;
+	bool	down_button;
+	bool	left_button;
+	bool	right_button;
+	bool	minus_button;
+	bool	plus_button;
+	bool	deletion_button;
 }	t_input
 __attribute__((aligned(1)));
 

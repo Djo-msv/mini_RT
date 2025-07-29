@@ -6,19 +6,20 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/15 17:43:06 by star             ###   ########.fr       */
+/*   Updated: 2025/07/29 18:48:55 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void key_hook_down(int key, void* param)
+void key_hook_down(int key, void *param)
 {
 	static bool	fullscreen = false;
-	t_mlx 		*mlx;
+	t_mlx 					*mlx;
 
 	mlx = &((t_data *)param)->mlx;
-    if(key == 41)
+	printf("%d", key);
+	if(key == 41)
 		mlx_loop_end(mlx->mlx);
 	if (key == 26)
 		((t_data *)param)->input.z_button = true;
@@ -37,9 +38,23 @@ void key_hook_down(int key, void* param)
 		fullscreen = !fullscreen;
 		mlx_set_window_fullscreen(mlx->mlx, mlx->win , fullscreen);
 	}
+	if (key == 42)
+		((t_data *)param)->input.deletion_button = true;
+	if (key == 82)
+		((t_data *)param)->input.up_button = true;
+	if (key == 81)
+		((t_data *)param)->input.down_button = true;
+	if (key == 80)
+		((t_data *)param)->input.left_button = true;
+	if (key == 79)
+		((t_data *)param)->input.right_button = true;
+	if (key == 45)
+		((t_data *)param)->input.minus_button = true;
+	if (key == 46)
+		((t_data *)param)->input.plus_button = true;
 }
 
-void key_hook_up(int key, void* param)
+void key_hook_up(int key, void *param)
 {
 	if (key == 26)
 		((t_data *)param)->input.z_button = false;
@@ -53,6 +68,20 @@ void key_hook_up(int key, void* param)
 		((t_data *)param)->input.space_button = false;
 	if (key == 225)
 		((t_data *)param)->input.shift_button = false;
+	if (key == 42)
+		((t_data *)param)->input.deletion_button = false;
+	if (key == 82)
+		((t_data *)param)->input.up_button = false;
+	if (key == 81)
+		((t_data *)param)->input.down_button = false;
+	if (key == 80)
+		((t_data *)param)->input.left_button = false;
+	if (key == 79)
+		((t_data *)param)->input.right_button = false;
+	if (key == 45)
+		((t_data *)param)->input.minus_button = false;
+	if (key == 46)
+		((t_data *)param)->input.plus_button = false;
 }
 
 void window_hook(int event, void* param)
@@ -72,20 +101,20 @@ void window_hook(int event, void* param)
 	}
 }
 
+
+// void mouse_hook(int button, void* param)
+// {
+// 	t_data	*data = (t_data *)param;
+
+// 	// if (button == 3)
+// 	// {
+// 	// 	data->setting_cam.move = !data->setting_cam.move;
+// 	// 	change_mode(data);
+// 	// }
+// 	if (button == 1)
+// 		handle_select_obj(data);
+// }
 /*
-
-void mouse_hook(int button, void* param)
-{
-	t_data	*data = (t_data *)param;
-
-	if (button == 3)
-	{
-		data->setting_cam.move = !data->setting_cam.move;
-		change_mode(data);
-	}
-	if (button == 1)
-		handle_select_obj(data);
-}
 
 void mouse_wheel_hook(int button, void* param)
 {
