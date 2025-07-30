@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:33:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:35:10 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 16:29:36 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	mouse(t_data *data)
 {
 	int				x;
 	int				y;
-	static float	pitch = 0;
-	static float	yaw = 0;
 	t_setting_cam	*cam;
 
 	cam = &data->setting_cam;
@@ -28,14 +26,12 @@ void	mouse(t_data *data)
 			cam->width >> 1, cam->height >> 1);
 		if (x - (cam->width >> 1) == 0 && y - (cam->height >> 1) == 0)
 			return ;
-		yaw += (x - (float)(cam->width >> 1)) * 0.001f;
-		pitch -= (y - (float)(cam->height >> 1)) * 0.001f;
-		if (pitch > 1.5708f)
-			pitch = 1.5707f;
-		if (pitch < -1.5708f)
-			pitch = -1.5707f;
-		cam->yaw = yaw;
-		cam->pitch = pitch;
-		rotate_camera(data, pitch, yaw);
+		cam->yaw  += (x - (float)(cam->width >> 1)) * 0.001f;
+		cam->pitch -= (y - (float)(cam->height >> 1)) * 0.001f;
+		if (cam->pitch > 1.5708f)
+			cam->pitch = 1.5707f;
+		if (cam->pitch < -1.5708f)
+			cam->pitch = -1.5707f;
+		rotate_camera(data, cam->pitch, cam->yaw);
 	}
 }

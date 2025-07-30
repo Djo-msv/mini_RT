@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:43 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 15:48:44 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 16:39:30 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct s_cam
 {
 	t_vec	coordinate;
 	t_vec	orientation;
-
-	float	fov;
+	int		fov;
+	int		is_cam;
 }	t_cam
 __attribute__((aligned(1)));
 

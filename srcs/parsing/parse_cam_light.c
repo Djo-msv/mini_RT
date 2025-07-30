@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 19:02:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 20:39:25 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 16:40:02 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	init_cam(t_scene *scene, char **args)
 		|| verif_fvalue(-1, 1, scene->camera.orientation.y)
 		|| verif_fvalue(-1, 1, scene->camera.orientation.z))
 		return (1);
+	scene->camera.orientation = normalize(scene->camera.orientation);
 	if (verif_int(args[3], "180") || args[4])
 		return (1);
 	scene->camera.fov = ft_atof(args[3]);
@@ -48,6 +49,7 @@ int	parse_camera(t_scene *scene, char **args)
 		return (1);
 	if (!args[1])
 		return (1);
+	scene->camera.is_cam = 1;
 	value = ft_split(args[1], ",");
 	if (!value)
 		return (1);
