@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objet.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/30 17:00:44 by star              #+#    #+#             */
+/*   Updated: 2025/07/30 18:48:34 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef OBJET_H
 # define OBJET_H
 
@@ -16,8 +28,8 @@ typedef struct s_cam
 	int		rbon_nb;
 	float	rand_h;
 	float	rand_v;
-
-	float	fov;
+	int		fov;
+	int		is_cam;
 }	t_cam
 __attribute__((aligned(1)));
 
@@ -39,6 +51,7 @@ typedef struct s_sphere
 	float		diameter;
 	float		radius;
 	t_texture	tex;
+	int			mat;
 
 }	t_sphere
 __attribute__((aligned(1)));
@@ -67,6 +80,7 @@ typedef struct s_cylinder
 	float		diameter;
 	float		radius;
 	float		height;
+	int			mat;
 }	t_cylinder
 __attribute__((aligned(1)));
 
@@ -77,6 +91,7 @@ typedef struct s_triangle
 	t_vec		c;
 	mlx_color	color;
 	t_vec		normal;
+	int			mat;
 }				t_triangle
 __attribute__((aligned(1)));
 
@@ -90,6 +105,7 @@ typedef struct s_ellipsoid
 	t_matrix	tran;
 	t_matrix	t_inv;
 	t_matrix	t_inv_t;
+	int			mat;
 }				t_ellipsoid
 __attribute__((aligned(1)));
 

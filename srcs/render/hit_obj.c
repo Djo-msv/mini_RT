@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:37:58 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 18:50:14 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,41 @@ t_hit	plane(t_hit hit)
 	return (hit);
 }
 
+t_vec	bump_map(t_scene scene, t_hit hit, int x, int y)
+{
+	mlx_color	pixel;
+	t_vec		TBN[3]; //Tangent, Bitangent, Normal
+	t_sphere	*s;
+	t_vec		n_map;
+	t_fcolor	c;
+	t_vec		normal;
+
+	s = (t_sphere *)hit.obj;
+	pixel = mlx_get_image_pixel(scene.mlx->mlx, s->tex.n_image, x, y);
+	c = mlxcolor_to_fcolor(pixel);
+	n_map = (t_vec){c.r * 2.0 - 1.0, c.g * 2.0 - 1.0, c.b * 2.0 - 1.0};
+	n_map = normalize(n_map);
+	TBN[2] = normalize(vec_sub(hit.position, s->coordinate));
+	TBN[0] = normalize((t_vec){-sin(atan2(TBN[2].z, TBN[2].x)), 0, cos(atan2(TBN[2].z, TBN[2].x))});
+	TBN[1] = vec_cross(TBN[2], TBN[0]);
+	normal = (t_vec){n_map.x * TBN[0].x + n_map.y * TBN[1].x + n_map.z * TBN[2].x,
+					n_map.x * TBN[0].y + n_map.y * TBN[1].y + n_map.z * TBN[2].y,
+					n_map.x * TBN[0].z + n_map.y * TBN[1].z + n_map.z * TBN[2].z};
+	normal = normalize(normal);
+	return (normal);
+}
+
 t_hit	sphere(t_scene scene, t_hit hit)
 {
 	t_sphere	*s;
+	int			x;
+	int			y;
 
 	s = (t_sphere *)hit.obj;
 	if (s->tex.is_texture)
 	{
 		mlx_color	pixel;
 		t_vec		p;
-		int			x;
-		int			y;
 		float		u;
 		float		v;
 
@@ -56,7 +80,11 @@ t_hit	sphere(t_scene scene, t_hit hit)
 	}
 	else
 		hit.color = mlxcolor_to_fcolor(s->color);
-	hit.normal = normalize(vec_sub(hit.position, s->coordinate));
+	if (s->tex.is_normal)
+		hit.normal = bump_map(scene, hit, x, y);
+	else
+		hit.normal = normalize(vec_sub(hit.position, s->coordinate));
+	hit.material = s->mat;
 	return (hit);
 }
 
@@ -78,6 +106,7 @@ t_hit	cylinder(t_hit hit)
 	else
 		hit.normal = vec_mul(((t_cylinder *)hit.obj)->normal, -1);
 	hit.color = mlxcolor_to_fcolor(((t_cylinder *)hit.obj)->color);
+	hit.material = ((t_cylinder *)hit.obj)->mat;
 	return (hit);
 }
 
@@ -85,5 +114,6 @@ t_hit	ellipsoid(t_hit hit)
 {
 	t_ellipsoid	*e = (t_ellipsoid *)hit.obj;
 	hit.color = mlxcolor_to_fcolor(e->color);
+	hit.material = e->mat;
 	return (hit);
 }

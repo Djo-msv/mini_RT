@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:19 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:38:20 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 18:50:44 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_hit	intersectscene(t_scene scene, t_ray ray, bool direct_light)
 	{
 		hit.color = mlxcolor_to_fcolor(((t_triangle *)hit.obj)->color);
 		hit.normal = ((t_triangle *)hit.obj)->normal;
+		hit.material = ((t_triangle *)hit.obj)->mat;
 	}
 	else if (hit.type == 5)
 		hit = ellipsoid(hit);
@@ -50,7 +51,8 @@ void	render(t_fcolor *pixel, t_vec ray_direction, t_scene *scene)
 	(void)scene;
 	(void)tkt;
 //	printf("%p \n", pixel);
-	*pixel = shade_pathtracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
+	if (scene->camera.is_cam)
+		*pixel = shade_pathtracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
 //	if ((*pixel).r != 0.0f)
 //		printf("hello\n");
 }

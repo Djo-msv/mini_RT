@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:45:58 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:38:28 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 18:02:07 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ void	ft_add_texture(t_data *d)
 			sphere->tex.image = mlx_new_image_from_file(d->mlx.mlx, sphere->tex.name, 0, 0);
 			sphere->tex.width = ft_get_width(sphere->tex.image, d);
 			sphere->tex.height = ft_get_height(sphere->tex.image, d);
+		}
+		if (sphere->tex.is_normal && sphere->tex.is_texture)
+		{
+			sphere->tex.n_image = mlx_new_image_from_file(d->mlx.mlx, sphere->tex.n_name, 0, 0);
+			if (sphere->tex.width != ft_get_width(sphere->tex.n_image, d) || sphere->tex.height != ft_get_height(sphere->tex.n_image, d))
+			{
+				sphere->tex.is_normal = 0;
+				printf("not good normal");
+			}
 		}
 		tmp = tmp->next;
 	}

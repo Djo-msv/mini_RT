@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 18:52:22 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 17:01:47 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void key_hook_down(int key, void *param)
 	t_mlx 					*mlx;
 
 	mlx = &((t_data *)param)->mlx;
-	printf("%d", key);
 	if(key == 41)
 		mlx_loop_end(mlx->mlx);
 	if (key == 26)
@@ -126,8 +125,6 @@ void window_hook(int event, void* param)
 // 	if (d->setting_cam.move)
 // 		destroy_obj(d, d->scene.select.hit);
 // }
-
-
 
 // void mouse_hook(int button, void* param)
 // {
