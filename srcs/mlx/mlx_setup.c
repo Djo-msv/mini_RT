@@ -3,8 +3,12 @@
 void	setup_mlx_window(t_mlx *mlx)
 {
 	mlx->info.title = "miniRT";
-	mlx->info.width = 800;
 	mlx->info.height = 800;
+	mlx->info.width = 800;
+	if (MAX_RES_W < 800)
+		mlx->info.width = MAX_RES_W;
+	if (MAX_RES_H < 800)
+		mlx->info.height = MAX_RES_H;
 	mlx->info.is_resizable = true;
 	mlx->info.is_fullscreen = false;
 	mlx->win = mlx_new_window(mlx->mlx, &mlx->info);
@@ -18,16 +22,14 @@ void	setup_images(t_data *data)
 {
 	data->image.resolution = 1;
 	data->image.antialiasing = 1;
-//	data->setting_cam.rbon_nb = 8;
 	data->image.buf_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(t_fcolor));
-//	data->image.old_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(t_fcolor));
 	data->image.mlx_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(mlx_color));
 }
 
 void	setup_info(t_data *data, t_print_info *info)
 {
 	info->resolution = data->image.resolution;
-	info->aa = data->image.antialiasing;
+	info->aa = data->scene.camera.aa;
 	info->x = data->mlx.info.width;
 	info->y = data->mlx.info.height;
 	info->first_display = true;

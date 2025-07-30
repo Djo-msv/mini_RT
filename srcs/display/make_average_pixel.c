@@ -21,7 +21,7 @@ void	sampling(t_data *data)
 	t_fcolor	*buf_img = data->image.buf_img;
 	t_fcolor	*buf_thread = data->pool->buffer_b;
 
-	for (int y = 0; y <= (data->mlx.info.height); y++)
+	for (int y = 0; y < (data->mlx.info.height); y++)
 	{
 		for (int x = 0; x < width; x++)
 		{

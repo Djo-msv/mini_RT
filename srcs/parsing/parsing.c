@@ -41,6 +41,8 @@ int	parse(t_data *d, int argc, char **argv)
 {
 	int	fd;
 
+	if (NB_THREAD <= 0 || SIZE_CHUNK <= 0 || MAX_RES_W < 400 || MAX_RES_H < 400)
+		return (1);
 	if (verif_name(argc, argv))
 		return (1);
 	(void)d;

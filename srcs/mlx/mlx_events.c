@@ -18,8 +18,15 @@ void key_hook_down(int key, void* param)
 	t_mlx 		*mlx;
 
 	mlx = &((t_data *)param)->mlx;
-    if(key == 41)
+    if (key == 41)
 		mlx_loop_end(mlx->mlx);
+	if (key == 43)
+	{
+		((t_data *)param)->scene.camera.aa = !((t_data *)param)->scene.camera.aa;
+		((t_data *)param)->image.nb_images = 0;
+		((t_data *)param)->info.aa = ((t_data *)param)->scene.camera.aa;
+		print_info(&((t_data *)param)->info);
+	}
 	if (key == 26)
 		((t_data *)param)->input.z_button = true;
 	if (key == 22)
@@ -68,6 +75,14 @@ void window_hook(int event, void* param)
 		((t_data *)param)->info.y = mlx->info.width;
 		((t_data *)param)->info.x = mlx->info.height;
 		print_info(&((t_data *)param)->info);
+		if (mlx->info.width > MAX_RES_W || mlx->info.height > MAX_RES_H)
+		{
+			mlx->info.width = MAX_RES_W;
+			mlx->info.height = MAX_RES_H;
+			mlx_set_window_fullscreen(mlx->mlx, mlx->win , false);
+//			mlx_loop_end(mlx->mlx);
+			return ;
+		}
 		((t_data *)param)->pool->restart = 1;
 	}
 }

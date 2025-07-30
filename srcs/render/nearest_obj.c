@@ -23,6 +23,7 @@ t_hit	nearest_plane(t_scene scene, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
+	hit.material = 0;
 	tmp = scene.plane;
 	while (tmp)
 	{
@@ -50,6 +51,7 @@ t_hit	nearest_light(t_scene scene, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
+	hit.material = 0;
 	tmp = scene.light;
 	while (tmp)
 	{
@@ -77,6 +79,7 @@ t_hit	nearest_triangle(t_scene scene, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
+	hit.material = 0;
 	tmp = scene.triangle;
 	while (tmp)
 	{
@@ -104,6 +107,7 @@ t_hit	nearest_sphere(t_scene scene, t_ray ray)
 	hit.t = 0;
 	hit.obj = NULL;
 	hit.type = -1;
+	hit.material = 0;
 	tmp = scene.sphere;
 	while (tmp)
 	{
@@ -127,7 +131,6 @@ t_hit	nearest_obj(t_scene scene, t_ray ray, bool direct_light)
 
 	hit = nearest_sphere(scene, ray);
 	buf_hit = nearest_plane(scene, ray);
-	hit.material = 0;
 	if (buf_hit.t > 0.0f && (buf_hit.t < hit.t || hit.t == 0))
 		hit = buf_hit;
 	buf_hit = nearest_cylinder(scene, ray);

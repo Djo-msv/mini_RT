@@ -4,8 +4,8 @@
 t_ray get_antialiasing(t_scene scene, t_vec base_ray)
 {
 	t_cam	cam = scene.camera;
-//	if (1)
-//		return (create_ray(cam.coordinate, base_ray));
+	if (!cam.aa)
+		return (create_ray(cam.coordinate, base_ray));
 	t_vec dir = base_ray;
 
 	dir.x += cam.rand_h;

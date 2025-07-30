@@ -90,8 +90,8 @@ t_tpool *tpool_create(size_t num)
 
     tm = calloc(2, sizeof(*tm));
     tm->thread_cnt = num;
-	tm->buffer_a = malloc(MAX_RES_H * MAX_RES_W * sizeof(t_fcolor));
-	tm->buffer_b = malloc(MAX_RES_H * MAX_RES_W * sizeof(t_fcolor));
+	tm->buffer_a = malloc((MAX_RES_H * MAX_RES_W) * sizeof(t_fcolor));
+	tm->buffer_b = malloc((MAX_RES_H * MAX_RES_W) * sizeof(t_fcolor));
 	tm->ray_direction = malloc(MAX_RES_H * MAX_RES_W * sizeof(t_vec));
 	tm->arg = malloc(((MAX_RES_H * MAX_RES_W) / SIZE_CHUNK + 1) * sizeof(t_thread_arg));
 	tm->restart = 1;
