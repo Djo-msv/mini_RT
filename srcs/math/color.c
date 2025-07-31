@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:02:45 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:02:53 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 18:33:13 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,20 @@ t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 
 void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 {
-	int width = data->mlx.info.width;
+	t_fcolor	*buffer_img;
+	int			width;
+	int			y;
+	int			x;
 
-	t_fcolor *buffer_img = data->image.buf_img;
-	for (int y = 0; y < data->mlx.info.height; y++)
+	width = data->mlx.info.width;
+	buffer_img = data->image.buf_img;
+	y = -1;
+	while (++y < data->mlx.info.height)
 	{
-		for (int x = 0; x < width; x++)
+		x = -1;
+		while (++x < width)
 		{
 			int global_index = y * width + x;
-//			printf("hello\n");
 			dst[global_index].r = buffer_img[global_index].r;
 			dst[global_index].g = buffer_img[global_index].g;
 			dst[global_index].b = buffer_img[global_index].b;

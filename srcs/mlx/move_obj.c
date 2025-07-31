@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:30:10 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 18:50:17 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ void	move_obj_y(t_data *d, t_hit select, int is_up)
 
 static void	rotate(t_data *d, t_hit select, int key)
 {
-	if (key == 79)
+	if (d->input.right_button)
 		rotate_obj_x(d, select, 0);
-	if (key == 80)
+	if (d->input.left_button)
 		rotate_obj_x(d, select, 1);
-	if (key == 82)
+	if (d->input.up_button)
 		rotate_obj_y(d, select, 1);
-	if (key == 81)
+	if (d->input.down_button)
 		rotate_obj_y(d, select, 0);
 }
 
@@ -101,13 +101,13 @@ void	change_obj(t_data *d, t_hit select, int key)
 	resize_obj(d, select, key);
 	if (d->scene.select.scale_mode && select.type == 5)
 	{
-		if (key == 82)
+		if (d->input.up_button)
 			((t_ellipsoid *)select.obj)->scale.y += 0.01;
-		if (key == 81)
+		if (d->input.down_button)
 			((t_ellipsoid *)select.obj)->scale.y -= 0.01;
-		if (key == 79)
+		if (d->input.right_button)
 			((t_ellipsoid *)select.obj)->scale.z += 0.01;
-		if (key == 80)
+		if (d->input.left_button)
 			((t_ellipsoid *)select.obj)->scale.z -= 0.01;
 		init_elli_mat((t_ellipsoid *)select.obj);
 		d->image.nb_images = 0;
@@ -118,20 +118,20 @@ void	change_obj(t_data *d, t_hit select, int key)
 	{
 		if (d->scene.select.up_mode)
 		{
-			if (key == 82)
+			if (d->input.up_button)
 				move_obj_y(d, select, 1);
-			if (key == 81)
+			if (d->input.down_button)
 				move_obj_y(d, select, 0);
 		}
 		else
 		{
-			if (key == 79)
+			if (d->input.right_button)
 				move_obj_x(d, select, 0);
-			if (key == 80)
+			if (d->input.left_button)
 				move_obj_x(d, select, 1);
-			if (key == 82)
+			if (d->input.up_button)
 				move_obj_z(d, select, 1);
-			if (key == 81)
+			if (d->input.down_button)
 				move_obj_z(d, select, 0);
 		}
 	}
