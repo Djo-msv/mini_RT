@@ -6,13 +6,13 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:36 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:38:38 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 18:27:47 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void		setup_minirt(t_data *data)
+void	setup_minirt(t_data *data)
 {
 	init_thread(data);
 	setup_mlx(data);

@@ -13,25 +13,40 @@ void	average_pixel(t_fcolor *n_pixel, t_fcolor o_pixel, float coef_new_p, float 
 	n_pixel->b = tmp;
 }
 */
+
+void	c_sampling(double coef_new_p, double coef_old_p, t_fcolor *buf_img, t_fcolor *buf_thread)
+{
+	t_fcolor	rgb;
+
+	rgb.r = fmin(fmax((*buf_thread).r * 255.0, 0.0), 255.0);
+	rgb.g = fmin(fmax((*buf_thread).g * 255.0, 0.0), 255.0);
+	rgb.b = fmin(fmax((*buf_thread).b * 255.0, 0.0), 255.0);
+
+	(*buf_img).r = ((rgb.r * coef_old_p) + ((*buf_img).r * coef_new_p));
+	(*buf_img).g = ((rgb.g * coef_old_p) + ((*buf_img).g * coef_new_p));
+	(*buf_img).b = ((rgb.b * coef_old_p) + ((*buf_img).b * coef_new_p));
+}
+
 void	sampling(t_data *data)
 {
-	int width = data->mlx.info.width;
-	double coef_new_p = data->image.coef_new_p;
-	double coef_old_p = data->image.coef_old_p;
-	t_fcolor	*buf_img = data->image.buf_img;
-	t_fcolor	*buf_thread = data->pool->buffer_b;
+	double		coef_new_p;
+	double		coef_old_p;
+	t_fcolor	*buf_img;
+	t_fcolor	*buf_thread;
+	int			y;
+	int			x;
 
-	for (int y = 0; y < (data->mlx.info.height); y++)
+	coef_new_p = data->image.coef_new_p;
+	coef_old_p = data->image.coef_old_p;
+	buf_img = data->image.buf_img;
+	buf_thread = data->pool->buffer_b;
+	y = -1;
+	while (++y <= data->mlx.info.height)
 	{
-		for (int x = 0; x < width; x++)
+		x = -1;
+		while (++x <= data->mlx.info.width)
 		{
-			double r = fmin(fmax((*buf_thread).r * 255.0, 0.0), 255.0);
-			double g = fmin(fmax((*buf_thread).g * 255.0, 0.0), 255.0);
-			double b = fmin(fmax((*buf_thread).b * 255.0, 0.0), 255.0);
-
-			(*buf_img).r = ((r * coef_old_p) + ((*buf_img).r * coef_new_p));
-			(*buf_img).g = ((g * coef_old_p) + ((*buf_img).g * coef_new_p));
-			(*buf_img).b = ((b * coef_old_p) + ((*buf_img).b * coef_new_p));
+			c_sampling(coef_new_p, coef_old_p, buf_img, buf_thread);
 			buf_thread++;
 			buf_img++;
 		}

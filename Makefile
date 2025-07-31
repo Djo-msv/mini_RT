@@ -91,6 +91,8 @@ SRCS_FILES:=	main.c \
 		mlx/mlx_setup.c \
 		mlx/rotate_obj.c \
 		mlx/del_obj.c \
+		mlx/resize_obj.c \
+		mlx/translation_obj.c \
 		print/print.c \
 		parsing/parse_cam_light.c \
 		parsing/parse_sphere_a_light.c \

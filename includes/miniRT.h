@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/30 17:00:34 by star              #+#    #+#             */
+/*   Updated: 2025/07/31 19:32:08 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -29,10 +41,8 @@
 # include "alloc.h"
 # include "print.h"
 
-# define MAX_RES_W 800
-# define MAX_RES_H 700
+# define MAX_RES_W 3440
+# define MAX_RES_H 1440
 # define NB_THREAD 8
-
-
 
 #endif

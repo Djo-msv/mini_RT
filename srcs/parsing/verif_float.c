@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_float.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:05:22 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 19:42:11 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:58:24 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	is_decimal(char *str, int len)
 	return (0);
 }
 
-int	verif_int(char *str, char *max)
+int	verif_int(char *str, char *max, int l)
 {
 	int	i;
 	int	j;
@@ -46,9 +46,9 @@ int	verif_int(char *str, char *max)
 	j = ft_strlen(str + i);
 	if (is_decimal(&str[i], j))
 		return (1);
-	if (j < 3)
+	if (j < l)
 		return (0);
-	if (j > 3)
+	if (j > l)
 		return (1);
 	if (ft_strncmp(&str[i], max, j) > 0)
 		return (1);

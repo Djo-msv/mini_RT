@@ -48,7 +48,7 @@ void	print_info(t_print_info *info)
 	printf("%s%s┌──FPS──┐\n", P_GREEN, P_BOLD);
 	print_nb_fps(info->fps);
 	printf("└───────┘%s\n\n", P_NOC);
-	printf("display : %d × %d    \n", info->x, info->y);
+	printf("display : %d × %d    \n", info->y, info->x);
 	printf("resolution : %d  \n", info->resolution);
 	if (info->aa)
 		printf("AA : %strue %s\n\n", P_GREEN, P_NOC);

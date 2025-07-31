@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 19:02:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 16:27:27 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 18:54:50 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	init_cam(t_scene *scene, char **args)
 		|| verif_fvalue(-1, 1, scene->camera.orientation.y)
 		|| verif_fvalue(-1, 1, scene->camera.orientation.z))
 		return (1);
-	if (verif_int(args[3], "180") || args[4])
+	if (verif_int(args[3], "180", 3) || args[4])
 		return (1);
 	scene->camera.fov = ft_atof(args[3]);
 	return (0);
@@ -48,6 +48,7 @@ int	parse_camera(t_scene *scene, char **args)
 		return (1);
 	if (!args[1])
 		return (1);
+	scene->camera.is_cam = 1;
 	value = ft_split(args[1], ",");
 	if (!value)
 		return (1);
@@ -78,8 +79,8 @@ static int	init_light(t_light *light, char **args)
 	value = ft_split(args[3], ",");
 	if (!value)
 		return (1);
-	if (verif_int(value[0], "255") || verif_int(value[1], "255")
-		|| verif_int(value[2], "255") || value[3] || args[4])
+	if (verif_int(value[0], "255", 3) || verif_int(value[1], "255", 3)
+		|| verif_int(value[2], "255", 3) || value[3] || args[4])
 	{
 		ft_free_2d_tab((void **)value);
 		return (1);

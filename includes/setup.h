@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/30 17:01:01 by star              #+#    #+#             */
+/*   Updated: 2025/07/31 18:57:16 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SETUP_H
 # define SETUP_H
 
@@ -96,6 +108,15 @@ typedef struct s_input
 	bool	d_button;
 	bool	space_button;
 	bool	shift_button;
+	bool	up_button;
+	bool	down_button;
+	bool	left_button;
+	bool	right_button;
+	bool	minus_button;
+	bool	plus_button;
+	bool	deletion_button;
+	bool	nine_button;
+	bool	zero_button;
 }	t_input
 __attribute__((aligned(1)));
 

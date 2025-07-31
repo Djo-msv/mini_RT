@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:27:22 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 16:30:10 by star             ###   ########.fr       */
+/*   Updated: 2025/07/30 18:56:36 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	init_checkerboard_pattern(t_plane *plane, char **args)
 	v = ft_split(args[7], ",");
 	if (!v)
 		return (1);
-	if (verif_int(v[0], "255") || verif_int(v[1], "255")
-		|| verif_int(v[2], "255") || v[3])
+	if (verif_int(v[0], "255", 3) || verif_int(v[1], "255", 3)
+		|| verif_int(v[2], "255", 3) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
@@ -34,7 +34,7 @@ static int	init_checkerboard_pattern(t_plane *plane, char **args)
 	plane->pattern_color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[8], "1") || args[9])
+	if (verif_int(args[8], "1", 1) || args[9])
 		return (1);
 	plane->mat = ft_atoi(args[8]);
 	return (0);
@@ -51,8 +51,8 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 	v = ft_split(args[3], ",");
 	if (!v)
 		return (1);
-	if (verif_int(v[0], "255") || verif_int(v[1], "255")
-		|| verif_int(v[2], "255") || v[3])
+	if (verif_int(v[0], "255", 3) || verif_int(v[1], "255", 3)
+		|| verif_int(v[2], "255", 3) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
 		return (1);
@@ -60,7 +60,7 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 	plane->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[4], "1"))
+	if (verif_int(args[4], "1", 1))
 		return (1);
 	plane->is_pattern = ft_atoi(args[4]);
 	if (init_checkerboard_pattern(plane, args))

@@ -6,133 +6,65 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:30:10 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 19:15:04 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	move_obj_x(t_data *d, t_hit select, int is_left)
+static void	rotate(t_data *d, t_hit select)
 {
-	t_matrix		t_x;
+	if (d->input.right_button)
+		rotate_obj_x(select, 0);
+	if (d->input.left_button)
+		rotate_obj_x(select, 1);
+	if (d->input.up_button)
+		rotate_obj_y(select, 1);
+	if (d->input.down_button)
+		rotate_obj_y(select, 0);
+}
 
-	if (!is_left)
-		t_x = mat4_translation(0.01, 0.0, 0.0);
-	else
-		t_x = mat4_translation(-0.01, 0.0, 0.0);
-	if (select.type == 0)
-		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_plane *)select.obj)->coordinate, 1);
-	else if (select.type == 1 || select.type == 3)
-		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_sphere *)select.obj)->coordinate, 1);
-	else if (select.type == 4)
-		rotate_move_triangle(((t_triangle *)select.obj), t_x, 0);
-	else if (select.type == 2)
-		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_cylinder *)select.obj)->coordinate, 1);
-	else if (select.type == 5)
+static void	tr_moove(t_data *d, t_hit select)
+{
+	if (d->scene.select.up_mode)
 	{
-		((t_ellipsoid *)select.obj)->coordinate = mul_mat4_to_vec(t_x, ((t_ellipsoid *)select.obj)->coordinate, 1);
-		init_elli_mat((t_ellipsoid *)select.obj);
+		if (d->input.up_button)
+			move_obj_y(select, 1);
+		if (d->input.down_button)
+			move_obj_y(select, 0);
 	}
-	d->image.nb_images = 0;
-}
-
-void	move_obj_z(t_data *d, t_hit select, int is_forward)
-{
-	t_matrix		t_z;
-
-	if (!is_forward)
-		t_z = mat4_translation(0.0, 0.0, -0.01);
 	else
-		t_z = mat4_translation(0.0, 0.0, 0.01);
-	if (select.type == 0)
-		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_plane *)select.obj)->coordinate, 1);
-	else if (select.type == 1 || select.type == 3)
-		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_sphere *)select.obj)->coordinate, 1);
-	else if (select.type == 4)
-		rotate_move_triangle(((t_triangle *)select.obj), t_z, 0);
-	else if (select.type == 2)
-		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_cylinder *)select.obj)->coordinate, 1);
-	else if (select.type == 5)
 	{
-		((t_ellipsoid *)select.obj)->coordinate = mul_mat4_to_vec(t_z, ((t_ellipsoid *)select.obj)->coordinate, 1);
-		init_elli_mat((t_ellipsoid *)select.obj);
+		if (d->input.right_button)
+			move_obj_x(select, 0);
+		if (d->input.left_button)
+			move_obj_x(select, 1);
+		if (d->input.up_button)
+			move_obj_z(select, 1);
+		if (d->input.down_button)
+			move_obj_z(select, 0);
 	}
-	d->image.nb_images = 0;
 }
 
-void	move_obj_y(t_data *d, t_hit select, int is_up)
+void	change_obj(t_data *d, t_hit select)
 {
-	t_matrix		t_y;
-
-	if (!is_up)
-		t_y = mat4_translation(0.0, -0.01, 0.0);
-	else
-		t_y = mat4_translation(0.0, 0.01, 0.0);
-	if (select.type == 0)
-		((t_plane *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_plane *)select.obj)->coordinate, 1);
-	else if (select.type == 1 || select.type == 3)
-		((t_sphere *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_sphere *)select.obj)->coordinate, 1);
-	else if (select.type == 4)
-		rotate_move_triangle(((t_triangle *)select.obj), t_y, 0);
-	else if (select.type == 2)
-		((t_cylinder *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_cylinder *)select.obj)->coordinate, 1);
-	else if (select.type == 5)
-	{
-		((t_ellipsoid *)select.obj)->coordinate = mul_mat4_to_vec(t_y, ((t_ellipsoid *)select.obj)->coordinate, 1);
-		init_elli_mat((t_ellipsoid *)select.obj);
-	}
-	d->image.nb_images = 0;
-}
-
-static void	rotate(t_data *d, t_hit select, int key)
-{
-	if (key == 79)
-		rotate_obj_x(d, select, 0);
-	if (key == 80)
-		rotate_obj_x(d, select, 1);
-	if (key == 82)
-		rotate_obj_y(d, select, 1);
-	if (key == 81)
-		rotate_obj_y(d, select, 0);
-}
-
-void	change_obj(t_data *d, t_hit select, int key)
-{
-	resize_obj(d, select, key);
+	resize_obj(d, select);
 	if (d->scene.select.scale_mode && select.type == 5)
 	{
-		if (key == 82)
+		if (d->input.up_button)
 			((t_ellipsoid *)select.obj)->scale.y += 0.01;
-		if (key == 81)
+		if (d->input.down_button)
 			((t_ellipsoid *)select.obj)->scale.y -= 0.01;
-		if (key == 79)
+		if (d->input.right_button)
 			((t_ellipsoid *)select.obj)->scale.z += 0.01;
-		if (key == 80)
+		if (d->input.left_button)
 			((t_ellipsoid *)select.obj)->scale.z -= 0.01;
 		init_elli_mat((t_ellipsoid *)select.obj);
 		d->image.nb_images = 0;
 	}
 	else if (d->scene.select.rotate_mode)
-		rotate(d, select, key);
+		rotate(d, select);
 	else
-	{
-		if (d->scene.select.up_mode)
-		{
-			if (key == 82)
-				move_obj_y(d, select, 1);
-			if (key == 81)
-				move_obj_y(d, select, 0);
-		}
-		else
-		{
-			if (key == 79)
-				move_obj_x(d, select, 0);
-			if (key == 80)
-				move_obj_x(d, select, 1);
-			if (key == 82)
-				move_obj_z(d, select, 1);
-			if (key == 81)
-				move_obj_z(d, select, 0);
-		}
-	}
+		tr_moove(d, select);
+	d->image.nb_images = 0;
 }
