@@ -6,12 +6,26 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:44 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 18:48:34 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 17:49:15 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJET_H
 # define OBJET_H
+
+typedef struct s_hit_triangle
+{
+	t_vec	edge1;
+	t_vec	edge2;
+	t_vec	perpendicular_v;
+	t_vec	s;
+	t_vec	perpendicular_q;
+	float	det;
+	float	u;
+	float	v;
+	float	inv_det;
+}				t_hit_triangle
+__attribute__((aligned(1)));
 
 typedef struct s_a_light
 {

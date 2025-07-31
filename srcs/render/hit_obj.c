@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 18:50:14 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 18:10:35 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ t_vec	bump_map(t_scene scene, t_hit hit, int x, int y)
 {
 	mlx_color	pixel;
 	t_vec		TBN[3]; //Tangent, Bitangent, Normal
-	t_sphere	*s;
 	t_vec		n_map;
 	t_fcolor	c;
 	t_vec		normal;
 
-	s = (t_sphere *)hit.obj;
-	pixel = mlx_get_image_pixel(scene.mlx->mlx, s->tex.n_image, x, y);
+	TBN[2] = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
+	if (!((t_sphere *)hit.obj)->tex.is_normal)
+		return (TBN[2]);
+	pixel = mlx_get_image_pixel(scene.mlx->mlx, ((t_sphere *)hit.obj)->tex.n_image, x, y);
 	c = mlxcolor_to_fcolor(pixel);
 	n_map = (t_vec){c.r * 2.0 - 1.0, c.g * 2.0 - 1.0, c.b * 2.0 - 1.0};
 	n_map = normalize(n_map);
-	TBN[2] = normalize(vec_sub(hit.position, s->coordinate));
 	TBN[0] = normalize((t_vec){-sin(atan2(TBN[2].z, TBN[2].x)), 0, cos(atan2(TBN[2].z, TBN[2].x))});
 	TBN[1] = vec_cross(TBN[2], TBN[0]);
 	normal = (t_vec){n_map.x * TBN[0].x + n_map.y * TBN[1].x + n_map.z * TBN[2].x,
@@ -56,34 +56,36 @@ t_vec	bump_map(t_scene scene, t_hit hit, int x, int y)
 	return (normal);
 }
 
+t_fcolor	c_texture(int *x, int *y, t_hit hit, t_scene scene)
+{
+	mlx_color	pixel;
+	t_vec		p;
+	float		u;
+	float		v;
+
+	p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
+	u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
+	v = 0.5 - asin(p.y) / M_PI;
+	*x = u * ((t_sphere *)hit.obj)->tex.width;
+	*y = v * ((t_sphere *)hit.obj)->tex.height;
+	pixel = mlx_get_image_pixel(scene.mlx->mlx, ((t_sphere *)hit.obj)->tex.image, *x, *y);
+	return (mlxcolor_to_fcolor(pixel));
+}
+
 t_hit	sphere(t_scene scene, t_hit hit)
 {
 	t_sphere	*s;
 	int			x;
 	int			y;
 
-	s = (t_sphere *)hit.obj;
+	x = 0;
+	y = 0;
+	s = ((t_sphere *)hit.obj);
 	if (s->tex.is_texture)
-	{
-		mlx_color	pixel;
-		t_vec		p;
-		float		u;
-		float		v;
-
-		p = normalize(vec_sub(hit.position, s->coordinate));
-		u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
-		v = 0.5 - asin(p.y) / M_PI;
-		x = u * s->tex.width;
-		y = v * s->tex.height;
-		pixel = mlx_get_image_pixel(scene.mlx->mlx, s->tex.image, x, y);
-		hit.color = mlxcolor_to_fcolor(pixel);
-	}
+		hit.color = c_texture(&x, &y, hit, scene);
 	else
 		hit.color = mlxcolor_to_fcolor(s->color);
-	if (s->tex.is_normal)
-		hit.normal = bump_map(scene, hit, x, y);
-	else
-		hit.normal = normalize(vec_sub(hit.position, s->coordinate));
+	hit.normal = bump_map(scene, hit, x, y);
 	hit.material = s->mat;
 	return (hit);
 }
