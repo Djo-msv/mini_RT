@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 19:38:23 by star              #+#    #+#             */
+/*   Updated: 2025/07/31 20:16:25 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "miniRT.h"
 
 /*
@@ -11,18 +23,6 @@ t_vec2	normal_vec2(int	x, int y, t_camera camera)
 	normal_y = ((y * camera.height_coef) - 0.5) * 2;
 	return (t_vec2){normal_x, normal_y};
 }
-*/
-
-/*
-t_vec	mul_mat4_to_vec3(t_matrix m, t_vec3 v, int is_point)
-{
-	t_vec3	res;
-
-	res.x = m.m[0][0]*v.x + m.m[0][1]*v.y + m.m[0][2]*v.z + m.m[0][3]*is_point;
-	res.y = m.m[1][0]*v.x + m.m[1][1]*v.y + m.m[1][2]*v.z + m.m[1][3]*is_point;
-	res.z = m.m[2][0]*v.x + m.m[2][1]*v.y + m.m[2][2]*v.z + m.m[2][3]*is_point;
-	return (res);
-}
 
 t_vec3	calcule_ray_direction(t_cam cam, t_vec2 pos)
 {
@@ -35,16 +35,15 @@ t_vec3	calcule_ray_direction(t_cam cam, t_vec2 pos)
 	return (t_vec3){x_ray, y_ray, 1}
 }*/
 
-t_matrix identity_matrix(t_camera *cam)
+t_matrix	identity_matrix(t_camera *cam)
 {
-	t_matrix t;
+	t_matrix	t;
 
-	t.m[0][0] = cam->right.x;   t.m[0][1] = cam->up.x;   t.m[0][2] = -cam->forward.x;   t.m[0][3] = 0;
-	t.m[1][0] = cam->right.y;   t.m[1][1] = cam->up.y;   t.m[1][2] = -cam->forward.y;   t.m[1][3] = 0;
-	t.m[2][0] = cam->right.z;   t.m[2][1] = cam->up.z;   t.m[2][2] = -cam->forward.z;   t.m[2][3] = 0;
-	t.m[3][0] = 0;              t.m[3][1] = 0;           t.m[3][2] = 0;                 t.m[3][3] = 1;
-
-	return t;
+	t = (t_matrix){.m = {{cam->right.x, cam->up.x, -cam->forward.x, 0},
+	{cam->right.y, cam->up.y, -cam->forward.y, 0},
+	{cam->right.z, cam->up.z, -cam->forward.z, 0},
+	{0, 0, 0, 1}}};
+	return (t);
 }
 
 void	rotate_camera(t_camera *cam, float pitch, float yaw, float roll)
@@ -77,8 +76,9 @@ void	rotate_camera(t_camera *cam, float pitch, float yaw, float roll)
 
 void	set_camera_window(t_data *data, t_camera *cam)
 {
-	mlx_window_create_info	info = data->mlx.info;
+	mlx_window_create_info	info;
 
+	info = data->mlx.info;
 	cam->d_height = 2.0f * tan(cam->fov_rad / 2.0f);
 	cam->d_width = cam->d_height * ((float)info.width / (float)info.height);
 }
@@ -109,12 +109,8 @@ t_vec	calcule_ray_direction(t_camera *cam, mlx_window_create_info info, int x, i
 	x_ray = ((x + 0.5f) / info.width - 0.5f);
 	y_ray = ((y + 0.5f) / info.height - 0.5f);
 	dir = vec_add(
-		vec_add(
-			cam->forward,
-			vec_mul(cam->right, x_ray * cam->d_width)
-		),
-		vec_mul(cam->up, y_ray * cam->d_height)
-	);
+		vec_add(cam->forward, vec_mul(cam->right, x_ray * cam->d_width)),
+		vec_mul(cam->up, y_ray * cam->d_height));
 	return (dir);
 }
 

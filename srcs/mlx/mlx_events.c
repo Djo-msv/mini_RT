@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 19:23:22 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 21:05:56 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 static void	down(int key, void *param)
 {
+	if (key == 44)
+		((t_data *)param)->input.space_button = true;
+	if (key == 225)
+		((t_data *)param)->input.shift_button = true;
 	if (key == 42)
 		((t_data *)param)->input.deletion_button = true;
 	if (key == 82)
@@ -34,13 +38,13 @@ static void	down(int key, void *param)
 		((t_data *)param)->input.zero_button = true;
 }
 
-void key_hook_down(int key, void *param)
+void	key_hook_down(int key, void *param)
 {
 	static bool	fullscreen = false;
-	t_mlx 					*mlx;
+	t_mlx		*mlx;
 
 	mlx = &((t_data *)param)->mlx;
-    if (key == 41)
+	if (key == 41)
 		mlx_loop_end(mlx->mlx);
 	if (key == 43)
 	{
@@ -57,14 +61,10 @@ void key_hook_down(int key, void *param)
 		((t_data *)param)->input.a_button = true;
 	if (key == 4)
 		((t_data *)param)->input.d_button = true;
-	if (key == 44)
-		((t_data *)param)->input.space_button = true;
-	if (key == 225)
-		((t_data *)param)->input.shift_button = true;
 	if (key == 68)
 	{
 		fullscreen = !fullscreen;
-		mlx_set_window_fullscreen(mlx->mlx, mlx->win , fullscreen);
+		mlx_set_window_fullscreen(mlx->mlx, mlx->win, fullscreen);
 	}
 	down(key, param);
 }
@@ -89,7 +89,7 @@ static void	up(int key, void *param)
 		((t_data *)param)->input.zero_button = false;
 }
 
-void key_hook_up(int key, void *param)
+void	key_hook_up(int key, void *param)
 {
 	if (key == 26)
 		((t_data *)param)->input.z_button = false;
@@ -108,16 +108,17 @@ void key_hook_up(int key, void *param)
 	up(key, param);
 }
 
-void window_hook(int event, void *param)
+void	window_hook(int event, void *param)
 {
-	t_mlx *mlx;
+	t_mlx	*mlx;
 
 	mlx = &((t_data *)param)->mlx;
-	if(event == 0)
+	if (event == 0)
 		mlx_loop_end(mlx->mlx);
 	if (event == 8)
 	{
-		mlx_get_window_size(mlx->mlx, mlx->win, &mlx->info.width, &mlx->info.height);
+		mlx_get_window_size(mlx->mlx, mlx->win,
+			&mlx->info.width, &mlx->info.height);
 		((t_data *)param)->info.y = mlx->info.width;
 		((t_data *)param)->info.x = mlx->info.height;
 		print_info(&((t_data *)param)->info);
@@ -125,7 +126,7 @@ void window_hook(int event, void *param)
 		{
 			mlx->info.width = MAX_RES_W;
 			mlx->info.height = MAX_RES_H;
-			mlx_set_window_fullscreen(mlx->mlx, mlx->win , false);
+			mlx_set_window_fullscreen(mlx->mlx, mlx->win, false);
 //			mlx_loop_end(mlx->mlx);
 			return ;
 		}

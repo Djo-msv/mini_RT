@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:36 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 18:27:47 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 21:02:21 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ int	main(int argc, char **argv)
 	ft_add_texture(&data);
 	run_minirt(&data);
 	free_data(&data);
-	return(0);
+	return (0);
 }

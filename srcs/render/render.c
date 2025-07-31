@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:19 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 18:50:44 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 20:33:32 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_hit	intersectscene(t_scene scene, t_ray ray, bool direct_light)
 	else if (hit.type == 3)
 	{
 		hit.color = mlxcolor_to_fcolor(((t_light *)hit.obj)->color);
-		hit.normal = normalize(vec_sub(hit.position, ((t_light *)hit.obj)->coordinate));	
+		hit.normal = normalize(vec_sub(hit.position,
+				((t_light *)hit.obj)->coordinate));
 	}
 	else if (hit.type == 4)
 	{

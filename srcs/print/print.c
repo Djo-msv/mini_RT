@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 19:36:04 by star              #+#    #+#             */
+/*   Updated: 2025/07/31 20:18:32 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 int	size_of_float(float size)
@@ -54,8 +66,6 @@ void	print_info(t_print_info *info)
 		printf("AA : %strue %s\n\n", P_GREEN, P_NOC);
 	else
 		printf("AA : %sfalse%s\n\n", P_RED, P_NOC);
-
-
 //	printf("%s%s╔══════CAMERA══════╗\n", P_TEAL, P_BOLD);
 //	print_cam_info
 //	printf("╚══════════════════╝%s\n\n", P_NOC);

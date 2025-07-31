@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/30 18:57:27 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 20:01:54 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,23 @@ int	parse_ambient_light(t_scene *scene, char **args)
 	return (0);
 }
 
-int	verif_file(char *str)
+static int	init_texture(t_sphere *sphere, char **args)
 {
-	int	i;
-
-	i = 0;
-	if (!str)
+	if (verif_int(args[4], "1", 1))
 		return (1);
-	while (ft_isascii(str[i]) && str[i] != '.')
-		i++;
-	if (ft_strncmp(".jpg\0", str + i, 5)
-		&& ft_strncmp(".png\0", str + i, 5)
-		&& ft_strncmp(".bmp\0", str + i, 5))
+	sphere->tex.is_texture = ft_atoi(args[4]);
+	if (verif_file(args[5]))
 		return (1);
-	if (access(str, F_OK) == -1)
+	sphere->tex.name = ft_strdup(args[5]);
+	if (verif_int(args[6], "1", 1))
 		return (1);
+	sphere->tex.is_normal = ft_atoi(args[6]);
+	if (verif_file(args[7]))
+		return (1);
+	sphere->tex.n_name = ft_strdup(args[7]);
+	if (verif_int(args[8], "1", 1) || args[9])
+		return (1);
+	sphere->mat = ft_atoi(args[8]);
 	return (0);
 }
 
@@ -75,21 +77,6 @@ static int	init_sphere(t_sphere *sphere, char **args)
 	sphere->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[4], "1", 1))
-		return (1);
-	sphere->tex.is_texture = ft_atoi(args[4]);
-	if (verif_file(args[5]))
-		return (1);
-	sphere->tex.name = ft_strdup(args[5]);
-	if (verif_int(args[6], "1", 1))
-		return (1);
-	sphere->tex.is_normal = ft_atoi(args[6]);
-	if (verif_file(args[7]))
-		return (1);
-	sphere->tex.n_name = ft_strdup(args[7]);
-	if (verif_int(args[8], "1", 1) || args[9])
-		return (1);
-	sphere->mat = ft_atoi(args[8]);
 	return (0);
 }
 
@@ -123,7 +110,8 @@ int	parse_sphere(t_scene *scene, char **args)
 	sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
 		return (1);
-	if (init_co_sphere(sphere, args) || init_sphere(sphere, args))
+	if (init_co_sphere(sphere, args) || init_sphere(sphere, args)
+		|| init_texture(sphere, args))
 	{
 		free(sphere);
 		return (1);

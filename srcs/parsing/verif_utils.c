@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   verif_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:48:36 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 19:42:30 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/07/31 20:00:02 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+int	verif_file(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (1);
+	while (ft_isascii(str[i]) && str[i] != '.')
+		i++;
+	if (ft_strncmp(".jpg\0", str + i, 5)
+		&& ft_strncmp(".png\0", str + i, 5)
+		&& ft_strncmp(".bmp\0", str + i, 5))
+		return (1);
+	if (access(str, F_OK) == -1)
+		return (1);
+	return (0);
+}
 
 int	verif_str(char *str)
 {

@@ -1,5 +1,16 @@
-#include "miniRT.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_average_pixel.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 19:38:42 by star              #+#    #+#             */
+/*   Updated: 2025/07/31 20:48:00 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "miniRT.h"
 /*
 void	average_pixel(t_fcolor *n_pixel, t_fcolor o_pixel, float coef_new_p, float coef_old_p)
 {
@@ -14,14 +25,14 @@ void	average_pixel(t_fcolor *n_pixel, t_fcolor o_pixel, float coef_new_p, float 
 }
 */
 
-void	c_sampling(double coef_new_p, double coef_old_p, t_fcolor *buf_img, t_fcolor *buf_thread)
+void	c_sampling(double coef_new_p, double coef_old_p,
+	t_fcolor *buf_img, t_fcolor *buf_thread)
 {
 	t_fcolor	rgb;
 
 	rgb.r = fmin(fmax((*buf_thread).r * 255.0, 0.0), 255.0);
 	rgb.g = fmin(fmax((*buf_thread).g * 255.0, 0.0), 255.0);
 	rgb.b = fmin(fmax((*buf_thread).b * 255.0, 0.0), 255.0);
-
 	(*buf_img).r = ((rgb.r * coef_old_p) + ((*buf_img).r * coef_new_p));
 	(*buf_img).g = ((rgb.g * coef_old_p) + ((*buf_img).g * coef_new_p));
 	(*buf_img).b = ((rgb.b * coef_old_p) + ((*buf_img).b * coef_new_p));

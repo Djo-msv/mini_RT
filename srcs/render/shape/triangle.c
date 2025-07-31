@@ -6,17 +6,16 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 14:02:01 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 17:50:48 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 20:25:46 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-
-float hit_triangle(t_triangle *tr, t_ray r)
+float	hit_triangle(t_triangle *tr, t_ray r)
 {
 	t_hit_triangle	h;
-	float	t;
+	float			t;
 
 	h.edge1 = vec_sub(tr->b, tr->a);
 	h.edge2 = vec_sub(tr->c, tr->a);

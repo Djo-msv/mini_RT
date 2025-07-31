@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:49 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 18:58:51 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 20:00:12 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int verif_fvalue(float min, float max, float value);
 int verif_str(char *str);
 int	parse_triangle(t_scene *scene, char **args);
 int	parse_ellipsoid(t_scene *scene, char **args);
+int	verif_file(char *str);
 
 # endif

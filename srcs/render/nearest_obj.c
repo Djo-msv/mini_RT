@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:10 by star              #+#    #+#             */
-/*   Updated: 2025/07/29 17:10:13 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 20:26:35 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_hit	nearest_plane(t_scene scene, t_ray ray)
 	t_list		*tmp;
 	t_plane		*plane;
 	float		t;
-	
+
 	t = -1;
 	hit.t = 0;
 	hit.obj = NULL;
@@ -46,7 +46,7 @@ t_hit	nearest_light(t_scene scene, t_ray ray)
 	t_list		*tmp;
 	t_light		*light;
 	float		t;
-	
+
 	t = -1;
 	hit.t = 0;
 	hit.obj = NULL;
@@ -102,7 +102,7 @@ t_hit	nearest_sphere(t_scene scene, t_ray ray)
 	t_list		*tmp;
 	t_sphere	*sphere;
 	float		t;
-	
+
 	t = -1;
 	hit.t = 0;
 	hit.obj = NULL;
@@ -154,4 +154,3 @@ t_hit	nearest_obj(t_scene scene, t_ray ray, bool direct_light)
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
 	return (hit);
 }
-

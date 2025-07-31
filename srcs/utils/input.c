@@ -1,15 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 19:38:18 by star              #+#    #+#             */
+/*   Updated: 2025/07/31 20:54:14 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT.h"
 
 void	update_input(t_data *data)
 {
-	int		tmp = data->info.nb_input;
-	t_input	i = data->input;
-	(void)data;
+	int		tmp;
+	t_input	i;
 
-	data->info.nb_input = i.z_button + i.s_button + i.a_button + i.d_button +
-		i.space_button + i.shift_button + i.deletion_button + i.down_button +
-		i.left_button + i.up_button + i.right_button + i.minus_button +
-		i.plus_button + i.nine_button + i.zero_button;
+	i = data->input;
+	tmp = data->info.nb_input;
+	data->info.nb_input = i.z_button + i.s_button + i.a_button + i.d_button
+		+ i.space_button + i.shift_button + i.deletion_button + i.down_button
+		+ i.left_button + i.up_button + i.right_button + i.minus_button
+		+ i.plus_button + i.nine_button + i.zero_button;
 	if (data->info.nb_input != tmp)
 		print_info(&data->info);
 	if (data->pool->restart)

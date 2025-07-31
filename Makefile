@@ -116,6 +116,7 @@ SRCS_FILES:=	main.c \
 		render/render.c \
 		render/hit_obj.c \
 		render/nearest_elli_cyl.c \
+		render/bump_map_texture.c \
 		thread/setup_thread.c \
 		thread/run_thread.c \
 		utils/alloc.c \

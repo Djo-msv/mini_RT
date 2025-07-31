@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:02:45 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 18:33:13 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 20:02:43 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 	return ((t_fcolor){color.r / 255.0f, color.g / 255.0f, color.b / 255.0f});
 }
 
-void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
+void	fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 {
 	t_fcolor	*buffer_img;
 	int			width;
 	int			y;
 	int			x;
+	int			global_index;
 
 	width = data->mlx.info.width;
 	buffer_img = data->image.buf_img;
@@ -52,7 +53,7 @@ void fcolor_to_mlxcolor(t_data *data, mlx_color *dst)
 		x = -1;
 		while (++x < width)
 		{
-			int global_index = y * width + x;
+			global_index = y * width + x;
 			dst[global_index].r = buffer_img[global_index].r;
 			dst[global_index].g = buffer_img[global_index].g;
 			dst[global_index].b = buffer_img[global_index].b;
