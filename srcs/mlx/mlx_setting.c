@@ -8,7 +8,6 @@ void	change_antialiasing_mode(t_data *data)
 	print_info(&data->info);
 }
 
-
 /*
 void	change_mode(t_data *data)
 {

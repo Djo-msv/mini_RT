@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:01 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 17:01:02 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 18:57:16 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ typedef struct s_input
 	bool	minus_button;
 	bool	plus_button;
 	bool	deletion_button;
+	bool	nine_button;
+	bool	zero_button;
 }	t_input
 __attribute__((aligned(1)));
 

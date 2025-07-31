@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:33:53 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 18:44:27 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 19:06:09 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	resize(t_data *d, t_hit select, int is_min)
 	d->image.nb_images = 0;
 }
 
-void	resize_obj(t_data *d, t_hit select, int key)
+void	resize_obj(t_data *d, t_hit select)
 {
 	if (d->input.minus_button)
 		resize(d, select, 0);
 	if (d->input.plus_button)
 		resize(d, select, 1);
-	if (key == 38)
+	if (d->input.nine_button)
 	{
 		if (select.type == 2)
 			((t_cylinder *)select.obj)->height += 0.01;
@@ -48,9 +48,8 @@ void	resize_obj(t_data *d, t_hit select, int key)
 			((t_ellipsoid *)select.obj)->scale.x += 0.01;
 			init_elli_mat((t_ellipsoid *)select.obj);
 		}
-		d->image.nb_images = 0;
 	}
-	if (key == 39)
+	if (d->input.zero_button)
 	{
 		if (select.type == 2)
 			((t_cylinder *)select.obj)->height -= 0.01;
@@ -59,6 +58,6 @@ void	resize_obj(t_data *d, t_hit select, int key)
 			((t_ellipsoid *)select.obj)->scale.x -= 0.01;
 			init_elli_mat((t_ellipsoid *)select.obj);
 		}
-		d->image.nb_images = 0;
 	}
+	d->image.nb_images = 0;
 }

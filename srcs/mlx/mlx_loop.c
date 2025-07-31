@@ -1,5 +1,4 @@
 #include "miniRT.h"
-
 #include <time.h>
 
 void	fps_cnt(t_data *data)

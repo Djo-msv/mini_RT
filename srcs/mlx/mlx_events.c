@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 18:53:08 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 19:16:23 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static void	down(int key, void *param)
 		((t_data *)param)->input.minus_button = true;
 	if (key == 46)
 		((t_data *)param)->input.plus_button = true;
+	if (key == 38)
+		((t_data *)param)->input.nine_button = true;
+	if (key == 39)
+		((t_data *)param)->input.zero_button = true;
 }
 
 void key_hook_down(int key, void *param)
@@ -72,6 +76,10 @@ static void	up(int key, void *param)
 		((t_data *)param)->input.minus_button = false;
 	if (key == 46)
 		((t_data *)param)->input.plus_button = false;
+	if (key == 38)
+		((t_data *)param)->input.nine_button = false;
+	if (key == 39)
+		((t_data *)param)->input.zero_button = false;
 }
 
 void key_hook_up(int key, void *param)
@@ -93,7 +101,7 @@ void key_hook_up(int key, void *param)
 	up(key, param);
 }
 
-void window_hook(int event, void* param)
+void window_hook(int event, void *param)
 {
 	t_mlx *mlx;
 

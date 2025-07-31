@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:42:45 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 18:39:34 by star             ###   ########.fr       */
+/*   Updated: 2025/07/31 19:13:39 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	rotate_move_triangle(t_triangle *tr, t_matrix t, int is_rotate)
 		tr->normal = get_triangle_normal(tr);
 }
 
-void	rotate_obj_x(t_data *d, t_hit select, int is_left)
+void	rotate_obj_x(t_hit select, int is_left)
 {
 	t_matrix	r_x;
 
@@ -45,10 +45,9 @@ void	rotate_obj_x(t_data *d, t_hit select, int is_left)
 			((t_ellipsoid *)select.obj)->rotation.x -= 0.01;
 		init_elli_mat((t_ellipsoid *)select.obj);
 	}
-	d->image.nb_images = 0;
 }
 
-void	rotate_obj_z(t_data *d, t_hit select, int is_left)
+void	rotate_obj_z(t_hit select, int is_left)
 {
 	t_matrix	r_z;
 
@@ -72,10 +71,9 @@ void	rotate_obj_z(t_data *d, t_hit select, int is_left)
 			((t_ellipsoid *)select.obj)->rotation.z -= 0.01;
 		init_elli_mat((t_ellipsoid *)select.obj);
 	}
-	d->image.nb_images = 0;
 }
 
-void	rotate_obj_y(t_data *d, t_hit select, int is_left)
+void	rotate_obj_y(t_hit select, int is_left)
 {
 	t_matrix	r_y;
 
@@ -99,5 +97,4 @@ void	rotate_obj_y(t_data *d, t_hit select, int is_left)
 			((t_ellipsoid *)select.obj)->rotation.y -= 0.01;
 		init_elli_mat((t_ellipsoid *)select.obj);
 	}
-	d->image.nb_images = 0;
 }

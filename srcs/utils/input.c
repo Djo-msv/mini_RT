@@ -8,7 +8,8 @@ void	update_input(t_data *data)
 
 	data->info.nb_input = i.z_button + i.s_button + i.a_button + i.d_button +
 		i.space_button + i.shift_button + i.deletion_button + i.down_button +
-		i.left_button + i.up_button + i.right_button + i.minus_button + i.plus_button;
+		i.left_button + i.up_button + i.right_button + i.minus_button +
+		i.plus_button + i.nine_button + i.zero_button;
 	if (data->info.nb_input != tmp)
 		print_info(&data->info);
 	if (data->pool->restart)
