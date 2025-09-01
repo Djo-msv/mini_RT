@@ -12,6 +12,18 @@
 
 #include "miniRT.h"
 
+void	move_camera(t_data *data, t_input input)
+{
+	if (input.z_button)
+		move_camera_forward(data, &data->cam);
+	if (input.s_button)
+		move_camera_backward(data, &data->cam);
+	if (input.a_button)
+		move_camera_left(data, &data->cam);
+	if (input.d_button)
+		move_camera_right(data, &data->cam);
+}
+
 void	update_input(t_data *data)
 {
 	int		tmp;
@@ -33,6 +45,8 @@ void	update_input(t_data *data)
 		set_camera_window(data, &(data->cam));
 		set_camera_ray(data->pool->ray_direction, &(data->cam), data->mlx.info);
 	}
+	if (data->info.nb_input)
+		move_camera(data, i);
 		//	mouse_update(data);
 //	rotate_camera(0.0f, 0.0f, 0.0f, &(data->cam.forward);
 //	printf("%f - %f - %f\n", vec->x, vec->y, vec->z);

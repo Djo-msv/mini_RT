@@ -122,7 +122,10 @@ SRCS_FILES:=	main.c \
 		utils/alloc.c \
 		utils/input.c \
 		utils/add_texture.c	\
-		view/camera.c
+		view/camera.c \
+		view/move_camera.c \
+		view/angle_camera.c
+
 
 #SRCS_FILES_BONUS:=
 

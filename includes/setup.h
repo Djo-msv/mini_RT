@@ -41,6 +41,8 @@ typedef struct s_camera
 	float		fov_rad;
 	float		d_height;
 	float		d_width;
+	float		pitch;
+	float		yaw;
 	t_vec		forward;
 	t_vec		up;
 	t_vec		right;
