@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/30 18:59:03 by star             ###   ########.fr       */
+/*   Updated: 2025/09/02 19:48:22 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	init_d_h_rgb_cylinder(t_cylinder *c, char **args)
 	c->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
+	if (!args[5])
+		return (0);
 	if (verif_int(args[6], "1", 1) || args[7])
 		return (1);
 	c->mat = ft_atoi(args[6]);

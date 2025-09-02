@@ -95,7 +95,8 @@ SRCS_FILES:=	main.c \
 		mlx/translation_obj.c \
 		print/print.c \
 		parsing/parse_cam_light.c \
-		parsing/parse_sphere_a_light.c \
+		parsing/parse_sphere.c \
+		parsing/parse_a_light.c \
 		parsing/parse_plane.c \
 		parsing/parse_triangle.c \
 		parsing/parse_ellipsoid.c \
