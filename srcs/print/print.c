@@ -54,7 +54,7 @@ void	print_info(t_print_info *info)
 //	printf("hello\n");
 //	return ;
 	if (!info->first_display)
-		printf("\033[10A");
+		printf("\033[12A");
 	else
 		info->first_display = false;
 	printf("%s%s┌──FPS──┐\n", P_GREEN, P_BOLD);
@@ -70,5 +70,6 @@ void	print_info(t_print_info *info)
 //	print_cam_info
 //	printf("╚══════════════════╝%s\n\n", P_NOC);
 	printf("input : %d\n\n", info->nb_input);
+	printf("sample : %d\n\n", info->sample);
 //	if obj select, print obj info
 }

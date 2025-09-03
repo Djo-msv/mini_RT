@@ -38,6 +38,7 @@ __attribute__((aligned(1)));
 
 typedef struct s_camera
 {
+	bool		move;
 	float		fov_rad;
 	float		d_height;
 	float		d_width;
@@ -97,6 +98,7 @@ typedef struct s_print_info
 	int		resolution;
 	int		nb_input;
 	float	fps;
+	int	sample;
 	bool	aa;
 	bool	first_display;
 }	t_print_info

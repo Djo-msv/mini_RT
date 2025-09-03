@@ -28,9 +28,13 @@ static int	init_tri_color(t_triangle *triangle, char **args)
 	triangle->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[5], "1", 1) || args[6])
-		return (1);
-	triangle->mat = ft_atoi(args[5]);
+//	if (verif_int(args[5], "1", 1) || args[6])
+//	{
+//		printf("hello\n");
+//		return (1);
+//	}
+//	triangle->mat = ft_atoi(args[5]);
+	triangle->mat = 0;
 	return (0);
 }
 
@@ -40,7 +44,9 @@ static int	init_triangle(t_triangle *triangle, char **args)
 
 	v = ft_split(args[2], ",");
 	if (!v)
+	{
 		return (1);
+	}
 	if (verfi_float(v[0]) || verfi_float(v[1]) || verfi_float(v[2]) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
@@ -49,7 +55,9 @@ static int	init_triangle(t_triangle *triangle, char **args)
 	triangle->b = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	v = ft_split(args[3], ",");
 	if (!v)
+	{
 		return (1);
+	}
 	if (verfi_float(v[0]) || verfi_float(v[1]) || verfi_float(v[2]) || v[3])
 	{
 		ft_free_2d_tab((void **)v);
@@ -65,7 +73,9 @@ static int	init_a_tri(t_triangle *t, char **args)
 
 	v = ft_split(args[1], ",");
 	if (!v)
+	{
 		return (1);
+	}
 	if (verfi_float(v[0]) || verfi_float(v[1]) || verfi_float(v[2]) || v[3])
 	{
 		ft_free_2d_tab((void **)v);

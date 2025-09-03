@@ -41,8 +41,4 @@
 # include "alloc.h"
 # include "print.h"
 
-# define MAX_RES_W 3440
-# define MAX_RES_H 1440
-# define NB_THREAD 8
-
 #endif

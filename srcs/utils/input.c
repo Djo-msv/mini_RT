@@ -47,7 +47,7 @@ void	update_input(t_data *data)
 	}
 	if (data->info.nb_input)
 		move_camera(data, i);
-		//	mouse_update(data);
+//	mouse_update(data);
 //	rotate_camera(0.0f, 0.0f, 0.0f, &(data->cam.forward);
 //	printf("%f - %f - %f\n", vec->x, vec->y, vec->z);
 }

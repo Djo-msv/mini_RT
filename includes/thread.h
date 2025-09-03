@@ -59,6 +59,4 @@ void	swap_buffer(t_tpool *pool);
 void	init_thread(t_data *data);
 void	set_param(t_data *data);
 
-# define SIZE_CHUNK 4096
-
 #endif

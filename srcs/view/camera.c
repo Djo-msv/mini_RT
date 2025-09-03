@@ -27,6 +27,7 @@ void	set_camera_value(t_data *data, t_camera *cam)
 {
 	t_vec tmp_up = {0.0f, 1.0f, 0.0f};
 
+	cam->move = 1;
 	cam->forward = normalize(data->scene.camera.orientation);
 	if (fabs(cam->forward.y) > 0.999f)
 		tmp_up = (t_vec){0.0f, 0.0f, 1.0f};

@@ -6,12 +6,18 @@ MAKEFLAGS += --no-print-directory
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
 
+MAX_RES_W ?= 1920
+MAX_RES_H ?= 1080
+NB_THREAD ?= 32
+SIZE_CHUNK ?= 4096
+
+CFLAGS += -DMAX_RES_W=$(MAX_RES_W)
+CFLAGS += -DMAX_RES_H=$(MAX_RES_H)
+CFLAGS += -DNB_THREAD=$(NB_THREAD)
+CFLAGS += -DSIZE_CHUNK=$(SIZE_CHUNK)
+
 ifeq ($(DEBUG), 1)
 	CFLAGS += -g -pthread
-endif
-
-ifeq ($(FSANITIZE), 1)
-	CFLAGS +=  -fsanitize=address
 endif
 
 ifeq ($(MEGA_PERF), 1)

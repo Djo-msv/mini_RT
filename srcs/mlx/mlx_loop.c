@@ -28,6 +28,7 @@ void	fps_cnt(t_data *data)
 	{
 		fps = frames / (currenttime - lasttime);
 		data->info.fps = fps;
+		data->info.sample = data->image.nb_images;
 		print_info(&data->info);
 		frames = 0;
 		lasttime = currenttime;
