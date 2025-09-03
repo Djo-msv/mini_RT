@@ -172,4 +172,4 @@ Adjust these settings based on your CPU:
 
 *Last updated: 03/09/2025*
 
-For additional support, please refer to the project documentation or create an issue in the project repository.
+never ask for additional support, please refer to the project documentation in the project repository.
