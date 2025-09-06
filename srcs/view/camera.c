@@ -48,7 +48,7 @@ t_vec	calcule_ray_direction(t_camera *cam, mlx_window_create_info info, int x, i
 	float	y_ray;
 
 	x_ray = ((x + 0.5f) / info.width - 0.5f);
-	y_ray = ((y + 0.5f) / info.height - 0.5f);
+	y_ray = (((info.height - y) + 0.5f) / info.height - 0.5f);
 	dir = vec_add(
 		vec_add(cam->forward, vec_mul(cam->right, x_ray * cam->d_width)),
 		vec_mul(cam->up, y_ray * cam->d_height));
@@ -67,8 +67,6 @@ void	set_camera_ray(t_vec *ray_direction, t_camera *camera, mlx_window_create_in
 		while (j != info.width)
 		{
 			*ray_direction = calcule_ray_direction(camera, info, j, i);
-//			if ((i == 0 && j == 0) || (i == info.height - 1 && j == info.width - 1) || (i == 0 && j == info.width - 1) || (i == info.height -1 && j == 0))
-//				printf("%f - %f - %f\n", ray_direction->x, ray_direction->y, ray_direction->z);
 			ray_direction++;
 			j++;
 		}

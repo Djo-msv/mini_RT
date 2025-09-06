@@ -51,15 +51,17 @@ void	sampling(t_data *data)
 	coef_old_p = data->image.coef_old_p;
 	buf_img = data->image.buf_img;
 	buf_thread = data->pool->buffer_b;
-	y = -1;
-	while (++y <= data->mlx.info.height)
+	y = 0;
+	while (y < data->mlx.info.height)
 	{
-		x = -1;
-		while (++x <= data->mlx.info.width)
+		x = 0;
+		while (x < data->mlx.info.width)
 		{
 			c_sampling(coef_new_p, coef_old_p, buf_img, buf_thread);
 			buf_thread++;
 			buf_img++;
+			x++;
 		}
+		y++;
 	}
 }

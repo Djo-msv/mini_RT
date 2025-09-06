@@ -22,7 +22,6 @@ typedef struct s_image
 	bool		antialiasing;
 
 	t_fcolor	*buf_img;
-//	t_fcolor	*old_img;
 	mlx_color	*mlx_img;
 }	t_render_image
 __attribute__((aligned(1)));
