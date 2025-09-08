@@ -36,6 +36,11 @@ static void	down(int key, void *param)
 		((t_data *)param)->input.nine_button = true;
 	if (key == 39)
 		((t_data *)param)->input.zero_button = true;
+	if (key == 23)
+	{
+		((t_data *)param)->scene.camera.render_type = !((t_data *)param)->scene.camera.render_type;
+		((t_data *)param)->image.nb_images = 0;
+	}
 }
 
 void	key_hook_down(int key, void *param)
@@ -160,18 +165,24 @@ void	window_hook(int event, void *param)
 // 		destroy_obj(d, d->scene.select.hit);
 // }
 
-// void mouse_hook(int button, void* param)
-// {
-// 	t_data	*data = (t_data *)param;
+void mouse_hook(int button, void* param)
+{
+	t_data	*data = (t_data *)param;
 
-// 	// if (button == 3)
-// 	// {
-// 	// 	data->setting_cam.move = !data->setting_cam.move;
-// 	// 	change_mode(data);
-// 	// }
-// 	if (button == 1)
-// 		handle_select_obj(data);
-// }
+	if (button == 3)
+	{
+		data->input.move = !data->input.move;
+		if (!data->input.move)
+			mlx_mouse_show(data->mlx.mlx);
+		else
+			mlx_mouse_hide(data->mlx.mlx);
+		mlx_mouse_move(data->mlx.mlx, data->mlx.win,
+			data->mlx.info.width >> 1, data->mlx.info.height >> 1);
+
+	}
+//	if (button == 1)
+//		handle_select_obj(data);
+}
 /*
 
 void mouse_wheel_hook(int button, void* param)

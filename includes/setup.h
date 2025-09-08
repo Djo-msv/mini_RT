@@ -121,6 +121,7 @@ typedef struct s_input
 	bool	deletion_button;
 	bool	nine_button;
 	bool	zero_button;
+	bool	move;
 }	t_input
 __attribute__((aligned(1)));
 

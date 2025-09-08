@@ -79,5 +79,14 @@ void	move_camera_up(t_data *data, t_camera *cam)
 	cam->coordinate.y += 0.05f;
 //	rotate_camera(data, cam->pitch, cam->yaw);
 	data->scene.camera.coordinate = cam->coordinate;
+	data->image.nb_images = 0;
+}
+
+void	move_camera_down(t_data *data, t_camera *cam)
+{
+	cam->coordinate.y -= 0.05f;
+//	rotate_camera(data, cam->pitch, cam->yaw);
+	data->scene.camera.coordinate = cam->coordinate;
+	data->image.nb_images = 0;
 
 }

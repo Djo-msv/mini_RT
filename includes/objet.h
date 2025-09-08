@@ -38,6 +38,7 @@ __attribute__((aligned(1)));
 typedef struct s_cam
 {
 	bool		aa;
+	bool		render_type;
 	t_vec	coordinate;
 	t_vec	orientation;
 	int		rbon_nb;

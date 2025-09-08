@@ -45,6 +45,7 @@ void	setup_info(t_data *data, t_print_info *info)
 	info->x = data->mlx.info.width;
 	info->y = data->mlx.info.height;
 	info->first_display = true;
+	data->input.move = false;
 }
 
 void	setup_events(t_data *data, t_mlx *mlx)
@@ -52,7 +53,7 @@ void	setup_events(t_data *data, t_mlx *mlx)
 	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook_down, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYUP, key_hook_up, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_WINDOW_EVENT, window_hook, data);
-//	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEDOWN, mouse_hook, data);
+	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEDOWN, mouse_hook, data);
 //	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEWHEEL, mouse_wheel_hook, data);
 }
 

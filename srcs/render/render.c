@@ -42,18 +42,8 @@ t_hit	intersectscene(t_scene scene, t_ray ray, bool direct_light)
 
 void	render(t_fcolor *pixel, t_vec ray_direction, t_scene *scene)
 {
-//	t_setting_cam	camera;
-	t_fcolor	tkt;
-//	camera = data->setting_cam;
-//	return ;
-
-	(void)pixel;
-	(void)ray_direction;
-	(void)scene;
-	(void)tkt;
-//	printf("%p \n", pixel);
-	if (scene->camera.is_cam)
+	if (scene->camera.render_type)
+		*pixel = shade_raytracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
+	else
 		*pixel = shade_pathtracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
-//	if ((*pixel).r != 0.0f)
-//		printf("hello\n");
 }

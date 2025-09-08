@@ -47,7 +47,14 @@ void	update_antialiasing(t_data *data)
 void	update(void *param)
 {
 	update_antialiasing((t_data *)param);
-	swap_buffer(((t_data *)param)->pool);
+	if (((t_data *)param)->image.nb_images == 0)
+	{
+		lunch_thread((t_data *)param);
+		((t_data *)param)->image.nb_images++;
+		return ;
+	}
+	else
+		swap_buffer(((t_data *)param)->pool);
 	update_input((t_data *)param);
 	lunch_thread((t_data *)param);
 //	if buffer ready	

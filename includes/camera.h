@@ -18,6 +18,7 @@ void	set_camera_window(t_data *data, t_camera *cam);
 void	set_camera_ray(t_vec *ray_direction, t_camera *camera, mlx_window_create_info info);
 
 void	move_camera_up(t_data *data, t_camera *cam);
+void	move_camera_down(t_data *data, t_camera *cam);
 void	move_camera_right(t_data *data, t_camera *cam);
 void	move_camera_left(t_data *data, t_camera *cam);
 void	move_camera_backward(t_data *data, t_camera *cam);

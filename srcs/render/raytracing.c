@@ -48,10 +48,12 @@ t_fcolor	shade_raytracing_pixel(t_scene scene, t_ray ray)
 	t_fcolor	a_light;
 	t_hit		hit;
 
-	hit = intersectscene(scene, ray, false);
+	hit = intersectscene(scene, ray, true);
 	if (hit.t <= 0 || hit.type == 3)
+	{
 		return ((t_fcolor){0.0f, 0.0f, 0.0f});
-	l_intensity = (t_fcolor){0.0, 0.0, 0.0};
+	}
+	l_intensity = (t_fcolor){1.0 ,1.0, 1.0};
 	a_light = scalar_color(scale_mlx_color
 			(mlxcolor_to_fcolor(scene.a_light.color),
 				scene.a_light.ratio), hit.color);

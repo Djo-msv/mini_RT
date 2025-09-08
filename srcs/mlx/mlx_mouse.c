@@ -27,11 +27,11 @@ void	mouse_update(t_data *data)
 		if (x - (data->mlx.info.width >> 1) == 0 && y - (data->mlx.info.height >> 1) == 0)
 			return ;
 		cam->yaw  -= (x - (float)(data->mlx.info.width >> 1)) * 0.001f;
-		cam->pitch += (y - (float)(data->mlx.info.height >> 1)) * 0.001f;
+		cam->pitch -= (y - (float)(data->mlx.info.height >> 1)) * 0.001f;
 		if (cam->pitch > 1.5708f)
-			cam->pitch = 1.5706f;
+			cam->pitch = 1.5707f;
 		if (cam->pitch < -1.5708f)
-			cam->pitch = -1.5706f;
+			cam->pitch = -1.5707f;
 		rotate_camera(data, cam->pitch, cam->yaw);
 	}
 }
