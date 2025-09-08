@@ -26,7 +26,7 @@ static t_fcolor	ft_color_ray(t_hit hit, t_scene s, t_ray r, t_fcolor l_int)
 		l = tmp->content;
 		r.origin = vec_add(hit.position, vec_mul(hit.normal, 0.0001f));
 		r.direction = normalize(vec_sub(l->coordinate, r.origin));
-		n_h = intersectscene(s, r, false);
+		n_h = intersectscene(s, r, true);
 		if (n_h.t <= 0.0 || length(vec_sub(l->coordinate, r.origin)) < n_h.t)
 		{
 			i = scalar_product(hit.normal, r.direction);
@@ -53,7 +53,7 @@ t_fcolor	shade_raytracing_pixel(t_scene scene, t_ray ray)
 	{
 		return ((t_fcolor){0.0f, 0.0f, 0.0f});
 	}
-	l_intensity = (t_fcolor){1.0 ,1.0, 1.0};
+	l_intensity = (t_fcolor){0.0 ,0.0, 0.0};
 	a_light = scalar_color(scale_mlx_color
 			(mlxcolor_to_fcolor(scene.a_light.color),
 				scene.a_light.ratio), hit.color);

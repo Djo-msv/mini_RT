@@ -8,6 +8,7 @@ pl		0,-2,0		0,1,0					0,0,0   1   1   1   255,255,255   0
 
 sp	0,0,0				0.5					255,255,255     1   texture/broken_brick_wall_diff_4k.png   1   texture/broken_brick_wall_nor_gl_4k.png 0
 
+sp	1.2,0,0				2					255,255,255     0   texture/broken_brick_wall_diff_4k.png   0   texture/broken_brick_wall_nor_gl_4k.png	1
 
 # cy	0.0,0.0,0		0,0,0	0.5	0.5	255,255,01 0
 

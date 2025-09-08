@@ -57,7 +57,6 @@ void	update(void *param)
 		swap_buffer(((t_data *)param)->pool);
 	update_input((t_data *)param);
 	lunch_thread((t_data *)param);
-//	if buffer ready	
 	display_screen((t_data *)param);
 	fps_cnt((t_data *)param);
 }
