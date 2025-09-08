@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:36:04 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 20:18:32 by star             ###   ########.fr       */
+/*   Updated: 2025/09/08 18:23:18 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,23 @@ void	print_nb_fps(float fps)
 	}
 }
 
+char	*name_obj(int obj)
+{
+	if (obj == 0)
+		return ("Plane");
+	else if (obj == 1)
+		return ("Sphere");
+	else if (obj == 2)
+		return ("Cylinder");
+	else if (obj == 3)
+		return ("Light");
+	else if (obj == 4)
+		return ("Triangle");
+	else if (obj == 5)
+		return ("Ellipsoid");
+	return ("None");
+}
+
 void	print_info(t_print_info *info)
 {
 //	(void)info;
@@ -72,4 +89,8 @@ void	print_info(t_print_info *info)
 	printf("input : %d\n\n", info->nb_input);
 	printf("sample : %d\n\n", info->sample);
 //	if obj select, print obj info
+	// printf("sample : %d\n\n", info->sample);
+
+	// printf("select : %s\n\n", name_obj(info->obj));
+
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:01 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 18:57:16 by star             ###   ########.fr       */
+/*   Updated: 2025/09/08 18:37:43 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,6 @@ typedef struct	s_param
 }	t_param
 __attribute__((aligned(1)));
 
-typedef struct s_select
-{
-	t_hit		hit;
-	int			up_mode;
-	int			rotate_mode;
-	int			scale_mode;
-}				t_select
-__attribute__((aligned(1)));
-
 typedef struct s_mlx
 {
 	mlx_context		mlx;
@@ -87,12 +78,21 @@ typedef struct s_scene
 	t_list		*cylinder;
 	t_list		*triangle;
 	t_list		*ellipsoid;
-	t_select	select;
 }	t_scene
+__attribute__((aligned(1)));
+
+typedef struct s_select
+{
+	t_hit		hit;
+	int			up_mode;
+	int			rotate_mode;
+	int			scale_mode;
+}				t_select
 __attribute__((aligned(1)));
 
 typedef struct s_print_info
 {
+	t_select	select;
 	int		x;
 	int		y;
 	int		resolution;
@@ -101,6 +101,7 @@ typedef struct s_print_info
 	int	sample;
 	bool	aa;
 	bool	first_display;
+	int		obj;
 }	t_print_info
 __attribute__((aligned(1)));
 

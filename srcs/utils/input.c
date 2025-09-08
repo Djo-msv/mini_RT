@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:38:18 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 20:54:14 by star             ###   ########.fr       */
+/*   Updated: 2025/09/08 18:37:13 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	update_input(t_data *data)
 		set_camera_window(data, &(data->cam));
 		set_camera_ray(data->pool->ray_direction, &(data->cam), data->mlx.info);
 	}
+	if (data->info.select.hit.t > 0)
+		change_obj(data, data->info.select.hit);
 	if (i.move)
 	{
 		if (data->info.nb_input)

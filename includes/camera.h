@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:16 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 17:00:17 by star             ###   ########.fr       */
+/*   Updated: 2025/09/08 17:46:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	move_camera_left(t_data *data, t_camera *cam);
 void	move_camera_backward(t_data *data, t_camera *cam);
 void	move_camera_forward(t_data *data, t_camera *cam);
 
+t_vec	calcule_ray_direction(t_camera *cam, mlx_window_create_info info, int x, int y);
 
 #endif

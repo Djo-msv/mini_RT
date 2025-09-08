@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_obj.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 19:15:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/08 18:38:36 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	rotate(t_data *d, t_hit select)
 
 static void	tr_moove(t_data *d, t_hit select)
 {
-	if (d->scene.select.up_mode)
+	if (d->info.select.up_mode)
 	{
 		if (d->input.up_button)
 			move_obj_y(select, 1);
@@ -49,7 +49,7 @@ static void	tr_moove(t_data *d, t_hit select)
 void	change_obj(t_data *d, t_hit select)
 {
 	resize_obj(d, select);
-	if (d->scene.select.scale_mode && select.type == 5)
+	if (d->info.select.scale_mode && select.type == 5)
 	{
 		if (d->input.up_button)
 			((t_ellipsoid *)select.obj)->scale.y += 0.01;
@@ -62,7 +62,7 @@ void	change_obj(t_data *d, t_hit select)
 		init_elli_mat((t_ellipsoid *)select.obj);
 		d->image.nb_images = 0;
 	}
-	else if (d->scene.select.rotate_mode)
+	else if (d->info.select.rotate_mode)
 		rotate(d, select);
 	else
 		tr_moove(d, select);

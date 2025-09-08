@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 21:05:56 by star             ###   ########.fr       */
+/*   Updated: 2025/09/08 18:39:09 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,31 +139,30 @@ void	window_hook(int event, void *param)
 	}
 }
 
-// void	handle_select_obj(t_data *d)
-// {
-// 	t_ray	ray;
-// 	int		x;
-// 	int		y;
+void	handle_select_obj(t_data *d)
+{
+	t_ray	ray;
+	int		x;
+	int		y;
 
-// 	x = 0;
-// 	y = 0;
-// 	if (d->setting_cam.move)
-// 		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
-// 	else
-// 	{
-// 		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
-// 		t_vec	pixel_center;
-// 		pixel_center = vec_add(
-// 			vec_add(d->setting_cam.pixel00_loc, vec_mul(d->setting_cam.pixel_delta_h, x)),
-// 			vec_mul(d->setting_cam.pixel_delta_v, y));
-// 		ray = create_ray(d->setting_cam.camera_center, vec_sub(pixel_center, d->setting_cam.camera_center));
-// 	}
-// 	d->scene.select.hit = nearest_obj(d, ray, true);
-// 	if (d->scene.select.hit.t <= 0)
-// 		return ;
-// 	if (d->setting_cam.move)
-// 		destroy_obj(d, d->scene.select.hit);
-// }
+	x = 0;
+	y = 0;
+	if (d->input.move)
+		ray = create_ray(d->cam.coordinate, d->cam.forward);
+	else
+	{
+		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
+		ray = create_ray(d->cam.coordinate, calcule_ray_direction(&d->cam, d->mlx.info, x, y));
+	}
+	d->info.select.hit = nearest_obj(d->scene, ray, true);
+	if (d->info.select.hit.t <= 0)
+	{
+		d->info.obj = -1;
+		return ;
+	}
+	else
+		d->info.obj = d->info.select.hit.type;
+}
 
 void mouse_hook(int button, void* param)
 {
@@ -178,10 +177,10 @@ void mouse_hook(int button, void* param)
 			mlx_mouse_hide(data->mlx.mlx);
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win,
 			data->mlx.info.width >> 1, data->mlx.info.height >> 1);
-
 	}
-//	if (button == 1)
-//		handle_select_obj(data);
+	if (button == 1)
+		handle_select_obj(data);
+
 }
 /*
 
