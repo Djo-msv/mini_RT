@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:57:13 by star              #+#    #+#             */
-/*   Updated: 2025/09/09 18:15:55 by star             ###   ########.fr       */
+/*   Updated: 2025/09/09 18:53:53 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ static int	init_elli_color(t_ellipsoid *ellipsoid, char **args)
 	ellipsoid->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[6], "1", 1) || args[7])
+	if (!args[5])
+		return (0);
+	if (verif_int(args[6], "3", 1) || args[7])
 		return (1);
 	ellipsoid->mat = ft_atoi(args[6]);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:27:22 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 18:56:36 by star             ###   ########.fr       */
+/*   Updated: 2025/09/09 18:54:16 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ static int	init_checkerboard_pattern(t_plane *plane, char **args)
 {
 	char	**v;
 
+	plane->l_x_pattern = ft_atof(args[4]);
 	if (verfi_float(args[5]))
 		return (1);
-	plane->l_x_pattern = ft_atof(args[5]);
-	if (verfi_float(args[6]))
-		return (1);
-	plane->l_z_pattern = ft_atof(args[6]);
-	v = ft_split(args[7], ",");
+	plane->l_z_pattern = ft_atof(args[5]);
+	v = ft_split(args[6], ",");
 	if (!v)
 		return (1);
 	if (verif_int(v[0], "255", 3) || verif_int(v[1], "255", 3)
@@ -34,9 +32,30 @@ static int	init_checkerboard_pattern(t_plane *plane, char **args)
 	plane->pattern_color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[8], "1", 1) || args[9])
+	if (!args[7])
+		return (0);
+	if (verif_int(args[7], "3", 1) || args[8])
 		return (1);
-	plane->mat = ft_atoi(args[8]);
+	plane->mat = ft_atoi(args[7]);
+	return (0);
+}
+
+static int	pars_number(t_plane *plane, char **args)
+{
+	if (!args[4])
+		return (0);
+	if (!args[5])
+	{
+		if (verif_int(args[4], "1", 1))
+			return (1);
+		plane->mat = ft_atoi(args[4]);
+		return (0);
+	}
+	plane->is_pattern = 1;
+	if (verfi_float(args[4]))
+		return (1);
+	if (init_checkerboard_pattern(plane, args))
+		return (1);
 	return (0);
 }
 
@@ -60,10 +79,7 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 	plane->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-	if (verif_int(args[4], "1", 1))
-		return (1);
-	plane->is_pattern = ft_atoi(args[4]);
-	if (init_checkerboard_pattern(plane, args))
+	if (pars_number(plane, args))
 		return (1);
 	return (0);
 }
@@ -103,7 +119,9 @@ int	parse_plane(t_scene *scene, char **args)
 
 	p = malloc(sizeof(t_plane));
 	if (!p)
-		return (1);
+		return (1);	
+	p->is_pattern = 0;
+	p->mat = 0;
 	if (init_normal_plane(p, args) || init_rgb_plane(p, args))
 	{
 		free(p);
