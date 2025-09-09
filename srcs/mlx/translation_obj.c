@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   translation_obj.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:10:44 by star              #+#    #+#             */
-/*   Updated: 2025/09/08 18:38:34 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:14:12 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	move_obj_x(t_hit select, int is_left)
+void	move_obj_x(t_hit select, int is_forward)
 {
 	t_matrix		t_x;
 
-	if (!is_left)
+	if (is_forward)
 		t_x = mat4_translation(0.05, 0.0, 0.0);
 	else
 		t_x = mat4_translation(-0.05, 0.0, 0.0);
@@ -39,11 +39,11 @@ void	move_obj_x(t_hit select, int is_left)
 	}
 }
 
-void	move_obj_z(t_hit select, int is_forward)
+void	move_obj_z(t_hit select, int is_left)
 {
 	t_matrix		t_z;
 
-	if (!is_forward)
+	if (is_left)
 		t_z = mat4_translation(0.0, 0.0, -0.05);
 	else
 		t_z = mat4_translation(0.0, 0.0, 0.05);

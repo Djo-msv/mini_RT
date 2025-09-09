@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:36:20 by star              #+#    #+#             */
-/*   Updated: 2025/09/08 18:38:40 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:22:43 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	setup_images(t_data *data)
 
 void	setup_info(t_data *data, t_print_info *info)
 {
+	info->obj = -1;
 	info->resolution = data->image.resolution;
 	info->aa = data->scene.camera.aa;
 	info->x = data->mlx.info.width;

@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/09/08 18:39:09 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:34:52 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static void more_down(int key, void *param)
+{
+	if (key == 23)
+	{
+		((t_data *)param)->scene.camera.render_type = !((t_data *)param)->scene.camera.render_type;
+		((t_data *)param)->image.nb_images = 0;
+	}
+	if (key == 8)
+	{
+		((t_data *)param)->scene.select.scale_mode = !((t_data *)param)->scene.select.scale_mode;
+		((t_data *)param)->info.scale_mode = ((t_data *)param)->scene.select.scale_mode;
+	}
+	if (key == 21)
+	{
+		((t_data *)param)->scene.select.rotate_mode = !((t_data *)param)->scene.select.rotate_mode;
+		((t_data *)param)->info.rotate_mode = ((t_data *)param)->scene.select.rotate_mode;
+	}
+	if (key == 224)
+		((t_data *)param)->input.ctrl = true;
+	if (key == 226)
+		((t_data *)param)->input.alt = true;
+	if (key == 24)
+	{
+		((t_data *)param)->scene.select.hit.type = -1;
+		((t_data *)param)->info.obj = -1;
+	}
+}
 
 static void	down(int key, void *param)
 {
@@ -36,11 +64,7 @@ static void	down(int key, void *param)
 		((t_data *)param)->input.nine_button = true;
 	if (key == 39)
 		((t_data *)param)->input.zero_button = true;
-	if (key == 23)
-	{
-		((t_data *)param)->scene.camera.render_type = !((t_data *)param)->scene.camera.render_type;
-		((t_data *)param)->image.nb_images = 0;
-	}
+	more_down(key, param);
 }
 
 void	key_hook_down(int key, void *param)
@@ -48,6 +72,7 @@ void	key_hook_down(int key, void *param)
 	static bool	fullscreen = false;
 	t_mlx		*mlx;
 
+	// printf("cccccccccc = %d\n", key);
 	mlx = &((t_data *)param)->mlx;
 	if (key == 41)
 		mlx_loop_end(mlx->mlx);
@@ -92,6 +117,10 @@ static void	up(int key, void *param)
 		((t_data *)param)->input.nine_button = false;
 	if (key == 39)
 		((t_data *)param)->input.zero_button = false;
+	if (key == 224)
+		((t_data *)param)->input.ctrl = false;
+	if (key == 226)
+		((t_data *)param)->input.alt = false;
 }
 
 void	key_hook_up(int key, void *param)
@@ -154,14 +183,14 @@ void	handle_select_obj(t_data *d)
 		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
 		ray = create_ray(d->cam.coordinate, calcule_ray_direction(&d->cam, d->mlx.info, x, y));
 	}
-	d->info.select.hit = nearest_obj(d->scene, ray, true);
-	if (d->info.select.hit.t <= 0)
+	d->scene.select.hit = nearest_obj(d->scene, ray, true);
+	if (d->scene.select.hit.t <= 0)
 	{
 		d->info.obj = -1;
 		return ;
 	}
 	else
-		d->info.obj = d->info.select.hit.type;
+		d->info.obj = d->scene.select.hit.type;
 }
 
 void mouse_hook(int button, void* param)

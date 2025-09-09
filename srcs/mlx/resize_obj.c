@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resize_obj.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:33:53 by star              #+#    #+#             */
-/*   Updated: 2025/09/08 18:38:37 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:33:45 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	resize(t_data *d, t_hit select, int is_min)
 	float	s;
 
 	if (!is_min)
-		s = -0.01;
+		s = -0.05;
 	else
-		s = 0.01;
+		s = 0.05;
 	if (select.type == 1)
 	{
 		((t_sphere *)select.obj)->radius += s;
-		if (((t_sphere *)select.obj)->radius <= 0.01)
-			((t_sphere *)select.obj)->radius = 0.01;
+		if (((t_sphere *)select.obj)->radius <= 0.05)
+			((t_sphere *)select.obj)->radius = 0.05;
 	}
 	else if (select.type == 2)
 		((t_cylinder *)select.obj)->radius += s;
@@ -42,22 +42,12 @@ void	resize_obj(t_data *d, t_hit select)
 	if (d->input.nine_button)
 	{
 		if (select.type == 2)
-			((t_cylinder *)select.obj)->height += 0.01;
-		if (select.type == 5)
-		{
-			((t_ellipsoid *)select.obj)->scale.x += 0.01;
-			init_elli_mat((t_ellipsoid *)select.obj);
-		}
+			((t_cylinder *)select.obj)->height += 0.05;
 	}
 	if (d->input.zero_button)
 	{
 		if (select.type == 2)
-			((t_cylinder *)select.obj)->height -= 0.01;
-		if (select.type == 5)
-		{
-			((t_ellipsoid *)select.obj)->scale.x -= 0.01;
-			init_elli_mat((t_ellipsoid *)select.obj);
-		}
+			((t_cylinder *)select.obj)->height -= 0.05;
 	}
 	d->image.nb_images = 0;
 }

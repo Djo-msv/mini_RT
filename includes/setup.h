@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:01 by star              #+#    #+#             */
-/*   Updated: 2025/09/08 18:37:43 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:19:29 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ typedef struct s_mlx
 }	t_mlx
 __attribute__((aligned(1)));
 
+typedef struct s_select
+{
+	t_hit		hit;
+	int			rotate_mode;
+	int			scale_mode;
+}				t_select
+__attribute__((aligned(1)));
+
 typedef struct s_scene
 {
 	t_mlx		*mlx;
@@ -78,21 +86,12 @@ typedef struct s_scene
 	t_list		*cylinder;
 	t_list		*triangle;
 	t_list		*ellipsoid;
+	t_select	select;
 }	t_scene
-__attribute__((aligned(1)));
-
-typedef struct s_select
-{
-	t_hit		hit;
-	int			up_mode;
-	int			rotate_mode;
-	int			scale_mode;
-}				t_select
 __attribute__((aligned(1)));
 
 typedef struct s_print_info
 {
-	t_select	select;
 	int		x;
 	int		y;
 	int		resolution;
@@ -102,6 +101,8 @@ typedef struct s_print_info
 	bool	aa;
 	bool	first_display;
 	int		obj;
+	int		rotate_mode;
+	int		scale_mode;
 }	t_print_info
 __attribute__((aligned(1)));
 
@@ -123,6 +124,8 @@ typedef struct s_input
 	bool	nine_button;
 	bool	zero_button;
 	bool	move;
+	bool	ctrl;
+	bool	alt;
 }	t_input
 __attribute__((aligned(1)));
 

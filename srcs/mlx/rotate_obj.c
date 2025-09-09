@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate_obj.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:42:45 by star              #+#    #+#             */
-/*   Updated: 2025/09/08 18:38:38 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:05:37 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	rotate_obj_x(t_hit select, int is_left)
 	t_matrix	r_x;
 
 	if (!is_left)
-		r_x = mat4_rotation_x(0.01);
+		r_x = mat4_rotation_x(0.05);
 	else
-		r_x = mat4_rotation_x(-0.01);
+		r_x = mat4_rotation_x(-0.05);
 	if (select.type == 0)
 		((t_plane *)select.obj)->normal = normalize(mul_mat4_to_vec(r_x,
 					((t_plane *)select.obj)->normal, 0));
@@ -40,9 +40,9 @@ void	rotate_obj_x(t_hit select, int is_left)
 	else if (select.type == 5)
 	{
 		if (!is_left)
-			((t_ellipsoid *)select.obj)->rotation.x += 0.01;
+			((t_ellipsoid *)select.obj)->rotation.x += 0.05;
 		else
-			((t_ellipsoid *)select.obj)->rotation.x -= 0.01;
+			((t_ellipsoid *)select.obj)->rotation.x -= 0.05;
 		init_elli_mat((t_ellipsoid *)select.obj);
 	}
 }
@@ -52,9 +52,9 @@ void	rotate_obj_z(t_hit select, int is_left)
 	t_matrix	r_z;
 
 	if (!is_left)
-		r_z = mat4_rotation_z(0.01);
+		r_z = mat4_rotation_z(0.05);
 	else
-		r_z = mat4_rotation_z(-0.01);
+		r_z = mat4_rotation_z(-0.05);
 	if (select.type == 0)
 		((t_plane *)select.obj)->normal = normalize(mul_mat4_to_vec(r_z,
 					((t_plane *)select.obj)->normal, 0));
@@ -66,9 +66,9 @@ void	rotate_obj_z(t_hit select, int is_left)
 	else if (select.type == 5)
 	{
 		if (!is_left)
-			((t_ellipsoid *)select.obj)->rotation.z += 0.01;
+			((t_ellipsoid *)select.obj)->rotation.z += 0.05;
 		else
-			((t_ellipsoid *)select.obj)->rotation.z -= 0.01;
+			((t_ellipsoid *)select.obj)->rotation.z -= 0.05;
 		init_elli_mat((t_ellipsoid *)select.obj);
 	}
 }
@@ -78,9 +78,9 @@ void	rotate_obj_y(t_hit select, int is_left)
 	t_matrix	r_y;
 
 	if (!is_left)
-		r_y = mat4_rotation_y(0.01);
+		r_y = mat4_rotation_y(0.05);
 	else
-		r_y = mat4_rotation_y(-0.01);
+		r_y = mat4_rotation_y(-0.05);
 	if (select.type == 0)
 		((t_plane *)select.obj)->normal = normalize(mul_mat4_to_vec(r_y,
 					((t_plane *)select.obj)->normal, 0));
@@ -92,9 +92,9 @@ void	rotate_obj_y(t_hit select, int is_left)
 	else if (select.type == 5)
 	{
 		if (!is_left)
-			((t_ellipsoid *)select.obj)->rotation.y += 0.01;
+			((t_ellipsoid *)select.obj)->rotation.y += 0.05;
 		else
-			((t_ellipsoid *)select.obj)->rotation.y -= 0.01;
+			((t_ellipsoid *)select.obj)->rotation.y -= 0.05;
 		init_elli_mat((t_ellipsoid *)select.obj);
 	}
 }

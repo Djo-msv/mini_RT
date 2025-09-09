@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:57:13 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 18:56:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/09 18:15:55 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	init_elli_mat(t_ellipsoid *e)
 	t_matrix	s_inv;
 	t_matrix	r_inv;
 
+	if (e->scale.x < 1)
+		e->scale.x = 1;
+	if (e->scale.y < 1)
+		e->scale.y = 1;
+	if (e->scale.z < 1)
+		e->scale.z = 1;
 	tr = mat4_translation(e->coordinate.x, e->coordinate.y, e->coordinate.z);
 	s = mat4_scale(e->scale.x, e->scale.y, e->scale.z);
 	r = mul_mat4(mul_mat4(mat4_rotation_z(e->rotation.z),
@@ -62,16 +68,6 @@ static int	init_ellipsoid(t_ellipsoid *e, char **args)
 {
 	char	**v;
 
-	v = ft_split(args[2], ",");
-	if (!v)
-		return (1);
-	if (verfi_float(v[0]) || verfi_float(v[1]) || verfi_float(v[2]) || v[3])
-	{
-		ft_free_2d_tab((void **)v);
-		return (1);
-	}
-	e->rotation = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
-	ft_free_2d_tab((void **)v);
 	v = ft_split(args[3], ",");
 	if (!v)
 		return (1);
@@ -100,6 +96,16 @@ static int	init_co_elli(t_ellipsoid *e, char **args)
 		return (1);
 	}
 	e->coordinate = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
+	ft_free_2d_tab((void **)v);
+	v = ft_split(args[2], ",");
+	if (!v)
+		return (1);
+	if (verfi_float(v[0]) || verfi_float(v[1]) || verfi_float(v[2]) || v[3])
+	{
+		ft_free_2d_tab((void **)v);
+		return (1);
+	}
+	e->rotation = (t_vec){ft_atof(v[0]), ft_atof(v[1]), ft_atof(v[2])};
 	ft_free_2d_tab((void **)v);
 	return (0);
 }
