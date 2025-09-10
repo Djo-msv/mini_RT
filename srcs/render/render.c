@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:19 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 20:33:32 by star             ###   ########.fr       */
+/*   Updated: 2025/09/10 16:20:11 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ t_hit	intersectscene(t_scene scene, t_ray ray, bool direct_light)
 
 void	render(t_fcolor *pixel, t_vec ray_direction, t_scene *scene)
 {
-	if (scene->camera.render_type)
-		*pixel = shade_raytracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
-	else
-		*pixel = shade_pathtracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
+	if (scene->camera.is_cam)
+	{
+		if (scene->camera.render_type)
+			*pixel = shade_raytracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
+		else
+			*pixel = shade_pathtracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
+	}
 }

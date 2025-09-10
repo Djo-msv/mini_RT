@@ -82,21 +82,35 @@ Maps use the `.rt` extension with a specific structure:
 ```
 # Comment lines start with hash
 # Basic elements:
-CAMERA 0,0,0 0,0,0 90        # Position, Orientation, FOV
-LIGHT 0,10,0 1.0 255,255,255 # Position, Intensity, Color
-SPHERE 0,0,0 1.0 255,0,0     # Center, Radius, Color
-PLANE 0,1,0 0,1,0 0,0,255    # Point, Normal, Color
-CYLINDER 0,0,0 0,1,0 1.0 2.0 0,255,0 # Center, Axis, Diameter, Height, Color
+The first argument must be the short name.
+The minimum and maximum values: [min, max value].
+If not specify the minimum and maximum values ​​on a maximum of 7 digits with a decimal number or not.
+There is only one ambiant lighting and one camera.
+
+AMBIANT LIGHTING    0.2 255,255,255     # Name: A, Ratio [0.0,1.0], Color [0-255]
+CAMERA      0,0,0 0,0,0 90              # Name: C, Position, Orientation [-1.0,1.0], FOV [0-180]
+LIGHT       0,10,0 1.0 255,255,255      # Name: L, Position, Brightness [0.0,1.0], Color [0-255]
+SPHERE      0,0,0 1.0 255,0,0           # Name: sp, Center, Radius, Color [0-255]
+PLANE       0,1,0 0,1,0 0,0,255         # Name: pl, Point, Normal [-1.0,1.0], Color [0-255] 
+CYLINDER    0,0,0 0,1,0 1.0 2.0 0,255,0 # Name: cy, Center, Normal [-1.0,1.0], Diameter, Height, Color
+TRIANGLE    0.0,0.0,1 0.0,0.0,1 0.0,1,0 255,255,255 # Name: tr, Point 1, Point 2, Point 3, Color [0-255]
+ELIPSOID    0,0,0 0,0,0 1,3,1 0.5 255,255,0         # Name: el, Position, Rotation, Scale, Size, Color [0-255]
+
+You can add as a last optional argument on each object for the object's material [0-4].
+On PLANE you can add as last optional arguments to get a checkboard pattern (1 1 255,255,255) size 1, size 2, color.
+On SPHERE, you can add a texture and another for the normal map as optional last arguments. The order does not matter
+for the material (the first texture will always be used for the texture and the second for the normal). You can add only a texture too.
+More information below.
 ```
 
 ### Example Map
 ```
 # Simple scene with sphere and light
-CAMERA 0,0,5 0,0,-1 70
-LIGHT 0,10,-10 0.8 255,255,255
+C    0,0,5 0,0,-1 70
+L    0,10,-10 0.8 255,255,255
 
-SPHERE 0,0,0 1.5 255,0,0
-PLANE 0,-2,0 0,1,0 100,100,100
+sp   0,0,0 1.5 255,0,0
+pl   0,-2,0 0,1,0 100,100,100
 ```
 
 ### Map Validation

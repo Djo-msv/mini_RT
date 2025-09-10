@@ -6,73 +6,11 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 21:05:56 by star             ###   ########.fr       */
+/*   Updated: 2025/09/10 16:10:38 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static void	down(int key, void *param)
-{
-	if (key == 44)
-		((t_data *)param)->input.space_button = true;
-	if (key == 225)
-		((t_data *)param)->input.shift_button = true;
-	if (key == 42)
-		((t_data *)param)->input.deletion_button = true;
-	if (key == 82)
-		((t_data *)param)->input.up_button = true;
-	if (key == 81)
-		((t_data *)param)->input.down_button = true;
-	if (key == 80)
-		((t_data *)param)->input.left_button = true;
-	if (key == 79)
-		((t_data *)param)->input.right_button = true;
-	if (key == 45)
-		((t_data *)param)->input.minus_button = true;
-	if (key == 46)
-		((t_data *)param)->input.plus_button = true;
-	if (key == 38)
-		((t_data *)param)->input.nine_button = true;
-	if (key == 39)
-		((t_data *)param)->input.zero_button = true;
-	if (key == 23)
-	{
-		((t_data *)param)->scene.camera.render_type = !((t_data *)param)->scene.camera.render_type;
-		((t_data *)param)->image.nb_images = 0;
-	}
-}
-
-void	key_hook_down(int key, void *param)
-{
-	static bool	fullscreen = false;
-	t_mlx		*mlx;
-
-	mlx = &((t_data *)param)->mlx;
-	if (key == 41)
-		mlx_loop_end(mlx->mlx);
-	if (key == 43)
-	{
-		((t_data *)param)->scene.camera.aa = !((t_data *)param)->scene.camera.aa;
-		((t_data *)param)->image.nb_images = 0;
-		((t_data *)param)->info.aa = ((t_data *)param)->scene.camera.aa;
-		print_info(&((t_data *)param)->info);
-	}
-	if (key == 26)
-		((t_data *)param)->input.z_button = true;
-	if (key == 22)
-		((t_data *)param)->input.s_button = true;
-	if (key == 7)
-		((t_data *)param)->input.a_button = true;
-	if (key == 4)
-		((t_data *)param)->input.d_button = true;
-	if (key == 68)
-	{
-		fullscreen = !fullscreen;
-		mlx_set_window_fullscreen(mlx->mlx, mlx->win, fullscreen);
-	}
-	down(key, param);
-}
 
 static void	up(int key, void *param)
 {
@@ -92,6 +30,10 @@ static void	up(int key, void *param)
 		((t_data *)param)->input.nine_button = false;
 	if (key == 39)
 		((t_data *)param)->input.zero_button = false;
+	if (key == 224)
+		((t_data *)param)->input.ctrl = false;
+	if (key == 226)
+		((t_data *)param)->input.alt = false;
 }
 
 void	key_hook_up(int key, void *param)
@@ -139,31 +81,30 @@ void	window_hook(int event, void *param)
 	}
 }
 
-// void	handle_select_obj(t_data *d)
-// {
-// 	t_ray	ray;
-// 	int		x;
-// 	int		y;
+void	handle_select_obj(t_data *d)
+{
+	t_ray	ray;
+	int		x;
+	int		y;
 
-// 	x = 0;
-// 	y = 0;
-// 	if (d->setting_cam.move)
-// 		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
-// 	else
-// 	{
-// 		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
-// 		t_vec	pixel_center;
-// 		pixel_center = vec_add(
-// 			vec_add(d->setting_cam.pixel00_loc, vec_mul(d->setting_cam.pixel_delta_h, x)),
-// 			vec_mul(d->setting_cam.pixel_delta_v, y));
-// 		ray = create_ray(d->setting_cam.camera_center, vec_sub(pixel_center, d->setting_cam.camera_center));
-// 	}
-// 	d->scene.select.hit = nearest_obj(d, ray, true);
-// 	if (d->scene.select.hit.t <= 0)
-// 		return ;
-// 	if (d->setting_cam.move)
-// 		destroy_obj(d, d->scene.select.hit);
-// }
+	x = 0;
+	y = 0;
+	if (d->input.move)
+		ray = create_ray(d->cam.coordinate, d->cam.forward);
+	else
+	{
+		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
+		ray = create_ray(d->cam.coordinate, calcule_ray_direction(&d->cam, d->mlx.info, x, y));
+	}
+	d->scene.select.hit = nearest_obj(d->scene, ray, true);
+	if (d->scene.select.hit.t <= 0)
+	{
+		d->info.obj = -1;
+		return ;
+	}
+	else
+		d->info.obj = d->scene.select.hit.type;
+}
 
 void mouse_hook(int button, void* param)
 {
@@ -178,10 +119,10 @@ void mouse_hook(int button, void* param)
 			mlx_mouse_hide(data->mlx.mlx);
 		mlx_mouse_move(data->mlx.mlx, data->mlx.win,
 			data->mlx.info.width >> 1, data->mlx.info.height >> 1);
-
 	}
-//	if (button == 1)
-//		handle_select_obj(data);
+	if (button == 1)
+		handle_select_obj(data);
+
 }
 /*
 

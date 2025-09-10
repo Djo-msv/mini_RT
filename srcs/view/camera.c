@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:38:23 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 20:16:25 by star             ###   ########.fr       */
+/*   Updated: 2025/09/08 17:23:32 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "miniRT.h"
-
-
 
 void	set_camera_window(t_data *data, t_camera *cam)
 {

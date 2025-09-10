@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:01 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 18:57:16 by star             ###   ########.fr       */
+/*   Updated: 2025/09/10 15:59:30 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,6 @@ typedef struct	s_param
 }	t_param
 __attribute__((aligned(1)));
 
-typedef struct s_select
-{
-	t_hit		hit;
-	int			up_mode;
-	int			rotate_mode;
-	int			scale_mode;
-}				t_select
-__attribute__((aligned(1)));
-
 typedef struct s_mlx
 {
 	mlx_context		mlx;
@@ -74,6 +65,14 @@ typedef struct s_mlx
 	mlx_window_create_info	info;
 	mlx_image		img;
 }	t_mlx
+__attribute__((aligned(1)));
+
+typedef struct s_select
+{
+	t_hit		hit;
+	int			rotate_mode;
+	int			scale_mode;
+}				t_select
 __attribute__((aligned(1)));
 
 typedef struct s_scene
@@ -101,6 +100,9 @@ typedef struct s_print_info
 	int	sample;
 	bool	aa;
 	bool	first_display;
+	int		obj;
+	int		rotate_mode;
+	int		scale_mode;
 }	t_print_info
 __attribute__((aligned(1)));
 
@@ -122,6 +124,8 @@ typedef struct s_input
 	bool	nine_button;
 	bool	zero_button;
 	bool	move;
+	bool	ctrl;
+	bool	alt;
 }	t_input
 __attribute__((aligned(1)));
 

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:36:04 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 20:18:32 by star             ###   ########.fr       */
+/*   Updated: 2025/09/09 18:22:45 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,30 @@ void	print_nb_fps(float fps)
 	}
 }
 
+char	*name_obj(int obj)
+{
+	if (obj == 0)
+		return ("Plane");
+	else if (obj == 1)
+		return ("Sphere");
+	else if (obj == 2)
+		return ("Cylinder");
+	else if (obj == 3)
+		return ("Light");
+	else if (obj == 4)
+		return ("Triangle");
+	else if (obj == 5)
+		return ("Ellipsoid");
+	return ("None");
+}
+
 void	print_info(t_print_info *info)
 {
 //	(void)info;
 //	printf("hello\n");
 //	return ;
 	if (!info->first_display)
-		printf("\033[12A");
+		printf("\033[17A");
 	else
 		info->first_display = false;
 	printf("%s%s┌──FPS──┐\n", P_GREEN, P_BOLD);
@@ -71,5 +88,13 @@ void	print_info(t_print_info *info)
 //	printf("╚══════════════════╝%s\n\n", P_NOC);
 	printf("input : %d\n\n", info->nb_input);
 	printf("sample : %d\n\n", info->sample);
-//	if obj select, print obj info
+	printf("select : %s\n\n", name_obj(info->obj));
+	if (info->rotate_mode)
+		printf("Rotate_mode : %strue %s\n\n", P_GREEN, P_NOC);
+	else
+		printf("Rotate_mode : %sfalse%s\n\n", P_RED, P_NOC);
+	if (info->scale_mode)
+		printf("Scale_mode : %strue %s\n", P_GREEN, P_NOC);
+	else
+		printf("Scale_mode : %sfalse%s\n", P_RED, P_NOC);
 }

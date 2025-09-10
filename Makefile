@@ -99,9 +99,10 @@ SRCS_FILES:=	main.c \
 		mlx/del_obj.c \
 		mlx/resize_obj.c \
 		mlx/translation_obj.c \
+		mlx/mlx_key.c \
 		print/print.c \
 		parsing/parse_cam_light.c \
-		parsing/parse_sphere_a_light.c \
+		parsing/parse_sphere.c \
 		parsing/parse_plane.c \
 		parsing/parse_triangle.c \
 		parsing/parse_ellipsoid.c \
@@ -110,6 +111,7 @@ SRCS_FILES:=	main.c \
 		parsing/verif_utils.c \
 		parsing/verif_float.c \
 		parsing/parse_cylinder.c \
+		parsing/parse_a_light.c \
 		render/antialiasing.c \
 		render/shape/cylinder.c \
 		render/shape/plane.c \

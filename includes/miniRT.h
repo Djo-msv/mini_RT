@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:34 by star              #+#    #+#             */
-/*   Updated: 2025/07/31 19:32:08 by star             ###   ########.fr       */
+/*   Updated: 2025/09/10 16:13:22 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <pthread.h>
 # include <stdatomic.h>
+# include <time.h>
 
 # include "../lib_RT/includes/lib_rt.h"
 # include "../MacroLibX/includes/mlx.h"

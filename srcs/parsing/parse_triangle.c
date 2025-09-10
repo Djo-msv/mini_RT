@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 16:35:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 18:58:01 by star             ###   ########.fr       */
+/*   Updated: 2025/09/09 18:56:47 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,11 @@ static int	init_tri_color(t_triangle *triangle, char **args)
 	triangle->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
-//	if (verif_int(args[5], "1", 1) || args[6])
-//	{
-//		printf("hello\n");
-//		return (1);
-//	}
-//	triangle->mat = ft_atoi(args[5]);
-	triangle->mat = 0;
+	if (!args[5])
+		return (0);
+	if (verif_int(args[5], "3", 1) || args[6])
+		return (1);
+	triangle->mat = ft_atoi(args[5]);
 	return (0);
 }
 
