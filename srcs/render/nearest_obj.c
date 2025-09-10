@@ -34,6 +34,9 @@ t_hit	nearest_plane(t_scene scene, t_ray ray)
 			hit.t = t;
 			hit.obj = plane;
 			hit.type = 0;
+			hit.normal = plane->normal;
+			if (scalar_product(hit.normal, ray.direction) > 0)
+				hit.normal = vec_scale(hit.normal, -1);
 		}
 		tmp = tmp->next;
 	}

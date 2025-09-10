@@ -28,7 +28,6 @@ t_hit	plane(t_hit h)
 	}
 	else
 		h.color = mlxcolor_to_fcolor(((t_plane *)h.obj)->color);
-	h.normal = normalize(((t_plane *)h.obj)->normal);
 	h.material = ((t_plane *)h.obj)->mat;
 	return (h);
 }
