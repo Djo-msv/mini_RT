@@ -1,0 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   del_obj.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/22 16:02:27 by star              #+#    #+#             */
+/*   Updated: 2025/07/28 19:53:43 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "miniRT.h"
+
+void	delete_one(t_list **list, void *obj)
+{
+	t_list	*lst;
+	t_list	*prev;
+
+	prev = NULL;
+	lst = *list;
+	while (lst)
+	{
+		if (lst->content == obj)
+		{
+			if (prev)
+				prev->next = lst->next;
+			else
+				*list = lst->next;
+			ft_lstdelone(lst, free);
+			return ;
+		}
+		prev = lst;
+		lst = lst->next;
+	}
+}
+
+void	destroy_obj(t_data *d, t_hit select)
+{
+	if (select.type == 1)
+		delete_one(&d->scene.sphere, select.obj);
+	else if (select.type == 2)
+		delete_one(&d->scene.cylinder, select.obj);
+	else if (select.type == 3)
+		delete_one(&d->scene.light, select.obj);
+	else if (select.type == 0)
+		delete_one(&d->scene.plane, select.obj);
+	d->image.nb_images = 0;
+}
+
+void	handle_select_obj(t_data *d)
+{
+	t_ray	ray;
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	if (d->setting_cam.move)
+		ray = create_ray(d->setting_cam.camera_center, d->setting_cam.forward);
+	else
+	{
+		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
+		ray = create_ray(d->setting_cam.camera_center,
+				d->setting_cam.ray_direction[x][y]);
+	}
+	d->scene.select.hit = nearest_obj(d, ray, true);
+	if (d->scene.select.hit.t <= 0)
+		return ;
+	if (d->setting_cam.move)
+		destroy_obj(d, d->scene.select.hit);
+}
