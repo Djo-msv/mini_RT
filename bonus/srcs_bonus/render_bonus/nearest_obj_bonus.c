@@ -153,11 +153,6 @@ t_hit	nearest_obj(t_scene scene, t_ray ray, bool direct_light)
 		return (hit);
 	}
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-	if (hit.obj)
-	{
-		if (scalar_product(hit.normal, ray.direction) > 0)
-			hit.normal = vec_scale(hit.normal, -1);
-	}
 
 	return (hit);
 }

@@ -37,6 +37,11 @@ t_hit	intersectscene(t_scene scene, t_ray ray, bool direct_light)
 	}
 	else if (hit.type == 5)
 		hit = ellipsoid(hit);
+	if (hit.obj)
+	{
+		if (scalar_product(hit.normal, ray.direction) > 0)
+			hit.normal = vec_scale(hit.normal, -1);
+	}
 	return (hit);
 }
 
