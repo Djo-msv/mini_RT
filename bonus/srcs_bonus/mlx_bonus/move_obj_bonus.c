@@ -47,7 +47,7 @@ static void	tr_moove(t_data *d, t_hit select)
 static void	elli_scale(t_data *d, t_hit select)
 {
 	if (d->input.alt)
-	((t_ellipsoid *)select.obj)->scale.y += 0.05;
+		((t_ellipsoid *)select.obj)->scale.y += 0.05;
 	if (d->input.ctrl)
 		((t_ellipsoid *)select.obj)->scale.y -= 0.05;
 	if (d->input.right_button)

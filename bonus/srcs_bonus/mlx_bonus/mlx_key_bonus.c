@@ -12,36 +12,38 @@
 
 #include "miniRT_bonus.h"
 
-static void more_down(int key, void *param)
+static void	more_down(int key, t_data *data)
 {
 	if (key == 23)
 	{
-		((t_data *)param)->scene.camera.render_type = !((t_data *)param)->scene.camera.render_type;
-		((t_data *)param)->image.nb_images = 0;
+		data->scene.camera.render_type = !data->scene.camera.render_type;
+		data->image.nb_images = 0;
 	}
 	if (key == 8)
 	{
-		((t_data *)param)->scene.select.scale_mode = !((t_data *)param)->scene.select.scale_mode;
-		((t_data *)param)->info.scale_mode = ((t_data *)param)->scene.select.scale_mode;
+		data->scene.select.scale_mode = !data->scene.select.scale_mode;
+		data->info.scale_mode = data->scene.select.scale_mode;
 	}
 	if (key == 21)
 	{
-		((t_data *)param)->scene.select.rotate_mode = !((t_data *)param)->scene.select.rotate_mode;
-		((t_data *)param)->info.rotate_mode = ((t_data *)param)->scene.select.rotate_mode;
+		data->scene.select.rotate_mode = !data->scene.select.rotate_mode;
+		data->info.rotate_mode = data->scene.select.rotate_mode;
 	}
 	if (key == 224)
-		((t_data *)param)->input.ctrl = true;
+		data->input.ctrl = true;
 	if (key == 226)
-		((t_data *)param)->input.alt = true;
+		data->input.alt = true;
 	if (key == 24)
 	{
-		((t_data *)param)->scene.select.hit.type = -1;
-		((t_data *)param)->info.obj = -1;
+		data->scene.select.hit.type = -1;
+		data->info.obj = -1;
 	}
 }
 
 static void	down(int key, void *param)
 {
+	if (key == 41)
+		mlx_loop_end(mlx->mlx);
 	if (key == 44)
 		((t_data *)param)->input.space_button = true;
 	if (key == 225)
@@ -64,7 +66,15 @@ static void	down(int key, void *param)
 		((t_data *)param)->input.nine_button = true;
 	if (key == 39)
 		((t_data *)param)->input.zero_button = true;
-	more_down(key, param);
+	more_down(key, ((t_data *)param));
+}
+
+static void	switch_antialiasing(t_data *data)
+{
+	data->scene.camera.aa = !data->scene.camera.aa;
+	data->image.nb_images = 0;
+	data->info.aa = data->scene.camera.aa;
+	print_info(&(data->info));
 }
 
 void	key_hook_down(int key, void *param)
@@ -73,15 +83,8 @@ void	key_hook_down(int key, void *param)
 	t_mlx		*mlx;
 
 	mlx = &((t_data *)param)->mlx;
-	if (key == 41)
-		mlx_loop_end(mlx->mlx);
 	if (key == 43)
-	{
-		((t_data *)param)->scene.camera.aa = !((t_data *)param)->scene.camera.aa;
-		((t_data *)param)->image.nb_images = 0;
-		((t_data *)param)->info.aa = ((t_data *)param)->scene.camera.aa;
-		print_info(&((t_data *)param)->info);
-	}
+		switch_antialiasing(((t_data *)param));
 	if (key == 26)
 		((t_data *)param)->input.z_button = true;
 	if (key == 22)

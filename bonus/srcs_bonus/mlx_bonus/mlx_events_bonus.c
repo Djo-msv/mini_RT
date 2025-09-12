@@ -74,7 +74,6 @@ void	window_hook(int event, void *param)
 			mlx->info.width = MAX_RES_W;
 			mlx->info.height = MAX_RES_H;
 			mlx_set_window_fullscreen(mlx->mlx, mlx->win, false);
-//			mlx_loop_end(mlx->mlx);
 			return ;
 		}
 		((t_data *)param)->pool->restart = 1;
@@ -94,7 +93,8 @@ void	handle_select_obj(t_data *d)
 	else
 	{
 		mlx_mouse_get_pos(d->mlx.mlx, &x, &y);
-		ray = create_ray(d->cam.coordinate, calcule_ray_direction(&d->cam, d->mlx.info, x, y));
+		ray = create_ray(d->cam.coordinate,
+				calcule_ray_direction(&d->cam, d->mlx.info, x, y));
 	}
 	d->scene.select.hit = nearest_obj(d->scene, ray, true);
 	if (d->scene.select.hit.t <= 0)
@@ -106,10 +106,11 @@ void	handle_select_obj(t_data *d)
 		d->info.obj = d->scene.select.hit.type;
 }
 
-void mouse_hook(int button, void* param)
+void	mouse_hook(int button, void *param)
 {
-	t_data	*data = (t_data *)param;
+	t_data	*data;
 
+	data = (t_data *)param;
 	if (button == 3)
 	{
 		data->input.move = !data->input.move;
@@ -122,24 +123,4 @@ void mouse_hook(int button, void* param)
 	}
 	if (button == 1)
 		handle_select_obj(data);
-
 }
-/*
-
-void mouse_wheel_hook(int button, void* param)
-{
-	t_data *data = (t_data *)param;
-
-	if (button == 2)
-		data->image.resolution++;
-	if (button == 1 && data->image.resolution > 1)
-		data->image.resolution--;
-	else if (data->image.resolution == 1)
-		return ;
-	if (button == 1 || button == 2)
-	{
-		data->image.nb_images = 0;
-//		calcule_res(data, &data->setting_cam);
-	}
-}
-*/

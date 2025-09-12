@@ -21,7 +21,7 @@ void	fps_cnt(t_data *data)
 	double			currenttime;
 	struct timespec	ts;
 
-	clock_gettime(CLOCK_MONOTONIC, &ts);// temps système monotone
+	clock_gettime(CLOCK_MONOTONIC, &ts);
 	currenttime = ts.tv_sec + ts.tv_nsec / 1e9;
 	frames++;
 	if (currenttime - lasttime >= 1.0)
