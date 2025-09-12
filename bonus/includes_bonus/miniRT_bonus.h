@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:34 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:24:07 by star             ###   ########.fr       */
+/*   Updated: 2025/09/12 17:15:12 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <stdatomic.h>
 # include <time.h>
 
-# include "../lib_RT/includes/lib_rt.h"
-# include "../MacroLibX/includes/mlx.h"
-# include "../MacroLibX/includes/mlx_extended.h"
+# include "../../lib_RT/includes/lib_rt.h"
+# include "../../MacroLibX/includes/mlx.h"
+# include "../../MacroLibX/includes/mlx_extended.h"
 
 # include "vector_bonus.h"
 # include "matrix_bonus.h"

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:37 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 15:48:37 by star             ###   ########.fr       */
+/*   Updated: 2025/09/12 17:14:57 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <fcntl.h>
 # include <math.h>
 
-# include "../lib_RT/includes/lib_rt.h"
-# include "../MacroLibX/includes/mlx.h"
-# include "../MacroLibX/includes/mlx_extended.h"
+# include "../../lib_RT/includes/lib_rt.h"
+# include "../../MacroLibX/includes/mlx.h"
+# include "../../MacroLibX/includes/mlx_extended.h"
 
 # include "vector.h"
 # include "matrix.h"

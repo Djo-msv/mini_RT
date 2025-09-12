@@ -71,11 +71,10 @@ RESET_BG	= \033[0m
 #================================DIRS============================#
 
 SRC_DIR			:=  srcs_bonus
-#SRC_DIR_BONUS	:=	srcs_bonus
 HEADER_DIR		:=	includes_bonus
 BUILD_DIR		:=	.build_bonus
-MLX_DIR			:=	MacroLibX
-LIBRT_DIR		:=	lib_RT
+MLX_DIR			:=	../MacroLibX
+LIBRT_DIR		:=	../lib_RT
 
 #==============================SOURCES===========================#
 
@@ -135,42 +134,31 @@ SRCS_FILES:=	main_bonus.c \
 		view_bonus/angle_camera_bonus.c
 
 
-#SRCS_FILES_BONUS:=
-
 SRCS:=			$(addprefix $(SRC_DIR)/, $(SRCS_FILES))
-#SRCS_BONUS:=	$(addprefix $(SRC_DIR_BONUS)/, $(SRCS_FILES_BONUS))
 
 #=============================OBJECTS===========================#
 
 OBJS:=			${SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o}
-#OBJS_BONUS:=	${SRCS_BONUS:$(SRC_DIR_BONUS)/%.c=$(BUILD_DIR)/bonus/%.o}
 
 #===============================DEPS=============================#
 
 DEPS:=			${SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.d}
-#DEPS_BONUS:=	${SRCS_BONUS:$(SRC_DIR_BONUS)/%.c=$(BUILD_DIR)/bonus/%.d}
 
 #=============================INCLUDES===========================#
 
 LIBS :=  -L$(LIBRT_DIR) -l_rt -L$(MLX_DIR) -lmlx -lSDL2
-LDFLAGS := -Wl,-rpath=$(MLX_DIR)
+LDFLAGS := -Wl,-rpath=$(abspath $(MLX_DIR))
 INC := -I$(HEADER_DIR) -I$(LIBRT_DIR) -I$(MLX_DIR)
 
 #================================DIR=============================#
 
 DIRS			:=	$(sort $(shell dirname $(OBJS))) #no duplicates
-#DIRS_BONUS		:=	$(sort $(shell dirname $(OBJS_BONUS))) #no duplicates
 
 #===============================RULES============================#
 
-all: $(MLX_DIR) $(LIBRT_DIR) $(NAME)
-
-bonus: $(BONUS_NAME)
+all: $(NAME)
 
 $(DIRS):
-	@mkdir -p $@
-
-$(DIRS_BONUS):
 	@mkdir -p $@
 
 $(NAME): $(OBJS)
@@ -186,10 +174,6 @@ $(NAME): $(OBJS)
 	"╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝"
 	@echo "$(NOC)"
 
-$(BONUS_NAME): $(OBJS_BONUS)
-	@echo "\n$(GREEN)Create bonus binaries$(NOC)"
-	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(INC) -o $@ -lreadline
-
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
 	@mkdir -p $(BUILD_DIR)
 	@if [ $(NB_COMP) -eq 1 ]; then echo "\n$(BOLD)Compilation of source files :$(NOC)";fi
@@ -202,27 +186,6 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
 	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
 	$(eval NB_COMP=$(shell expr $(NB_COMP) + 1))
 
-
-$(BUILD_DIR)/bonus/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
-	@mkdir -p $(BUILD_DIR)/bonus/
-	@if [ $(NB_COMP_BONUS) -eq 1 ]; then echo "$(BOLD)Compilation of source files :$(NOC)";fi
-	$(eval PERCENT=$(shell expr $(NB_COMP_BONUS)00 "/" $(TO_COMP_BONUS)))
-	@if [ $(PERCENT) -le 30 ]; then echo -n "$(RED)"; elif [ $(PERCENT) -le 66 ]; then echo -n "$(YELLOW)"; elif [ $(PERCENT) -gt 66 ]; then echo -n "$(GREEN)"; fi
-	@echo -n "\r"; for i in $$(seq 1 $$(/usr/bin/tput cols)); do echo -n " "; done
-	@echo -n "\r"; for i in $$(seq 1 25); do if [ $$(expr $$i "*" 4) -le $(PERCENT) ]; then echo -n "█"; else echo -n " "; fi; done; echo -n "";
-	@printf " $(NB_COMP_BONUS)/$(TO_COMP_BONUS) - Compiling $<"
-	@echo -n "$(NOC)"
-	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
-	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
-
-$(MLX_DIR):
-	@git clone https://github.com/seekrs/MacroLibX.git $@
-	@$(MAKE) -C $@
-
-$(LIBRT_DIR):
-	@git clone git@github.com:Djo-msv/lib_RT.git $@
-	@$(MAKE) -C $@
-
 clean:
 	@echo "$(RED)Remove objects$(NOC)"
 	@rm -rf $(BUILD_DIR)
@@ -230,14 +193,10 @@ clean:
 fclean: clean
 	@echo "$(RED)Remove binary$(NOC)"
 	@rm -f $(NAME)
-	@rm -f $(BONUS_NAME)
 
 re: fclean
 	@make
 
-rebonus: fclean
-	@make bonus
-
-.PHONY: all clean fclean re rebonus
+.PHONY: all clean fclean re
 
 -include $(DEPS)

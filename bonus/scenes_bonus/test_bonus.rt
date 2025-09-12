@@ -6,11 +6,11 @@ L		0,4,-1		1			255,255,255
 
 pl		0,-2,0		0,1,0		0,0,0   1   1   255,255,255 0
 
-sp	0,0,2		1			255,255,255     texture_bonus/broken_brick_wall_diff_4k.png  texture_bonus/broken_brick_wall_nor_gl_4k.png	0
+sp	0,0,2		1			255,255,255     bonus/texture_bonus/broken_brick_wall_diff_4k.png  bonus/texture_bonus/broken_brick_wall_nor_gl_4k.png	0
 
 cy	2,1,0		0,0,0	0.5 	0.5 	255,255,01
 
-tr	1,0,0		0,0,1	0,1,0			255,255,255
+tr	0,0,-2		0,0,1	0,1,0			255,255,255
 
 
 el	-2,0,0	 0,0,0   0.5,0.5,10	0.1	255,255,0
