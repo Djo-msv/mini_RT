@@ -41,7 +41,7 @@ fclean: clean
 	@echo "$(RED)[REMOVE]$(NOC) Binaries"
 	@rm -f $(NAME_MANDA) $(NAME_BONUS)
 	@echo "$(RED)[REMOVE]$(NOC) Libraries"
-	@rm -rf $(MLX_DIR) $(LIBRT_DIR)
+#	@rm -rf $(MLX_DIR) $(LIBRT_DIR)
 
 re: fclean all
 
