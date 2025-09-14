@@ -16,12 +16,10 @@ static int	init_d_h_rgb_cylinder(t_cylinder *c, char **args)
 {
 	char	**v;
 
-	if (verfi_float(args[3]))
+	if (verfi_float(args[3]) || verfi_float(args[4]))
 		return (1);
 	c->diameter = ft_atof(args[3]);
 	c->radius = c->diameter / 2;
-	if (verfi_float(args[4]))
-		return (1);
 	c->height = ft_atof(args[4]);
 	v = ft_split(args[5], ",");
 	if (!v)
@@ -92,7 +90,7 @@ int	parse_cylinder(t_scene *scene, char **args)
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (1);
-	cylinder->mat = 0;	
+	cylinder->mat = 0;
 	if (init_co_cy(cylinder, args) || init_normal_cylinder(cylinder, args)
 		|| init_d_h_rgb_cylinder(cylinder, args)
 		|| ft_lstadd_back(&scene->cylinder, ft_lstnew(cylinder)))

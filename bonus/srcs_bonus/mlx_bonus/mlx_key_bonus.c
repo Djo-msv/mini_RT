@@ -43,7 +43,7 @@ static void	more_down(int key, t_data *data)
 static void	down(int key, void *param)
 {
 	if (key == 41)
-		mlx_loop_end(mlx->mlx);
+		mlx_loop_end(((t_data *)param)->mlx.mlx);
 	if (key == 44)
 		((t_data *)param)->input.space_button = true;
 	if (key == 225)

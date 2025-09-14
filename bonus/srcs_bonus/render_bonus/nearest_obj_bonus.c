@@ -153,6 +153,5 @@ t_hit	nearest_obj(t_scene scene, t_ray ray, bool direct_light)
 		return (hit);
 	}
 	hit.position = vec_add(ray.origin, vec_mul(ray.direction, hit.t));
-
 	return (hit);
 }

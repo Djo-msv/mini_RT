@@ -14,8 +14,9 @@
 
 int	size_of_float(float size)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	while (size / 10 >= 10)
 	{
 		size = size / 10;
@@ -26,6 +27,9 @@ int	size_of_float(float size)
 
 void	print_nb_fps(float fps)
 {
+	int	i;
+	int	size;
+
 	if (fps >= 9999.99)
 		printf("│???????│\n");
 	else if (fps < 10.0f)
@@ -34,8 +38,8 @@ void	print_nb_fps(float fps)
 		printf("│ %s%.2f%s │\n", P_YELLOW, fps, P_GREEN);
 	else
 	{
-		int	i = 0;
-		int size = size_of_float(fps) + 3;
+		i = 0;
+		size = size_of_float(fps) + 3;
 		ft_putstr("│");
 		while (i++ != 3 - ((size + 1) >> 1))
 			ft_putchar(' ');
@@ -67,9 +71,6 @@ char	*name_obj(int obj)
 
 void	print_info(t_print_info *info)
 {
-//	(void)info;
-//	printf("hello\n");
-//	return ;
 	if (!info->first_display)
 		printf("\033[17A");
 	else
@@ -83,9 +84,6 @@ void	print_info(t_print_info *info)
 		printf("AA : %strue %s\n\n", P_GREEN, P_NOC);
 	else
 		printf("AA : %sfalse%s\n\n", P_RED, P_NOC);
-//	printf("%s%s╔══════CAMERA══════╗\n", P_TEAL, P_BOLD);
-//	print_cam_info
-//	printf("╚══════════════════╝%s\n\n", P_NOC);
 	printf("input : %d\n\n", info->nb_input);
 	printf("sample : %d\n\n", info->sample);
 	printf("select : %s\n\n", name_obj(info->obj));

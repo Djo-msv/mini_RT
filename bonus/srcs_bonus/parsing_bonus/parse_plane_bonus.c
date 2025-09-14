@@ -119,7 +119,7 @@ int	parse_plane(t_scene *scene, char **args)
 
 	p = malloc(sizeof(t_plane));
 	if (!p)
-		return (1);	
+		return (1);
 	p->is_pattern = 0;
 	p->mat = 0;
 	if (init_normal_plane(p, args) || init_rgb_plane(p, args))
