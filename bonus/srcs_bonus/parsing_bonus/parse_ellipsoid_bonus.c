@@ -20,12 +20,6 @@ void	init_elli_mat(t_ellipsoid *e)
 	t_matrix	s_inv;
 	t_matrix	r_inv;
 
-	if (e->scale.x < 1)
-		e->scale.x = 1;
-	if (e->scale.y < 1)
-		e->scale.y = 1;
-	if (e->scale.z < 1)
-		e->scale.z = 1;
 	tr = mat4_translation(e->coordinate.x, e->coordinate.y, e->coordinate.z);
 	s = mat4_scale(e->scale.x, e->scale.y, e->scale.z);
 	r = mul_mat4(mul_mat4(mat4_rotation_z(e->rotation.z),
@@ -125,6 +119,12 @@ int	parse_ellipsoid(t_scene *scene, char **args)
 		free(ellipsoid);
 		return (1);
 	}
+	if (ellipsoid->scale.x < 1)
+		ellipsoid->scale.x = 1;
+	if (ellipsoid->scale.y < 1)
+		ellipsoid->scale.y = 1;
+	if (ellipsoid->scale.z < 1)
+		ellipsoid->scale.z = 1;
 	init_elli_mat(ellipsoid);
 	ft_lstadd_back(&scene->ellipsoid, ft_lstnew(ellipsoid));
 	return (0);

@@ -12,7 +12,7 @@
 
 #include "miniRT_bonus.h"
 
-static int assign_tex(t_sphere *sphere, char **args, int i)
+static int	assign_tex(t_sphere *sphere, char **args, int i)
 {
 	if (verif_file(args[i]))
 		return (1);

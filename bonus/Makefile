@@ -122,6 +122,7 @@ SRCS_FILES:=	main_bonus.c \
 		render_bonus/raytracing_bonus.c \
 		render_bonus/render_bonus.c \
 		render_bonus/hit_obj_bonus.c \
+		render_bonus/material_hit.c \
 		render_bonus/nearest_elli_cyl_bonus.c \
 		render_bonus/bump_map_texture_bonus.c \
 		thread_bonus/setup_thread_bonus.c \

@@ -12,81 +12,45 @@
 
 #include "miniRT_bonus.h"
 
-t_vec cosine_weighted_hemisphere(t_vec normal)
+t_vec	cosine_weighted_hemisphere(t_vec normal)
 {
-    float r1 = drand48();
-    float r2 = drand48();
+	t_vec	up;
+	t_vec	local;
+	float	r1;
+	float	r2;
 
-    float phi = 2.0f * M_PI * r1;
-    float r = sqrtf(r2);
-    float x = r * cosf(phi);
-    float y = r * sinf(phi);
-    float z = sqrtf(1.0f - r2);
-
-    t_vec up = (fabsf(normal.z) < 0.999f) ? (t_vec){0, 0, 1} : (t_vec){1, 0, 0};
-    t_vec tangent = normalize(cross(up, normal));
-    t_vec bitangent = cross(normal, tangent);
-
-    t_vec local = vec_add(
-        vec_add(vec_mul(tangent, x), vec_mul(bitangent, y)),
-        vec_mul(normal, z)
-    );
-    return normalize(local);
-}
-
-t_vec	reflect(t_vec v, t_vec n)
-{
-	return vec_sub(v, vec_mul(vec_mul(n, scalar_product(v, n)), 2));
-}
-
-void	plastic_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
-{
-	ray->direction = cosine_weighted_hemisphere(hit->normal);
-	ray->origin = vec_add(hit->position, vec_mul(ray->direction, 0.0001f));
-
-	float cos_theta = fmaxf(scalar_product(hit->normal, ray->direction), 0.0f);
-	*throughput = scalar_color(*throughput, hit->color);
-	*throughput = scale_mlx_color(*throughput, cos_theta);
-}
-
-void	miror_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
-{
-	ray->direction = reflect(ray->direction, hit->normal);
-	ray->origin = vec_add(hit->position, vec_mul(ray->direction, 0.0001f));
-
-	*throughput = scalar_color(*throughput, hit->color);
+	r1 = drand48();
+	r2 = drand48();
+	if (fabsf(normal.z) < 0.999f)
+		up = (t_vec){0, 0, 1};
+	else
+		up = (t_vec){1, 0, 0};
+	local = vec_add(
+			vec_add(vec_mul(normalize(cross(up, normal)),
+					sqrtf(r2) * cosf(2.0f * M_PI * r1)),
+				vec_mul(cross(normal, normalize(cross(up, normal))),
+					sqrtf(r2) * sinf(2.0f * M_PI * r1))),
+			vec_mul(normal, sqrtf(1.0f - r2)));
+	return (normalize(local));
 }
 
 t_fcolor	shade_pathtracing_pixel(t_scene scene, t_ray ray)
 {
-	int			depth = 0;
-	bool		direct_light = true;
-	t_fcolor	throughput = {1.0f, 1.0f, 1.0f};
-	t_fcolor	color = {0.0f, 0.0f, 0.0f};
+	int			depth;
+	bool		direct_light;
+	t_hit		hit;
+	t_fcolor	value[2];
 
-	while (depth < 8)
+	depth = 0;
+	direct_light = true;
+	value[0] = (t_fcolor){1.0f, 1.0f, 1.0f};
+	value[1] = (t_fcolor){0.0f, 0.0f, 0.0f};
+	while (depth < 7)
 	{
-		t_hit	hit = intersectscene(scene, ray, direct_light);
-		if (hit.type == -1)
-			return (add_color(color, scalar_color((t_fcolor){0.0f, 0.0f, 0.0f}, throughput)));
-		if (hit.type == 3)
-		{
-    		t_fcolor emission = scale_mlx_color(hit.color, 1.0f);
-			if (!direct_light)
-	    		color = add_color(color, scalar_color(emission, throughput));
-			else
-				break;
-		}
-		if (hit.material == 0)
-		{
-			plastic_light(&hit, &ray, &throughput);
-			direct_light = false;
-		}
-		else if (hit.material == 1)
-			miror_light(&hit, &ray, &throughput);
-//		else if (hit.material == 2)
-//			metal_light();
+		hit = intersectscene(scene, ray, direct_light);
+		if (assign_material(hit, value, &direct_light, &ray))
+			break ;
 		depth++;
 	}
-	return (color);
+	return (value[1]);
 }

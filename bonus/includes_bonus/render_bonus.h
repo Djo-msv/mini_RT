@@ -40,4 +40,12 @@ t_vec	get_triangle_normal(t_triangle *t);
 
 t_ray get_antialiasing(t_scene scene, t_vec base_ray);
 
+t_vec	cosine_weighted_hemisphere(t_vec normal);
+t_vec	reflect(t_vec v, t_vec n);
+void	plastic_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput);
+void	miror_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput);
+int		assign_material(t_hit hit, t_fcolor value[2],
+		bool *direct_light, t_ray *ray);
+
+
 #endif
