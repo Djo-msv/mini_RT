@@ -49,14 +49,19 @@ typedef struct s_tpool
 } t_tpool;
 
 t_tpool	*tpool_create(size_t num);
+t_tpool_work	*tpool_work_create(thread_func_t func, void *arg);
+t_tpool_work	*tpool_work_get(t_tpool *tm);
+void	*tpool_worker(void *arg);
+void	tpool_work_destroy(t_tpool_work *work);
 void	tpool_wait(t_tpool *tm);
 void	tpool_destroy(t_tpool *tm);
+void	free_pool(t_tpool *tm);
 bool	tpool_add_work(t_tpool *tm, thread_func_t func, void *arg);
 void	worker(void *arg);
 int		lunch_thread(t_data *data);
 
 void	swap_buffer(t_tpool *pool);
-void	init_thread(t_data *data);
+int		init_thread(t_data *data);
 void	set_param(t_data *data);
 
 #endif

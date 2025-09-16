@@ -56,7 +56,11 @@ void	update(void *param)
 	else
 		swap_buffer(((t_data *)param)->pool);
 	update_input((t_data *)param);
-	lunch_thread((t_data *)param);
+	if (lunch_thread((t_data *)param))
+	{
+		mlx_loop_end(((t_data *)param)->mlx.mlx);
+		return ;
+	}
 	display_screen((t_data *)param);
 	fps_cnt((t_data *)param);
 }

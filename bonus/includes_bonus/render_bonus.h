@@ -19,6 +19,7 @@ t_hit		intersectscene(t_scene scene, t_ray ray, bool direct_light);
 t_fcolor	shade_pathtracing_pixel(t_scene scene, t_ray ray);
 t_fcolor	shade_raytracing_pixel(t_scene scene, t_ray ray);
 
+void	nearest_obj_bonus(t_scene scene, t_ray ray, t_hit *hit);
 t_hit	nearest_obj(t_scene scene, t_ray ray, bool direct_light);
 t_hit	nearest_ellipsoid(t_scene scene, t_ray ray);
 

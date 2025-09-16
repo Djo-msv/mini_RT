@@ -18,8 +18,8 @@ float	hit_plane(t_vec c, t_vec normal, t_ray r)
 	float	denominator;
 
 	denominator = scalar_product(r.direction, normal);
-	if (fabs(denominator) < 1e-6) // parallèle
-		return -1.0;
+	if (fabs(denominator) < 1e-6)
+		return (-1.0);
 	t = scalar_product(vec_sub(c, r.origin), normal) / denominator;
 	if (t >= 0.0)
 		return (t);

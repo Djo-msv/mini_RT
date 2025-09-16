@@ -12,6 +12,24 @@
 
 #include "miniRT_bonus.h"
 
+void	intersectscene_bonus(t_hit *hit)
+{
+	if (hit->type == 3)
+	{
+		hit->color = mlxcolor_to_fcolor(((t_light *)hit->obj)->color);
+		hit->normal = normalize(vec_sub(hit->position,
+					((t_light *)hit->obj)->coordinate));
+	}
+	else if (hit->type == 4)
+	{
+		hit->color = mlxcolor_to_fcolor(((t_triangle *)hit->obj)->color);
+		hit->normal = ((t_triangle *)hit->obj)->normal;
+		hit->material = ((t_triangle *)hit->obj)->mat;
+	}
+	else if (hit->type == 5)
+		*hit = ellipsoid(*hit);
+}
+
 t_hit	intersectscene(t_scene scene, t_ray ray, bool direct_light)
 {
 	t_hit	hit;
@@ -23,20 +41,8 @@ t_hit	intersectscene(t_scene scene, t_ray ray, bool direct_light)
 		hit = sphere(scene, hit);
 	else if (hit.type == 2)
 		hit = cylinder(hit);
-	else if (hit.type == 3)
-	{
-		hit.color = mlxcolor_to_fcolor(((t_light *)hit.obj)->color);
-		hit.normal = normalize(vec_sub(hit.position,
-				((t_light *)hit.obj)->coordinate));
-	}
-	else if (hit.type == 4)
-	{
-		hit.color = mlxcolor_to_fcolor(((t_triangle *)hit.obj)->color);
-		hit.normal = ((t_triangle *)hit.obj)->normal;
-		hit.material = ((t_triangle *)hit.obj)->mat;
-	}
-	else if (hit.type == 5)
-		hit = ellipsoid(hit);
+	else
+		intersectscene_bonus(&hit);
 	if (hit.obj)
 	{
 		if (scalar_product(hit.normal, ray.direction) > 0)
@@ -50,8 +56,10 @@ void	render(t_fcolor *pixel, t_vec ray_direction, t_scene *scene)
 	if (scene->camera.is_cam)
 	{
 		if (scene->camera.render_type)
-			*pixel = shade_raytracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
+			*pixel = shade_raytracing_pixel(*scene,
+					get_antialiasing(*scene, ray_direction));
 		else
-			*pixel = shade_pathtracing_pixel(*scene, get_antialiasing(*scene, ray_direction));
+			*pixel = shade_pathtracing_pixel(*scene,
+					get_antialiasing(*scene, ray_direction));
 	}
 }
