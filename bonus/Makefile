@@ -1,3 +1,5 @@
+bonus: all
+
 NAME	:= miniRT_bonus
 MAKEFLAGS += --no-print-directory
 
@@ -198,6 +200,6 @@ fclean: clean
 re: fclean
 	@make
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
 
 -include $(DEPS)

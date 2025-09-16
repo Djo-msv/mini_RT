@@ -161,11 +161,9 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
 	$(eval NB_COMP=$(shell expr $(NB_COMP) + 1))
 
 clean:
-	@echo "$(RED)Remove objects$(NOC)"
 	@rm -rf $(BUILD_DIR)
 
 fclean: clean
-	@echo "$(RED)Remove binary$(NOC)"
 	@rm -f $(NAME)
 
 re: fclean
