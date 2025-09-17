@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:37 by star              #+#    #+#             */
-/*   Updated: 2025/09/12 17:14:57 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 16:42:15 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@
 # include "mlx.h"
 # include "parsing.h"
 # include "alloc.h"
-
-# define MAX_RES_H 1920
-# define MAX_RES_V 1080
 
 t_hit	nearest_cylinder(t_data *data, t_ray ray);
 t_hit	nearest_sphere(t_data *data, t_ray ray);

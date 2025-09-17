@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:03 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 16:13:41 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 16:44:09 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	alloc_ray_direction(t_setting_cam *scene)
 	scene->ray_direction[(int)scene->width] = NULL;
 	while (x != scene->width)
 	{
-		scene->ray_direction[x] = malloc(MAX_RES_V * sizeof(t_vec));
+		scene->ray_direction[x] = malloc(MAX_RES_W * sizeof(t_vec));
 		x++;
 	}
 }

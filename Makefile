@@ -74,7 +74,9 @@ RESET_BG	= \033[0m
 SRC_DIR			:=  manda/srcs
 SRC_DIR_BONUS	:=	bonus/srcs_bonus
 HEADER_DIR		:=	manda/includes
+HEADER_DIR_BONUS	:=	bonus/includes_bonus
 BUILD_DIR		:=	manda/.build
+BUILD_DIR_BONUS	:=	bonus/.build_bonus
 MLX_DIR			:=	MacroLibX
 LIBRT_DIR		:=	lib_RT
 
@@ -98,43 +100,27 @@ SRCS_FILES:=	main.c \
 		mlx/mlx_setup.c \
 		mlx/rotate_obj.c \
 		mlx/del_obj.c \
-		mlx/resize_obj.c \
-		mlx/translation_obj.c \
-		mlx/mlx_key.c \
-		print/print.c \
 		parsing/parse_cam_light.c \
-		parsing/parse_sphere.c \
+		parsing/parse_sphere_a_light.c \
 		parsing/parse_plane.c \
-		parsing/parse_triangle.c \
-		parsing/parse_ellipsoid.c \
 		parsing/parsing.c \
 		parsing/scene.c \
 		parsing/verif_utils.c \
 		parsing/verif_float.c \
 		parsing/parse_cylinder.c \
-		parsing/parse_a_light.c \
 		render/antialiasing.c \
 		render/shape/cylinder.c \
 		render/shape/plane.c \
 		render/shape/sphere.c \
-		render/shape/triangle.c \
-		render/shape/ellipsoid.c \
 		render/nearest_obj.c \
-		render/pathtracing.c \
 		render/raytracing.c \
 		render/render.c \
 		render/hit_obj.c \
-		render/nearest_elli_cyl.c \
-		render/bump_map_texture.c \
-		thread/setup_thread.c \
-		thread/run_thread.c \
+		render/nearest_cyl.c \
 		utils/alloc.c \
-		utils/input.c \
-		utils/add_texture.c	\
-		view/camera.c \
+		view/angle_camera.c \
 		view/move_camera.c \
-		view/angle_camera.c
-
+		view/setup_camera.c
 
 SRCS_FILES_BONUS:= 	main_bonus.c \
 		display_bonus/display_screen_bonus.c \
@@ -198,18 +184,19 @@ SRCS_BONUS:=	$(addprefix $(SRC_DIR_BONUS)/, $(SRCS_FILES_BONUS))
 #=============================OBJECTS===========================#
 
 OBJS:=			${SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o}
-OBJS_BONUS:=	${SRCS_BONUS:$(SRC_DIR_BONUS)/%.c=$(BUILD_DIR)/bonus/%.o}
+OBJS_BONUS:=	${SRCS_BONUS:$(SRC_DIR_BONUS)/%.c=$(BUILD_DIR_BONUS)/%.o}
 
 #===============================DEPS=============================#
 
 DEPS:=			${SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.d}
-DEPS_BONUS:=	${SRCS_BONUS:$(SRC_DIR_BONUS)/%.c=$(BUILD_DIR)/bonus/%.d}
+DEPS_BONUS:=	${SRCS_BONUS:$(SRC_DIR_BONUS)/%.c=$(BUILD_DIR_BONUS)/%.d}
 
 #=============================INCLUDES===========================#
 
 LIBS :=  -L$(LIBRT_DIR) -l_rt -L$(MLX_DIR) -lmlx -lSDL2
 LDFLAGS := -Wl,-rpath=$(MLX_DIR)
 INC := -I$(HEADER_DIR) -I$(LIBRT_DIR) -I$(MLX_DIR)
+INC_BONUS := -I$(HEADER_DIR_BONUS) -I$(LIBRT_DIR) -I$(MLX_DIR)
 
 #================================DIR=============================#
 
@@ -243,7 +230,16 @@ $(NAME): $(OBJS)
 
 $(BONUS_NAME): $(OBJS_BONUS)
 	@echo "\n$(GREEN)Create bonus binaries$(NOC)"
-	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(INC) -o $@ -lreadline
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(INC_BONUS) -o $@ $(LIBS) $(LDFLAGS) -lm
+	@echo "$(RED)"
+	@printf "%s\n" \
+	"██████╗ ████████╗        ██╗  ██╗████████╗██████╗ ███████╗███╗   ███╗" \
+	"██╔══██╗╚══██╔══╝        ╚██╗██╔╝╚══██╔══╝██╔══██╗██╔════╝████╗ ████║" \
+	"██████╔╝   ██║            ╚███╔╝    ██║   ██████╔╝█████╗  ██╔████╔██║" \
+	"██╔══██╗   ██║            ██╔██╗    ██║   ██╔══██╗██╔══╝  ██║╚██╔╝██║" \
+	"██║  ██║   ██║   ███████╗██╔╝ ██╗   ██║   ██║  ██║███████╗██║ ╚═╝ ██║" \
+	"╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝"
+	@echo "$(NOC)"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
 	@mkdir -p $(BUILD_DIR)
@@ -257,8 +253,8 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
 	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
 	$(eval NB_COMP=$(shell expr $(NB_COMP) + 1))
 
-$(BUILD_DIR)/bonus/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
-	@mkdir -p $(BUILD_DIR)/bonus/
+$(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
+	@mkdir -p $(BUILD_DIR_BONUS)/
 	@if [ $(NB_COMP_BONUS) -eq 1 ]; then echo "$(BOLD)Compilation of source files :$(NOC)";fi
 	$(eval PERCENT=$(shell expr $(NB_COMP_BONUS)00 "/" $(TO_COMP_BONUS)))
 	@if [ $(PERCENT) -le 30 ]; then echo -n "$(RED)"; elif [ $(PERCENT) -le 66 ]; then echo -n "$(YELLOW)"; elif [ $(PERCENT) -gt 66 ]; then echo -n "$(GREEN)"; fi
@@ -266,7 +262,7 @@ $(BUILD_DIR)/bonus/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
 	@echo -n "\r"; for i in $$(seq 1 25); do if [ $$(expr $$i "*" 4) -le $(PERCENT) ]; then echo -n "█"; else echo -n " "; fi; done; echo -n "";
 	@printf " $(NB_COMP_BONUS)/$(TO_COMP_BONUS) - Compiling $<"
 	@echo -n "$(NOC)"
-	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
+	@$(CC) $(CFLAGS) $(INC_BONUS) $< -c -o $@
 	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
 
 $(MLX_DIR):
@@ -279,7 +275,8 @@ $(LIBRT_DIR):
 
 clean:
 	@echo "$(RED)Remove objects$(NOC)"
-	@rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR) 
+	@rm -rf $(BUILD_DIR_BONUS)
 
 fclean: clean
 	@echo "$(RED)Remove binary$(NOC)"
