@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:33:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 16:29:36 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 17:34:54 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	mouse(t_data *data)
 			cam->width >> 1, cam->height >> 1);
 		if (x - (cam->width >> 1) == 0 && y - (cam->height >> 1) == 0)
 			return ;
-		cam->yaw  += (x - (float)(cam->width >> 1)) * 0.001f;
+		cam->yaw += (x - (float)(cam->width >> 1)) * 0.001f;
 		cam->pitch -= (y - (float)(cam->height >> 1)) * 0.001f;
 		if (cam->pitch > 1.5708f)
 			cam->pitch = 1.5707f;

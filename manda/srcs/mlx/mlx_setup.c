@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:35:24 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 16:43:41 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 17:34:53 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	setup_mlx_window(t_mlx *mlx)
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
 	mlx_set_window_max_size(mlx->mlx, mlx->win, MAX_RES_W, MAX_RES_H);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
-//	mlx_set_fps_goal(mlx->mlx, 60);
+	// mlx_set_fps_goal(mlx->mlx, 60);
 }
 
 void	setup_images(t_data *data)

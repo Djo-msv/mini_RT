@@ -6,12 +6,20 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:20 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:23:08 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 18:42:56 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_BONUS_H
 # define VECTOR_BONUS_H
+
+typedef struct s_fcolor
+{
+	double	r;
+	double	g;
+	double	b;
+}	t_fcolor
+__attribute__((aligned(1)));
 
 typedef struct s_vec
 {
@@ -28,8 +36,8 @@ typedef struct s_vec2
 
 typedef struct s_ray
 {
-    t_vec origin;
-    t_vec direction;
+	t_vec	origin;
+	t_vec	direction;
 }	t_ray;
 
 t_vec	vec_add(t_vec vec1, t_vec vec2);

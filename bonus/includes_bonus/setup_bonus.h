@@ -6,32 +6,24 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:01 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:36:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 18:42:46 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SETUP_BONUS_H
 # define SETUP_BONUS_H
 
-typedef struct s_fcolor
-{
-	double	r;
-	double	g;
-	double	b;
-}	t_fcolor
-__attribute__((aligned(1)));
-
 # include "image_bonus.h"
 
-typedef struct	s_hit
+typedef struct s_hit
 {
-	float	t;
-	void	*obj;
-	int		type;
-	int		material;
-	int		part;
-	t_vec	position;
-	t_vec	normal;
+	float		t;
+	void		*obj;
+	int			type;
+	int			material;
+	int			part;
+	t_vec		position;
+	t_vec		normal;
 	t_fcolor	color;
 }	t_hit
 __attribute__((aligned(1)));
@@ -52,7 +44,7 @@ typedef struct s_camera
 }	t_camera
 __attribute__((aligned(1)));
 
-typedef struct	s_param
+typedef struct s_param
 {
 	int	nb_chunk;
 }	t_param
@@ -60,10 +52,10 @@ __attribute__((aligned(1)));
 
 typedef struct s_mlx
 {
-	mlx_context		mlx;
-	mlx_window		win;
+	mlx_context				mlx;
+	mlx_window				win;
 	mlx_window_create_info	info;
-	mlx_image		img;
+	mlx_image				img;
 }	t_mlx
 __attribute__((aligned(1)));
 
@@ -97,7 +89,7 @@ typedef struct s_print_info
 	int		resolution;
 	int		nb_input;
 	float	fps;
-	int	sample;
+	int		sample;
 	bool	aa;
 	bool	first_display;
 	int		obj;

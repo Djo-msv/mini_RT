@@ -6,13 +6,14 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:29:01 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:29:21 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 17:47:06 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	average_pixel(t_fcolor *n_pixel, t_fcolor o_pixel, float coef_new_p, float coef_old_p)
+void	average_pixel(t_fcolor *n_pixel, t_fcolor o_pixel,
+	float coef_new_p, float coef_old_p)
 {
 	float	tmp;
 
@@ -24,7 +25,8 @@ void	average_pixel(t_fcolor *n_pixel, t_fcolor o_pixel, float coef_new_p, float 
 	n_pixel->b = tmp;
 }
 
-void	sampling(t_fcolor *o_pixel, t_fcolor n_pixel, double coef_new_p, double coef_old_p)
+void	sampling(t_fcolor *o_pixel, t_fcolor n_pixel,
+	double coef_new_p, double coef_old_p)
 {
 	double	tmp;
 
