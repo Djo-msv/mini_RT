@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:35:24 by star              #+#    #+#             */
-/*   Updated: 2025/07/26 16:35:29 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 16:43:41 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	setup_mlx_window(t_mlx *mlx)
 	mlx->info.is_fullscreen = false;
 	mlx->win = mlx_new_window(mlx->mlx, &mlx->info);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
-	mlx_set_window_max_size(mlx->mlx, mlx->win, MAX_RES_V, MAX_RES_H);
+	mlx_set_window_max_size(mlx->mlx, mlx->win, MAX_RES_W, MAX_RES_H);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
 //	mlx_set_fps_goal(mlx->mlx, 60);
 }
@@ -31,9 +31,9 @@ void	setup_images(t_data *data)
 	data->image.resolution = 1;
 	data->image.antialiasing = 1;
 	data->setting_cam.rbon_nb = 8;
-	data->image.new_img = ft_calloc(MAX_RES_V * MAX_RES_H, sizeof(t_fcolor));
-	data->image.old_img = ft_calloc(MAX_RES_V * MAX_RES_H, sizeof(t_fcolor));
-	data->image.mlx_img = ft_calloc(MAX_RES_V * MAX_RES_H, sizeof(mlx_color));
+	data->image.new_img = ft_calloc(MAX_RES_W * MAX_RES_H, sizeof(t_fcolor));
+	data->image.old_img = ft_calloc(MAX_RES_W * MAX_RES_H, sizeof(t_fcolor));
+	data->image.mlx_img = ft_calloc(MAX_RES_W * MAX_RES_H, sizeof(mlx_color));
 }
 
 void	setup_events(t_data *data, t_mlx *mlx)
