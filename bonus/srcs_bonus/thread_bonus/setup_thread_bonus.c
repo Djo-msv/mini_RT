@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:37:57 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 19:05:04 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	set_param(t_data *data)
 void	free_pool(t_tpool *tm)
 {
 	if (!tm)
-		return;
+		return ;
 	free(tm->buffer_a);
 	free(tm->buffer_b);
 	free(tm->ray_direction);
@@ -38,7 +38,7 @@ void	free_pool(t_tpool *tm)
 	tm = NULL;
 }
 
-t_tpool	*safe_pool_alloc()
+t_tpool	*safe_pool_alloc(void)
 {
 	t_tpool	*tm;
 

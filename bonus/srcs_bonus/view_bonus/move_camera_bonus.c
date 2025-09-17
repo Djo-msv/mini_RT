@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_camera_bonus.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/17 18:58:01 by star              #+#    #+#             */
+/*   Updated: 2025/09/17 19:00:30 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "miniRT_bonus.h"
 
 void	move_camera_forward(t_data *data, t_camera *cam)
@@ -14,7 +26,6 @@ void	move_camera_forward(t_data *data, t_camera *cam)
 //	rotate_camera(data, cam->pitch, cam->yaw);
 	data->scene.camera.coordinate = cam->coordinate;
 	data->image.nb_images = 0;
-
 }
 
 void	move_camera_backward(t_data *data, t_camera *cam)
@@ -51,7 +62,6 @@ void	move_camera_left(t_data *data, t_camera *cam)
 //	rotate_camera(data, cam->pitch, cam->yaw);
 	data->scene.camera.coordinate = cam->coordinate;
 	data->image.nb_images = 0;
-
 }
 
 void	move_camera_right(t_data *data, t_camera *cam)
@@ -72,21 +82,4 @@ void	move_camera_right(t_data *data, t_camera *cam)
 //	rotate_camera(data, cam->pitch, cam->yaw);
 	data->scene.camera.coordinate = cam->coordinate;
 	data->image.nb_images = 0;
-}
-
-void	move_camera_up(t_data *data, t_camera *cam)
-{
-	cam->coordinate.y += 0.05f;
-//	rotate_camera(data, cam->pitch, cam->yaw);
-	data->scene.camera.coordinate = cam->coordinate;
-	data->image.nb_images = 0;
-}
-
-void	move_camera_down(t_data *data, t_camera *cam)
-{
-	cam->coordinate.y -= 0.05f;
-//	rotate_camera(data, cam->pitch, cam->yaw);
-	data->scene.camera.coordinate = cam->coordinate;
-	data->image.nb_images = 0;
-
 }
