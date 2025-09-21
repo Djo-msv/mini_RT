@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 20:40:34 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 15:52:13 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 18:06:37 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 
 void	fcolor_to_mlxcolor(t_data *d, t_fcolor *s, mlx_color *dst, size_t n)
 {
-	double	coef_new_p = d->image.coef_new_p;
-	double	coef_old_p = d->image.coef_old_p;
-	
+	double	coef_new_p;
+	double	coef_old_p;
+	size_t	i;
 
-	for (size_t i = 0; i < n; ++i)
+	i = -1;
+	coef_new_p = d->image.coef_new_p;
+	coef_old_p = d->image.coef_old_p;
+	while (++i < n)
 	{
 		double rf = s[i].r * 255.0f;
 		double gf = s[i].g * 255.0f;

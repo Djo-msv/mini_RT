@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:38:18 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 19:09:07 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ void	move_camera(t_data *data, t_input input)
 		move_camera_down(data, &data->cam);
 }
 
+int	add_all_button(t_input i)
+{
+	int	res;
+
+	res = i.z_button + i.s_button + i.a_button + i.d_button
+		+ i.space_button + i.shift_button + i.deletion_button + i.down_button
+		+ i.left_button + i.up_button + i.right_button + i.minus_button
+		+ i.plus_button + i.nine_button + i.zero_button + i.ctrl + i.alt;
+	return (res);
+}
+
 void	update_input(t_data *data)
 {
 	int		tmp;
@@ -35,10 +46,7 @@ void	update_input(t_data *data)
 
 	i = data->input;
 	tmp = data->info.nb_input;
-	data->info.nb_input = i.z_button + i.s_button + i.a_button + i.d_button
-		+ i.space_button + i.shift_button + i.deletion_button + i.down_button
-		+ i.left_button + i.up_button + i.right_button + i.minus_button
-		+ i.plus_button + i.nine_button + i.zero_button + i.ctrl + i.alt;
+	data->info.nb_input = add_all_button(i);
 	if (data->info.nb_input != tmp)
 		print_info(&data->info);
 	if (data->pool->restart)
@@ -49,7 +57,8 @@ void	update_input(t_data *data)
 		set_camera_window(data, &(data->cam));
 		set_camera_ray(data->pool->ray_direction, &(data->cam), data->mlx.info);
 	}
-	if (data->scene.select.hit.t > 0 && data->info.nb_input && data->scene.select.hit.type != -1)
+	if (data->scene.select.hit.t > 0 && data->info.nb_input
+		&& data->scene.select.hit.type != -1)
 		change_obj(data, data->scene.select.hit);
 	if (i.move)
 	{

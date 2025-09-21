@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:03 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 16:44:09 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 17:47:42 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	calcule_scene(t_data *data, t_setting_cam *scene)
 	scene->width = data->mlx.info.width;
 	scene->height = data->mlx.info.height;
 	scene->focal_length = 1.0f;
-	scene->viewport_height = 2.0 * tan((data->scene.camera.fov * M_PI / 180.0) / 2.0);
+	scene->viewport_height = 2.0 * tan((data->scene.camera.fov
+				* M_PI / 180.0) / 2.0);
 	scene->viewport_width = scene->viewport_height * scene->ratio;
 }
 
@@ -93,7 +94,8 @@ void	setup_camera_setting(t_data *data)
 
 	scene = &data->setting_cam;
 	scene->pitch = asin(data->scene.camera.orientation.y);
-	scene->yaw = atan2(data->scene.camera.orientation.x, data->scene.camera.orientation.z);
+	scene->yaw = atan2(data->scene.camera.orientation.x,
+			data->scene.camera.orientation.z);
 	scene->camera_center = data->scene.camera.coordinate;
 	calcule_scene(data, scene);
 	angle_camera(data, scene->pitch, scene->yaw);

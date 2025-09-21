@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 15:05:34 by star              #+#    #+#             */
-/*   Updated: 2025/07/30 16:44:57 by star             ###   ########.fr       */
+/*   Updated: 2025/09/17 17:27:45 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	setup_minirt(t_data *data)
 {
 	setup_mlx(data);
-	// if (data->scene.camera.is_cam)
 	setup_camera_setting(data);
 }
 

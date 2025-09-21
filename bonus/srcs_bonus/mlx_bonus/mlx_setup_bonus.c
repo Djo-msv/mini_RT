@@ -29,12 +29,19 @@ void	setup_mlx_window(t_mlx *mlx)
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
 }
 
-void	setup_images(t_data *data)
+int	setup_images(t_data *data)
 {
 	data->image.resolution = 1;
 	data->image.antialiasing = 1;
 	data->image.buf_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(t_fcolor));
 	data->image.mlx_img = ft_calloc(MAX_RES_H * MAX_RES_W, sizeof(mlx_color));
+	if (!data->image.buf_img || !data->image.mlx_img)
+	{
+		free(data->image.buf_img);
+		free(data->image.mlx_img);
+		return (1);
+	}
+	return (0);
 }
 
 void	setup_info(t_data *data, t_print_info *info)

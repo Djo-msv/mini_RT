@@ -12,6 +12,34 @@
 
 #include "miniRT_bonus.h"
 
+t_hit	nearest_triangle(t_scene scene, t_ray ray)
+{
+	t_hit		hit;
+	t_list		*tmp;
+	t_triangle	*triangle;
+	float		t;
+
+	t = -1;
+	hit.t = 0;
+	hit.obj = NULL;
+	hit.type = -1;
+	hit.material = 0;
+	tmp = scene.triangle;
+	while (tmp)
+	{
+		triangle = (t_triangle *)tmp->content;
+		t = hit_triangle(triangle, ray);
+		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		{
+			hit.t = t;
+			hit.obj = triangle;
+			hit.type = 4;
+		}
+		tmp = tmp->next;
+	}
+	return (hit);
+}
+
 t_hit	nearest_ellipsoid(t_scene scene, t_ray ray)
 {
 	t_hit		hit;
@@ -84,4 +112,18 @@ t_hit	nearest_cylinder(t_scene scene, t_ray ray)
 		tmp = tmp->next;
 	}
 	return (hit);
+}
+
+void	nearest_obj_bonus(t_scene scene, t_ray ray, t_hit *hit)
+{
+	t_hit	buf_hit;
+
+	buf_hit = nearest_triangle(scene, ray);
+	if (buf_hit.t > 0.0f && (buf_hit.t < hit->t || hit->t == 0))
+		*hit = buf_hit;
+	buf_hit = nearest_ellipsoid(scene, ray);
+	if (buf_hit.t > 0.0f && (buf_hit.t < hit->t || hit->t == 0))
+		*hit = buf_hit;
+	else
+		hit->position = vec_add(ray.origin, vec_mul(ray.direction, hit->t));
 }

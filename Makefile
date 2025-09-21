@@ -169,6 +169,7 @@ SRCS_FILES_BONUS:= 	main_bonus.c \
 		render_bonus/material_hit.c \
 		render_bonus/nearest_elli_cyl_bonus.c \
 		render_bonus/bump_map_texture_bonus.c \
+		thread_bonus/manage_thread.c \
 		thread_bonus/setup_thread_bonus.c \
 		thread_bonus/run_thread_bonus.c \
 		utils_bonus/alloc_bonus.c \

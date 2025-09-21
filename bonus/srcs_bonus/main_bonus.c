@@ -12,11 +12,13 @@
 
 #include "miniRT_bonus.h"
 
-void	setup_minirt(t_data *data)
+int	setup_minirt(t_data *data)
 {
-	init_thread(data);
+	if (init_thread(data))
+		return (1);
 	setup_mlx(data);
 	set_camera_value(data, &data->cam);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -26,7 +28,11 @@ int	main(int argc, char **argv)
 	ft_memset(&data, 0, sizeof(data));
 	if (parse(&data, argc, argv))
 		return (1);
-	setup_minirt(&data);
+	if (setup_minirt(&data))
+	{
+		free_data(&data);
+		return (1);
+	}
 	ft_add_texture(&data);
 	run_minirt(&data);
 	free_data(&data);
