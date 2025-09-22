@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:23 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 15:48:24 by star             ###   ########.fr       */
+/*   Updated: 2025/09/22 17:50:42 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	move_camera_forward(t_data *data, t_setting_cam *cam);
 
 void	rotate_camera(t_data *data, float pitch, float yaw);
 
-void	setup_camera_setting(t_data *data);
+int		setup_camera_setting(t_data *data);
 void	calcule_res(t_data *data, t_setting_cam *cam);
 void	calculate_ray_direction(t_setting_cam *scene);
 

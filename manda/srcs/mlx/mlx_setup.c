@@ -6,13 +6,13 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:35:24 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 17:34:53 by star             ###   ########.fr       */
+/*   Updated: 2025/09/22 17:51:00 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	setup_mlx_window(t_mlx *mlx)
+static int	setup_mlx_window(t_mlx *mlx)
 {
 	mlx->info.title = "miniRT";
 	mlx->info.width = 800;
@@ -21,19 +21,35 @@ void	setup_mlx_window(t_mlx *mlx)
 	mlx->info.is_fullscreen = false;
 	mlx->win = mlx_new_window(mlx->mlx, &mlx->info);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
+	if (!mlx->win || !mlx->img)
+		return (1);
 	mlx_set_window_max_size(mlx->mlx, mlx->win, MAX_RES_W, MAX_RES_H);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
-	// mlx_set_fps_goal(mlx->mlx, 60);
+	return (0);
 }
 
-void	setup_images(t_data *data)
+static int	setup_images(t_data *data)
 {
 	data->image.resolution = 1;
 	data->image.antialiasing = 1;
 	data->setting_cam.rbon_nb = 8;
 	data->image.new_img = ft_calloc(MAX_RES_W * MAX_RES_H, sizeof(t_fcolor));
+	if (!data->image.new_img)
+		return (1);
 	data->image.old_img = ft_calloc(MAX_RES_W * MAX_RES_H, sizeof(t_fcolor));
+	if (!data->image.old_img)
+	{
+		free(data->image.new_img);
+		return (1);
+	}
 	data->image.mlx_img = ft_calloc(MAX_RES_W * MAX_RES_H, sizeof(mlx_color));
+	if (!data->image.mlx_img)
+	{
+		free(data->image.new_img);
+		free(data->image.old_img);
+		return (1);
+	}
+	return (0);
 }
 
 void	setup_events(t_data *data, t_mlx *mlx)
@@ -50,8 +66,12 @@ int	setup_mlx(t_data *data)
 
 	mlx = &data->mlx;
 	mlx->mlx = mlx_init();
-	setup_mlx_window(mlx);
-	setup_images(data);
+	if (!mlx->mlx)
+		return (1);
+	if (setup_mlx_window(mlx))
+		return (1);
+	if (setup_images(data))
+		return (1);
 	setup_events(data, mlx);
 	return (0);
 }

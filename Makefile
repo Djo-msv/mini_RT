@@ -78,7 +78,9 @@ HEADER_DIR_BONUS	:=	bonus/includes_bonus
 BUILD_DIR		:=	manda/.build
 BUILD_DIR_BONUS	:=	bonus/.build_bonus
 MLX_DIR			:=	MacroLibX
+MLX_LIB			:=	$(MLX_DIR)/libmlx.so
 LIBRT_DIR		:=	lib_RT
+LIBRT_LIB		:=	$(LIBRT_DIR)/lib_rt.a
 
 #==============================SOURCES===========================#
 
@@ -206,9 +208,9 @@ DIRS_BONUS		:=	$(sort $(shell dirname $(OBJS_BONUS))) #no duplicates
 
 #===============================RULES============================#
 
-all: $(MLX_DIR) $(LIBRT_DIR) $(NAME)
+all: $(MLX_LIB) $(LIBRT_LIB) $(NAME)
 
-bonus: $(BONUS_NAME)
+bonus: $(MLX_LIB) $(LIBRT_LIB) $(BONUS_NAME)
 
 $(DIRS):
 	@mkdir -p $@
@@ -216,7 +218,7 @@ $(DIRS):
 $(DIRS_BONUS):
 	@mkdir -p $@
 
-$(NAME): $(OBJS)
+$(NAME): $(MLX_LIB) $(LIBRT_LIB) $(OBJS)
 	@echo "\n$(GREEN)Create binaries$(NOC)"
 	@$(CC) $(CFLAGS) $(OBJS) $(INC) -o $@ $(LIBS) $(LDFLAGS) -lm
 	@echo "$(RED)"
@@ -229,7 +231,7 @@ $(NAME): $(OBJS)
 	"╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝"
 	@echo "$(NOC)"
 
-$(BONUS_NAME): $(OBJS_BONUS)
+$(BONUS_NAME): $(MLX_LIB) $(LIBRT_LIB) $(OBJS_BONUS)
 	@echo "\n$(GREEN)Create bonus binaries$(NOC)"
 	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(INC_BONUS) -o $@ $(LIBS) $(LDFLAGS) -lm
 	@echo "$(RED)"
@@ -242,7 +244,7 @@ $(BONUS_NAME): $(OBJS_BONUS)
 	"╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝"
 	@echo "$(NOC)"
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(MLX_LIB) $(LIBRT_LIB) $(DIRS)
 	@mkdir -p $(BUILD_DIR)
 	@if [ $(NB_COMP) -eq 1 ]; then echo "\n$(BOLD)Compilation of source files :$(NOC)";fi
 	$(eval PERCENT=$(shell expr $(NB_COMP)00 "/" $(TO_COMP)))
@@ -254,7 +256,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
 	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
 	$(eval NB_COMP=$(shell expr $(NB_COMP) + 1))
 
-$(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
+$(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(MLX_LIB) $(LIBRT_LIB) $(DIRS_BONUS)
 	@mkdir -p $(BUILD_DIR_BONUS)/
 	@if [ $(NB_COMP_BONUS) -eq 1 ]; then echo "$(BOLD)Compilation of source files :$(NOC)";fi
 	$(eval PERCENT=$(shell expr $(NB_COMP_BONUS)00 "/" $(TO_COMP_BONUS)))
@@ -266,13 +268,17 @@ $(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
 	@$(CC) $(CFLAGS) $(INC_BONUS) $< -c -o $@
 	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
 
-$(MLX_DIR):
-	@git clone https://github.com/seekrs/MacroLibX.git $@
-	@$(MAKE) -C $@
+$(MLX_LIB):
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		git clone https://github.com/seekrs/MacroLibX.git $(MLX_DIR); \
+	fi
+	@$(MAKE) -C $(MLX_DIR)
 
-$(LIBRT_DIR):
-	@git clone git@github.com:Djo-msv/lib_RT.git $@
-	@$(MAKE) -C $@
+$(LIBRT_LIB):
+	@if [ ! -d "$(LIBRT_DIR)" ]; then \
+		git clone git@github.com:Djo-msv/lib_RT.git $(LIBRT_DIR); \
+	fi
+	@$(MAKE) -C $(LIBRT_DIR)
 
 clean:
 	@echo "$(RED)Remove objects$(NOC)"
@@ -283,6 +289,10 @@ fclean: clean
 	@echo "$(RED)Remove binary$(NOC)"
 	@rm -f $(NAME)
 	@rm -f $(BONUS_NAME)
+# @rm -rf $(MLX_DIR)
+# @rm -rf $(LIBRT_DIR)
+# @$(MAKE) -C $(MLX_DIR) fclean
+# @$(MAKE) -C $(LIBRT_DIR) fclean
 
 re: fclean
 	@make

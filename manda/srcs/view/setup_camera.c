@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:03:03 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 17:47:42 by star             ###   ########.fr       */
+/*   Updated: 2025/09/22 17:31:35 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,28 @@ void	calculate_ray_direction(t_setting_cam *scene)
 	}
 }
 
-void	alloc_ray_direction(t_setting_cam *scene)
+int	alloc_ray_direction(t_setting_cam *scene)
 {
 	int		x;
 
 	x = 0;
 	scene->ray_direction = ft_calloc((MAX_RES_H + 1), sizeof(t_vec *));
+	if (!scene->ray_direction)
+		return (1);
 	scene->ray_direction[(int)scene->width] = NULL;
 	while (x != scene->width)
 	{
 		scene->ray_direction[x] = malloc(MAX_RES_W * sizeof(t_vec));
+		if (!scene->ray_direction[x])
+		{
+			while (--x > 0)
+				free(scene->ray_direction[x]);
+			free(scene->ray_direction);
+			return (1);
+		}
 		x++;
 	}
+	return (0);
 }
 
 void	calcule_res(t_data *data, t_setting_cam *cam)
@@ -88,7 +98,7 @@ void	calcule_scene(t_data *data, t_setting_cam *scene)
 	scene->viewport_width = scene->viewport_height * scene->ratio;
 }
 
-void	setup_camera_setting(t_data *data)
+int	setup_camera_setting(t_data *data)
 {
 	t_setting_cam	*scene;
 
@@ -100,6 +110,8 @@ void	setup_camera_setting(t_data *data)
 	calcule_scene(data, scene);
 	angle_camera(data, scene->pitch, scene->yaw);
 	calcule_res(data, scene);
-	alloc_ray_direction(scene);
+	if (alloc_ray_direction(scene))
+		return (1);
 	calculate_ray_direction(scene);
+	return (0);
 }
