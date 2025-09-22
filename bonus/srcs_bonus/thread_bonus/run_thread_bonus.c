@@ -12,32 +12,40 @@
 
 #include "miniRT_bonus.h"
 
+static int	tpool_set_work(t_tpool *tm)
+{
+	t_tpool_work	*work;
+
+	pthread_mutex_lock(&(tm->work_mutex));
+	while (tm->work_first == NULL && !tm->stop)
+		pthread_cond_wait(&(tm->work_cond), &(tm->work_mutex));
+	if (tm->stop)
+		return (1);
+	work = tpool_work_get(tm);
+	tm->working_cnt++;
+	pthread_mutex_unlock(&(tm->work_mutex));
+	if (work != NULL)
+	{
+		work->func(work->arg);
+		tpool_work_destroy(work);
+	}
+	pthread_mutex_lock(&(tm->work_mutex));
+	tm->working_cnt--;
+	if (!tm->stop && tm->working_cnt == 0 && tm->work_first == NULL)
+		pthread_cond_signal(&(tm->working_cond));
+	pthread_mutex_unlock(&(tm->work_mutex));
+	return (0);
+}
+
 void	*tpool_worker(void *arg)
 {
-	t_tpool			*tm;
-	t_tpool_work	*work;
+	t_tpool		*tm;
 
 	tm = arg;
 	while (1)
 	{
-		pthread_mutex_lock(&(tm->work_mutex));
-		while (tm->work_first == NULL && !tm->stop)
-			pthread_cond_wait(&(tm->work_cond), &(tm->work_mutex));
-		if (tm->stop)
+		if (tpool_set_work(tm))
 			break ;
-		work = tpool_work_get(tm);
-		tm->working_cnt++;
-		pthread_mutex_unlock(&(tm->work_mutex));
-		if (work != NULL)
-		{
-			work->func(work->arg); //render
-			tpool_work_destroy(work);
-		}
-		pthread_mutex_lock(&(tm->work_mutex));
-		tm->working_cnt--;
-		if (!tm->stop && tm->working_cnt == 0 && tm->work_first == NULL)
-			pthread_cond_signal(&(tm->working_cond));
-		pthread_mutex_unlock(&(tm->work_mutex));
 	}
 	tm->thread_cnt--;
 	pthread_cond_signal(&(tm->working_cond));
@@ -61,7 +69,7 @@ void	tpool_wait(t_tpool *tm)
 	pthread_mutex_unlock(&(tm->work_mutex));
 }
 
-bool	tpool_add_work(t_tpool *tm, thread_func_t func, void *arg)
+bool	tpool_add_work(t_tpool *tm, t_thread_func func, void *arg)
 {
 	t_tpool_work	*work;
 
@@ -102,31 +110,4 @@ void	worker(void *arg)
 		ray_direction++;
 		i++;
 	}
-}
-
-int	lunch_thread(t_data *data)
-{
-	t_tpool			*tm;
-	int				nb_chunk;
-	t_thread_arg	*arg;
-	int				i;
-
-	i = -1;
-	tm = data->pool;
-	nb_chunk = data->param.nb_chunk;
-	arg = tm->arg;
-	while (++i < nb_chunk)
-	{
-		*arg = (t_thread_arg){SIZE_CHUNK, &(tm->buffer_a[i * SIZE_CHUNK]),
-			&(tm->ray_direction[i * SIZE_CHUNK]), &data->scene};
-		if (i == nb_chunk - 1)
-			(*arg).size = (data->mlx.info.height * data->mlx.info.width)
-				- ((nb_chunk - 1) * SIZE_CHUNK);
-		if (!tpool_add_work(tm, (thread_func_t)worker, arg++))
-		{
-			tpool_destroy(tm);
-			return (1);
-		}
-	}
-	return (0);
 }

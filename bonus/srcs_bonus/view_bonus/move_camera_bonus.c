@@ -23,7 +23,6 @@ void	move_camera_forward(t_data *data, t_camera *cam)
 	flat = normalize(flat);
 	cam->coordinate.x += flat.x * 0.05f;
 	cam->coordinate.z += flat.z * 0.05f;
-//	rotate_camera(data, cam->pitch, cam->yaw);
 	data->scene.camera.coordinate = cam->coordinate;
 	data->image.nb_images = 0;
 }
@@ -39,7 +38,6 @@ void	move_camera_backward(t_data *data, t_camera *cam)
 	flat = normalize(flat);
 	cam->coordinate.x -= flat.x * 0.05f;
 	cam->coordinate.z -= flat.z * 0.05f;
-//	rotate_camera(data, cam->pitch, cam->yaw);
 	data->scene.camera.coordinate = cam->coordinate;
 	data->image.nb_images = 0;
 }
@@ -59,7 +57,6 @@ void	move_camera_left(t_data *data, t_camera *cam)
 	left = cross(up, flat);
 	cam->coordinate.x -= left.x * 0.05f;
 	cam->coordinate.z -= left.z * 0.05f;
-//	rotate_camera(data, cam->pitch, cam->yaw);
 	data->scene.camera.coordinate = cam->coordinate;
 	data->image.nb_images = 0;
 }
@@ -79,7 +76,6 @@ void	move_camera_right(t_data *data, t_camera *cam)
 	right = cross(up, flat);
 	cam->coordinate.x += right.x * 0.05f;
 	cam->coordinate.z += right.z * 0.05f;
-//	rotate_camera(data, cam->pitch, cam->yaw);
 	data->scene.camera.coordinate = cam->coordinate;
 	data->image.nb_images = 0;
 }

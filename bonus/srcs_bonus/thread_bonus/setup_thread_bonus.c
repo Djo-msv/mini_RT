@@ -20,12 +20,6 @@ int	init_thread(t_data *data)
 	return (0);
 }
 
-void	set_param(t_data *data)
-{
-	data->param.nb_chunk = ((data->mlx.info.height
-				* data->mlx.info.width) / SIZE_CHUNK) + 1;
-}
-
 void	free_pool(t_tpool *tm)
 {
 	if (!tm)

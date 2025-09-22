@@ -12,7 +12,7 @@
 
 #include "miniRT_bonus.h"
 
-t_tpool_work	*tpool_work_create(thread_func_t func, void *arg)
+t_tpool_work	*tpool_work_create(t_thread_func func, void *arg)
 {
 	t_tpool_work	*work;
 
@@ -77,4 +77,31 @@ t_tpool_work	*tpool_work_get(t_tpool *tm)
 	else
 		tm->work_first = work->next;
 	return (work);
+}
+
+int	lunch_thread(t_data *data)
+{
+	t_tpool			*tm;
+	int				nb_chunk;
+	t_thread_arg	*arg;
+	int				i;
+
+	i = -1;
+	tm = data->pool;
+	nb_chunk = data->param.nb_chunk;
+	arg = tm->arg;
+	while (++i < nb_chunk)
+	{
+		*arg = (t_thread_arg){SIZE_CHUNK, &(tm->buffer_a[i * SIZE_CHUNK]),
+			&(tm->ray_direction[i * SIZE_CHUNK]), &data->scene};
+		if (i == nb_chunk - 1)
+			(*arg).size = (data->mlx.info.height * data->mlx.info.width)
+				- ((nb_chunk - 1) * SIZE_CHUNK);
+		if (!tpool_add_work(tm, (t_thread_func)worker, arg++))
+		{
+			tpool_destroy(tm);
+			return (1);
+		}
+	}
+	return (0);
 }

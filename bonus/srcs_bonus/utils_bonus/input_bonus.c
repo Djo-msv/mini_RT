@@ -39,6 +39,12 @@ int	add_all_button(t_input i)
 	return (res);
 }
 
+void	set_param(t_data *data)
+{
+	data->param.nb_chunk = ((data->mlx.info.height
+				* data->mlx.info.width) / SIZE_CHUNK) + 1;
+}
+
 void	update_input(t_data *data)
 {
 	int		tmp;
@@ -66,6 +72,4 @@ void	update_input(t_data *data)
 			move_camera(data, i);
 		mouse_update(data);
 	}
-//	rotate_camera(0.0f, 0.0f, 0.0f, &(data->cam.forward);
-//	printf("%f - %f - %f\n", vec->x, vec->y, vec->z);
 }
