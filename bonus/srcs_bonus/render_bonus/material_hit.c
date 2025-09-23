@@ -35,7 +35,7 @@ void	miror_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput)
 	*throughput = scalar_color(*throughput, hit->color);
 }
 
-int	assign_material(t_hit hit, t_fcolor value[2],
+int	assign_material(t_hit hit, t_fcolor value[3],
 		bool *direct_light, t_ray *ray)
 {
 	t_fcolor	emission;
@@ -43,7 +43,7 @@ int	assign_material(t_hit hit, t_fcolor value[2],
 	if (hit.type == -1)
 	{
 		value[1] = add_color(value[1], scalar_color(
-					(t_fcolor){0.0f, 0.0f, 0.0f}, value[0]));
+					value[2], value[0]));
 		return (1);
 	}
 	if (hit.type == 3)
