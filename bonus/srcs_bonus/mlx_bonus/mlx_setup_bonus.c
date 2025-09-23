@@ -12,7 +12,7 @@
 
 #include "miniRT_bonus.h"
 
-void	setup_mlx_window(t_mlx *mlx)
+int	setup_mlx_window(t_mlx *mlx)
 {
 	mlx->info.title = "miniRT";
 	mlx->info.height = 800;
@@ -24,9 +24,15 @@ void	setup_mlx_window(t_mlx *mlx)
 	mlx->info.is_resizable = true;
 	mlx->info.is_fullscreen = false;
 	mlx->win = mlx_new_window(mlx->mlx, &mlx->info);
+	if (!mlx->win)
+	{
+		printf("info\n");
+		return (1);
+	}
 	mlx->img = mlx_new_image(mlx->mlx, MAX_RES_W, MAX_RES_H);
 	mlx_set_window_max_size(mlx->mlx, mlx->win, MAX_RES_W, MAX_RES_H);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);
+	return (0);
 }
 
 int	setup_images(t_data *data)
@@ -71,7 +77,8 @@ int	setup_mlx(t_data *data)
 	mlx = &data->mlx;
 	info = &data->info;
 	mlx->mlx = mlx_init();
-	setup_mlx_window(mlx);
+	if (setup_mlx_window(mlx))
+		return (1);
 	setup_images(data);
 	setup_info(data, info);
 	setup_events(data, mlx);

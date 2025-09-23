@@ -1,0 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/30 17:00:24 by star              #+#    #+#             */
+/*   Updated: 2025/09/11 17:22:08 by star             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef DISPLAY_BONUS_H
+# define DISPLAY_BONUS_H
+
+void	handle_low_resolution(t_data *data, int x, int y, int resolution);
+void	display_screen(t_data *data);
+void	sampling(t_data *data);
+
+#endif

@@ -29,6 +29,11 @@ t_hit	intersectscene(t_data *data, t_ray ray, bool direct_light)
 		hit.normal = normalize(vec_sub(hit.position,
 					((t_light *)hit.obj)->coordinate));
 	}
+	if (hit.obj)
+	{
+		if (scalar_product(hit.normal, ray.direction) > 0)
+			hit.normal = vec_scale(hit.normal, -1);
+	}
 	return (hit);
 }
 

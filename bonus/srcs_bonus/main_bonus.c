@@ -16,7 +16,11 @@ int	setup_minirt(t_data *data)
 {
 	if (init_thread(data))
 		return (1);
-	setup_mlx(data);
+	if (setup_mlx(data))
+	{
+		tpool_destroy(data->pool);
+		return (1);
+	}
 	set_camera_value(data, &data->cam);
 	return (0);
 }

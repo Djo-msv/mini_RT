@@ -17,7 +17,7 @@ static int	setup_mlx_window(t_mlx *mlx)
 	mlx->info.title = "miniRT";
 	mlx->info.width = 800;
 	mlx->info.height = 800;
-	mlx->info.is_resizable = true;
+	mlx->info.is_resizable = false;
 	mlx->info.is_fullscreen = false;
 	mlx->win = mlx_new_window(mlx->mlx, &mlx->info);
 	mlx->img = mlx_new_image(mlx->mlx, mlx->info.width, mlx->info.height);
