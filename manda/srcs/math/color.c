@@ -55,18 +55,9 @@ void	fcolor_to_mlxcolor(t_data *d, t_fcolor *s, mlx_color *dst, size_t n)
 		double r = (uint8_t)(fminf(fmaxf(rf, 0.0f), 255.0f));
 		double g = (uint8_t)(fminf(fmaxf(gf, 0.0f), 255.0f));
 		double b = (uint8_t)(fminf(fmaxf(bf, 0.0f), 255.0f));
-		if (!1)
-		{
-			dst[i].r = (uint8_t)((r * coef_old_p) + ((double)dst[i].r * coef_new_p));
-			dst[i].g = (uint8_t)((g * coef_old_p) + ((double)dst[i].g * coef_new_p));
-			dst[i].b = (uint8_t)((b * coef_old_p) + ((double)dst[i].b * coef_new_p));
-		}
-		else
-		{
-			dst[i].r = r;
-			dst[i].g = g;
-			dst[i].b = b;
-		}
+		dst[i].r = (uint8_t)((r * coef_old_p) + ((double)dst[i].r * coef_new_p));
+		dst[i].g = (uint8_t)((g * coef_old_p) + ((double)dst[i].g * coef_new_p));
+		dst[i].b = (uint8_t)((b * coef_old_p) + ((double)dst[i].b * coef_new_p));
 		dst[i].a = 255;
 	}
 }

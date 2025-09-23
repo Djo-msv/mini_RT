@@ -66,7 +66,15 @@ void	window_hook(int event, void *param)
 	{
 		mlx_get_window_size(mlx->mlx, mlx->win,
 			&mlx->info.width, &mlx->info.height);
+		if (mlx->info.width > MAX_RES_W || mlx->info.height > MAX_RES_H)
+		{
+			mlx_set_window_fullscreen(mlx->mlx, mlx->win, false);
+			mlx_get_window_size(mlx->mlx, mlx->win,
+					&mlx->info.width, &mlx->info.height);
+			return ;
+		}
 		setup_camera_setting((t_data *)param);
+		((t_data *)param)->image.nb_images = 0;
 	}
 }
 
