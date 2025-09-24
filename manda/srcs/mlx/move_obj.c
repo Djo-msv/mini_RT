@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 19:47:41 by star             ###   ########.fr       */
+/*   Updated: 2025/09/24 18:29:57 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ void	move_obj_y(t_data *d, t_hit select, int is_up)
 
 static void	rotate(t_data *d, t_hit select, int key)
 {
+	if (key == 226)
+		rotate_obj_z(d, select, 1);
+	if (key == 224)
+		rotate_obj_z(d, select, 0);
 	if (key == 79)
 		rotate_obj_x(d, select, 0);
 	if (key == 80)
@@ -91,23 +95,17 @@ void	change_obj(t_data *d, t_hit select, int key)
 		rotate(d, select, key);
 	else
 	{
-		if (d->scene.select.up_mode)
-		{
-			if (key == 82)
-				move_obj_y(d, select, 1);
-			if (key == 81)
-				move_obj_y(d, select, 0);
-		}
-		else
-		{
-			if (key == 79)
-				move_obj_x(d, select, 0);
-			if (key == 80)
-				move_obj_x(d, select, 1);
-			if (key == 82)
-				move_obj_z(d, select, 1);
-			if (key == 81)
-				move_obj_z(d, select, 0);
-		}
+		if (key == 226)
+			move_obj_y(d, select, 1);
+		if (key == 224)
+			move_obj_y(d, select, 0);
+		if (key == 79)
+			move_obj_x(d, select, 0);
+		if (key == 80)
+			move_obj_x(d, select, 1);
+		if (key == 82)
+			move_obj_z(d, select, 1);
+		if (key == 81)
+			move_obj_z(d, select, 0);
 	}
 }

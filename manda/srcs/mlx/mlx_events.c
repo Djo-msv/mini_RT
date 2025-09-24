@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/07/28 15:41:41 by star             ###   ########.fr       */
+/*   Updated: 2025/09/24 18:39:56 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ static void	more_key(int key, t_mlx *mlx, t_data *data)
 		fullscreen = !fullscreen;
 		mlx_set_window_fullscreen(mlx->mlx, mlx->win, fullscreen);
 	}
-	if (key == 43)
-		change_antialiasing_mode(data);
+	// if (key == 43)
+	// 	change_antialiasing_mode(data);
 	if (!(data->scene.select.hit.t <= 0))
 		change_obj(data, data->scene.select.hit, key);
-	if (key == 51)
-		data->scene.select.up_mode = !data->scene.select.up_mode;
 	if (key == 21)
 		data->scene.select.rotate_mode = !data->scene.select.rotate_mode;
 }
@@ -36,6 +34,7 @@ void	key_hook(int key, void *param)
 	t_mlx		*mlx;
 
 	mlx = &((t_data *)param)->mlx;
+	printf("%d\n", key);
 	if (key == 41)
 		mlx_loop_end(mlx->mlx);
 	if (key == 26 || key == 4 || key == 22 || key == 7)
@@ -50,7 +49,7 @@ void	key_hook(int key, void *param)
 		move_camera_right((t_data *)param, &((t_data *)param)->setting_cam);
 	if (key == 44)
 		move_camera_up((t_data *)param, &((t_data *)param)->setting_cam);
-	if (key == 224)
+	if (key == 225)
 		move_camera_down((t_data *)param, &((t_data *)param)->setting_cam);
 	more_key(key, mlx, ((t_data *)param));
 }
@@ -70,7 +69,7 @@ void	window_hook(int event, void *param)
 		{
 			mlx_set_window_fullscreen(mlx->mlx, mlx->win, false);
 			mlx_get_window_size(mlx->mlx, mlx->win,
-					&mlx->info.width, &mlx->info.height);
+				&mlx->info.width, &mlx->info.height);
 			return ;
 		}
 		setup_camera_setting((t_data *)param);
@@ -92,20 +91,20 @@ void	mouse_hook(int button, void *param)
 		handle_select_obj(data);
 }
 
-void	mouse_wheel_hook(int button, void *param)
-{
-	t_data	*data;
+// void	mouse_wheel_hook(int button, void *param)
+// {
+// 	t_data	*data;
 
-	data = (t_data *)param;
-	if (button == 2)
-		data->image.resolution++;
-	if (button == 1 && data->image.resolution > 1)
-		data->image.resolution--;
-	else if (data->image.resolution == 1)
-		return ;
-	if (button == 1 || button == 2)
-	{
-		data->image.nb_images = 0;
-		calcule_res(data, &data->setting_cam);
-	}
-}
+// 	data = (t_data *)param;
+// 	if (button == 2)
+// 		data->image.resolution++;
+// 	if (button == 1 && data->image.resolution > 1)
+// 		data->image.resolution--;
+// 	else if (data->image.resolution == 1)
+// 		return ;
+// 	if (button == 1 || button == 2)
+// 	{
+// 		data->image.nb_images = 0;
+// 		calcule_res(data, &data->setting_cam);
+// 	}
+// }

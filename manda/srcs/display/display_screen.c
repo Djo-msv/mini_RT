@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:30:46 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 17:45:52 by star             ###   ########.fr       */
+/*   Updated: 2025/09/24 18:42:53 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ void	handle_pixel(t_data *data, int x, int y, int resolution)
 	pos = y * mlx->info.width + x;
 	render(data, &data->image.new_img[pos],
 		data->setting_cam.ray_direction[x][y]);
-//	if (data->image.nb_images >= 1)
-//		average_pixel(&data->image.new_img[pos], \
-//			data->image.old_img[pos], \
-//			data->image.coef_new_p, data->image.coef_old_p);
-	if (resolution != 1)
-		handle_low_resolution(data, x, y, resolution);
+	(void) resolution;
+	// if (resolution != 1)
+	// 	handle_low_resolution(data, x, y, resolution);
 }
 
 void	swap_img_buf(t_data *data)
@@ -73,6 +70,5 @@ void	display_screen(t_data *d)
 		info.height, d->image.mlx_img);
 	mlx_clear_window(d->mlx.mlx, d->mlx.win, (mlx_color){.rgba = 0x000000FF});
 	mlx_put_image_to_window(d->mlx.mlx, d->mlx.win, d->mlx.img, 0, 0);
-//	swap_img_buf(d);
 	d->image.nb_images++;
 }

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:06:52 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/24 18:54:29 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,3 +124,21 @@ void	mouse_hook(int button, void *param)
 	if (button == 1)
 		handle_select_obj(data);
 }
+
+// void	mouse_wheel_hook(int button, void *param)
+// {
+// 	t_data	*data;
+
+// 	data = (t_data *)param;
+// 	if (button == 2)
+// 		data->image.resolution++;
+// 	if (button == 1 && data->image.resolution > 1)
+// 		data->image.resolution--;
+// 	else if (data->image.resolution == 1)
+// 		return ;
+// 	if (button == 1 || button == 2)
+// 	{
+// 		data->image.nb_images = 0;
+// 		calcule_res(data, &data->setting_cam);
+// 	}
+// }

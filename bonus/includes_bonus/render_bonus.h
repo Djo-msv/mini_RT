@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:05 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 18:33:00 by star             ###   ########.fr       */
+/*   Updated: 2025/09/24 17:53:55 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_vec		cosine_weighted_hemisphere(t_vec normal);
 t_vec		reflect(t_vec v, t_vec n);
 void		plastic_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput);
 void		miror_light(t_hit	*hit, t_ray *ray, t_fcolor *throughput);
-int			assign_material(t_hit hit, t_fcolor value[2],
+int			assign_material(t_hit hit, t_fcolor value[3],
 				bool *direct_light, t_ray *ray);
 
 #endif
