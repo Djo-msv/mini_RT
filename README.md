@@ -146,22 +146,32 @@ MATERIAL bumpy diffuse concrete.png bump_map.png 0.5 0.3 0.2
 - `dielectric` - Glass/transparent materials
 - `emissive` - Light-emitting surfaces
 
+## Mouse Controls
+
+Mouse wheel : lower and increase the resolution.
+Right clic on the window : Hide mouse and play (move and rotate camera with mouse).
+Left clic on object : select the object to controle it.
+
 ## ⌨️ Keyboard Controls
 
 ### Camera Movement
 | Key | Action |
 |-----|--------|
 | `WASD` | Move camera forward/left/back/right |
-| `QE` | Move camera up/down |
-| `Arrow Keys` | Rotate camera |
+| `shift/ctrl` | Move camera up/down |
+| `R` | change arrow key mode to rotate |
+| `E` | change arrow key mode to ellipsoid scale |
+| `Arrow Keys + ctrl/alt` | Move or Rotate objects |
+| `+/-` | Increase/decrease size of objects |
+| `0/9` | Increase/decrease height of cylinder |
+| `U` | deselect object |
 | `Mouse Drag` | Look around |
 
 ### Rendering Controls
 | Key | Action |
 |-----|--------|
-| `R` | Restart rendering |
+| `tab` | antialiasing mode |
 | `P` | Save screenshot |
-| `+/-` | Increase/decrease resolution |
 | `T` | Toggle rendering mode |
 
 ### Material & Texture Controls
