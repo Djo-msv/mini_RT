@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:35:24 by star              #+#    #+#             */
-/*   Updated: 2025/09/24 18:41:00 by star             ###   ########.fr       */
+/*   Updated: 2025/09/25 17:49:46 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	setup_events(t_data *data, t_mlx *mlx)
 	mlx_on_event(mlx->mlx, mlx->win, MLX_KEYDOWN, key_hook, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_WINDOW_EVENT, window_hook, data);
 	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEDOWN, mouse_hook, data);
-	// mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEWHEEL, mouse_wheel_hook, data);
+	mlx_on_event(mlx->mlx, mlx->win, MLX_MOUSEWHEEL, mouse_wheel_hook, data);
 }
 
 int	setup_mlx(t_data *data)

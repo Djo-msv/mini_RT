@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:39 by star              #+#    #+#             */
-/*   Updated: 2025/09/24 18:41:07 by star             ###   ########.fr       */
+/*   Updated: 2025/09/25 17:49:14 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_minirt(t_data *data);
 void	key_hook(int key, void *param);
 void	window_hook(int event, void *param);
 void	mouse_hook(int button, void *param);
-// void	mouse_wheel_hook(int button, void *param);
+void	mouse_wheel_hook(int button, void *param);
 
 void	change_antialiasing_mode(t_data *data);
 void	change_mode(t_data *data);

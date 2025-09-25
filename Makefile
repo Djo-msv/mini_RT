@@ -127,7 +127,6 @@ SRCS_FILES:=	main.c \
 SRCS_FILES_BONUS:= 	main_bonus.c \
 		display_bonus/display_screen_bonus.c \
 		display_bonus/make_average_pixel_bonus.c \
-		display_bonus/resolution_bonus.c \
 		math_bonus/color_bonus.c \
 		math_bonus/ray_bonus.c \
 		math_bonus/vector_bonus.c \

@@ -165,6 +165,7 @@ Left clic on object : select the object to controle it.
 | `+/-` | Increase/decrease size of objects |
 | `0/9` | Increase/decrease height of cylinder |
 | `U` | deselect object |
+| `Backspace` | delete object |
 | `Mouse Drag` | Look around |
 
 ### Rendering Controls

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:01 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 18:42:46 by star             ###   ########.fr       */
+/*   Updated: 2025/09/25 18:00:51 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_print_info
 {
 	int		x;
 	int		y;
-	int		resolution;
 	int		nb_input;
 	float	fps;
 	int		sample;

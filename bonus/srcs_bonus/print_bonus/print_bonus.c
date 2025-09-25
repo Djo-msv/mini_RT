@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:36:04 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/25 18:05:50 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ void	print_nb_fps(float fps)
 char	*name_obj(int obj)
 {
 	if (obj == 0)
-		return ("Plane");
+		return ("Plane    ");
 	else if (obj == 1)
-		return ("Sphere");
+		return ("Sphere   ");
 	else if (obj == 2)
-		return ("Cylinder");
+		return ("Cylinder ");
 	else if (obj == 3)
-		return ("Light");
+		return ("Light    ");
 	else if (obj == 4)
-		return ("Triangle");
+		return ("Triangle ");
 	else if (obj == 5)
 		return ("Ellipsoid");
-	return ("None");
+	return ("None     ");
 }
 
 void	print_info(t_print_info *info)
@@ -78,8 +78,7 @@ void	print_info(t_print_info *info)
 	printf("%s%s┌──FPS──┐\n", P_GREEN, P_BOLD);
 	print_nb_fps(info->fps);
 	printf("└───────┘%s\n\n", P_NOC);
-	printf("display : %d × %d    \n", info->y, info->x);
-	printf("resolution : %d  \n", info->resolution);
+	printf("display : %d × %d    \n\n", info->y, info->x);
 	if (info->aa)
 		printf("AA : %strue %s\n\n", P_GREEN, P_NOC);
 	else
@@ -88,11 +87,11 @@ void	print_info(t_print_info *info)
 	printf("sample : %d\n\n", info->sample);
 	printf("select : %s\n\n", name_obj(info->obj));
 	if (info->rotate_mode)
-		printf("Rotate_mode : %strue %s\n\n", P_GREEN, P_NOC);
+		printf("Rotate mode : %strue %s\n\n", P_GREEN, P_NOC);
 	else
-		printf("Rotate_mode : %sfalse%s\n\n", P_RED, P_NOC);
+		printf("Rotate mode : %sfalse%s\n\n", P_RED, P_NOC);
 	if (info->scale_mode)
-		printf("Scale_mode : %strue %s\n", P_GREEN, P_NOC);
+		printf("Scale mode : %strue %s\n", P_GREEN, P_NOC);
 	else
-		printf("Scale_mode : %sfalse%s\n", P_RED, P_NOC);
+		printf("Scale mode : %sfalse%s\n", P_RED, P_NOC);
 }

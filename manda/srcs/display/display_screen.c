@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:30:46 by star              #+#    #+#             */
-/*   Updated: 2025/09/24 18:42:53 by star             ###   ########.fr       */
+/*   Updated: 2025/09/25 17:49:18 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	handle_pixel(t_data *data, int x, int y, int resolution)
 	render(data, &data->image.new_img[pos],
 		data->setting_cam.ray_direction[x][y]);
 	(void) resolution;
-	// if (resolution != 1)
-	// 	handle_low_resolution(data, x, y, resolution);
+	if (resolution != 1)
+		handle_low_resolution(data, x, y, resolution);
 }
 
 void	swap_img_buf(t_data *data)
