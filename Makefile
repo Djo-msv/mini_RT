@@ -25,25 +25,6 @@ ifeq ($(MEGA_PERF), 1)
 	CFLAGS += -O3 -mavx2 -mfma -march=native -mtune=native -funroll-loops -fvectorize -ffp-contract=fast  -freciprocal-math -ffast-math -fstrict-aliasing  -fomit-frame-pointer -flto=full -mprefer-vector-width=256
 endif
 
-#================================COUNT============================#
-
-NB_COMP	:=	1
-
-ifndef RECURSION
-TO_COMP :=	$(shell make RECURSION=1 -n | grep Compiling | wc -l)
-else
-TO_COMP	:=	1
-endif
-
-PERCENT	:= 0
-
-NB_COMP_BONUS := 1
-ifndef RECURSION
-TO_COMP_BONUS := $(shell make bonus RECURSION=1 -n | grep Compiling | wc -l)
-else
-TO_COMP_BONUS := 1
-endif
-
 #==============================COLORS==============================#
 NOC			= \e[0m
 BOLD		= \e[1m
@@ -78,7 +59,9 @@ HEADER_DIR_BONUS	:=	bonus/includes_bonus
 BUILD_DIR		:=	manda/.build
 BUILD_DIR_BONUS	:=	bonus/.build_bonus
 MLX_DIR			:=	MacroLibX
+MLX_LIB			:=	$(MLX_DIR)/libmlx.so
 LIBRT_DIR		:=	lib_RT
+LIBRT_LIB		:=	$(LIBRT_DIR)/lib_rt.a
 
 #==============================SOURCES===========================#
 
@@ -99,7 +82,7 @@ SRCS_FILES:=	main.c \
 		mlx/mlx_setting.c \
 		mlx/mlx_setup.c \
 		mlx/rotate_obj.c \
-		mlx/del_obj.c \
+		mlx/handle_obj.c \
 		parsing/parse_cam_light.c \
 		parsing/parse_sphere_a_light.c \
 		parsing/parse_plane.c \
@@ -125,7 +108,6 @@ SRCS_FILES:=	main.c \
 SRCS_FILES_BONUS:= 	main_bonus.c \
 		display_bonus/display_screen_bonus.c \
 		display_bonus/make_average_pixel_bonus.c \
-		display_bonus/resolution_bonus.c \
 		math_bonus/color_bonus.c \
 		math_bonus/ray_bonus.c \
 		math_bonus/vector_bonus.c \
@@ -179,8 +161,17 @@ SRCS_FILES_BONUS:= 	main_bonus.c \
 		view_bonus/move_camera_bonus.c \
 		view_bonus/angle_camera_bonus.c
 
+
 SRCS:=			$(addprefix $(SRC_DIR)/, $(SRCS_FILES))
 SRCS_BONUS:=	$(addprefix $(SRC_DIR_BONUS)/, $(SRCS_FILES_BONUS))
+
+#================================COUNT============================#
+
+NB_COMP	:=	1
+TO_COMP	:=	$(words $(SRCS))
+PERCENT	:= 0
+NB_COMP_BONUS := 1
+TO_COMP_BONUS := $(words $(SRCS_BONUS))
 
 #=============================OBJECTS===========================#
 
@@ -206,9 +197,9 @@ DIRS_BONUS		:=	$(sort $(shell dirname $(OBJS_BONUS))) #no duplicates
 
 #===============================RULES============================#
 
-all: $(MLX_DIR) $(LIBRT_DIR) $(NAME)
+all: $(MLX_LIB) $(LIBRT_LIB) $(NAME)
 
-bonus: $(BONUS_NAME)
+bonus: $(MLX_LIB) $(LIBRT_LIB) $(BONUS_NAME)
 
 $(DIRS):
 	@mkdir -p $@
@@ -216,7 +207,7 @@ $(DIRS):
 $(DIRS_BONUS):
 	@mkdir -p $@
 
-$(NAME): $(OBJS)
+$(NAME): $(MLX_LIB) $(LIBRT_LIB) $(OBJS)
 	@echo "\n$(GREEN)Create binaries$(NOC)"
 	@$(CC) $(CFLAGS) $(OBJS) $(INC) -o $@ $(LIBS) $(LDFLAGS) -lm
 	@echo "$(RED)"
@@ -229,7 +220,7 @@ $(NAME): $(OBJS)
 	"╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝"
 	@echo "$(NOC)"
 
-$(BONUS_NAME): $(OBJS_BONUS)
+$(BONUS_NAME): $(MLX_LIB) $(LIBRT_LIB) $(OBJS_BONUS)
 	@echo "\n$(GREEN)Create bonus binaries$(NOC)"
 	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(INC_BONUS) -o $@ $(LIBS) $(LDFLAGS) -lm
 	@echo "$(RED)"
@@ -242,7 +233,7 @@ $(BONUS_NAME): $(OBJS_BONUS)
 	"╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝"
 	@echo "$(NOC)"
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(MLX_LIB) $(LIBRT_LIB) $(DIRS)
 	@mkdir -p $(BUILD_DIR)
 	@if [ $(NB_COMP) -eq 1 ]; then echo "\n$(BOLD)Compilation of source files :$(NOC)";fi
 	$(eval PERCENT=$(shell expr $(NB_COMP)00 "/" $(TO_COMP)))
@@ -254,7 +245,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(DIRS)
 	@$(CC) $(CFLAGS) $(INC) $< -c -o $@
 	$(eval NB_COMP=$(shell expr $(NB_COMP) + 1))
 
-$(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
+$(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(MLX_LIB) $(LIBRT_LIB) $(DIRS_BONUS)
 	@mkdir -p $(BUILD_DIR_BONUS)/
 	@if [ $(NB_COMP_BONUS) -eq 1 ]; then echo "$(BOLD)Compilation of source files :$(NOC)";fi
 	$(eval PERCENT=$(shell expr $(NB_COMP_BONUS)00 "/" $(TO_COMP_BONUS)))
@@ -266,13 +257,13 @@ $(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(DIRS_BONUS)
 	@$(CC) $(CFLAGS) $(INC_BONUS) $< -c -o $@
 	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
 
-$(MLX_DIR):
-	@git clone https://github.com/seekrs/MacroLibX.git $@
-	@$(MAKE) -C $@
+$(MLX_LIB):
+	git clone https://github.com/seekrs/MacroLibX.git $(MLX_DIR)
+	@$(MAKE) -C $(MLX_DIR)
 
-$(LIBRT_DIR):
-	@git clone git@github.com:Djo-msv/lib_RT.git $@
-	@$(MAKE) -C $@
+$(LIBRT_LIB):
+	git clone git@github.com:Djo-msv/lib_RT.git $(LIBRT_DIR)
+	@$(MAKE) -C $(LIBRT_DIR)
 
 clean:
 	@echo "$(RED)Remove objects$(NOC)"
@@ -283,6 +274,8 @@ fclean: clean
 	@echo "$(RED)Remove binary$(NOC)"
 	@rm -f $(NAME)
 	@rm -f $(BONUS_NAME)
+	@rm -rf $(MLX_DIR) $(LIBRT_DIR)
+
 
 re: fclean
 	@make
