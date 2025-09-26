@@ -89,7 +89,7 @@ int	verfi_float(char *str)
 	j = j - subtraction(&str[i], j - 1);
 	if (!is_decimal(&str[i], j) && j > 7)
 		return (1);
-	if (j > 8)
+	if (j > 10)
 		return (1);
 	return (0);
 }

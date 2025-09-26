@@ -25,25 +25,6 @@ ifeq ($(MEGA_PERF), 1)
 	CFLAGS += -O3 -mavx2 -mfma -march=native -mtune=native -funroll-loops -fvectorize -ffp-contract=fast  -freciprocal-math -ffast-math -fstrict-aliasing  -fomit-frame-pointer -flto=full -mprefer-vector-width=256
 endif
 
-#================================COUNT============================#
-
-NB_COMP	:=	1
-
-ifndef RECURSION
-TO_COMP :=	$(shell make RECURSION=1 -n | grep Compiling | wc -l)
-else
-TO_COMP	:=	1
-endif
-
-PERCENT	:= 0
-
-NB_COMP_BONUS := 1
-ifndef RECURSION
-TO_COMP_BONUS := $(shell make bonus RECURSION=1 -n | grep Compiling | wc -l)
-else
-TO_COMP_BONUS := 1
-endif
-
 #==============================COLORS==============================#
 NOC			= \e[0m
 BOLD		= \e[1m
@@ -180,8 +161,17 @@ SRCS_FILES_BONUS:= 	main_bonus.c \
 		view_bonus/move_camera_bonus.c \
 		view_bonus/angle_camera_bonus.c
 
+
 SRCS:=			$(addprefix $(SRC_DIR)/, $(SRCS_FILES))
 SRCS_BONUS:=	$(addprefix $(SRC_DIR_BONUS)/, $(SRCS_FILES_BONUS))
+
+#================================COUNT============================#
+
+NB_COMP	:=	1
+TO_COMP	:=	$(words $(SRCS))
+PERCENT	:= 0
+NB_COMP_BONUS := 1
+TO_COMP_BONUS := $(words $(SRCS_BONUS))
 
 #=============================OBJECTS===========================#
 
@@ -268,15 +258,11 @@ $(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(MLX_LIB) $(LIBRT_LIB) $(DIRS_BO
 	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
 
 $(MLX_LIB):
-	@if [ ! -d "$(MLX_DIR)" ]; then \
-		git clone https://github.com/seekrs/MacroLibX.git $(MLX_DIR); \
-	fi
+	git clone https://github.com/seekrs/MacroLibX.git $(MLX_DIR)
 	@$(MAKE) -C $(MLX_DIR)
 
 $(LIBRT_LIB):
-	@if [ ! -d "$(LIBRT_DIR)" ]; then \
-		git clone git@github.com:Djo-msv/lib_RT.git $(LIBRT_DIR); \
-	fi
+	git clone git@github.com:Djo-msv/lib_RT.git $(LIBRT_DIR)
 	@$(MAKE) -C $(LIBRT_DIR)
 
 clean:
@@ -288,10 +274,8 @@ fclean: clean
 	@echo "$(RED)Remove binary$(NOC)"
 	@rm -f $(NAME)
 	@rm -f $(BONUS_NAME)
-# @rm -rf $(MLX_DIR)
-# @rm -rf $(LIBRT_DIR)
-# @$(MAKE) -C $(MLX_DIR) fclean
-# @$(MAKE) -C $(LIBRT_DIR) fclean
+#	@rm -rf $(MLX_DIR) $(LIBRT_DIR)
+
 
 re: fclean
 	@make

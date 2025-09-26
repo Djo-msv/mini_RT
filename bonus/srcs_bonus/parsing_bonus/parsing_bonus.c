@@ -40,6 +40,7 @@ static int	verif_name(int argc, char **argv)
 int	parse(t_data *d, int argc, char **argv)
 {
 	int	fd;
+	int	line;
 
 	if (NB_THREAD <= 0 || SIZE_CHUNK <= 0 || MAX_RES_W < 400 || MAX_RES_H < 400)
 		return (1);
@@ -47,8 +48,12 @@ int	parse(t_data *d, int argc, char **argv)
 		return (1);
 	(void)d;
 	fd = open(argv[1], O_RDONLY);
-	if (creat_scene(d, fd))
+	line = creat_scene(d, fd);
+	if (line)
+	{
+		printf("at line : %d\n", line);
 		return (1);
+	}
 	close(fd);
 	return (0);
 }

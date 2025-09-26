@@ -30,12 +30,12 @@ void	set_camera_value(t_data *data, t_camera *cam)
 	cam->forward = normalize(data->scene.camera.orientation);
 	if (fabs(cam->forward.y) > 0.999f)
 		tmp_up = (t_vec){0.0f, 0.0f, 1.0f};
-	cam->right = normalize(cross(tmp_up, cam->forward));
+	cam->right = normalize(cross(cam->forward, tmp_up));
 	cam->up = cross(cam->forward, cam->right);
 	cam->coordinate = data->scene.camera.coordinate;
 	cam->fov_rad = (data->scene.camera.fov * M_PI) / 180;
-	cam->pitch = 0.0f;
-	cam->yaw = 0.0f;
+	cam->yaw = atan2(cam->forward.x, cam->forward.z);
+	cam->pitch = asin(cam->forward.y);
 	set_camera_window(data, cam);
 	set_camera_ray(data->pool->ray_direction, cam, data->mlx.info);
 }
@@ -48,7 +48,7 @@ t_vec	calcule_ray_direction(t_camera *cam, mlx_window_create_info info,
 	float	y_ray;
 
 	x_ray = ((x + 0.5f) / info.width - 0.5f);
-	y_ray = (((info.height - y) + 0.5f) / info.height - 0.5f);
+	y_ray = ((y + 0.5f) / info.height - 0.5f);
 	dir = vec_add(
 			vec_add(cam->forward, vec_mul(cam->right, x_ray * cam->d_width)),
 			vec_mul(cam->up, y_ray * cam->d_height));

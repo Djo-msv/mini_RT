@@ -36,7 +36,7 @@ t_tpool	*safe_pool_alloc(void)
 {
 	t_tpool	*tm;
 
-	tm = malloc(sizeof(*tm));
+	tm = ft_calloc(1, sizeof(*tm));
 	if (!tm)
 		return (NULL);
 	tm->buffer_a = malloc((MAX_RES_H * MAX_RES_W) * sizeof(t_fcolor));

@@ -15,16 +15,17 @@
 void	angle_camera(t_data *data, float pitch, float yaw)
 {
 	t_vec	forward;
+	t_vec	tmp_up;
 
+	tmp_up = (t_vec){0.0f, 1.0f, 0.0f};
 	forward = (t_vec){
 		cos(pitch) * sin(yaw),
 		sin(pitch),
 		cos(pitch) * cos(yaw)
 	};
 	data->cam.forward = normalize(forward);
-	data->cam.right = normalize(cross(data->cam.forward,
-				(t_vec){0.0f, 1.0f, 0.0f}));
-	data->cam.up = cross(data->cam.right, data->cam.forward);
+	data->cam.right = normalize(cross(data->cam.forward, tmp_up));
+	data->cam.up = cross(data->cam.forward, data->cam.right);
 }
 
 void	rotate_camera(t_data *data, float pitch, float yaw)

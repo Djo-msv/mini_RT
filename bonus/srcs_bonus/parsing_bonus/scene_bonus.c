@@ -49,9 +49,11 @@ static void	clear(t_data *data, char **args)
 
 int	creat_scene(t_data *data, int fd)
 {
+	int		i;
 	char	*line;
 	char	**args;
 
+	i = 1;
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -59,14 +61,15 @@ int	creat_scene(t_data *data, int fd)
 			break ;
 		args = ft_split(line, " \t\n\v\f\r");
 		if (!args)
-			return (1);
+			return (i);
 		free(line);
 		if (check_args(data, args))
 		{
 			clear(data, args);
-			return (1);
+			return (i);
 		}
 		ft_free_2d_tab((void **)args);
+		i++;
 	}
 	return (0);
 }
