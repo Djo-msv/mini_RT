@@ -48,7 +48,7 @@ int	assign_material(t_hit hit, t_fcolor value[3],
 	}
 	if (hit.type == 3)
 	{
-		emission = scale_mlx_color(hit.color, 1.0f);
+		emission = scale_mlx_color(hit.color, ((t_light *)hit.obj)->brightness );
 		if (!*direct_light)
 			value[1] = add_color(value[1], scalar_color(emission, value[0]));
 		else
