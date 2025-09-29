@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resize_obj_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 18:33:53 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/29 17:05:06 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ void	resize(t_data *d, t_hit select, int is_min)
 		((t_cylinder *)select.obj)->radius += s;
 	else if (select.type == 5)
 		((t_ellipsoid *)select.obj)->size += s;
+	else if (select.type == 3)
+	{
+		((t_light *)select.obj)->size += s;
+		if (((t_light *)select.obj)->size <= 0.05)
+			((t_light *)select.obj)->size = 0.05;
+	}
 	d->image.nb_images = 0;
 }
 

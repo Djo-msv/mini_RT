@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nearest_obj_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:10 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/29 16:50:09 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_hit	nearest_light(t_scene scene, t_ray ray)
 	while (tmp)
 	{
 		light = (t_light *)tmp->content;
-		t = hit_sphere(light->coordinate, 3.0f, ray);
+		t = hit_sphere(light->coordinate, light->size, ray);
 		if (t > 0.0f && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;

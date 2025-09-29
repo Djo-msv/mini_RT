@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bump_map_texture_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 20:43:15 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/29 17:25:17 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_fcolor	c_texture(int *x, int *y, t_hit hit, t_scene scene)
 	p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
 	u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
 	v = 0.5 - asin(p.y) / M_PI;
-	*x = u * ((t_sphere *)hit.obj)->tex.width;
+	*x = (1 - u) * ((t_sphere *)hit.obj)->tex.width;
 	*y = v * ((t_sphere *)hit.obj)->tex.height;
 	pixel = mlx_get_image_pixel(scene.mlx->mlx,
 			((t_sphere *)hit.obj)->tex.image, *x, *y);

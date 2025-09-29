@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cam_light_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 19:02:13 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/29 17:02:54 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,29 +67,31 @@ int	parse_camera(t_scene *scene, char **args)
 	return (0);
 }
 
-static int	init_light(t_light *light, char **args)
+static int	init_light(t_light *l, char **args)
 {
-	char	**value;
+	char	**v;
 
 	if (verfi_float(args[2]))
 		return (1);
-	light->brightness = ft_atof(args[2]);
-	if (verif_fvalue(0, 1, light->brightness))
+	l->brightness = ft_atof(args[2]);
+	if (verif_fvalue(0, 1, l->brightness))
 		return (1);
-	value = ft_split(args[3], ",");
-	if (!value)
+	v = ft_split(args[3], ",");
+	if (!v)
 		return (1);
-	if (verif_int(value[0], "255", 3) || verif_int(value[1], "255", 3)
-		|| verif_int(value[2], "255", 3) || value[3] || args[4])
+	if (verif_int(v[0], "255", 3) || verif_int(v[1], "255", 3)
+		|| verif_int(v[2], "255", 3) || v[3])
 	{
-		ft_free_2d_tab((void **)value);
+		ft_free_2d_tab((void **)v);
 		return (1);
 	}
-	light->color.r = ft_atoi(value[0]);
-	light->color.g = ft_atoi(value[1]);
-	light->color.b = ft_atoi(value[2]);
-	light->color.a = 255;
-	ft_free_2d_tab((void **)value);
+	l->color = (mlx_color){{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
+	ft_free_2d_tab((void **)v);
+	if (!args[4])
+		return (0);
+	if (verfi_float(args[4]))
+		return (1);
+	l->size = ft_atof(args[4]);
 	return (0);
 }
 
@@ -117,6 +119,7 @@ int	parse_light(t_scene *scene, char **args)
 	light = malloc(sizeof(t_light));
 	if (!light)
 		return (1);
+	light->size = 3;
 	if (init_co_light(light, args) || init_light(light, args))
 	{
 		free(light);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objet_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:44 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 18:31:14 by star             ###   ########.fr       */
+/*   Updated: 2025/09/29 16:42:40 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_light
 	t_vec		coordinate;
 
 	float		brightness;
+	float		size;
 
 }	t_light
 __attribute__((aligned(1)));

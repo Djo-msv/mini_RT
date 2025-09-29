@@ -1,0 +1,40 @@
+# Système solaire (distances ajustées mais cohérentes)
+
+A    0.1    255,255,255
+
+C    0,15,40    0,0,-1    70
+
+L    0,0,0    1    255,255,230 6
+ 
+# Soleil
+sp   0,0,0      10     255,200,80
+
+# Mercure (0.39 UA ≈ 4 unités)
+sp   3.5,0,1.8   0.38   190,190,190
+
+# Vénus (0.72 UA ≈ 7 unités)
+sp   -6.8,0,2.0  0.95   240,220,170
+
+# Terre (1.00 UA ≈ 10 unités)
+sp   10.0,0,0   1.00   40,100,200  bonus/texture_bonus/ea.jpg
+
+# Lune
+sp   11.0,0,0.6   0.27   200,200,200
+
+# Mars (1.52 UA ≈ 15 unités)
+sp   15.0,0,2.5   0.53   210,90,50
+
+# Jupiter (5.2 UA → compressé à ~25 unités)
+sp   -25.0,0,-8.0   2.2   210,150,100
+
+# Saturne (9.6 UA → compressé à ~35 unités)
+sp   35.0,0,10.0   1.9   210,185,140
+
+# Uranus (19.2 UA → compressé à ~50 unités)
+sp   -50.0,0,15.0  1.0   160,210,210
+
+# Neptune (30.0 UA → compressé à ~65 unités)
+sp   65.0,0,-20.0  1.0   60,90,200
+
+# Pluton (39.5 UA → compressé à ~75 unités)
+sp   -75.0,0,25.0   0.18   170,140,120
