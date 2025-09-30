@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:27:22 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:33:40 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	init_checkerboard_pattern(t_plane *plane, char **args)
 	ft_free_2d_tab((void **)v);
 	if (!args[7])
 		return (0);
-	if (verif_int(args[7], "3", 1) || args[8])
+	if (verif_int(args[7], "1", 1) || args[8])
 		return (1);
 	plane->mat = ft_atoi(args[7]);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/28 19:48:54 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:34:41 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ static int	init_co_sphere(t_sphere *s, char **args)
 int	parse_sphere(t_scene *scene, char **args)
 {
 	t_sphere	*sphere;
-	static int	verif = 0;
 
-	if (verif++)
-		return (1);
 	sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
 		return (1);

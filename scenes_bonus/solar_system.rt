@@ -1,40 +1,42 @@
-# Système solaire (distances ajustées mais cohérentes)
+# Système solaire compact (max ~40 unités, planètes visibles et réparties en orbite)
 
-A    0.1    255,255,255
+A    0.2    255,255,255
 
-C    0,15,40    0,0,-1    70
+C    0,10,20    0,0,-1    70
 
-L    0,0,0    1    255,255,230 6
- 
-# Soleil
-sp   0,0,0      10     255,200,80
+L    0,0,0    1    255,255,230 3
 
-# Mercure (0.39 UA ≈ 4 unités)
-sp   3.5,0,1.8   0.38   190,190,190
+# Soleil (plus petit pour ne pas engloutir Mercure/Vénus)
+sp   0,0,0      4     255,200,80  texture_bonus/sunmap.jpg
 
-# Vénus (0.72 UA ≈ 7 unités)
-sp   -6.8,0,2.0  0.95   240,220,170
+# Mercure (~0.4 UA -> ~3 u), petite
+sp   3,0,1.5     0.8   190,190,190
 
-# Terre (1.00 UA ≈ 10 unités)
-sp   10.0,0,0   1.00   40,100,200  bonus/texture_bonus/ea.jpg
+# Vénus (~0.7 UA -> ~5 u), jaunâtre
+sp   -4.5,0,3    1.2   240,220,170 texture_bonus/venus.jpg
+
+# Terre (~1 UA -> ~7 u), avec texture
+sp   6,0,-4      1.4   40,100,200  texture_bonus/ea.jpg
 
 # Lune
-sp   11.0,0,0.6   0.27   200,200,200
+sp   7.0,0,-3.5  0.5   200,200,200  texture_bonus/moon.jpg
 
-# Mars (1.52 UA ≈ 15 unités)
-sp   15.0,0,2.5   0.53   210,90,50
+# Mars (~1.5 UA -> ~10 u), rougeâtre
+sp   -9,0,-6     1.0   210,90,50   texture_bonus/mars.jpg
 
-# Jupiter (5.2 UA → compressé à ~25 unités)
-sp   -25.0,0,-8.0   2.2   210,150,100
+# Jupiter (~5.2 UA -> ~16 u), énorme
+sp   14,0,10     3.5   210,150,100  texture_bonus/jupiter.jpg
 
-# Saturne (9.6 UA → compressé à ~35 unités)
-sp   35.0,0,10.0   1.9   210,185,140
+# Saturne (~9.6 UA -> ~22 u), grosse et dorée
+sp   -20,0,12    3.0   210,185,140  texture_bonus/saturn.jpg
 
-# Uranus (19.2 UA → compressé à ~50 unités)
-sp   -50.0,0,15.0  1.0   160,210,210
+el   -20,0,12    0,0,0   6.0,0.2,6.0   1   180,170,140 0
 
-# Neptune (30.0 UA → compressé à ~65 unités)
-sp   65.0,0,-20.0  1.0   60,90,200
+# Uranus (~19 UA -> ~30 u), bleu clair
+sp   28,0,-15    2.2   160,210,210    texture_bonus/abstract-background-of-uranus-surface-free-vector.jpg
 
-# Pluton (39.5 UA → compressé à ~75 unités)
-sp   -75.0,0,25.0   0.18   170,140,120
+# Neptune (~30 UA -> ~36 u), bleu foncé
+sp   -32,0,-20   2.0   60,90,200    texture_bonus/Solarsystemscope_texture_2k_neptune.jpg
+
+# Pluton (~39.5 UA -> ~40 u), petite 
+sp   38,0,5      0.7   170,140,120  texture_bonus/pluto_color_map_16k_by_fargetanik_dbgzvic-pre.jpg

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/07/25 20:36:41 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:34:25 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ static int	init_co_cy(t_cylinder *c, char **args)
 int	parse_cylinder(t_scene *scene, char **args)
 {
 	t_cylinder	*cylinder;
-	static int	verif = 0;
 
-	if (verif++)
-		return (1);
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (1);

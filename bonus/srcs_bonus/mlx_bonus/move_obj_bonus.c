@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:05:50 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:22:53 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ static void	elli_scale(t_data *d, t_hit select)
 		((t_ellipsoid *)select.obj)->scale.x += 0.05;
 	if (d->input.down_button)
 		((t_ellipsoid *)select.obj)->scale.x -= 0.05;
+	if (((t_ellipsoid *)select.obj)->scale.x < 0.1)
+		((t_ellipsoid *)select.obj)->scale.x = 0.1;
+	if (((t_ellipsoid *)select.obj)->scale.y < 0.1)
+		((t_ellipsoid *)select.obj)->scale.y = 0.1;
+	if (((t_ellipsoid *)select.obj)->scale.z < 0.1)
+		((t_ellipsoid *)select.obj)->scale.z = 0.1;
 	init_elli_mat((t_ellipsoid *)select.obj);
 	d->image.nb_images = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:33:33 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	init_texture(t_sphere *sphere, char **args)
 			return (0);
 		if (args[i] && i == 8)
 			return (1);
-		if (!verif_int(args[i], "3", 1) && !v++)
+		if (!verif_int(args[i], "1", 1) && !v++)
 			sphere->mat = ft_atoi(args[i]);
 		else if (assign_tex(sphere, args, i))
 			return (1);

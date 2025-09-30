@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:57:13 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:31:51 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	init_elli_color(t_ellipsoid *ellipsoid, char **args)
 	ft_free_2d_tab((void **)v);
 	if (!args[6])
 		return (0);
-	if (verif_int(args[6], "3", 1) || args[7])
+	if (verif_int(args[6], "1", 1) || args[7])
 		return (1);
 	ellipsoid->mat = ft_atoi(args[6]);
 	return (0);
@@ -119,12 +119,12 @@ int	parse_ellipsoid(t_scene *scene, char **args)
 		free(ellipsoid);
 		return (1);
 	}
-	if (ellipsoid->scale.x < 1)
-		ellipsoid->scale.x = 1;
-	if (ellipsoid->scale.y < 1)
-		ellipsoid->scale.y = 1;
-	if (ellipsoid->scale.z < 1)
-		ellipsoid->scale.z = 1;
+	if (ellipsoid->scale.x < 0.1)
+		ellipsoid->scale.x = 0.1;
+	if (ellipsoid->scale.y < 0.1)
+		ellipsoid->scale.y = 0.1;
+	if (ellipsoid->scale.z < 0.1)
+		ellipsoid->scale.z = 0.1;
 	init_elli_mat(ellipsoid);
 	ft_lstadd_back(&scene->ellipsoid, ft_lstnew(ellipsoid));
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 15:48:37 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 16:42:15 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 19:26:16 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # include "vector.h"
 # include "matrix.h"
-# include "objet.h"
+# include "object.h"
 # include "setup.h"
 # include "render.h"
 # include "color.h"

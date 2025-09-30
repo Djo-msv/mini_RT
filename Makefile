@@ -262,7 +262,7 @@ $(MLX_LIB):
 	@$(MAKE) -C $(MLX_DIR)
 
 $(LIBRT_LIB):
-	git clone git@github.com:Djo-msv/lib_RT.git $(LIBRT_DIR)
+	git clone https://github.com/Djo-msv/lib_RT.git $(LIBRT_DIR)
 	@$(MAKE) -C $(LIBRT_DIR)
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:27:22 by star              #+#    #+#             */
-/*   Updated: 2025/07/25 20:39:15 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:34:32 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ static int	init_normal_plane(t_plane *p, char **args)
 int	parse_plane(t_scene *scene, char **args)
 {
 	t_plane		*p;
-	static int	verif = 0;
 
-	if (verif++)
-		return (1);
 	p = malloc(sizeof(t_plane));
 	if (!p)
 		return (1);

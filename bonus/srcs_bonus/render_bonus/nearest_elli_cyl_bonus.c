@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:04 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:11:28 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ t_hit	nearest_ellipsoid(t_scene scene, t_ray ray)
 		ellipsoid = (t_ellipsoid *)tmp->content;
 		t = hit_ellipsoid(ellipsoid, ray, &hit_tmp);
 		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		{
 			hit = hit_tmp;
+			hit.type = 5;
+		}
 		tmp = tmp->next;
 	}
 	return (hit);

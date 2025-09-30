@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:34 by star              #+#    #+#             */
-/*   Updated: 2025/09/12 17:15:12 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 19:26:53 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "vector_bonus.h"
 # include "matrix_bonus.h"
 # include "texture_bonus.h"
-# include "objet_bonus.h"
+# include "object_bonus.h"
 # include "setup_bonus.h"
 # include "render_bonus.h"
 # include "color_bonus.h"

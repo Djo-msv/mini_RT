@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:09:34 by nrolland          #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/09/30 17:33:49 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	init_d_h_rgb_cylinder(t_cylinder *c, char **args)
 	ft_free_2d_tab((void **)v);
 	if (!args[6])
 		return (0);
-	if (verif_int(args[6], "3", 1) || args[7])
+	if (verif_int(args[6], "1", 1) || args[7])
 		return (1);
 	c->mat = ft_atoi(args[6]);
 	return (0);

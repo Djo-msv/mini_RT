@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objet_bonus.h                                      :+:      :+:    :+:   */
+/*   object_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:44 by star              #+#    #+#             */
-/*   Updated: 2025/09/29 16:42:40 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/09/30 19:26:40 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJET_BONUS_H
-# define OBJET_BONUS_H
+#ifndef OBJECT_BONUS_H
+# define OBJECT_BONUS_H
 
 typedef struct s_hit_triangle
 {
