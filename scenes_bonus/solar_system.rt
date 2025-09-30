@@ -10,7 +10,7 @@ L    0,0,0    1    255,255,230 3
 sp   0,0,0      4     255,200,80  texture_bonus/sunmap.jpg
 
 # Mercure (~0.4 UA -> ~3 u), petite
-sp   3,0,1.5     0.8   190,190,190
+sp   3,0,1.5     0.8   190,190,190 texture_bonus/mercury.jpg
 
 # Vénus (~0.7 UA -> ~5 u), jaunâtre
 sp   -4.5,0,3    1.2   240,220,170 texture_bonus/venus.jpg
