@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:34 by star              #+#    #+#             */
-/*   Updated: 2025/09/30 19:26:53 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 20:46:29 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@
 # include "thread_bonus.h"
 # include "alloc_bonus.h"
 # include "print_bonus.h"
+
+# define RENDER_DISTANCE 99.9f
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:04 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 19:38:19 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/01 20:43:59 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_hit	nearest_triangle(t_scene scene, t_ray ray)
 	{
 		triangle = (t_triangle *)tmp->content;
 		t = hit_triangle(triangle, ray);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
 			hit.obj = triangle;
@@ -57,7 +57,7 @@ t_hit	nearest_ellipsoid(t_scene scene, t_ray ray)
 	{
 		ellipsoid = (t_ellipsoid *)tmp->content;
 		t = hit_ellipsoid(ellipsoid, ray, &hit_tmp);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit = hit_tmp;
 			hit.type = 5;
@@ -110,7 +110,7 @@ t_hit	nearest_cylinder(t_scene scene, t_ray ray)
 	{
 		cylinder = (t_cylinder *)tmp->content;
 		n = cylinder_part(cylinder, ray);
-		if (n.t > 0.0f && (n.t < hit.t || hit.t == 0))
+		if (n.t > 0.0f && n.t < RENDER_DISTANCE && (n.t < hit.t || hit.t == 0))
 			hit = n;
 		tmp = tmp->next;
 	}

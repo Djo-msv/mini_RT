@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:10 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 19:38:20 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/01 20:42:47 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_hit	nearest_plane(t_scene scene, t_ray ray)
 	{
 		plane = (t_plane *)tmp->content;
 		t = hit_plane(plane->coordinate, plane->normal, ray);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
 			hit.obj = plane;
@@ -58,7 +58,7 @@ t_hit	nearest_light(t_scene scene, t_ray ray)
 	{
 		light = (t_light *)tmp->content;
 		t = hit_sphere(light->coordinate, light->size, ray);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
 			hit.obj = light;
@@ -86,7 +86,7 @@ t_hit	nearest_sphere(t_scene scene, t_ray ray)
 	{
 		sphere = (t_sphere *)tmp->content;
 		t = hit_sphere(sphere->coordinate, sphere->radius, ray);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
 			hit.obj = sphere;
