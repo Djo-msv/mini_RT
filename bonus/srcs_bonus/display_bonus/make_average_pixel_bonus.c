@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   make_average_pixel_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:38:42 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-void	c_sampling(double coef_new_p, double coef_old_p,
+void	c_sampling(float coef_new_p, float coef_old_p,
 	t_fcolor *buf_img, t_fcolor *buf_thread)
 {
 	t_fcolor	rgb;

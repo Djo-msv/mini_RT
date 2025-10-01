@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_average_pixel.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:29:01 by star              #+#    #+#             */
-/*   Updated: 2025/09/25 17:49:22 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	average_pixel(t_fcolor *n_pixel, t_fcolor o_pixel,
 }
 
 void	sampling(t_fcolor *o_pixel, t_fcolor n_pixel,
-	double coef_new_p, double coef_old_p)
+	float coef_new_p, float coef_old_p)
 {
-	double	tmp;
+	float	tmp;
 
 	if (coef_new_p == 0.0)
 	{

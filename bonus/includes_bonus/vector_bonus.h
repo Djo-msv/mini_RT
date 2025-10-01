@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:20 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 18:42:56 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 typedef struct s_fcolor
 {
-	double	r;
-	double	g;
-	double	b;
+	float	r;
+	float	g;
+	float	b;
 }	t_fcolor
 __attribute__((aligned(1)));
 

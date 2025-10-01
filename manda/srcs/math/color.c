@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 20:40:34 by star              #+#    #+#             */
-/*   Updated: 2025/09/24 18:19:44 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ t_fcolor	mlxcolor_to_fcolor(mlx_color color)
 
 void	fcolor_to_mlxcolor(t_data *d, t_fcolor *s, mlx_color *dst, size_t n)
 {
-	double	coef_new_p;
-	double	coef_old_p;
-	double	rgbf[3];
-	double	rgb[3];
+	float	coef_new_p;
+	float	coef_old_p;
+	float	rgbf[3];
+	float	rgb[3];
 	size_t	i;
 
 	i = -1;
@@ -57,11 +57,11 @@ void	fcolor_to_mlxcolor(t_data *d, t_fcolor *s, mlx_color *dst, size_t n)
 		rgb[1] = (uint8_t)(fminf(fmaxf(rgbf[1], 0.0f), 255.0f));
 		rgb[2] = (uint8_t)(fminf(fmaxf(rgbf[2], 0.0f), 255.0f));
 		dst[i].r = (uint8_t)((rgb[0] * coef_old_p)
-				+ ((double)dst[i].r * coef_new_p));
+				+ ((float)dst[i].r * coef_new_p));
 		dst[i].g = (uint8_t)((rgb[1] * coef_old_p)
-				+ ((double)dst[i].g * coef_new_p));
+				+ ((float)dst[i].g * coef_new_p));
 		dst[i].b = (uint8_t)((rgb[2] * coef_old_p)
-				+ ((double)dst[i].b * coef_new_p));
+				+ ((float)dst[i].b * coef_new_p));
 		dst[i].a = 255;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:01:05 by star              #+#    #+#             */
-/*   Updated: 2025/09/24 17:53:55 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_hit		nearest_ellipsoid(t_scene scene, t_ray ray);
 float		hit_cylinder(t_cylinder *cy, float rad, t_ray r);
 float		hit_base_cylinder(t_cylinder *cy, t_vec center, t_ray r);
 float		hit_plane(t_vec center, t_vec normal, t_ray r);
-float		hit_sphere(t_vec center, double radius, t_ray r);
+float		hit_sphere(t_vec center, float radius, t_ray r);
 float		hit_triangle(t_triangle *tr, t_ray r);
 float		hit_ellipsoid(t_ellipsoid *e, t_ray r, t_hit *hit);
 

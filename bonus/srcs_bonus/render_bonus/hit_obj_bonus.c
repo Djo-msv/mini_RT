@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 18:46:50 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/01 20:17:39 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_hit	plane(t_hit h)
 	p = ((t_plane *)h.obj);
 	if (p->is_pattern)
 	{
-		if (fabs(p->normal.y) < 0.999)
+		if (fabsf(p->normal.y) < 0.999)
 			u = (t_vec) {1, 0, 0};
 		else
 			u = (t_vec) {0, 0, 1};
@@ -34,8 +34,8 @@ t_hit	plane(t_hit h)
 		c = vec_sub(h.position, p->coordinate);
 		u_c = scalar_product(c, u);
 		u_v = scalar_product(c, v);
-		checker = ((int)floor(u_c / p->l_x_pattern)
-				+ (int)floor(u_v / p->l_z_pattern)) % 2;
+		checker = ((int)floor(u_c / p->l_z_pattern)
+				+ (int)floor(u_v / p->l_x_pattern)) % 2;
 		if (checker)
 			h.color = mlxcolor_to_fcolor(p->color);
 		else

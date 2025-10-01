@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   triangle_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 14:02:01 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:42:21 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ float	hit_triangle(t_triangle *tr, t_ray r)
 	h.edge2 = vec_sub(tr->c, tr->a);
 	h.perpendicular_v = cross(r.direction, h.edge2);
 	h.det = scalar_product(h.edge1, h.perpendicular_v);
-	if (fabs(h.det) <= 0.0)
+	if (fabsf(h.det) <= 0.0)
 		return (-1);
 	h.inv_det = 1.0 / h.det;
 	h.s = vec_sub(r.origin, tr->a);
