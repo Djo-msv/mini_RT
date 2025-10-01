@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_obj_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 16:38:24 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 18:46:50 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,27 @@
 t_hit	plane(t_hit h)
 {
 	int			checker;
-	// t_matrix	r;
-	t_matrix	r_inv;
 	t_plane		*p;
-	t_vec		local;
+	t_vec		u;
+	t_vec		v;
+	t_vec		c;
+	float		u_c;
+	float		u_v;
 
 	p = ((t_plane *)h.obj);
 	if (p->is_pattern)
 	{
-		// r = mul_mat4(mat4_rotation_x(p->normal.x), mul_mat4(mat4_rotation_y(p->normal.y), mat4_rotation_z(p->normal.z)));
-		// r_inv = mat4_transpose(r);
-		// local = mul_mat4_to_vec(r_inv, h.position, 1);
-
-		// 	t_matrix	tr;
-		// t_matrix	s;
-		// t_matrix	r;
-		// t_matrix	s_inv;
-		t_matrix	t_inv;
-		// t_matrix	tran;
-		t_matrix	t_inv_t;
-
-		// tr = mat4_translation(p->coordinate.x, p->coordinate.y, p->coordinate.z);
-		// s = mat4_scale(1, 1, 1);
-		// r = mul_mat4(mul_mat4(mat4_rotation_z(p->normal.z),
-		// 			mat4_rotation_y(p->normal.y)),
-		// 		mat4_rotation_x(p->normal.x));
-		// tran = mul_mat4(tr, mul_mat4(r, s));
-		r_inv = mul_mat4(mat4_rotation_x(-p->normal.x),
-				mul_mat4(mat4_rotation_y(-p->normal.y),
-					mat4_rotation_z(-p->normal.z)));
-		t_inv = mul_mat4(r_inv, mat4_translation(-p->coordinate.x,
-						-p->coordinate.y, -p->coordinate.z));
-		t_inv_t = mul_mat4(mat4_transpose(r_inv), mat4_transpose(t_inv));
-		local = normalize(mul_mat4_to_vec(t_inv_t, h.position, 0));
-		checker = ((int)floor(local.x / p->l_x_pattern)
-				+ (int)floor(local.z / p->l_z_pattern)) % 2;
+		if (fabs(p->normal.y) < 0.999)
+			u = (t_vec) {1, 0, 0};
+		else
+			u = (t_vec) {0, 0, 1};
+		u = normalize(cross(u, p->normal));
+		v = normalize(cross(p->normal, u));
+		c = vec_sub(h.position, p->coordinate);
+		u_c = scalar_product(c, u);
+		u_v = scalar_product(c, v);
+		checker = ((int)floor(u_c / p->l_x_pattern)
+				+ (int)floor(u_v / p->l_z_pattern)) % 2;
 		if (checker)
 			h.color = mlxcolor_to_fcolor(p->color);
 		else
