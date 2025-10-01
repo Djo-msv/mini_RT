@@ -142,9 +142,7 @@ MATERIAL bumpy diffuse concrete.png bump_map.png 0.5 0.3 0.2
 
 ### Available Material Types
 - `diffuse` - Lambertian reflection
-- `metal` - Metallic surface
-- `dielectric` - Glass/transparent materials
-- `emissive` - Light-emitting surfaces
+- `Specular` - Mirore surface
 
 ## ⌨️ Keyboard Controls
 
@@ -152,25 +150,14 @@ MATERIAL bumpy diffuse concrete.png bump_map.png 0.5 0.3 0.2
 | Key | Action |
 |-----|--------|
 | `WASD` | Move camera forward/left/back/right |
-| `QE` | Move camera up/down |
-| `Arrow Keys` | Rotate camera |
+| `space & shift` | Move camera up/down |
 | `Mouse Drag` | Look around |
 
 ### Rendering Controls
 | Key | Action |
 |-----|--------|
-| `R` | Restart rendering |
-| `P` | Save screenshot |
 | `+/-` | Increase/decrease resolution |
 | `T` | Toggle rendering mode |
-
-### Material & Texture Controls
-| Key | Action |
-|-----|--------|
-| `1-5` | Select material preset |
-| `B` | Toggle bump mapping |
-| `N` | Next texture |
-| `M` | Change material properties |
 
 ### Interface Controls
 | Key | Action |
