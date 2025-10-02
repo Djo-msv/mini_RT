@@ -154,6 +154,7 @@ SRCS_FILES_BONUS:= 	main_bonus.c \
 		thread_bonus/manage_thread.c \
 		thread_bonus/setup_thread_bonus.c \
 		thread_bonus/run_thread_bonus.c \
+		thread_bonus/thread_free_bonus.c \
 		utils_bonus/alloc_bonus.c \
 		utils_bonus/input_bonus.c \
 		utils_bonus/add_texture_bonus.c	\
