@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_setup_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:36:20 by star              #+#    #+#             */
-/*   Updated: 2025/09/25 18:01:05 by star             ###   ########.fr       */
+/*   Updated: 2025/10/02 17:10:41 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int	setup_mlx_window(t_mlx *mlx)
 	mlx->info.is_fullscreen = false;
 	mlx->win = mlx_new_window(mlx->mlx, &mlx->info);
 	if (!mlx->win)
-	{
-		printf("info\n");
 		return (1);
-	}
 	mlx->img = mlx_new_image(mlx->mlx, MAX_RES_W, MAX_RES_H);
 	mlx_set_window_max_size(mlx->mlx, mlx->win, MAX_RES_W, MAX_RES_H);
 	mlx_set_window_min_size(mlx->mlx, mlx->win, 400, 400);

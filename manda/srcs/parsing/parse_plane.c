@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:27:22 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:32:02 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ static int	init_rgb_plane(t_plane *plane, char **args)
 	plane->color = (mlx_color)
 	{{255, ft_atoi(v[2]), ft_atoi(v[1]), ft_atoi(v[0])}};
 	ft_free_2d_tab((void **)v);
+	if (plane->normal.x == 0 && plane->normal.y == 0 && plane->normal.z == 0)
+		plane->normal = (t_vec){0, 1, 0};
+	plane->normal = normalize(plane->normal);
 	return (0);
 }
 

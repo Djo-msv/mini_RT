@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:35:37 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 19:42:21 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:47:35 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_fcolor	shade_pathtracing_pixel(t_scene scene, t_ray ray)
 	value[2] = scale_mlx_color
 		(mlxcolor_to_fcolor(scene.a_light.color),
 			scene.a_light.ratio);
-	while (depth < 7)
+	while (depth < 8)
 	{
 		hit = intersectscene(scene, ray, direct_light);
 		if (assign_material(hit, value, &direct_light, &ray))
