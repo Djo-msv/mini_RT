@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:38:23 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 18:57:46 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:42:21 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	set_camera_value(t_data *data, t_camera *cam)
 	tmp_up = (t_vec){0.0f, 1.0f, 0.0f};
 	cam->move = 1;
 	cam->forward = normalize(data->scene.camera.orientation);
-	if (fabs(cam->forward.y) > 0.999f)
+	if (fabsf(cam->forward.y) > 0.999f)
 		tmp_up = (t_vec){0.0f, 0.0f, 1.0f};
 	cam->right = normalize(cross(cam->forward, tmp_up));
 	cam->up = cross(cam->forward, cam->right);

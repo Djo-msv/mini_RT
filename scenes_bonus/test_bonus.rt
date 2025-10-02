@@ -6,7 +6,7 @@ L		0,4,-1		1			255,255,255
 
 # pl		0,-2,0		0,1,0		0,0,0   1   1   255,255,255 0
 
-sp	0,0,2		1			255,0,0     bonus/texture_bonus/broken_brick_wall_diff_4k.png  bonus/texture_bonus/broken_brick_wall_nor_gl_4k.png
+sp	0,0,2		1			255,0,0     texture_bonus/broken_brick_wall_diff_4k.png  texture_bonus/broken_brick_wall_nor_gl_4k.png
 
 sp	1,0,2		1			0,255,0
 

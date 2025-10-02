@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_loop_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 20:59:47 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 void	fps_cnt(t_data *data)
 {
 	static int		frames = 0;
-	static double	lasttime = 0.0;
-	static double	fps = 0.0;
-	double			currenttime;
+	static float	lasttime = 0.0;
+	static float	fps = 0.0;
+	float			currenttime;
 	struct timespec	ts;
 
 	clock_gettime(CLOCK_MONOTONIC, &ts);

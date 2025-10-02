@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_screen.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 16:30:46 by star              #+#    #+#             */
-/*   Updated: 2025/09/25 17:49:18 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void	display_screen(t_data *d)
 	mlx_window_create_info	info;
 
 	info = d->mlx.info;
-	d->image.coef_new_p = ((double)d->image.nb_images
-			/ (double)(d->image.nb_images + 1));
-	d->image.coef_old_p = ((double)1.0 / (d->image.nb_images + 1));
+	d->image.coef_new_p = ((float)d->image.nb_images
+			/ (float)(d->image.nb_images + 1));
+	d->image.coef_old_p = ((float)1.0 / (d->image.nb_images + 1));
 	resolution = d->image.resolution;
 	browse_pixel(resolution, info, d);
 	fcolor_to_mlxcolor(d, d->image.new_img, d->image.mlx_img, info.width

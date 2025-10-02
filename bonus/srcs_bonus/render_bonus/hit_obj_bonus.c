@@ -6,41 +6,45 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 18:46:50 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/01 20:35:10 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-t_hit	plane(t_hit h)
+t_fcolor	checkboard(t_plane *p, t_hit h)
 {
 	int			checker;
-	t_plane		*p;
 	t_vec		u;
 	t_vec		v;
 	t_vec		c;
-	float		u_c;
-	float		u_v;
+	float		uv_c[2];
+
+	if (fabsf(p->normal.y) < 0.999)
+		u = (t_vec){1, 0, 0};
+	else
+		u = (t_vec){0, 0, 1};
+	c = vec_sub(h.position, p->coordinate);
+	u = normalize(cross(u, p->normal));
+	v = normalize(cross(p->normal, u));
+	uv_c[0] = scalar_product(c, u);
+	uv_c[1] = scalar_product(c, v);
+	checker = ((int)floor(uv_c[0] / p->l_z_pattern)
+			+ (int)floor(uv_c[1] / p->l_x_pattern)) % 2;
+	if (checker)
+		h.color = mlxcolor_to_fcolor(p->color);
+	else
+		h.color = mlxcolor_to_fcolor(p->pattern_color);
+	return (h.color);
+}
+
+t_hit	plane(t_hit h)
+{
+	t_plane		*p;
 
 	p = ((t_plane *)h.obj);
 	if (p->is_pattern)
-	{
-		if (fabs(p->normal.y) < 0.999)
-			u = (t_vec) {1, 0, 0};
-		else
-			u = (t_vec) {0, 0, 1};
-		u = normalize(cross(u, p->normal));
-		v = normalize(cross(p->normal, u));
-		c = vec_sub(h.position, p->coordinate);
-		u_c = scalar_product(c, u);
-		u_v = scalar_product(c, v);
-		checker = ((int)floor(u_c / p->l_x_pattern)
-				+ (int)floor(u_v / p->l_z_pattern)) % 2;
-		if (checker)
-			h.color = mlxcolor_to_fcolor(p->color);
-		else
-			h.color = mlxcolor_to_fcolor(p->pattern_color);
-	}
+		h.color = checkboard(p, h);
 	else
 		h.color = mlxcolor_to_fcolor(p->color);
 	h.material = p->mat;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_camera_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 18:58:01 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 19:00:30 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:42:21 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	move_camera_forward(t_data *data, t_camera *cam)
 	t_vec	flat;
 
 	flat = cam->forward;
-	if (fabs(cam->forward.y) > 0.999f)
+	if (fabsf(cam->forward.y) > 0.999f)
 		flat = cam->up;
 	flat.y = 0;
 	flat = normalize(flat);
@@ -32,7 +32,7 @@ void	move_camera_backward(t_data *data, t_camera *cam)
 	t_vec	flat;
 
 	flat = cam->forward;
-	if (fabs(cam->forward.y) > 0.999f)
+	if (fabsf(cam->forward.y) > 0.999f)
 		flat = cam->up;
 	flat.y = 0;
 	flat = normalize(flat);
@@ -50,7 +50,7 @@ void	move_camera_left(t_data *data, t_camera *cam)
 
 	up = (t_vec){0.0f, 1.0f, 0.0f};
 	flat = cam->forward;
-	if (fabs(cam->forward.y) >= 1.0f)
+	if (fabsf(cam->forward.y) >= 1.0f)
 		flat = cam->up;
 	flat.y = 0;
 	flat = normalize(flat);
@@ -69,7 +69,7 @@ void	move_camera_right(t_data *data, t_camera *cam)
 
 	up = (t_vec){0.0f, 1.0f, 0.0f};
 	flat = cam->forward;
-	if (fabs(cam->forward.y) > 0.999f)
+	if (fabsf(cam->forward.y) > 0.999f)
 		flat = cam->up;
 	flat.y = 0;
 	flat = normalize(flat);

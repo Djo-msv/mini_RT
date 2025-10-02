@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 17:00:27 by star              #+#    #+#             */
-/*   Updated: 2025/09/25 18:01:07 by star             ###   ########.fr       */
+/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 typedef struct s_image
 {
 	size_t		nb_images;
-	double		coef_new_p;
-	double		coef_old_p;
+	float		coef_new_p;
+	float		coef_old_p;
 	bool		antialiasing;
 
 	t_fcolor	*buf_img;

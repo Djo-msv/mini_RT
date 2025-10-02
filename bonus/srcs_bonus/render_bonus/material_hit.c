@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material_hit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmassavi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 17:35:32 by jmassavi          #+#    #+#             */
-/*   Updated: 2025/09/15 17:35:36 by jmassavi         ###   ########.fr       */
+/*   Updated: 2025/10/01 20:37:19 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	assign_material(t_hit hit, t_fcolor value[3],
 	}
 	if (hit.type == 3)
 	{
-		emission = scale_mlx_color(hit.color, ((t_light *)hit.obj)->brightness );
+		emission = scale_mlx_color(hit.color, ((t_light *)hit.obj)->brightness);
 		if (!*direct_light)
 			value[1] = add_color(value[1], scalar_color(emission, value[0]));
 		else
