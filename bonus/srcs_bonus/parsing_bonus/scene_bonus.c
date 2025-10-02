@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/10/02 21:06:21 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	clear(t_data *data, char **args)
 	ft_lstclear(&data->scene.ellipsoid, free);
 	ft_lstclear(&data->scene.triangle, free);
 	ft_free_2d_tab((void **)args);
+	get_next_line(-1);
 }
 
 int	creat_scene(t_data *data, int fd)
