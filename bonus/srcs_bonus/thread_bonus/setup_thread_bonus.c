@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 19:37:57 by star              #+#    #+#             */
-/*   Updated: 2025/09/17 19:05:04 by star             ###   ########.fr       */
+/*   Updated: 2025/10/06 16:44:14 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	init_thread(t_data *data)
 		nb_t = 2;
 	else
 		nb_t = NB_THREAD;
-	data->pool = tpool_create(NB_THREAD);
+	data->pool = tpool_create(nb_t);
 	if (!data->pool)
 		return (1);
 	return (0);

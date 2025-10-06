@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bump_map_texture_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 20:43:15 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 20:56:22 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/06 17:42:32 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_vec	bump_map(t_scene scene, t_hit hit, int x, int y)
 	c = mlxcolor_to_fcolor(pixel);
 	n_m = (t_vec){c.r * 2.0 - 1.0, c.g * 2.0 - 1.0, c.b * 2.0 - 1.0};
 	n_m = normalize(n_m);
+	n_m.y = -n_m.y;
 	tbn[0] = normalize((t_vec){-sin(atan2(tbn[2].z, tbn[2].x)),
 			0, cos(atan2(tbn[2].z, tbn[2].x))});
 	tbn[1] = vec_cross(tbn[2], tbn[0]);
