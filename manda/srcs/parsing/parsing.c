@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:10:14 by nrolland          #+#    #+#             */
-/*   Updated: 2025/05/29 18:14:49 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/07 14:48:35 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static int	verif_file(char *str)
+{
+	int	fd;
+
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("Error\nFile not found\n", 2);
+		return (1);
+	}
+	if (read(fd, NULL, 0) == -1)
+	{
+		close(fd);
+		ft_putstr_fd("Error\nScene is not a file\n", 2);
+		return (1);
+	}
+	close(fd);
+	return (0);
+}
 
 static int	verif_name(int argc, char **argv)
 {
@@ -29,11 +49,8 @@ static int	verif_name(int argc, char **argv)
 		ft_putstr_fd("Error\nNeed format *.rt\n", 2);
 		return (1);
 	}
-	if (access(argv[1], F_OK) == -1)
-	{
-		ft_putstr_fd("Error\nFile not found\n", 2);
+	if (verif_file(argv[1]))
 		return (1);
-	}
 	return (0);
 }
 
@@ -43,10 +60,12 @@ int	parse(t_data *d, int argc, char **argv)
 
 	if (verif_name(argc, argv))
 		return (1);
-	(void)d;
 	fd = open(argv[1], O_RDONLY);
 	if (creat_scene(d, fd))
+	{
+		close(fd);
 		return (1);
+	}
 	close(fd);
 	return (0);
 }
