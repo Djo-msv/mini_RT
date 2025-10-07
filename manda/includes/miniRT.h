@@ -18,6 +18,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
+# include <sys/time.h>
 
 # include "../../lib_RT/includes/lib_rt.h"
 # include "../../MacroLibX/includes/mlx.h"
