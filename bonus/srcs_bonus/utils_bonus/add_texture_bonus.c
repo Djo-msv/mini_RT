@@ -60,13 +60,31 @@ void	ft_add_texture(t_data *d)
 			sphere->tex.width = ft_get_width(sphere->tex.image, d);
 			sphere->tex.height = ft_get_height(sphere->tex.image, d);
 		}
-		if (sphere->tex.is_normal && sphere->tex.is_texture)
+		if (sphere->tex.is_normal)
 		{
 			sphere->tex.n_image = mlx_new_image_from_file(d->mlx.mlx,
 					sphere->tex.n_name, 0, 0);
-			if (sphere->tex.width != ft_get_width(sphere->tex.n_image, d)
+			if (!sphere->tex.is_texture)
+			{
+				sphere->tex.width = ft_get_width(sphere->tex.n_image, d);
+				sphere->tex.height = ft_get_height(sphere->tex.n_image, d);
+			}
+			else if (sphere->tex.width != ft_get_width(sphere->tex.n_image, d)
 				|| sphere->tex.height != ft_get_height(sphere->tex.n_image, d))
 				sphere->tex.is_normal = 0;
+		}
+		if (sphere->tex.is_height)
+		{
+			sphere->tex.h_image = mlx_new_image_from_file(d->mlx.mlx,
+					sphere->tex.n_name, 0, 0);
+			if (!sphere->tex.is_texture && !sphere->tex.is_normal)
+			{
+				sphere->tex.width = ft_get_width(sphere->tex.h_image, d);
+				sphere->tex.height = ft_get_height(sphere->tex.h_image, d);
+			}
+			else if (sphere->tex.width != ft_get_width(sphere->tex.h_image, d)
+				|| sphere->tex.height != ft_get_height(sphere->tex.h_image, d))
+				sphere->tex.is_height = 0;
 		}
 		tmp = tmp->next;
 	}

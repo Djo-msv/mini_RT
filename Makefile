@@ -143,6 +143,7 @@ SRCS_FILES_BONUS:= 	main_bonus.c \
 		render_bonus/shape_bonus/sphere_bonus.c \
 		render_bonus/shape_bonus/triangle_bonus.c \
 		render_bonus/shape_bonus/ellipsoid_bonus.c \
+		render_bonus/bump_map_bonus.c \
 		render_bonus/nearest_obj_bonus.c \
 		render_bonus/pathtracing_bonus.c \
 		render_bonus/raytracing_bonus.c \

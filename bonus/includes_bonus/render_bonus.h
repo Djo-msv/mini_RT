@@ -34,8 +34,11 @@ t_hit		ellipsoid(t_hit hit);
 t_hit		cylinder(t_hit hit);
 t_hit		sphere(t_scene scene, t_hit hit);
 t_hit		plane(t_hit hit);
-t_fcolor	c_texture(int *x, int *y, t_hit hit, t_scene scene);
+t_fcolor	c_texture(int x, int y, t_hit hit, t_scene scene);
 t_vec		bump_map(t_scene scene, t_hit hit, int x, int y);
+void		generate_uv(int *x, int *y, t_hit hit);
+float	hit_sphere_heightmap(t_scene scene, t_sphere *sphere, t_ray ray);
+
 
 t_vec		get_triangle_normal(t_triangle *t);
 

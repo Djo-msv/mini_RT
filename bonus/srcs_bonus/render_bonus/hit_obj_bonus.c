@@ -60,11 +60,14 @@ t_hit	sphere(t_scene scene, t_hit hit)
 	x = 0;
 	y = 0;
 	s = ((t_sphere *)hit.obj);
+	if (s->tex.is_texture || s->tex.is_normal)
+		generate_uv(&x, &y, hit);
 	if (s->tex.is_texture)
-		hit.color = c_texture(&x, &y, hit, scene);
+		hit.color = c_texture(x, y, hit, scene);
 	else
 		hit.color = mlxcolor_to_fcolor(s->color);
-	hit.normal = bump_map(scene, hit, x, y);
+	if (s->tex.is_normal)
+		hit.normal = bump_map(scene, hit, x, y);
 	hit.material = s->mat;
 	return (hit);
 }

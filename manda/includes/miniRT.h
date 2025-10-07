@@ -36,6 +36,8 @@
 # include "parsing.h"
 # include "alloc.h"
 
+# define RENDER_DISTANCE 99.9f
+
 t_hit	nearest_cylinder(t_data *data, t_ray ray);
 t_hit	nearest_sphere(t_data *data, t_ray ray);
 t_hit	nearest_plane(t_data *data, t_ray ray);

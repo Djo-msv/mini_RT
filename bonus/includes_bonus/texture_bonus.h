@@ -17,12 +17,15 @@ typedef struct s_texture
 {
 	mlx_image	image;
 	mlx_image	n_image;
+	mlx_image	h_image;
 	char		*name;
 	char		*n_name;
+	char		*h_name;
 	int			width;
 	int			height;
 	int			is_texture;
 	int			is_normal;
+	int			is_height;
 }				t_texture
 __attribute__((aligned(1)));
 

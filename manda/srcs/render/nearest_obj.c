@@ -28,7 +28,7 @@ t_hit	nearest_plane(t_data *data, t_ray ray)
 	{
 		plane = (t_plane *)tmp->content;
 		t = hit_plane(plane->coordinate, plane->normal, ray);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
 			hit.obj = plane;
@@ -55,7 +55,7 @@ t_hit	nearest_light(t_data *data, t_ray ray)
 	{
 		light = (t_light *)tmp->content;
 		t = hit_sphere(light->coordinate, 3.0f, ray);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
 			hit.obj = light;
@@ -82,7 +82,7 @@ t_hit	nearest_sphere(t_data *data, t_ray ray)
 	{
 		sphere = (t_sphere *)tmp->content;
 		t = hit_sphere(sphere->coordinate, sphere->radius, ray);
-		if (t > 0.0f && (t < hit.t || hit.t == 0))
+		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
 			hit.obj = sphere;

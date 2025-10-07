@@ -85,7 +85,10 @@ t_hit	nearest_sphere(t_scene scene, t_ray ray)
 	while (tmp)
 	{
 		sphere = (t_sphere *)tmp->content;
-		t = hit_sphere(sphere->coordinate, sphere->radius, ray);
+		if (sphere->tex.is_height)
+			t = hit_sphere_heightmap(scene, sphere, ray);
+		else
+			t = hit_sphere(sphere->coordinate, sphere->radius, ray);
 		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;

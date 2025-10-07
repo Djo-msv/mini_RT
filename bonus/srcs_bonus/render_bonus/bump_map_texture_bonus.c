@@ -40,9 +40,8 @@ t_vec	bump_map(t_scene scene, t_hit hit, int x, int y)
 	return (normal);
 }
 
-t_fcolor	c_texture(int *x, int *y, t_hit hit, t_scene scene)
+void	generate_uv(int *x, int *y, t_hit hit)
 {
-	mlx_color	pixel;
 	t_vec		p;
 	float		u;
 	float		v;
@@ -52,7 +51,12 @@ t_fcolor	c_texture(int *x, int *y, t_hit hit, t_scene scene)
 	v = 0.5 - asin(p.y) / M_PI;
 	*x = (1 - u) * ((t_sphere *)hit.obj)->tex.width;
 	*y = v * ((t_sphere *)hit.obj)->tex.height;
+}
+
+t_fcolor	c_texture(int x, int y, t_hit hit, t_scene scene)
+{
+	mlx_color	pixel;
 	pixel = mlx_get_image_pixel(scene.mlx->mlx,
-			((t_sphere *)hit.obj)->tex.image, *x, *y);
+		((t_sphere *)hit.obj)->tex.image, x, y);
 	return (mlxcolor_to_fcolor(pixel));
 }

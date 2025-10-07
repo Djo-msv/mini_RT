@@ -12,40 +12,55 @@
 
 #include "miniRT_bonus.h"
 
-static int	assign_tex(t_sphere *sphere, char **args, int i)
+static int	assign_tex(t_sphere *sphere, char **args, int i, int type)
 {
 	if (verif_file(args[i]))
 		return (1);
-	if (sphere->tex.is_texture == 1)
+	if (type == 0)
 	{
-		sphere->tex.is_normal = 1;
-		sphere->tex.n_name = ft_strdup(args[i]);
-	}
-	else
-	{
-		sphere->tex.is_texture = 1;
 		sphere->tex.name = ft_strdup(args[i]);
+		sphere->tex.is_texture = 1;
 	}
+	if (type == 1)
+	{
+		sphere->tex.n_name = ft_strdup(args[i]);
+		sphere->tex.is_normal = 1;
+	}
+	if (type == 2)
+	{
+		sphere->tex.h_name = ft_strdup(args[i]);
+		sphere->tex.is_height = 1;
+	}
+	if (type >= 3)
+		return (1);
 	return (0);
 }
 
 static int	init_texture(t_sphere *sphere, char **args)
 {
-	int	v;
 	int	i;
+	int	type;
 
-	v = 0;
-	i = 3;
-	while (++i <= 8)
+	i = 4;
+	type = 0;
+	while (args[i])
 	{
+		if (!verif_int(args[i], "1", 1) && ft_atoi(args[i]) == 1)
+			i++;
+		else if (!verif_int(args[i], "1", 1) && ft_atoi(args[i]) == 0)
+		{
+			i++;
+			type++;
+			continue ;
+		}
 		if (!args[i])
+		{
+			sphere->mat = 1;
 			return (0);
-		if (args[i] && i == 8)
+		}
+		if (assign_tex(sphere, args, i, type++))
 			return (1);
-		if (!verif_int(args[i], "1", 1) && !v++)
-			sphere->mat = ft_atoi(args[i]);
-		else if (assign_tex(sphere, args, i))
-			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -96,11 +111,9 @@ int	parse_sphere(t_scene *scene, char **args)
 {
 	t_sphere	*sphere;
 
-	sphere = malloc(sizeof(t_sphere));
+	sphere = ft_calloc(1, sizeof(t_sphere));
 	if (!sphere)
 		return (1);
-	sphere->tex.is_texture = 0;
-	sphere->tex.is_normal = 0;
 	sphere->mat = 0;
 	if (init_co_sphere(sphere, args) || init_sphere(sphere, args)
 		|| init_texture(sphere, args))

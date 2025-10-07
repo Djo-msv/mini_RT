@@ -55,7 +55,7 @@ t_hit	nearest_cylinder(t_data *data, t_ray ray)
 	{
 		cylinder = (t_cylinder *)tmp->content;
 		n = cylinder_part(cylinder, ray);
-		if (n.t > 0.0f && (n.t < hit.t || hit.t == 0))
+		if (n.t > 0.0f && n.t < RENDER_DISTANCE && (n.t < hit.t || hit.t == 0))
 			hit = n;
 		tmp = tmp->next;
 	}
