@@ -8,4 +8,4 @@ pl		0,-2,0		0,1,0		0,0,0   1   1   255,255,255 0
 
 sp	0,2,0		4			255,255,255    0	1 texture_bonus/broken_brick_wall_nor_gl_4k.png	
 
-sp	0,2,5		5			255,255,255     texture_bonus/broken_brick_wall_diff_4k.jpg  texture_bonus/broken_brick_wall_nor_gl_4k.png	texture_bonus/broken_brick_wall_disp_4k.png
+sp	0,2,5		5			255,255,255     texture_bonus/broken_brick_wall_diff_4k.jpg  texture_bonus/broken_brick_wall_nor_gl_4k.png

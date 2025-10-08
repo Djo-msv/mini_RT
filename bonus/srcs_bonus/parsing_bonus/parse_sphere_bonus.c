@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/10/08 13:18:41 by star             ###   ########.fr       */
+/*   Updated: 2025/10/08 15:07:45 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ static int	assign_tex(t_sphere *sphere, char **args, int i, int type)
 		sphere->tex.n_name = ft_strdup(args[i]);
 		sphere->tex.is_normal = 1;
 	}
-	if (type == 2)
-	{
-		sphere->tex.h_name = ft_strdup(args[i]);
-		sphere->tex.is_height = 1;
-	}
-	if (type >= 3)
+	if (type >= 2)
 		return (1);
 	return (0);
 }
@@ -117,7 +112,6 @@ int	parse_sphere(t_scene *scene, char **args)
 	sphere->mat = 0;
 	sphere->tex.name = NULL;
 	sphere->tex.n_name = NULL;
-	sphere->tex.h_name = NULL;
 	if (init_co_sphere(sphere, args) || init_sphere(sphere, args)
 		|| init_texture(sphere, args))
 	{

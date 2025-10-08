@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
-/*   Updated: 2025/10/08 13:17:56 by star             ###   ########.fr       */
+/*   Updated: 2025/10/08 14:57:25 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static void	clear(t_data *d, char **args)
 			free(sphere->tex.name);
 		if (sphere->tex.n_name)
 			free(sphere->tex.n_name);
-		if (sphere->tex.h_name)
-			free(sphere->tex.h_name);
 		tmp = tmp->next;
 	}
 	ft_lstclear(&d->scene.light, free);

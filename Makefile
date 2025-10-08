@@ -143,7 +143,6 @@ SRCS_FILES_BONUS:= 	main_bonus.c \
 		render_bonus/shape_bonus/sphere_bonus.c \
 		render_bonus/shape_bonus/triangle_bonus.c \
 		render_bonus/shape_bonus/ellipsoid_bonus.c \
-		render_bonus/bump_map_bonus.c \
 		render_bonus/nearest_obj_bonus.c \
 		render_bonus/pathtracing_bonus.c \
 		render_bonus/raytracing_bonus.c \
@@ -274,8 +273,8 @@ fclean: clean
 	@echo "$(RED)Remove binary$(NOC)"
 	@rm -f $(NAME)
 	@rm -f $(BONUS_NAME)
-	$(MAKE) -C $(MLX_DIR) fclean
-	$(MAKE) -C $(LIBRT_DIR) fclean
+# $(MAKE) -C $(MLX_DIR) fclean
+# $(MAKE) -C $(LIBRT_DIR) fclean
 
 
 re: fclean

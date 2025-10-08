@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nearest_obj_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 15:22:10 by star              #+#    #+#             */
-/*   Updated: 2025/10/01 20:42:47 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:05:20 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ t_hit	nearest_sphere(t_scene scene, t_ray ray)
 	while (tmp)
 	{
 		sphere = (t_sphere *)tmp->content;
-		if (sphere->tex.is_height)
-			t = hit_sphere_heightmap(scene, sphere, ray);
-		else
-			t = hit_sphere(sphere->coordinate, sphere->radius, ray);
+		t = hit_sphere(sphere->coordinate, sphere->radius, ray);
 		if (t > 0.0f && t < RENDER_DISTANCE && (t < hit.t || hit.t == 0))
 		{
 			hit.t = t;
