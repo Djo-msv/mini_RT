@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "random": "c",
+        "numbers": "c",
+        "color.h": "c",
+        "alloc_bonus.h": "c"
+    }
+}

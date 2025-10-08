@@ -260,11 +260,9 @@ $(BUILD_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c | $(MLX_LIB) $(LIBRT_LIB) $(DIRS_BO
 	$(eval NB_COMP_BONUS=$(shell expr $(NB_COMP_BONUS) + 1))
 
 $(MLX_LIB):
-	git clone https://github.com/seekrs/MacroLibX.git $(MLX_DIR)
 	@$(MAKE) -C $(MLX_DIR)
 
 $(LIBRT_LIB):
-	git clone https://github.com/Djo-msv/lib_RT.git $(LIBRT_DIR)
 	@$(MAKE) -C $(LIBRT_DIR)
 
 clean:
@@ -276,9 +274,8 @@ fclean: clean
 	@echo "$(RED)Remove binary$(NOC)"
 	@rm -f $(NAME)
 	@rm -f $(BONUS_NAME)
-# $(MAKE) -C $(MLX_DIR) fclean
-# $(MAKE) -C $(LIBRT_DIR) fclean
-#@rm -rf $(MLX_DIR) $(LIBRT_DIR)
+	$(MAKE) -C $(MLX_DIR) fclean
+	$(MAKE) -C $(LIBRT_DIR) fclean
 
 
 re: fclean
