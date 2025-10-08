@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:45:58 by star              #+#    #+#             */
-/*   Updated: 2025/09/11 17:28:04 by star             ###   ########.fr       */
+/*   Updated: 2025/10/08 15:09:28 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_add_texture(t_data *d)
 		if (sphere->tex.is_height)
 		{
 			sphere->tex.h_image = mlx_new_image_from_file(d->mlx.mlx,
-					sphere->tex.n_name, 0, 0);
+					sphere->tex.h_name, 0, 0);
 			if (!sphere->tex.is_texture && !sphere->tex.is_normal)
 			{
 				sphere->tex.width = ft_get_width(sphere->tex.h_image, d);
