@@ -7,6 +7,6 @@ L		0,3,0		1					255,255,255   3
 
 sp	0,-1,0		2			255,255,255     texture_bonus/aerial_rocks_02_diff_4k.jpg  texture_bonus/aerial_rocks_02_nor_gl_4k.jpg
 
-sp	3,-1,0		2			255,255,255     texture_bonus/stone_embedded_concrete_diff_4k.jpg  texture_bonus/stone_embedded_concrete_nor_gl_4k.jpg
+sp	3,-1,0		2			255,255,255    0   texture_bonus/stone_embedded_concrete_nor_gl_4k.jpg
 
 pl 0,-3,0		0,1,0		100,100,100

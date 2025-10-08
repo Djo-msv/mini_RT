@@ -6,7 +6,7 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:31:55 by star              #+#    #+#             */
-/*   Updated: 2025/10/08 15:05:30 by star             ###   ########.fr       */
+/*   Updated: 2025/10/08 15:39:02 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,13 @@ t_hit	plane(t_hit h)
 t_hit	sphere(t_scene scene, t_hit hit)
 {
 	t_sphere	*s;
-	int			x;
-	int			y;
+	int			x[2];
+	int			y[2];
 
-	x = 0;
-	y = 0;
+	x[0] = 0;
+	y[0] = 0;
+	x[1] = 0;
+	y[1] = 0;
 	s = ((t_sphere *)hit.obj);
 	if (s->tex.is_texture || s->tex.is_normal)
 		generate_uv(&x, &y, hit);
@@ -66,8 +68,7 @@ t_hit	sphere(t_scene scene, t_hit hit)
 		hit.color = c_texture(x, y, hit, scene);
 	else
 		hit.color = mlxcolor_to_fcolor(s->color);
-	if (s->tex.is_normal)
-		hit.normal = bump_map(scene, hit, x, y);
+	hit.normal = bump_map(scene, hit, x, y);
 	hit.material = s->mat;
 	return (hit);
 }

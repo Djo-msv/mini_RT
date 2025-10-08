@@ -6,13 +6,13 @@
 /*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 20:43:15 by star              #+#    #+#             */
-/*   Updated: 2025/10/08 15:03:26 by star             ###   ########.fr       */
+/*   Updated: 2025/10/08 16:37:45 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-t_vec	bump_map(t_scene scene, t_hit hit, int x, int y)
+t_vec	bump_map(t_scene scene, t_hit hit, int x[2], int y[2])
 {
 	mlx_color	pixel;
 	t_fcolor	c;
@@ -25,7 +25,7 @@ t_vec	bump_map(t_scene scene, t_hit hit, int x, int y)
 	if (!((t_sphere *)hit.obj)->tex.is_normal)
 		return (tbn[2]);
 	pixel = mlx_get_image_pixel(scene.mlx->mlx,
-			((t_sphere *)hit.obj)->tex.n_image, x, y);
+			((t_sphere *)hit.obj)->tex.n_image, x[1], y[1]);
 	c = mlxcolor_to_fcolor(pixel);
 	n_m = (t_vec){c.r * 2.0 - 1.0, c.g * 2.0 - 1.0, c.b * 2.0 - 1.0};
 	n_m = normalize(n_m);
@@ -40,7 +40,7 @@ t_vec	bump_map(t_scene scene, t_hit hit, int x, int y)
 	return (normal);
 }
 
-void	generate_uv(int *x, int *y, t_hit hit)
+void	generate_uv(int (*x)[2], int (*y)[2], t_hit hit)
 {
 	t_vec		p;
 	float		u;
@@ -49,14 +49,22 @@ void	generate_uv(int *x, int *y, t_hit hit)
 	p = normalize(vec_sub(hit.position, ((t_sphere *)hit.obj)->coordinate));
 	u = 0.5 + atan2(p.z, p.x) / (2 * M_PI);
 	v = 0.5 - asin(p.y) / M_PI;
-	*x = (1 - u) * ((t_sphere *)hit.obj)->tex.width;
-	*y = v * ((t_sphere *)hit.obj)->tex.height;
+	if (((t_sphere *)hit.obj)->tex.is_texture)
+	{
+		(*x)[0] = (1 - u) * ((t_sphere *)hit.obj)->tex.width;
+		(*y)[0] = v * ((t_sphere *)hit.obj)->tex.height;
+	}
+	if (((t_sphere *)hit.obj)->tex.is_normal)
+	{
+		(*x)[1] = (1 - u) * ((t_sphere *)hit.obj)->tex.n_width;
+		(*y)[1] = v * ((t_sphere *)hit.obj)->tex.n_height;
+	}
 }
 
-t_fcolor	c_texture(int x, int y, t_hit hit, t_scene scene)
+t_fcolor	c_texture(int x[2], int y[2], t_hit hit, t_scene scene)
 {
 	mlx_color	pixel;
 	pixel = mlx_get_image_pixel(scene.mlx->mlx,
-		((t_sphere *)hit.obj)->tex.image, x, y);
+		((t_sphere *)hit.obj)->tex.image, x[0], y[0]);
 	return (mlxcolor_to_fcolor(pixel));
 }

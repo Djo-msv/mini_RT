@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:48:36 by nrolland          #+#    #+#             */
-/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/08 16:11:09 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	verif_file(char *str)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	if (!str)
@@ -25,8 +26,15 @@ int	verif_file(char *str)
 		&& ft_strncmp(".png\0", str + i, 5)
 		&& ft_strncmp(".bmp\0", str + i, 5))
 		return (1);
-	if (access(str, F_OK) == -1)
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
 		return (1);
+	if (read(fd, NULL, 0) == -1)
+	{
+		close(fd);
+		return (1);
+	}
+	close(fd);
 	return (0);
 }
 
