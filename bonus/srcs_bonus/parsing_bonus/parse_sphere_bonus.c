@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sphere_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/10/01 19:21:14 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:18:41 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ int	parse_sphere(t_scene *scene, char **args)
 	if (!sphere)
 		return (1);
 	sphere->mat = 0;
+	sphere->tex.name = NULL;
+	sphere->tex.n_name = NULL;
+	sphere->tex.h_name = NULL;
 	if (init_co_sphere(sphere, args) || init_sphere(sphere, args)
 		|| init_texture(sphere, args))
 	{

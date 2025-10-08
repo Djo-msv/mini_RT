@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
+/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:41 by nrolland          #+#    #+#             */
-/*   Updated: 2025/10/02 21:06:21 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:17:56 by star             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,30 @@ static int	check_args(t_data *data, char **args)
 	return (1);
 }
 
-static void	clear(t_data *data, char **args)
+static void	clear(t_data *d, char **args)
 {
+	t_list		*tmp;
+	t_sphere	*sphere;
+
 	ft_putstr_fd("Error\nInvalid arguments in .rt file\n", 2);
-	ft_lstclear(&data->scene.light, free);
-	ft_lstclear(&data->scene.cylinder, free);
-	ft_lstclear(&data->scene.plane, free);
-	ft_lstclear(&data->scene.sphere, free);
-	ft_lstclear(&data->scene.ellipsoid, free);
-	ft_lstclear(&data->scene.triangle, free);
+	tmp = d->scene.sphere;
+	while (tmp)
+	{
+		sphere = (t_sphere *)tmp->content;
+		if (sphere->tex.name)
+			free(sphere->tex.name);
+		if (sphere->tex.n_name)
+			free(sphere->tex.n_name);
+		if (sphere->tex.h_name)
+			free(sphere->tex.h_name);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&d->scene.light, free);
+	ft_lstclear(&d->scene.cylinder, free);
+	ft_lstclear(&d->scene.plane, free);
+	ft_lstclear(&d->scene.sphere, free);
+	ft_lstclear(&d->scene.ellipsoid, free);
+	ft_lstclear(&d->scene.triangle, free);
 	ft_free_2d_tab((void **)args);
 	get_next_line(-1);
 }
