@@ -64,7 +64,8 @@ void	generate_uv(int (*x)[2], int (*y)[2], t_hit hit)
 t_fcolor	c_texture(int x[2], int y[2], t_hit hit, t_scene scene)
 {
 	mlx_color	pixel;
+
 	pixel = mlx_get_image_pixel(scene.mlx->mlx,
-		((t_sphere *)hit.obj)->tex.image, x[0], y[0]);
+			((t_sphere *)hit.obj)->tex.image, x[0], y[0]);
 	return (mlxcolor_to_fcolor(pixel));
 }
