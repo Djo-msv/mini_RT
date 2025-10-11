@@ -273,8 +273,8 @@ fclean: clean
 	@echo "$(RED)Remove binary$(NOC)"
 	@rm -f $(NAME)
 	@rm -f $(BONUS_NAME)
-# $(MAKE) -C $(MLX_DIR) fclean
-# $(MAKE) -C $(LIBRT_DIR) fclean
+	@$(MAKE) -C $(MLX_DIR) fclean >/dev/null 2>/dev/null
+	@$(MAKE) -C $(LIBRT_DIR) fclean >/dev/null 2>/dev/null
 
 
 re: fclean

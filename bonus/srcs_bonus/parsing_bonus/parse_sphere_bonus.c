@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sphere_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: star <star@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/10/08 15:57:38 by star             ###   ########.fr       */
+/*   Updated: 2025/10/11 15:57:09 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	init_texture(t_sphere *sphere, char **args)
 	{
 		if (!verif_int(args[i], "1", 1) && ft_atoi(args[i]) == 1)
 			i++;
-		else if (!verif_int(args[i], "1", 1) && ft_atoi(args[i]) == 0)
+		else if (!verif_int(args[i], "1", 1) && ft_atoi(args[i]) == 0 && type != 3)
 		{
 			i++;
 			type++;
