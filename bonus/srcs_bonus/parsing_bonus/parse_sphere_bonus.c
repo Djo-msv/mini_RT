@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/10/11 15:57:09 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:04:13 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,29 @@ static int	assign_tex(t_sphere *sphere, char **args, int i, int type)
 	return (0);
 }
 
-static int	init_texture(t_sphere *sphere, char **args)
+static int	init_texture(t_sphere *sphere, char **a)
 {
 	int	i;
 	int	type;
 
 	i = 4;
 	type = 0;
-	while (args[i])
+	while (a[i])
 	{
-		if (!verif_int(args[i], "1", 1) && ft_atoi(args[i]) == 1)
+		if (!verif_int(a[i], "1", 1) && ft_atoi(a[i]) == 1)
 			i++;
-		else if (!verif_int(args[i], "1", 1) && ft_atoi(args[i]) == 0 && type != 3)
+		else if (!verif_int(a[i], "1", 1) && ft_atoi(a[i]) == 0 && type != 3)
 		{
 			i++;
 			type++;
 			continue ;
 		}
-		if (!args[i])
+		if (!a[i])
 		{
 			sphere->mat = 1;
 			return (0);
 		}
-		if (assign_tex(sphere, args, i, type++))
+		if (assign_tex(sphere, a, i, type++))
 			return (1);
 		i++;
 	}
