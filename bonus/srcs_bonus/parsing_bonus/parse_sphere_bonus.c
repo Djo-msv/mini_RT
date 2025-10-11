@@ -6,7 +6,7 @@
 /*   By: nrolland <nrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:14:55 by nrolland          #+#    #+#             */
-/*   Updated: 2025/10/11 16:04:13 by nrolland         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:21:09 by nrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,13 @@ int	parse_sphere(t_scene *scene, char **args)
 	sphere = ft_calloc(1, sizeof(t_sphere));
 	if (!sphere)
 		return (1);
-	sphere->mat = 0;
-	sphere->tex.name = NULL;
-	sphere->tex.n_name = NULL;
 	if (init_co_sphere(sphere, args) || init_sphere(sphere, args)
 		|| init_texture(sphere, args))
 	{
+		if (sphere->tex.name)
+			free(sphere->tex.name);
+		if (sphere->tex.n_name)
+			free(sphere->tex.n_name);
 		free(sphere);
 		return (1);
 	}
